@@ -81,8 +81,8 @@ class EditPersonDialogUi(object):
         self.gridlayout.addWidget(self.buttonBox, 6, 4, 1, 2)
 
         self.retranslateUi(dialog)
-        QObject.connect(self.buttonBox, SIGNAL("accepted()"), dialog.accept)
-        QObject.connect(self.buttonBox, SIGNAL("rejected()"), dialog.reject)
+        self.buttonBox.accepted(dialog.accept)
+        self.buttonBox.rejected(dialog.reject)
         QMetaObject.connectSlotsByName(dialog)
         
         #dialog.setTabOrder(self.firstname, self.yearSpinBox)

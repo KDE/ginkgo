@@ -42,10 +42,10 @@ class ResourceChooserDialogUi(object):
 
         self.retranslateUi(dialog)
       
-        QObject.connect(self.table.table, SIGNAL("activated (const QModelIndex&)"), self.activated)
+        self.table.table.activated.connect(self.activated)
         
-        QObject.connect(self.buttonBox, SIGNAL("accepted()"), dialog.accept)
-        QObject.connect(self.buttonBox, SIGNAL("rejected()"), dialog.reject)
+        self.buttonBox.accepted.connect(dialog.accept)
+        self.buttonBox.rejected.connect(dialog.reject)
         QMetaObject.connectSlotsByName(dialog)
         
         #dialog.setTabOrder(self.firstname, self.yearSpinBox)

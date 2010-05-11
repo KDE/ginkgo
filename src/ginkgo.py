@@ -38,14 +38,14 @@ class Ginkgo(QMainWindow):
         self.setCentralWidget(self.editors)
         
         mainTypes = [
-                     [NCO.Contact, "Contact", "&Contact", "actions/contact-new.png", "Create new contact"],
-                     [TMO.Task, "Task", "&Task", "actions/view-task-add.png", "Create new task"],
-                     [PIMO.Project, "Project", "&Project", "apps/nepomuk.png", "Create new project"],
-                     [PIMO.Organization, "Organization", "&Organization", "apps/nepomuk.png", "Create new organization"],
-                     [PIMO.Location, "Location", "&Location", "apps/nepomuk.png", "Create new location"],
-                     [PIMO.Event, "Event", "&Event", "apps/nepomuk.png", "Create new event"],
-                     [PIMO.Topic, "Topic", "&Topic", "apps/nepomuk.png", "Create new topic"],
-                     [NFO.Website, "WebPage", "&Web Page", "mimetypes/text-html.png", "Create new Web page"]
+                     [NCO.Contact, "&Contact", "&Contact", "actions/contact-new.png", "Create new contact"],
+                     [TMO.Task, "&Task", "&Task", "actions/view-task-add.png", "Create new task"],
+                     [PIMO.Project, "&Project", "&Project", "apps/nepomuk.png", "Create new project"],
+                     [PIMO.Organization, "&Organization", "&Organization", "apps/nepomuk.png", "Create new organization"],
+                     [PIMO.Location, "&Location", "&Location", "apps/nepomuk.png", "Create new location"],
+                     [PIMO.Event, "&Event", "&Event", "apps/nepomuk.png", "Create new event"],
+                     [PIMO.Topic, "&Topic", "&Topic", "apps/nepomuk.png", "Create new topic"],
+                     [NFO.Website, "&WebPage", "&Web Page", "mimetypes/text-html.png", "Create new Web page"]
                      ]
                 
         
@@ -105,14 +105,26 @@ class Ginkgo(QMainWindow):
         mainMenu = self.menuBar().addMenu("&File")
         newResourceMenu = QMenu(mainMenu)
         newResourceMenu.setObjectName("menuNewResource")
-        newResourceMenu.setTitle("New")
+        newResourceMenu.setTitle("&New")
         
         for action in newResourceActions:
             newResourceMenu.addAction(action)
-        #self.addActions(newResourceMenu, [newContactAction, newTaskAction])
         
         mainMenu.addAction(newResourceMenu.menuAction())
-        self.addActions(mainMenu, (openResourceAction, None, saveAction, None, newTabAction, closeTabAction, None, quitAction))
+        mainMenu.addAction(openResourceAction)
+        mainMenu.addSeparator()
+        mainMenu.addAction(saveAction)
+        mainMenu.addSeparator()
+        mainMenu.addAction(newTabAction)
+        mainMenu.addAction(closeTabAction)
+        mainMenu.addAction(quitAction)
+        
+        
+        viewMenu = self.menuBar().addMenu("&View")
+        for type in mainTypes:
+            viewMenu.addAction(self.createAction(type[1]+"s", self.showResourcesByType, None, type[3], None, type[0]))
+        
+        viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
         
         mainToolbar = self.addToolBar("Toolbar")
         mainToolbar.setIconSize(QSize(18, 18))
@@ -136,7 +148,8 @@ class Ginkgo(QMainWindow):
 
         #mainToolbar.addAction(action)
         
-        self.addActions(mainToolbar, (saveAction, newTabAction))
+        mainToolbar.addAction(saveAction)
+        mainToolbar.addAction(newTabAction)
         
         
         mainToolbar.addWidget(linkToButton)
@@ -171,16 +184,9 @@ class Ginkgo(QMainWindow):
             action.setCheckable(True)
         
         action.setProperty("nepomukType", QVariant(key))
+        action.setProperty("label", text)
         
         return action
-
-    # source: http://www.qtrac.eu/pyqtbook.html
-    def addActions(self, target, actions):
-        for action in actions:
-            if action is None:
-                target.addSeparator()
-            else:
-                target.addAction(action)
 
     def about(self):
         """
@@ -438,7 +444,7 @@ class Ginkgo(QMainWindow):
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         button.setProperty("nepomukType",nepomukType)
         button.setProperty("label", label)
-        self.connect(button, SIGNAL("clicked()"), self.showResourcesByType)
+        button.clicked.connect(self.showResourcesByType)
         return button
     
     def showResourcesByType(self):

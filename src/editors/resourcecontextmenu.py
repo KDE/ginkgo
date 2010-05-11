@@ -24,7 +24,7 @@ class ResourceContextMenu(QMenu):
         self.selectedUris = selectedUris
         self.parent = parent
         self.createActions()
-        QObject.connect(self, SIGNAL("triggered(QAction *)"), self.actionTriggered)
+        self.triggered.connect(self.actionTriggered)
         QMetaObject.connectSlotsByName(self)
     
     def actionTriggered(self, action):

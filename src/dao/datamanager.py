@@ -17,7 +17,7 @@ from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
 from sys import exc_info
 from traceback import format_exception
-from dao import TMO, NFO, NIE, NCO
+from dao import TMO, NFO, NIE, NCO, PIMO
 import os
 
 def createResource(label, nepomukType):
@@ -98,8 +98,18 @@ def findRelations(uri):
      
     resource = Nepomuk.Resource(uri)    
     related = set(resource.isRelateds())
-    irelated = set(resource.isRelatedOf())
-    relations = related.union(irelated)
+    relatedInverse = set(resource.isRelatedOf())
+    
+    pimoRelated = resource.property(PIMO.isRelated)
+    urls = pimoRelated.toUrlList()
+    for elt in urls:
+        related.add(Nepomuk.Resource(elt))
+    
+    pimoRelatedInverse = Nepomuk.ResourceManager.instance().allResourcesWithProperty(PIMO.isRelated, Nepomuk.Variant(resource))
+
+
+    relations = related.union(relatedInverse).union(pimoRelatedInverse)
+    
     return relations
 
     #sparql = "select ?o  where  { <%s> <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#isRelated> ?o . OPTIONAL {?o <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label } } order by ?label" % uri        

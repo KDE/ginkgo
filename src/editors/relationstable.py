@@ -44,7 +44,7 @@ class RelationsTable(ResourcesTable):
   
     def statementAddedSlot(self, statement):
         predicate = statement.predicate().uri()
-        if predicate == Soprano.Vocabulary.NAO.isRelated():
+        if predicate == Soprano.Vocabulary.NAO.isRelated() or predicate == PIMO.isRelated:
             subject = statement.subject().uri()
             object = statement.object().uri()
             if self.resource and subject == self.resource.resourceUri():
@@ -60,7 +60,7 @@ class RelationsTable(ResourcesTable):
         predicate = statement.predicate().uri()
         object = statement.object().uri()
         
-        if predicate == Soprano.Vocabulary.NAO.isRelated():
+        if predicate == Soprano.Vocabulary.NAO.isRelated() or predicate == PIMO.isRelated:
             self.removeResource(subject.toString())
             self.removeResource(object.toString())
 
@@ -71,7 +71,8 @@ class RelationsTable(ResourcesTable):
         if super(RelationsTable, self).processAction(key, resourceUri):
             return True
         elif key == 'Unlink from '+self.resource.genericLabel():
-            self.mainWindow.unlink(Soprano.Vocabulary.NAO.isRelated(), resourceUri, True) 
+            self.mainWindow.unlink(Soprano.Vocabulary.NAO.isRelated(), resourceUri, True)
+            self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
         
     def createContextMenu(self, selection):
         return RelationsTableContextMenu(self, selection)

@@ -235,8 +235,8 @@ class TaskTree(QWidget):
         
         if makeActions:
             self.tasktree.setContextMenuPolicy(Qt.CustomContextMenu)
-            QObject.connect(self.tasktree, SIGNAL("customContextMenuRequested (const QPoint&)"), self.showContextMenu)
-            QObject.connect(self.tasktree, SIGNAL("activated (const QModelIndex&)"), self.activateResource)
+            self.tasktree.customContextMenuRequested.connect(self.showContextMenu)
+            self.tasktree.activated.connect(self.activateResource)
             self.connect(mainWindow, SIGNAL('taskHierarchyUpdated'), self.refresh)
 
             model = Nepomuk.ResourceManager.instance().mainModel()
