@@ -1,0 +1,19 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+<file alias="nepomuk">images/nepomuk.png</file>
+<file alias="contact-new">images/16x16/actions/contact-new.png</file>
+<file alias="contact-small">images/16x16/mimetypes/x-office-contact.png</file>
+<file alias="contact-large">images/64x64/mimetypes/x-office-contact.png</file>
+<file alias="delete-small">images/16x16/actions/edit-delete.png</file>
+<file alias="task-new">images/16x16/actions/view-task-add.png</file>
+<file alias="task-small">images/16x16/actions/view-task.png</file>
+<file alias="task-large">images/64x64/actions/view-task.png</file>
+<file alias="document-new">images/16x16/actions/document-new.png</file>
+<file alias="document-save">images/16x16/actions/document-save.png</file>
+<file alias="document-large">images/64x64/mimetypes/x-office-document.png</file>
+<file alias="tab-new">images/16x16/actions/tab-new.png</file>
+<file alias="tab-new-background-small">images/16x16/actions/tab-new-background.png</file>
+<file alias="nepomuk-small">images/16x16/actions/nepomuk.png</file>
+<file alias="nepomuk-large">images/nepomuk-80.png</file>
+</qresource>
+</RCC>

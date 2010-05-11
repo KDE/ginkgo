@@ -1,0 +1,20 @@
+Ginkgo
+======
+
+Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.
+
+Requirements
+------------
+- Python 2.6
+- PyQt 4+
+- KDE 4.4+
+
+Bugs
+----
+https://qa.mandriva.com/
+
+
+Source code
+-----------
+http://svn.mandriva.com/svn/soft/nepomuk/ginkgo
+
