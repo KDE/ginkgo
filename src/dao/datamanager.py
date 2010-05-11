@@ -142,11 +142,11 @@ def findResourcesByLabel(label):
     return data
 
 def findRootTasks():
-    sparql = "select ?r  where { ?r a <%s> . OPTIONAL { { ?r <%s> ?st . } UNION { ?st <%s> ?r . } } . FILTER(!BOUND(?st)) . ?r nao:prefLabel ?label}  order by ?label" % (TMO.Task.toString(), TMO.superTask.toString(),TMO.subTask.toString())
+    sparql = "select ?r  where { ?r a <%s> . OPTIONAL { { ?r <%s> ?st . } UNION { ?st <%s> ?r . } } . FILTER(!BOUND(?st)) . ?r nao:prefLabel ?label}  order by ?label" % (PIMO.Task.toString(), TMO.superTask.toString(),TMO.subTask.toString())
     return executeQuery(sparql)
 
 def findSubTasks(taskUri):
-    sparql = "select ?r where { ?r a <%s> . ?r <%s> <%s> }" % (TMO.Task.toString(), TMO.superTask.toString(), taskUri)
+    sparql = "select ?r where { ?r a <%s> . ?r <%s> <%s> }" % (PIMO.Task.toString(), TMO.superTask.toString(), taskUri)
     data = executeQuery(sparql)
         
     return data
@@ -166,8 +166,8 @@ def findResourceLiteralProperties(resource):
     if resource is None:
         return data
     for key, value in resource.allProperties().iteritems():
-        if not value.isResource():
-            data.append([str(key), value])
+        #if not value.isResource():
+        data.append([str(key), value])
     
     return data
 

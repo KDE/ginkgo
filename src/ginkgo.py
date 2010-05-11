@@ -39,7 +39,7 @@ class Ginkgo(QMainWindow):
         
         mainTypes = [
                      [NCO.Contact, "&Contact", "&Contact", "actions/contact-new.png", "Create new contact"],
-                     [TMO.Task, "&Task", "&Task", "actions/view-task-add.png", "Create new task"],
+                     [PIMO.Task, "&Task", "&Task", "actions/view-task-add.png", "Create new task"],
                      [PIMO.Project, "&Project", "&Project", "apps/nepomuk.png", "Create new project"],
                      [PIMO.Organization, "&Organization", "&Organization", "apps/nepomuk.png", "Create new organization"],
                      [PIMO.Location, "&Location", "&Location", "apps/nepomuk.png", "Create new location"],
@@ -241,7 +241,7 @@ class Ginkgo(QMainWindow):
         if superTaskUri:
             superTask = Nepomuk.Resource(superTaskUri)
             
-        newTaskEditor = TaskEditor(resource=None, superTask=superTask, mainWindow=self, nepomukType=TMO.Task)
+        newTaskEditor = TaskEditor(resource=None, superTask=superTask, mainWindow=self, nepomukType=PIMO.Task)
         self.addTab(newTaskEditor, "New Task", True, False)
 
 
@@ -251,7 +251,7 @@ class Ginkgo(QMainWindow):
         return resource
 
     def createSubTask(self, uri):
-        resource = datamanager.createResource("", TMO.Task)
+        resource = datamanager.createResource("", PIMO.Task)
         #parentTask = Nepomuk.Resource(uri)
         resource.setProperty(TMO.superTask, Nepomuk.Variant(uri))
         #self.emit(SIGNAL('resourceCreated'), resource)
@@ -269,7 +269,7 @@ class Ginkgo(QMainWindow):
         else:
             nepomukType = QUrl(nepomukType.toString())
 
-        if nepomukType == TMO.Task:
+        if nepomukType == PIMO.Task:
             self.newTask(None)
         else:
             
@@ -450,7 +450,7 @@ class Ginkgo(QMainWindow):
     def showResourcesByType(self):
         nepomukType = QUrl(self.sender().property("nepomukType").toString())
         label = self.sender().property("label").toString()
-        if nepomukType == TMO.Task:
+        if nepomukType == PIMO.Task:
             currentEditor = TaskTree(mainWindow=self, makeActions=True)
             index = self.editors.currentIndex()
             self.editors.removeTab(index)
@@ -486,7 +486,7 @@ class Ginkgo(QMainWindow):
     def typeIcon(self, nepomukType, size=16):
         if nepomukType == NFO.Website:
             return self.kdeIcon("mimetypes/text-html.png", size)
-        elif nepomukType == TMO.Task:
+        elif nepomukType == PIMO.Task:
             return QIcon(":/task-large")
         elif nepomukType == NCO.Contact:
                 return QIcon(":/contact-large")
@@ -500,7 +500,7 @@ class Ginkgo(QMainWindow):
         if size == 16:
             if NCO.Contact in types:
                 return QIcon(":/contact-small")
-            elif TMO.Task in types:
+            elif PIMO.Task in types:
                 return QIcon(":/task-small")
             elif NFO.Website in types:
                 return QIcon(self.kdeIcon("mimetypes/text-html.png", 16))
@@ -517,7 +517,7 @@ class Ginkgo(QMainWindow):
             iconPath = resource.genericIcon()
             if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
                 return QIcon(iconPath)
-            elif TMO.Task in types:
+            elif PIMO.Task in types:
                 return QIcon(":/task-large")
             elif NCO.Contact in types:
                 return QIcon(":/contact-large")

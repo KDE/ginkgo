@@ -11,7 +11,7 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-from dao import TMO, datamanager
+from dao import TMO, datamanager, PIMO
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.nepomuk import Nepomuk
@@ -225,7 +225,7 @@ class TaskTree(QWidget):
         super(TaskTree, self).__init__()
         
         self.mainWindow = mainWindow
-        self.nepomukType = TMO.Task
+        self.nepomukType = PIMO.Task
         
         verticalLayout = QVBoxLayout(self)
         verticalLayout.setObjectName("editor")

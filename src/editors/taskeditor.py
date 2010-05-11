@@ -51,7 +51,7 @@ class TaskEditor(ResourceEditor):
         if self.ui.dateBox.isChecked():
             dueDate = self.ui.dueDate.date()
         
-        self.resource.setProperty(TMO.taskName, Nepomuk.Variant(self.ui.name.text()))
+        self.resource.setLabel(self.ui.name.text())
         self.resource.setProperty(TMO.priority, Nepomuk.Variant(priority))
         if dueDate:
             self.resource.setProperty(TMO.dueDate, Nepomuk.Variant(dueDate))
@@ -91,7 +91,7 @@ class TaskEditorUi(ResourceEditorUi):
 
     def updateFields(self):
         if self.editor.resource:
-            self.name.setText(self.editor.resource.property(TMO.taskName).toString())
+            self.name.setText(self.editor.resource.genericLabel())
             self.description.setText(self.editor.resource.description())
             property = self.editor.resource.property(TMO.priority)
             
