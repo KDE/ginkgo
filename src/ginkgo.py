@@ -225,11 +225,6 @@ class Ginkgo(KMainWindow):
         """
         self.addTab(QWidget(), "Ginkgo", True, False)
         
-        kurl = KUrl("file:///usr/share/icons/oxygen/48x48/actions/document-edit.png")
-        krun(kurl, self, True)
-
-        
-        
         #self.history[self.editors.currentIndex()] = [unicode(self.currentEditor.ui.url.text())]
         #self.future[self.editors.currentIndex()] = []
         #		self.currentEditor.ui.back.setEnabled(False)
