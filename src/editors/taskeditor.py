@@ -24,7 +24,7 @@ class TaskEditor(ResourceEditor):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None, superTask=None):
         super(TaskEditor, self).__init__(mainWindow=mainWindow, resource=resource, nepomukType=nepomukType)
         
-        self.defaultIcon = ":/task-large"
+        self.defaultIcon = ""
         self.superTask = None
             
         if self.resource:
@@ -85,6 +85,7 @@ class TaskEditor(ResourceEditor):
             self.superTask = None
         else:
             self.selectSuperTask()
+            
 
 class TaskEditorUi(ResourceEditorUi):
     

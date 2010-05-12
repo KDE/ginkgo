@@ -16,11 +16,13 @@
 from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyKDE4.kdecore import *
+from PyKDE4.kio import *
 from dao import PIMO, datamanager, NFO, NIE
 from os import system
 from os.path import join
 from PyKDE4 import soprano
-from util import gnome_meta, mime, gio_meta
+from editors.resourcecontextmenu import ResourceContextMenu
 import os
 import subprocess
    
@@ -122,9 +124,8 @@ class ResourcesTable(QWidget):
             selection = item.data(Qt.UserRole).toPyObject()
             self.mainWindow.openResource(uri=selection)
       
-    #abstract      
     def createContextMenu(self, selection):
-        pass
+        return ResourceContextMenu(self, selection)
 
     def setData(self):
         self.fetchData()
@@ -181,75 +182,79 @@ class ResourcesTable(QWidget):
 
     #abstract
     def processAction(self, key, selectedUris):
-        if hasattr(self, "appDB") and self.appDB.has_key(key):
-            cmd1 = [self.appDB[key], self.appDB['URL']]
-            p1 = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
-            p1.poll()
-            #system('%s %s' % ())
-            return True
-        elif key == 'Open in new tab':
+#        if hasattr(self, "appDB") and self.appDB.has_key(key):
+#            cmd1 = [self.appDB[key], self.appDB['URL']]
+#            p1 = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
+#            p1.poll()
+#            #system('%s %s' % ())
+#            return True
+        if key == '&Open in new tab':
             for uri in selectedUris:
                 self.mainWindow.openResource(uri, newTab=True)
-        elif key == 'Delete':
+        elif key == '&Delete':
             for uri in selectedUris:
                 self.mainWindow.removeResource(uri)
+        elif key == "Open &file":
+            for uri in selectedUris:
+                self.mainWindow.launchFile(uri)
+        elif key == "Open &page":
+            for uri in selectedUris:
+                self.mainWindow.openWebPage(uri)
 
-    
-    def addFileLaunchActions(self, menu, resource):
+
+        
         #http://code.google.com/p/ file pydingo/handlers/directory/handler.py
-
-        self.appDB = {}
         
-        #http://stackoverflow.com/questions/2602052/how-to-call-a-program-from-python-without-waiting-for-it-to-return
         
-        if NFO.FileDataObject in resource.types():
-            url = str(resource.property(NIE.url).toString())
-            if url.find("file://") == 0:
-                url = url[len("file://"):]
-                if not os.path.exists(url):
-                    return
-            if url.find("filex://") == 0:
-                url = url[len("filex://"):]
-                if not os.path.exists(url):
-                    return
-                
-            meta = gnome_meta.get_meta_info(url)
-            
-            self.appDB = {'URL': url}
-            
-            openWithMenu = QMenu(menu)
-            openWithMenu.setTitle("Open with")
-        
-            if meta and len(meta) > 1 and meta['default_app']:
-                icon = mime.get_icon(meta['default_app'][0])
-                if icon:
-                    icon = QIcon(icon)
-                    openWithMenu.addAction(icon, meta['default_app'][1].decode('utf-8'))
-                else:
-                    openWithMenu.addAction(meta['default_app'][1].decode('utf-8'))
-                
-                self.appDB[meta['default_app'][1].decode('utf-8')] = meta['default_app'][2]
-                
-                if meta['other_apps'] and len(meta['other_apps']) > 1:
-                    for application in meta['other_apps']:
-                        icon = mime.get_icon(application[0])
-                        if icon:
-                            icon = QIcon(icon)
-                            openWithMenu.addAction(icon, application[1].decode('utf-8'))
-                        else:
-                            openWithMenu.addAction(application[1].decode('utf-8'))
-                        
-                        self.appDB[application[1].decode('utf-8')] = application[2]
-                    menu.addAction(openWithMenu.menuAction())
-            
-            else:
-                meta = gio_meta.get_meta_info(url)
-                if meta and len(meta) > 0:
-                    for application in meta:
-                        openWithMenu.addAction(application['name'].decode('utf-8'))
-                        self.appDB[application['name'].decode('utf-8')] = application['exec']
-                        menu.addAction(openWithMenu.menuAction())
-                else:
-                    pass
-
-
+#        self.appDB = {}
+#        
+#        if NFO.FileDataObject in resource.types():
+#            url = str(resource.property(NIE.url).toString())
+#            if url.find("file://") == 0:
+#                url = url[len("file://"):]
+#                if not os.path.exists(url):
+#                    return
+#            if url.find("filex://") == 0:
+#                url = url[len("filex://"):]
+#                if not os.path.exists(url):
+#                    return
+#                
+#            meta = gnome_meta.get_meta_info(url)
+#            
+#            self.appDB = {'URL': url}
+#            
+#            openWithMenu = QMenu(menu)
+#            openWithMenu.setTitle("Open with")
+#        
+#            if meta and len(meta) > 1 and meta['default_app']:
+#                icon = mime.get_icon(meta['default_app'][0])
+#                if icon:
+#                    icon = QIcon(icon)
+#                    openWithMenu.addAction(icon, meta['default_app'][1].decode('utf-8'))
+#                else:
+#                    openWithMenu.addAction(meta['default_app'][1].decode('utf-8'))
+#                
+#                self.appDB[meta['default_app'][1].decode('utf-8')] = meta['default_app'][2]
+#                
+#                if meta['other_apps'] and len(meta['other_apps']) > 1:
+#                    for application in meta['other_apps']:
+#                        icon = mime.get_icon(application[0])
+#                        if icon:
+#                            icon = QIcon(icon)
+#                            openWithMenu.addAction(icon, application[1].decode('utf-8'))
+#                        else:
+#                            openWithMenu.addAction(application[1].decode('utf-8'))
+#                        
+#                        self.appDB[application[1].decode('utf-8')] = application[2]
+#                    menu.addAction(openWithMenu.menuAction())
+#            
+#            else:
+#                meta = gio_meta.get_meta_info(url)
+#                if meta and len(meta) > 0:
+#                    for application in meta:
+#                        openWithMenu.addAction(application['name'].decode('utf-8'))
+#                        self.appDB[application['name'].decode('utf-8')] = application['exec']
+#                        menu.addAction(openWithMenu.menuAction())
+#                else:
+#                    pass
+#

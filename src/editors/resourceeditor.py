@@ -16,6 +16,8 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyKDE4.kdeui import *
+
 from editors.relationstable import RelationsTable
 from editors.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
@@ -40,7 +42,9 @@ class ResourceEditor(QWidget):
         
         if self.__class__ == getClass("editors.resourceeditor.ResourceEditor"):
             self.ui = ResourceEditorUi(self)
+            
 
+        
 
     def resourceIcon(self):
         if self.resource:
@@ -48,7 +52,7 @@ class ResourceEditor(QWidget):
         elif self.nepomukType:
             return self.mainWindow.typeIcon(self.nepomukType, 64)   
         else:
-            return QIcon(self.defaultIcon)
+            return KIcon(self.defaultIcon)
 
     def selectIcon(self):
         path = QFileInfo("~/").path()
@@ -59,7 +63,7 @@ class ResourceEditor(QWidget):
         
         if fname and len(fname) > 0 and os.path.exists(fname):
             self.resource.setSymbols([fname])
-            self.ui.iconButton.setIcon(QIcon(fname))
+            self.ui.iconButton.setIcon(KIcon(fname))
 
     def save(self):
         if self.resource is None:
@@ -70,11 +74,15 @@ class ResourceEditor(QWidget):
             if len(self.resource.types()) == 0:
                 self.resource = self.mainWindow.createResource(self.ui.resourceLabel(), self.nepomukType)      
         
+        self.ui.relationsTable.setResource(self.resource)
+        self.ui.propsTable.setResource(self.resource)
+        
         #save generic properties
         self.resource.setLabel(self.ui.resourceLabel())
         self.resource.setDescription(self.ui.description.toPlainText())
                             
-
+    def focus(self):
+        self.ui.name.setFocus(Qt.OtherFocusReason)
 
 class ResourceEditorUi(object):
     
@@ -110,12 +118,15 @@ class ResourceEditorUi(object):
         
         
         
-        relpropWidget = QTabWidget(rightpane)
+        relpropWidget = KTabWidget(rightpane)
         #vboxlayout = QVBoxLayout(relationsWidget)
         #self.relationsLabel = QLabel(relationsWidget)
         
-        relpropWidget.addTab(RelationsTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource), "Relations")
-        relpropWidget.addTab(ResourcePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource), "Properties")
+        self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
+        self.propsTable = ResourcePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
+        
+        relpropWidget.addTab(self.relationsTable , "Relations")
+        relpropWidget.addTab(self.propsTable, "Properties")
         
 #        self.relationsLabel.setBuddy(relationsTable)
 #        vboxlayout.addWidget(self.relationsLabel)
@@ -139,6 +150,8 @@ class ResourceEditorUi(object):
         
         self.retranslateUi()
         self.updateFields()
+        
+        
 
     def updateFields(self):
         if self.editor.resource:
@@ -187,7 +200,6 @@ class ResourceEditorUi(object):
         #self.name_label.setBuddy(self.name)
   
         
-
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)
         

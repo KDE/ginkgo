@@ -16,6 +16,8 @@
 from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyKDE4.kdeui import KIcon
+from dao import NFO
 
 
 class ResourceContextMenu(QMenu):
@@ -24,6 +26,8 @@ class ResourceContextMenu(QMenu):
         self.selectedUris = selectedUris
         self.parent = parent
         self.createActions()
+                    
+        
         self.triggered.connect(self.actionTriggered)
         QMetaObject.connectSlotsByName(self)
     
@@ -31,15 +35,30 @@ class ResourceContextMenu(QMenu):
         key = unicode(action.text())
         self.parent.processAction(key, self.selectedUris)
         
+    def createActions(self):
+        self.addOpenAction()
+        self.addExternalOpenAction()
+        self.addDeleteAction()
 
     def addOpenAction(self):
         openInNewTabAction = QAction("Open in new tab", self)
-        openInNewTabAction.setIcon(QIcon(":/tab-new-background-small"))
+        openInNewTabAction.setIcon(KIcon("tab-new-background-small"))
         self.addAction(openInNewTabAction)
     
     def addDeleteAction(self):
         action = QAction("Delete", self)
         action.setToolTip("Delete this resource from the Nepomuk database")
-        action.setIcon(QIcon(":/delete-small"))
+        action.setIcon(KIcon("edit-delete"))
         self.addAction(action)
 
+    def addExternalOpenAction(self):
+        if len(self.selectedUris) == 1:
+            resource = Nepomuk.Resource(self.selectedUris[0])
+            if resource and NFO.FileDataObject in resource.types(): 
+                action = QAction("Open file", self)
+                self.addAction(action)
+    
+            if resource and NFO.Website in resource.types():
+                action = QAction("Open page", self)
+                self.addAction(action)
+        

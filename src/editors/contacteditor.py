@@ -27,7 +27,7 @@ import codecs
 class ContactEditor(ResourceEditor):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None):
         super(ContactEditor, self).__init__(mainWindow=mainWindow, resource=resource, nepomukType=nepomukType)
-        self.defaultIcon = ":/contact-large"
+        self.defaultIcon = ""
         
         self.ui = ContactEditorUi(self)
     
@@ -41,7 +41,9 @@ class ContactEditor(ResourceEditor):
         self.resource.setProperty(NCO.nameFamily, Nepomuk.Variant(self.ui.lastname.text()))
         self.resource.setProperty(NCO.emailAddress, Nepomuk.Variant(self.ui.email.text()))
         self.resource.setProperty(NCO.phoneNumber, Nepomuk.Variant(self.ui.phone.text()))
-        
+    
+    def focus(self):
+        self.ui.firstname.setFocus(Qt.OtherFocusReason)    
             
 
 class ContactEditorUi(ResourceEditorUi):

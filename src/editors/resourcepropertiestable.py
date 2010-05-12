@@ -20,7 +20,6 @@ from dao import PIMO, datamanager, NFO, NIE
 from os import system
 from os.path import join
 from PyKDE4 import soprano
-from util import gnome_meta, mime, gio_meta
 import os
 import subprocess
    
@@ -141,4 +140,7 @@ class ResourcePropertiesTable(QWidget):
 
     def fetchData(self):
         self.data = datamanager.findResourceLiteralProperties(self.resource)
-        
+
+    def setResource(self, resource):
+        self.resource = resource
+        self.setData()        

@@ -20,8 +20,9 @@ from dao import PIMO, datamanager, NFO, NIE
 from os import system
 from os.path import join
 from PyKDE4.soprano import Soprano
+from PyKDE4.kdeui import KIcon
 from editors.resourcestable import ResourcesTable
-from util import gnome_meta, gio_meta, mime
+from util import mime
 from editors.resourcecontextmenu import ResourceContextMenu
 
 
@@ -70,12 +71,15 @@ class RelationsTable(ResourcesTable):
     def processAction(self, key, resourceUri):
         if super(RelationsTable, self).processAction(key, resourceUri):
             return True
-        elif key == 'Unlink from '+self.resource.genericLabel():
+        elif self.resource and key == "&Unlink from "+self.resource.genericLabel():
             self.mainWindow.unlink(Soprano.Vocabulary.NAO.isRelated(), resourceUri, True)
             self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
         
     def createContextMenu(self, selection):
         return RelationsTableContextMenu(self, selection)
+    
+    def setResource(self, resource):
+        self.resource = resource
 
 class RelationsTableContextMenu(ResourceContextMenu):
     def __init__(self, parent=None, selectedUris=None):
@@ -86,12 +90,12 @@ class RelationsTableContextMenu(ResourceContextMenu):
 
         if self.selectedUris:
             self.addOpenAction()
+            self.addExternalOpenAction()
+            
             action = QAction("Unlink from "+self.parent.resource.genericLabel(), self)
-            action.setIcon(QIcon(":/nepomuk-small"))
+            action.setIcon(KIcon("nepomuk"))
             self.addAction(action)
-            if len(self.selectedUris) == 1:
-                resource = Nepomuk.Resource(self.selectedUris[0])
-                self.parent.addFileLaunchActions(self, resource)
+                
             self.addDeleteAction()
         else:
             #the user right clicked in the empty zone

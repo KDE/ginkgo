@@ -14,6 +14,7 @@
 from dao import TMO, datamanager, PIMO
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyKDE4.kdeui import *
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
 from editors.resourcecontextmenu import ResourceContextMenu
@@ -93,7 +94,8 @@ class TreeModel(QAbstractItemModel):
         if role == Qt.DecorationRole:
             item = index.internalPointer()
             resource = item.data(index.column())
-            return self.ginkgo.resourceIcon(resource)
+            #return self.ginkgo.resourceIcon(resource)
+            return QIcon(":/task-small")
         
         elif role == Qt.DisplayRole:
             item = index.internalPointer()
@@ -285,11 +287,11 @@ class TaskTree(QWidget):
 
 
     def processAction(self, key, selectedUris):
-        if key == 'New sub-task':
+        if key == '&New sub-task':
             self.mainWindow.newTask(superTaskUri=selectedUris[0])
-        elif key == 'Open in new tab':
+        elif key == '&Open in new tab':
             self.mainWindow.openResource(uri=selectedUris[0], newTab=True)
-        elif key == 'Delete':
+        elif key == '&Delete':
             self.mainWindow.removeResource(selectedUris[0])
 
 #    def resourceCreatedSlot(self, resource):
@@ -320,7 +322,8 @@ class TaskContextMenu(ResourceContextMenu):
     def createActions(self):
         self.addOpenAction()
         action = QAction("New sub-task", self)
-        action.setIcon(QIcon(":/task-new"))
+        action.setIcon(KIcon("view-task-add"))
+        action.setProperty("nepomukType", PIMO.Task)
         self.addAction(action)
         if self.deleteAction:
             self.addDeleteAction()
