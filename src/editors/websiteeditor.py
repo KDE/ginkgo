@@ -45,10 +45,6 @@ class WebsiteEditorUi(ResourceEditorUi):
         self.gridlayout.setMargin(9)
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
-        
-        self.gridlayout.setColumnStretch(0, 1)
-        self.gridlayout.setColumnStretch(1, 20)
-
 
         self.name = QLineEdit(propertiesWidget)
         self.name.setObjectName("name")
@@ -81,7 +77,7 @@ class WebsiteEditorUi(ResourceEditorUi):
     def openWebPage(self):
         kurl = KUrl(self.url.text())
         krun(kurl, QWidget(), False)
-
+        
     def updateFields(self):
         if self.editor.resource:
             self.name.setText(self.editor.resource.genericLabel())

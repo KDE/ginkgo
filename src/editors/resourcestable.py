@@ -45,14 +45,14 @@ class ResourcesTable(QWidget):
         model.statementRemoved.connect(self.statementRemovedSlot)
 
         self.createTable()
+        self.fetchData()
         self.setData()
         
         verticalLayout = QVBoxLayout(self)
         verticalLayout.setObjectName("editor")
         verticalLayout.addWidget(self.table)
         self.setLayout(verticalLayout)
-        
-        QMetaObject.connectSlotsByName(self)
+
 
     #abstract
     def statementAddedSlot(self, statement):
@@ -126,9 +126,11 @@ class ResourcesTable(QWidget):
       
     def createContextMenu(self, selection):
         return ResourceContextMenu(self, selection)
+    
+    def fetchData(self):
+        self.data = []
 
     def setData(self):
-        self.fetchData()
         if self.data:
             if self.excludeList:
                 for exclude in self.excludeList:
@@ -158,7 +160,7 @@ class ResourcesTable(QWidget):
     
     #abstract            
     def labelHeaders(self):
-        pass
+        return ["Name"]
   
         
     def addResource(self, resource):
@@ -196,10 +198,10 @@ class ResourcesTable(QWidget):
                 self.mainWindow.removeResource(uri)
         elif key == "Open &file":
             for uri in selectedUris:
-                self.mainWindow.launchFile(uri)
+                self.mainWindow.openResourceExternally(uri, True)
         elif key == "Open &page":
             for uri in selectedUris:
-                self.mainWindow.openWebPage(uri)
+                self.mainWindow.openResourceExternally(uri, False)
 
 
         

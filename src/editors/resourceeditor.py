@@ -115,9 +115,6 @@ class ResourceEditorUi(object):
         vboxlayout.addWidget(self.descriptionLabel)
         vboxlayout.addWidget(self.description)
         
-        
-        
-        
         relpropWidget = KTabWidget(rightpane)
         #vboxlayout = QVBoxLayout(relationsWidget)
         #self.relationsLabel = QLabel(relationsWidget)
@@ -150,7 +147,6 @@ class ResourceEditorUi(object):
         
         self.retranslateUi()
         self.updateFields()
-        
         
 
     def updateFields(self):
@@ -198,7 +194,6 @@ class ResourceEditorUi(object):
         vbox.addWidget(self.name)
         self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
         #self.name_label.setBuddy(self.name)
-  
         
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)

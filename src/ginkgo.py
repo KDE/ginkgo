@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from editors.resourcestable import ResourcesTable
+from dialogs.labelinputdialog import LabelInputDialog
 
 ## This file may be used under the terms of the GNU General Public
 ## License version 2.0 as published by the Free Software Foundation
@@ -12,10 +14,10 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-
 import mimetypes
 import os
 import sys
+import dbus
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
 from PyQt4.QtCore import *
@@ -38,6 +40,8 @@ class Ginkgo(KMainWindow):
         super(Ginkgo, self).__init__(parent)
 
         self.editors = KTabWidget()
+        #we cannot connect the signal using self.editors.currentChanged.connect since currentChanged is a method of KTabWidget
+        QObject.connect( self.editors, SIGNAL("currentChanged(int) "), self.currentTabChangedSlot)
         self.editors.setMovable(True)
         #self.editors.setCloseButtonEnabled(True)
         self.setCentralWidget(self.editors)
@@ -53,24 +57,18 @@ class Ginkgo(KMainWindow):
                      [NFO.Website, "&WebPage", "&Web Page", "text-html", "Create new Web page"],
                      [PIMO.Note, "&Note", "&Note", "text-plain", "Create new note"],
                      ]
-                
         
         placesWidget = self.createPlacesWidget(mainTypes)
         self.createActions(mainTypes)
-
         
         self.addDockWidget(Qt.LeftDockWidgetArea, placesWidget)
-
 
         status = self.statusBar()
         status.setSizeGripEnabled(False)
         status.showMessage("Ready", 5000)
-
-        
+        self.currentTabChangedSlot(-1)
         self.applySettings()
         self.setWindowTitle("Ginkgo")
-
-
 
     def createActions(self, mainTypes):
 
@@ -81,19 +79,18 @@ class Ginkgo(KMainWindow):
         
         saveAction = self.createAction("&Save", self.save, QKeySequence.Save, "document-save", "Save")
         
-        
         openResourceAction = self.createAction("&Open", self.showOpenResourceDialog, QKeySequence.Open, None, "Open a resource")
         newTabAction = self.createAction("New &Tab", self.newTab, QKeySequence.AddTab, "tab-new-background-small", "Create new tab")
         closeTabAction = self.createAction("Close Tab", self.closeCurrentTab, QKeySequence.Close, "tab-close", "Close tab")
         quitAction = self.createAction("&Quit", self.close, "Ctrl+Q", "application-exit", "Close the application")
 
 
-        linkToButton = QToolButton()
-        linkToButton.setToolTip("Link to...")
-        linkToButton.setStatusTip("Link to...")
+        self.linkToButton = QToolButton()
+        self.linkToButton.setToolTip("Link to...")
+        self.linkToButton.setStatusTip("Link to...")
         #linkToButton.setIcon(QIcon(":/nepomuk-small"))
-        linkToButton.setIcon(KIcon("nepomuk"))
-        linkToButton.setPopupMode(QToolButton.InstantPopup)
+        self.linkToButton.setIcon(KIcon("nepomuk"))
+        self.linkToButton.setPopupMode(QToolButton.InstantPopup)
         #linkToButton.setEnabled(False)
         self.linkToMenu = QMenu(self)
         self.linkToMenu.setTitle("Link to")
@@ -102,7 +99,9 @@ class Ginkgo(KMainWindow):
             self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
         
         self.linkToMenu.addAction(self.createAction("File", self.linkToFile, None, None, "Link to file"))
-        linkToButton.setMenu(self.linkToMenu)
+        self.linkToButton.setMenu(self.linkToMenu)
+
+        self.setContextAction = self.createAction("Set resource as context", self.setResourceAsContext, None, "edit-node", "Set the current resource as context")
 
         mainMenu = self.menuBar().addMenu("&File")
         newResourceMenu = QMenu(mainMenu)
@@ -123,13 +122,18 @@ class Ginkgo(KMainWindow):
         
         editMenu = self.menuBar().addMenu("&Edit")
         deleteAction = self.createAction("&Delete", self.delete, None, None, "Delete")
+        editMenu.addMenu(self.linkToMenu)
         editMenu.addAction(deleteAction)
         
         viewMenu = self.menuBar().addMenu("&View")
         for type in mainTypes:
-            viewMenu.addAction(self.createAction(type[1]+"s", self.showResourcesByType, None, type[3], None, type[0]))
+            viewMenu.addAction(self.createAction(type[1] + "s", self.showResourcesByType, None, type[3], None, type[0]))
         
         viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
+
+        self.menuBar().addMenu(self.helpMenu())
+        
+
         
         mainToolbar = self.addToolBar("Toolbar")
         mainToolbar.setIconSize(QSize(18, 18))
@@ -143,12 +147,12 @@ class Ginkgo(KMainWindow):
         newResourceButton.setIcon(KIcon("document-new"))
         newResourceButton.setPopupMode(QToolButton.InstantPopup)
         newResourceButton.setMenu(newResourceMenu)
-
+        
+#        toolbarWidget = QWidget()
+#        hbox = QHBoxLayout(toolbarWidget)
+#        hbox.addWidget(newResourceButton)
         
         mainToolbar.addWidget(newResourceButton)
-        
-        
-        
         
 
         #mainToolbar.addAction(action)
@@ -157,11 +161,44 @@ class Ginkgo(KMainWindow):
         mainToolbar.addAction(newTabAction)
         
         
-        mainToolbar.addWidget(linkToButton)
+        mainToolbar.addWidget(self.linkToButton)
+        mainToolbar.addAction(self.setContextAction)
+        mainToolbar.addSeparator()
         
+        searchWidget = QWidget()
+        hbox = QHBoxLayout(searchWidget)
+        spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        hbox.addItem(spacerItem)
+        
+        self.search = QLineEdit("")
+        shortcut = QShortcut(QKeySequence("Ctrl+K"), self.search);
+        shortcut.activated.connect(self.focusOnSearchField)
+        
+        
+        self.search.returnPressed.connect(self.runSearch)
+        self.search.setMaximumWidth(150)
+        hbox.addWidget(self.search)
+        
+        searchButton = QToolButton()
+        searchButton.setToolTip("Search")
+        searchButton.setIcon(KIcon("system-search"))
+        searchButton.setPopupMode(QToolButton.InstantPopup)
+        searchMenu = QMenu(self)
+        searchMenu.setTitle("Search")
+        self.fullTextSearchOption = self.createAction("Full-text search", checkable=True)
+        self.fullTextSearchOption.setChecked(True)
+        searchMenu.addAction(self.fullTextSearchOption)
+        searchButton.setMenu(searchMenu)
+
+        mainToolbar.addWidget(searchWidget)
+        mainToolbar.addWidget(searchButton)
+        
+    def focusOnSearchField(self):
+        self.search.setFocus(Qt.OtherFocusReason)
+        self.search.selectAll()
 
     # source: http://www.qtrac.eu/pyqtbook.html
-    def createAction(self, text, slot=None, shortcut=None, icon=None, tip=None, key=None, 
+    def createAction(self, text, slot=None, shortcut=None, icon=None, tip=None, key=None,
                         iconSize=16, checkable=False, signal="triggered()"):
         
         
@@ -176,27 +213,16 @@ class Ginkgo(KMainWindow):
             action.setStatusTip(tip)
         if slot is not None:
             self.connect(action, SIGNAL(signal), slot)
+
         if checkable:
             action.setCheckable(True)
         
-        action.setProperty("nepomukType", QVariant(key))
-        action.setProperty("label", text)
+        if key:
+            action.setProperty("nepomukType", QVariant(key))
+        if text:
+            action.setProperty("label", text)
         
         return action
-
-    def about(self):
-        """
-        Show app info
-        """
-        message = QMessageBox(self)
-        message.setTextFormat(Qt.RichText)
-        message.setText(u'<b>Ginkgo 0.1</b><br><b>License</b>: LGPL')
-        message.setWindowTitle('Ginkgo 0.1')
-        message.setIcon(QMessageBox.Information)
-        message.addButton('Ok', QMessageBox.AcceptRole)
-        #message.setDetailedText('Unsaved changes in: ' + self.ui.url.text())
-        message.exec_()
-
 
     def closeCurrentTab(self):
         
@@ -273,19 +299,19 @@ class Ginkgo(KMainWindow):
             
             resource = Nepomuk.Resource(nepomukType.toString())
             #todo: add a property for associating an editor to a nepomukType dynamically
-            label = str(resource.genericLabel())+"Editor"
-            className = "editors."+label.lower()+"."+label
+            label = str(resource.genericLabel()) + "Editor"
+            className = "editors." + label.lower() + "." + label
             try:
                 newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=nepomukType)
             except ImportError:
                 newEditor = ResourceEditor(mainWindow=self, resource=None, nepomukType=nepomukType)
                 
-            self.addTab(newEditor, "New "+str(resource.genericLabel()), True, False)
+            self.addTab(newEditor, "New " + str(resource.genericLabel()), True, False)
          
         if newEditor:   
             newEditor.focus()
 
-    def openResource(self, uri=False, newTab=False):
+    def openResource(self, uri=False, newTab=False, inBackground=True):
 
         resource = Nepomuk.Resource(uri)
         
@@ -299,10 +325,10 @@ class Ginkgo(KMainWindow):
         for type in resource.types():
             if type != Soprano.Vocabulary.RDFS.Resource() and newEditor is None:
                 typeResource = Nepomuk.Resource(type.toString())
-                label = str(typeResource.genericLabel())+"Editor"
+                label = str(typeResource.genericLabel()) + "Editor"
                 if label == "fileEditor":
                     label = "FileEditor"
-                className = "editors."+label.lower()+"."+label
+                className = "editors." + label.lower() + "." + label
                 try:
                     newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
                 except ImportError:
@@ -312,20 +338,20 @@ class Ginkgo(KMainWindow):
         if newEditor is None:
             newEditor = ResourceEditor(mainWindow=self, resource=resource, nepomukType=Soprano.Vocabulary.RDFS.Resource())
             
-        self.addTab(newEditor, resource.genericLabel(), newTab)
-
-
-    def launchFile(self, uri):
+        self.addTab(newEditor, resource.genericLabel(), newTab, inBackground)
+        
+    
+    def openResourceExternally(self, uri, isLocal=True):
+        """Launches a file or opens a Web page."""
         resource = Nepomuk.Resource(uri)
         url = resource.property(NIE.url)
         if url and len(url.toString()) > 0:
             kurl = KUrl(url.toString())
-            krun(kurl, self, True)
-    
-    def openWebPage(self, url):
-        kurl = KUrl(url)
-        krun(kurl, self, False)
-    
+            krun(kurl, self, isLocal)
+        elif uri and len(uri) > 0:
+            kurl = KUrl(uri)
+            krun(uri, self, isLocal)
+        
 
     def findResourceEditor(self, resource):
         """Finds an editor where the resource is being edited. If no editor is found, returns None."""
@@ -360,19 +386,27 @@ class Ginkgo(KMainWindow):
             editor = self.findResourceEditor(resource)
             if editor:
                 for index in range(0, self.editors.count()):
-                    if editor == self.editors.widget(int):
+                    if editor == self.editors.widget(index):
                         self.editors.removeTab(index)
         
     def showOpenResourceDialog(self):
-        
-        text, ok = QInputDialog.getText(self, 'Open Resource', 'Name:')
-        
-        if ok:
+        dialog = LabelInputDialog(self)
+        if dialog.exec_():
+            text = dialog.input.text()
             resources = datamanager.findResourcesByLabel(text)
             if resources and len(resources) > 0:
-                self.openResource(resources[0].resourceUri(), True)
+                self.openResource(resources[0].resourceUri(), True, False)
 
-
+    def currentTabChangedSlot(self, index):
+        resource = self.currentResource()
+        if resource:
+            self.linkToButton.setEnabled(True)
+            self.linkToMenu.setEnabled(True)
+            self.setContextAction.setEnabled(True)
+        else:
+            self.linkToButton.setEnabled(False)
+            self.linkToMenu.setEnabled(False)
+            self.setContextAction.setEnabled(False)
     
 
     def linkTo(self):
@@ -383,11 +417,11 @@ class Ginkgo(KMainWindow):
         
         #if the resource was just created and not yet saved, save it before creating the link,
         #so that it exists
-        if hasattr(widget,"resource") and not widget.resource:
+        if hasattr(widget, "resource") and not widget.resource:
             self.save()
 
         
-        if hasattr(widget,"resource") and widget.resource:
+        if hasattr(widget, "resource") and widget.resource:
             #exclude items already linked to current resource
             excludeList = datamanager.findRelations(widget.resource.resourceUri())
             #exclude the current resource itself for avoiding creating a link to itself
@@ -455,7 +489,7 @@ class Ginkgo(KMainWindow):
         verticalLayout.setObjectName("placeslayout")
         
         for type in mainTypes:
-            button = self.createPlaceButton(type[0], type[1]+"s", widget)
+            button = self.createPlaceButton(type[0], type[1] + "s", widget)
             verticalLayout.addWidget(button)
         
         button = self.createPlaceButton(NFO.FileDataObject, "Files", widget)
@@ -476,7 +510,7 @@ class Ginkgo(KMainWindow):
         button.setObjectName(label)
         button.setText(QApplication.translate("Ginkgo", label, None, QApplication.UnicodeUTF8))
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        button.setProperty("nepomukType",nepomukType)
+        button.setProperty("nepomukType", nepomukType)
         button.setProperty("label", label)
         button.clicked.connect(self.showResourcesByType)
         return button
@@ -499,6 +533,19 @@ class Ginkgo(KMainWindow):
             self.editors.setCurrentIndex(index) 
 
         
+    def setResourceAsContext(self):
+        sbus = dbus.SessionBus()
+        self.dobject = sbus.get_object("org.kde.nepomuk.services.nepomukusercontextservice", '/nepomukusercontextservice')
+        resource = self.currentResource()
+        if resource:
+            self.dobject.setCurrentUserContext(str(resource.resourceUri().toString()))
+            if self.dobject.currentUserContext() == str(resource.resourceUri().toString()):
+                reply = QMessageBox.information(self, "Context - Ginkgo", "The context has been succesfully updated to <i>"+resource.genericLabel()+"</i>.")
+            else:
+                reply = QMessageBox.information(self, "Context - Ginkgo", "An error occurred while updating the context.")
+        #self.iface = dbus.Interface(self.dobject, "org.kde.nepomuk.Strigi")
+
+    
     def applySettings(self): 
         settings = QSettings()
         size = settings.value("Ginkgo/Size", QVariant(QSize(600, 500))).toSize()
@@ -519,8 +566,26 @@ class Ginkgo(KMainWindow):
         resource = self.currentResource()
         if resource:
             self.removeResource(resource.uri())
+
+
+    def runSearch(self):
+        #str() for converting a QString to str
+        term = str(self.search.text())
+        
+        if self.fullTextSearchOption.isChecked():
+            data = datamanager.fullTextSearch(term)
+        else:
+            data = datamanager.findResourcesByLabel(term)
             
-    
+        searchView = ResourcesTable(mainWindow=self)
+        searchView.data = data
+        searchView.setData()
+        index = self.editors.currentIndex()
+        self.editors.removeTab(index)
+        self.editors.insertTab(index, searchView, "Search Results")
+        self.editors.setCurrentIndex(index)
+
+         
     
     def typeIcon(self, nepomukType, size=16):
         if nepomukType == NFO.Website:
@@ -550,7 +615,7 @@ class Ginkgo(KMainWindow):
                 mimetype = mimetypes.guess_type(str(resource.property(NIE.url).toString()))
                 elt = mimetype[0]
                 if elt:
-                    elt = elt.replace("/","-")
+                    elt = elt.replace("/", "-")
                     return KIcon(elt)
                 return KIcon("nepomuk")
             else:
@@ -569,7 +634,7 @@ class Ginkgo(KMainWindow):
                 mimetype = mimetypes.guess_type(str(resource.property(NIE.url).toString()))
                 elt = mimetype[0]
                 if elt:
-                    elt = elt.replace("/","-")
+                    elt = elt.replace("/", "-")
                     #icon = "/usr/share/icons/oxygen/48x48/mimetypes/"+elt+".png"
                     #if os.path.exists(icon):
                     return KIcon(elt)
@@ -583,33 +648,33 @@ class Ginkgo(KMainWindow):
     
 
 #http://stackoverflow.com/questions/452969/does-python-have-an-equivalent-to-java-class-forname
-def getClass( clazz ):
+def getClass(clazz):
     parts = clazz.split('.')
     module = ".".join(parts[:-1])
-    module = __import__( module )
+    module = __import__(module)
     for comp in parts[1:]:
         module = getattr(module, comp)            
     return module
 
 
 if __name__ == "__main__":
-    #app = QApplication(sys.argv)
-    appName     = "ginkgo"
-    catalog     = ""
-    programName = ki18n ("ginkgo")                 #ki18n required here
-    copyright = ki18n("")
-    version     = "0.1"
+    appName = "ginkgo"
+    catalog = ""
+    programName = ki18n ("Ginkgo")                 #ki18n required here
+    copyright = ki18n("(c) 2010, Mandriva, Stéphane Laurière")
+    version = "1.0"
     description = ki18n ("Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.")         #ki18n required here
-    license     = KAboutData.License_GPL_V2
-    text        = ki18n ("none")                    #ki18n required here
-    homePage    = "http://nepomuk.kde.org"
-    bugEmail    = "https://qa.mandriva.com"
+    license = KAboutData.License_GPL_V2
+    text = ki18n ("Ginkgo lets you create and explore links between your personal data such as emails, contacts, files, Web pages.")                    #ki18n required here
+    homePage = "http://nepomuk.kde.org"
+    bugEmail = "https://qa.mandriva.com"
 
-    aboutData   = KAboutData (appName, catalog, programName, version, description,
+    aboutData = KAboutData (appName, catalog, programName, version, description,
                               license, copyright, text, homePage, bugEmail)
 
     # ki18n required for first two addAuthor () arguments
-    aboutData.addAuthor (ki18n ("Stéphane Laurière"), ki18n (""))
+    aboutData.addAuthor (ki18n ("Stéphane Laurière"), ki18n("Developer"), "slauriere@mandriva.com")
+    aboutData.setProgramIconName("nepomuk")
     
     
     KCmdLineArgs.init (sys.argv, aboutData)

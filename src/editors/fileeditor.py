@@ -31,6 +31,9 @@ class FileEditor(ResourceEditor):
         self.ui = FileEditorUi(self)
     
 
+    def openFile(self):
+        if self.resource and self.resource.uri():
+            self.mainWindow.openResourceExternally(self.resource.uri(), True)
             
 
 class FileEditorUi(ResourceEditorUi):
@@ -51,6 +54,12 @@ class FileEditorUi(ResourceEditorUi):
         self.name.setObjectName("name")
         vbox = QVBoxLayout(nameBox)
         vbox.addWidget(self.name)
+        
+        button = QPushButton(propertiesWidget)
+        button.setText("Open")
+        button.clicked.connect(self.editor.openFile)
+        vbox.addWidget(button)
+
         self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
         #self.name_label.setBuddy(self.name)
   
@@ -63,6 +72,7 @@ class FileEditorUi(ResourceEditorUi):
     
     def resourceLabel(self):
         return self.name.text()
+    
     
     
 

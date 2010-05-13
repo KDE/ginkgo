@@ -47,13 +47,28 @@ from PyKDE4.kdecore import KUrl
 model = Nepomuk.ResourceManager.instance().mainModel()
 
 
+term  = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue("christophe"))
+query = Nepomuk.Query.Query(term)
+queryString = query.toSparqlQuery()
+iter = model.executeQuery(queryString, Soprano.Query.QueryLanguageSparql)
+        
+bindingNames = iter.bindingNames()
+        
+while iter.next() :
+    bindingSet = iter.current()
+    for i in range(len(bindingNames)) :
+        v = bindingSet.value(bindingNames[i])
+        ares = Nepomuk.Resource(v.uri())
+        print ares.genericLabel()
+
+
 #nepomuk.Nepomuk.File f( "/home/foo/bar.txt" );
 
-file = Nepomuk.Resource("file:///home/arkub/F/2010-04 OSS Industry Savings.pdf")
-print file.resourceUri()
-
-for key, value in file.allProperties().iteritems():
-    print str(key), value.toString() , value.isResource()
+#file = Nepomuk.Resource("file:///home/arkub/F/2010-04 OSS Industry Savings.pdf")
+#print file.resourceUri()
+#
+#for key, value in file.allProperties().iteritems():
+#    print str(key), value.toString() , value.isResource()
 
 
 #file = Nepomuk.Resource("<filex://c4fd-7c27/home/arkub/F/RIAO-2010.odt>")

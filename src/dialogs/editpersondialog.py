@@ -81,8 +81,8 @@ class EditPersonDialogUi(object):
         self.gridlayout.addWidget(self.buttonBox, 6, 4, 1, 2)
 
         self.retranslateUi(dialog)
-        self.buttonBox.accepted(dialog.accept)
-        self.buttonBox.rejected(dialog.reject)
+#        self.buttonBox.accepted(dialog.accept)
+#        self.buttonBox.rejected(dialog.reject)
         QMetaObject.connectSlotsByName(dialog)
         
         #dialog.setTabOrder(self.firstname, self.yearSpinBox)
@@ -90,13 +90,11 @@ class EditPersonDialogUi(object):
         
     def retranslateUi(self, dialog):
         dialog.setWindowTitle(QApplication.translate("PersonEditDialog", "New Contact", None, QApplication.UnicodeUTF8))
-        #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("PersonEditDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
         self.firstname_label.setText(QApplication.translate("PersonEditDialog", "&First Name:", None, QApplication.UnicodeUTF8))
         self.lastname_label.setText(QApplication.translate("PersonEditDialog", "&Last Name:", None, QApplication.UnicodeUTF8))
         self.email_label.setText(QApplication.translate("PersonEditDialog", "&E-mail:", None, QApplication.UnicodeUTF8))        
         self.notes_label.setText(QApplication.translate("PersonEditDialog", "&Notes:", None, QApplication.UnicodeUTF8))
         self.phone_label.setText(QApplication.translate("PersonEditDialog", "&Phone:", None, QApplication.UnicodeUTF8))
-        #self.label_2.setText(QApplication.translate("personEditDialog", "&Year:", None, QApplication.UnicodeUTF8))
 
 
 
@@ -136,15 +134,6 @@ class EditPersonDialog(QDialog, EditPersonDialogUi):
 
 
     def accept(self):
-        
-#        if self.movie is None:
-#            #acquired = self.acquiredDateEdit.date()
-#            #self.movie = moviedata.Movie(title, year, minutes,
-#            #                            acquired, location, notes)
-#            self.movies.add(self.movie)
-#        else:
-#            self.movies.updateMovie(self.movie, title, year,
-#                                    minutes, location, notes)
         QDialog.accept(self)
 
 

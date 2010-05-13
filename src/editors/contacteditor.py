@@ -57,10 +57,8 @@ class ContactEditorUi(ResourceEditorUi):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        self.gridlayout.setColumnStretch(0, 1)
-        self.gridlayout.setColumnStretch(1, 20)
-
-
+        #self.gridlayout.setColumnStretch(0, 1)
+        #self.gridlayout.setColumnStretch(1, 20)
  
 #        self.firstname_label = QLabel(propertiesWidget)
 #        self.firstname_label.setObjectName("firstname_label")
@@ -96,7 +94,6 @@ class ContactEditorUi(ResourceEditorUi):
         vbox = QVBoxLayout(lnameBox)
         vbox.addWidget(self.lastname)
         self.gridlayout.addWidget(lnameBox, 1, 0, 1, 1)
-       
         
         box = QGroupBox("Email")
         vbox = QVBoxLayout(box)
@@ -131,7 +128,6 @@ class ContactEditorUi(ResourceEditorUi):
 
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 4, 0, 1, 1)
-        
 
         return propertiesWidget
 

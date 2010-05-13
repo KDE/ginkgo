@@ -171,6 +171,20 @@ def findResourceLiteralProperties(resource):
     
     return data
 
+def fullTextSearch(term):
+    if term is None:
+        return
+    
+    if len(term.strip()) == 0:
+        return
+    
+    term  = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(term))
+    query = Nepomuk.Query.Query(term)
+    sparql = query.toSparqlQuery()
+    print sparql
+    data = executeQuery(sparql)
+    return data
+
     
 if __name__ == "__main__":
     #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)
