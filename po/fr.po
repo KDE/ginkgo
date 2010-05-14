@@ -1,0 +1,232 @@
+# Translations of the ginkgo labels
+# Copyright (C) Stéphane Laurière
+# This file is distributed under the same license as the ginkgo package.
+# FIRST AUTHOR <slauriere@mandriva.com>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-14 11:58+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Stéphane Laurière <slauriere@mandriva.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dialogs/labelinputdialog.py:50
+msgid "Open Resource"
+msgstr "Ouvrir"
+
+#: dialogs/labelinputdialog.py:52
+msgid "&Name:"
+msgstr "&Nom:"
+
+#: dialogs/resourcechooserdialog.py:60 ginkgo.py:89 ginkgo.py:90
+msgid "Link to..."
+msgstr "Relier à..."
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Sélection de tâche"
+
+#: editors/contacteditor.py:74
+msgid "First Name"
+msgstr "Prénom"
+
+#: editors/contacteditor.py:91
+msgid "Last Name"
+msgstr "Nom"
+
+#: editors/contacteditor.py:99
+msgid "E-mail"
+msgstr "E-mail"
+
+#: editors/contacteditor.py:123
+msgid "Phone"
+msgstr "Téléphone"
+
+#: editors/fileeditor.py:48 editors/resourceeditor.py:187
+#: editors/resourcesbytypetable.py:43 editors/resourcestable.py:163
+#: editors/websiteeditor.py:54
+msgid "Name"
+msgstr "Nom"
+
+#: editors/fileeditor.py:58 editors/websiteeditor.py:66
+msgid "Open"
+msgstr "Ouvrir"
+
+#: editors/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr "&Ouvrir dans un nouvel onglet"
+
+#: editors/resourcecontextmenu.py:50
+msgid "&Delete"
+msgstr "&Supprimer"
+
+#: editors/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Supprimer cette ressource de la base de données Nepomuk"
+
+#: editors/resourcecontextmenu.py:59 editors/resourcestable.py:199
+msgid "Open &file"
+msgstr "Ouvrir le &fichier"
+
+#: editors/resourcecontextmenu.py:63 editors/resourcestable.py:202
+msgid "Open &page"
+msgstr "Ouvrir la &page"
+
+#: editors/resourceeditor.py:59
+msgid "Select Icon - Ginkgo"
+msgstr "Selection d'icône - Gingko"
+
+#: editors/resourceeditor.py:59
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Images (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:125
+msgid "Relations"
+msgstr "Relations"
+
+#: editors/resourceeditor.py:126
+msgid "Properties"
+msgstr "Propriétés"
+
+#: editors/resourceeditor.py:159
+msgid "&Description:"
+msgstr "&Description"
+
+#: editors/resourcepropertiestable.py:139
+msgid "Property"
+msgstr "Propriété"
+
+#: editors/resourcepropertiestable.py:139
+msgid "Value"
+msgstr "Valeur"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "Aucun&e"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Autre"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Basse"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Moyenne"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "&Elevée"
+
+#: editors/tasktree.py:325
+msgid "&New sub-task"
+msgstr "&Nouvelle sous-tâche"
+
+#: editors/websiteeditor.py:59
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:96
+msgid "Link to"
+msgstr "Relier à"
+
+#: ginkgo.py:106
+msgid "&File"
+msgstr "&Fichier"
+
+#: ginkgo.py:109
+msgid "&New"
+msgstr "&Nouveau"
+
+#: ginkgo.py:123
+msgid "&Edit"
+msgstr "&Edition"
+
+#: ginkgo.py:128
+msgid "&View"
+msgstr "&Voir"
+
+#: ginkgo.py:138
+msgid "Toolbar"
+msgstr "Barre d'outils"
+
+#: ginkgo.py:145 ginkgo.py:146
+msgid "New"
+msgstr "Nouveau"
+
+#: ginkgo.py:183 ginkgo.py:187
+msgid "Search"
+msgstr "Rechercher"
+
+#: ginkgo.py:270
+msgid "New Task"
+msgstr "Nouvelle tâche"
+
+#: ginkgo.py:312
+msgid "New %1"
+msgstr "Nouveau %1"
+
+#: ginkgo.py:446
+msgid "Select File - Ginkgo"
+msgstr "Sélection de fichier"
+
+#: ginkgo.py:549 ginkgo.py:551
+msgid "Context - Ginkgo"
+msgstr "Contexte"
+
+#: ginkgo.py:549
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "Le contexte a été mis à jour avec succès."
+
+#: ginkgo.py:551
+msgid "An error occurred while updating the context."
+msgstr ""
+
+#: ginkgo.py:595
+msgid "Search Results"
+msgstr "Résultats de recherche"
+
+#: ginkgo.py:678
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:679
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr ""
+
+#: ginkgo.py:681
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginkgo est un navigateur pour Nepomuk, le toolkit sémantique de KDE."
+
+#: ginkgo.py:683
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr "Ginkgo permet de créer et d'explorer des liens entre des éléments d'information "
+"personnels comme des contacts, des projets, des fichiers et des pages Web."
+
+#: ginkgo.py:691
+msgid "Stéphane Laurière"
+msgstr ""
+
+#: ginkgo.py:691
+msgid "Developer"
+msgstr ""
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Stéphane Laurière"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "slauriere@mandriva.com"
