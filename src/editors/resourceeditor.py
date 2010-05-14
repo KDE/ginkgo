@@ -17,7 +17,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
-
+from PyKDE4.kdecore import i18n
 from editors.relationstable import RelationsTable
 from editors.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
@@ -56,7 +56,7 @@ class ResourceEditor(QWidget):
 
     def selectIcon(self):
         path = QFileInfo("~/").path()
-        fname = QFileDialog.getOpenFileName(self, "Select Icon - Ginkgo", path, "Images (*.png *.jpg *.jpeg *.bmp)")
+        fname = QFileDialog.getOpenFileName(self, i18n("Select Icon - Ginkgo"), path, i18n("Images (*.png *.jpg *.jpeg *.bmp)"))
         
         #first save the resource to make sure it exists
         self.save()
@@ -122,8 +122,8 @@ class ResourceEditorUi(object):
         self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
         self.propsTable = ResourcePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
         
-        relpropWidget.addTab(self.relationsTable , "Relations")
-        relpropWidget.addTab(self.propsTable, "Properties")
+        relpropWidget.addTab(self.relationsTable , i18n("Relations"))
+        relpropWidget.addTab(self.propsTable, i18n("Properties"))
         
 #        self.relationsLabel.setBuddy(relationsTable)
 #        vboxlayout.addWidget(self.relationsLabel)
@@ -131,7 +131,7 @@ class ResourceEditorUi(object):
         
         rightpane.addWidget(descriptionWidget)
         rightpane.addWidget(relpropWidget)
-        rightpane.setSizes([20,400])
+        rightpane.setSizes([100,300])
         
         #self.tabs.addTab(self.description, "Description")
         #self.tabs.setTabPosition(QTabWidget.North)
@@ -156,7 +156,7 @@ class ResourceEditorUi(object):
 
             
     def retranslateUi(self):
-        self.descriptionLabel.setText(QApplication.translate("ResourceEditor", "&Description:", None, QApplication.UnicodeUTF8))
+        self.descriptionLabel.setText(QApplication.translate("ResourceEditor", i18n("&Description:"), None, QApplication.UnicodeUTF8))
         #self.relationsLabel.setText(QApplication.translate("ResourceEditor", "&Relations:", None, QApplication.UnicodeUTF8))
         
 
@@ -184,7 +184,7 @@ class ResourceEditorUi(object):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        nameBox = QGroupBox("Name")
+        nameBox = QGroupBox(i18n("Name"))
         #self.name_label = QLabel(propertiesWidget)
         #self.name_label.setObjectName("name_label")
         #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)

@@ -21,6 +21,7 @@ from dao import datamanager, PIMO, NCO, NFO, NIE
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi
 from util.krun import krun
 from PyKDE4.kdecore import KUrl
+from PyKDE4.kdecore import i18n
 
 class WebsiteEditor(ResourceEditor):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None):
@@ -50,19 +51,19 @@ class WebsiteEditorUi(ResourceEditorUi):
         self.name.setObjectName("name")
         self.name.setMinimumWidth(180)
         self.name.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        fnameBox = QGroupBox("Name")
+        fnameBox = QGroupBox(i18n("Name"))
         vbox = QVBoxLayout(fnameBox)
         vbox.addWidget(self.name)
         self.gridlayout.addWidget(fnameBox, 0, 0, 1, 1)
        
-        box = QGroupBox("URL")
+        box = QGroupBox(i18n("URL"))
         vbox = QVBoxLayout(box)
         self.url = QLineEdit(propertiesWidget)
         self.url.setObjectName("url")
         vbox.addWidget(self.url)
         
         button = QPushButton(propertiesWidget)
-        button.setText("Open")
+        button.setText(i18n("Open"))
         button.clicked.connect(self.openWebPage)
         vbox.addWidget(button)
         

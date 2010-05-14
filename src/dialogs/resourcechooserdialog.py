@@ -17,6 +17,7 @@ from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButton
 from PyKDE4 import nepomuk
 from editors.resourcestable import ResourcesTable
 from editors.resourcesbytypetable import ResourcesByTypeTable
+from PyKDE4.kdecore import i18n
 
 class ResourceChooserDialogUi(object):
 
@@ -56,7 +57,7 @@ class ResourceChooserDialogUi(object):
             self.dialog.accept()
 
     def retranslateUi(self, dialog):
-        dialog.setWindowTitle(QApplication.translate("ResourceChooserDialog", "Link to...", None, QApplication.UnicodeUTF8))
+        dialog.setWindowTitle(QApplication.translate("ResourceChooserDialog", i18n("Link to..."), None, QApplication.UnicodeUTF8))
         #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("TaskTreeDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
 
 class ResourceChooserDialog(QDialog, ResourceChooserDialogUi):

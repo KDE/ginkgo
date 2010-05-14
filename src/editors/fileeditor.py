@@ -20,8 +20,7 @@ from dao import datamanager, PIMO, NCO, NFO
 from os import listdir
 from os.path import isfile, isdir, expanduser, join
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi
-import codecs
-
+from PyKDE4.kdecore import i18n
 
 class FileEditor(ResourceEditor):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None):
@@ -46,7 +45,7 @@ class FileEditorUi(ResourceEditorUi):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        nameBox = QGroupBox("Name")
+        nameBox = QGroupBox(i18n("Name"))
         #self.name_label = QLabel(propertiesWidget)
         #self.name_label.setObjectName("name_label")
         #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
@@ -56,7 +55,7 @@ class FileEditorUi(ResourceEditorUi):
         vbox.addWidget(self.name)
         
         button = QPushButton(propertiesWidget)
-        button.setText("Open")
+        button.setText(i18n("Open"))
         button.clicked.connect(self.editor.openFile)
         vbox.addWidget(button)
 
@@ -64,7 +63,6 @@ class FileEditorUi(ResourceEditorUi):
         #self.name_label.setBuddy(self.name)
   
         
-
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)
         

@@ -160,7 +160,7 @@ class ResourcesTable(QWidget):
     
     #abstract            
     def labelHeaders(self):
-        return ["Name"]
+        return [i18n("Name")]
   
         
     def addResource(self, resource):
@@ -190,16 +190,16 @@ class ResourcesTable(QWidget):
 #            p1.poll()
 #            #system('%s %s' % ())
 #            return True
-        if key == '&Open in new tab':
+        if key == i18n('&Open in new tab'):
             for uri in selectedUris:
                 self.mainWindow.openResource(uri, newTab=True)
-        elif key == '&Delete':
+        elif key == i18n('&Delete'):
             for uri in selectedUris:
                 self.mainWindow.removeResource(uri)
-        elif key == "Open &file":
+        elif key == i18n("Open &file"):
             for uri in selectedUris:
                 self.mainWindow.openResourceExternally(uri, True)
-        elif key == "Open &page":
+        elif key == i18n("Open &page"):
             for uri in selectedUris:
                 self.mainWindow.openResourceExternally(uri, False)
 

@@ -17,6 +17,7 @@ from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
+from PyKDE4.kdecore import i18n
 from editors.resourcecontextmenu import ResourceContextMenu
 
 
@@ -287,11 +288,11 @@ class TaskTree(QWidget):
 
 
     def processAction(self, key, selectedUris):
-        if key == '&New sub-task':
+        if key == i18n('&New sub-task'):
             self.mainWindow.newTask(superTaskUri=selectedUris[0])
-        elif key == '&Open in new tab':
+        elif key == i18n('&Open in new tab'):
             self.mainWindow.openResource(uri=selectedUris[0], newTab=True)
-        elif key == '&Delete':
+        elif key == i18n('&Delete'):
             self.mainWindow.removeResource(selectedUris[0])
 
 #    def resourceCreatedSlot(self, resource):
@@ -321,7 +322,7 @@ class TaskContextMenu(ResourceContextMenu):
 
     def createActions(self):
         self.addOpenAction()
-        action = QAction("New sub-task", self)
+        action = QAction(i18n("&New sub-task"), self)
         action.setIcon(KIcon("view-task-add"))
         action.setProperty("nepomukType", PIMO.Task)
         self.addAction(action)

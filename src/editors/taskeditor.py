@@ -19,6 +19,7 @@ from PyQt4.QtGui import *
 from dao import TMO
 from dialogs.tasktreedialog import TaskTreeDialog
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi
+from PyKDE4.kdecore import i18n
 
 class TaskEditor(ResourceEditor):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None, superTask=None):
@@ -118,11 +119,11 @@ class TaskEditorUi(ResourceEditorUi):
     def retranslateUi(self):
         super(TaskEditorUi, self).retranslateUi()
         #self.name_label.setText(QApplication.translate("TaskEditor", "&Name:", None, QApplication.UnicodeUTF8))
-        self.noSuperTaskRadio.setText(QApplication.translate("TaskEditor", "Non&e", None, QApplication.UnicodeUTF8))
-        self.superTaskRadio.setText(QApplication.translate("TaskEditor", "&Other", None, QApplication.UnicodeUTF8))
-        self.lowPriority.setText(QApplication.translate("TaskEditor", "&Low", None, QApplication.UnicodeUTF8))
-        self.mediumPriority.setText(QApplication.translate("TaskEditor", "&Medium", None, QApplication.UnicodeUTF8))
-        self.highPriority.setText(QApplication.translate("TaskEditor", "&High", None, QApplication.UnicodeUTF8))
+        self.noSuperTaskRadio.setText(QApplication.translate("TaskEditor", i18n("Non&e"), None, QApplication.UnicodeUTF8))
+        self.superTaskRadio.setText(QApplication.translate("TaskEditor", i18n("&Other"), None, QApplication.UnicodeUTF8))
+        self.lowPriority.setText(QApplication.translate("TaskEditor", i18n("&Low"), None, QApplication.UnicodeUTF8))
+        self.mediumPriority.setText(QApplication.translate("TaskEditor", i18n("&Medium"), None, QApplication.UnicodeUTF8))
+        self.highPriority.setText(QApplication.translate("TaskEditor", i18n("&High"), None, QApplication.UnicodeUTF8))
         
 
     def createMainPropertiesWidget(self, parent):

@@ -16,6 +16,7 @@ from PyQt4.QtCore import Qt, SIGNAL, QObject, QMetaObject, QString
 from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog
 from editors.tasktree import TaskTree
 from PyKDE4 import nepomuk
+from PyKDE4.kdecore import i18n
 
 class TaskTreeDialogUi(object):
 
@@ -45,7 +46,7 @@ class TaskTreeDialogUi(object):
 
         
     def retranslateUi(self, dialog):
-        dialog.setWindowTitle(QApplication.translate("TaskTreeDialog", "Task Selection", None, QApplication.UnicodeUTF8))
+        dialog.setWindowTitle(QApplication.translate("TaskTreeDialog", i18n("Task Selection"), None, QApplication.UnicodeUTF8))
 
 class TaskTreeDialog(QDialog, TaskTreeDialogUi):
 

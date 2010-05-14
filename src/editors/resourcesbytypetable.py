@@ -20,6 +20,7 @@ from dao import PIMO, datamanager, NFO
 from os import system
 from os.path import join
 from PyKDE4 import soprano
+from PyKDE4.kdecore import i18n
 from editors.resourcestable import ResourcesTable
 from editors.resourcecontextmenu import ResourceContextMenu
 
@@ -39,7 +40,7 @@ class ResourcesByTypeTable(ResourcesTable):
                 self.addResource(newresource)
 
     def labelHeaders(self):
-        return ["Name"]
+        return [i18n("Name")]
   
     def fetchData(self):
         self.data = datamanager.findResourcesByType(self.nepomukType)

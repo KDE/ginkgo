@@ -17,6 +17,7 @@ from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import KIcon
+from PyKDE4.kdecore import i18n
 from dao import NFO
 
 
@@ -41,13 +42,13 @@ class ResourceContextMenu(QMenu):
         self.addDeleteAction()
 
     def addOpenAction(self):
-        openInNewTabAction = QAction("Open in new tab", self)
+        openInNewTabAction = QAction(i18n("&Open in new tab"), self)
         openInNewTabAction.setIcon(KIcon("tab-new-background-small"))
         self.addAction(openInNewTabAction)
     
     def addDeleteAction(self):
-        action = QAction("Delete", self)
-        action.setToolTip("Delete this resource from the Nepomuk database")
+        action = QAction(i18n("&Delete"), self)
+        action.setToolTip(i18n("Delete this resource from the Nepomuk database"))
         action.setIcon(KIcon("edit-delete"))
         self.addAction(action)
 
@@ -55,10 +56,10 @@ class ResourceContextMenu(QMenu):
         if len(self.selectedUris) == 1:
             resource = Nepomuk.Resource(self.selectedUris[0])
             if resource and NFO.FileDataObject in resource.types(): 
-                action = QAction("Open file", self)
+                action = QAction(i18n("Open &file"), self)
                 self.addAction(action)
     
             if resource and NFO.Website in resource.types():
-                action = QAction("Open page", self)
+                action = QAction(i18n("Open &page"), self)
                 self.addAction(action)
         

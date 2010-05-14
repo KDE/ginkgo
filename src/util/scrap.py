@@ -44,25 +44,8 @@ from PyKDE4.kdecore import KUrl
 ##url = KUrl(QString("http://www.google.com"))
 #run = KRun(url, widget, 0, False)
 
-model = Nepomuk.ResourceManager.instance().mainModel()
-
-
-term  = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue("christophe"))
-query = Nepomuk.Query.Query(term)
-queryString = query.toSparqlQuery()
-iter = model.executeQuery(queryString, Soprano.Query.QueryLanguageSparql)
-        
-bindingNames = iter.bindingNames()
-        
-while iter.next() :
-    bindingSet = iter.current()
-    for i in range(len(bindingNames)) :
-        v = bindingSet.value(bindingNames[i])
-        ares = Nepomuk.Resource(v.uri())
-        print ares.genericLabel()
-
-
-#nepomuk.Nepomuk.File f( "/home/foo/bar.txt" );
+text = _('Bookmark has been added successfully')
+print text
 
 #file = Nepomuk.Resource("file:///home/arkub/F/2010-04 OSS Industry Savings.pdf")
 #print file.resourceUri()

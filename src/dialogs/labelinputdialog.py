@@ -14,6 +14,7 @@
 
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QMetaObject, QString, QSize
 from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog, QWidget, QSizePolicy
+from PyKDE4.kdecore import i18n
 
 class LabelInputDialogUi(object):
     def setupUi(self, dialog):
@@ -46,9 +47,9 @@ class LabelInputDialogUi(object):
         #dialog.setTabOrder(self.yearSpinBox, self.minutesSpinBox)
         
     def retranslateUi(self, dialog):
-        dialog.setWindowTitle(QApplication.translate("LabelInputDialog", "Open Resource", None, QApplication.UnicodeUTF8))
+        dialog.setWindowTitle(QApplication.translate("LabelInputDialog", i18n("Open Resource"), None, QApplication.UnicodeUTF8))
         #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("PersonEditDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
-        self.label.setText(QApplication.translate("LabelInputDialog", "&Name:", None, QApplication.UnicodeUTF8))
+        self.label.setText(QApplication.translate("LabelInputDialog", i18n("&Name:"), None, QApplication.UnicodeUTF8))
 
     
 

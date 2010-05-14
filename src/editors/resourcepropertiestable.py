@@ -20,6 +20,7 @@ from dao import PIMO, datamanager, NFO, NIE
 from os import system
 from os.path import join
 from PyKDE4 import soprano
+from PyKDE4.kdecore import i18n
 import os
 import subprocess
    
@@ -135,7 +136,7 @@ class ResourcePropertiesTable(QWidget):
     
     #abstract            
     def labelHeaders(self):
-        return ["Property", "Value"]
+        return [i18n("Property"), i18n("Value")]
   
 
     def fetchData(self):

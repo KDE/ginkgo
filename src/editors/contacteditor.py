@@ -22,6 +22,7 @@ from os import listdir
 from os.path import isfile, isdir, expanduser, join
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi
 import codecs
+from PyKDE4.kdecore import i18n
 
 
 class ContactEditor(ResourceEditor):
@@ -70,7 +71,7 @@ class ContactEditorUi(ResourceEditorUi):
         
         self.firstname.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 #        self.firstname_label.setBuddy(self.firstname)
-        fnameBox = QGroupBox("First Name")
+        fnameBox = QGroupBox(i18n("First Name"))
         #self.name_label = QLabel(propertiesWidget)
         #self.name_label.setObjectName("name_label")
         #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
@@ -87,7 +88,7 @@ class ContactEditorUi(ResourceEditorUi):
         #self.gridlayout.addWidget(self.lastname, 1, 1, 1, 1)
         #self.lastname_label.setBuddy(self.lastname)
         
-        lnameBox = QGroupBox("Last Name")
+        lnameBox = QGroupBox(i18n("Last Name"))
         #self.name_label = QLabel(propertiesWidget)
         #self.name_label.setObjectName("name_label")
         #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
@@ -95,7 +96,7 @@ class ContactEditorUi(ResourceEditorUi):
         vbox.addWidget(self.lastname)
         self.gridlayout.addWidget(lnameBox, 1, 0, 1, 1)
         
-        box = QGroupBox("Email")
+        box = QGroupBox(i18n("E-mail"))
         vbox = QVBoxLayout(box)
         self.email = QLineEdit(propertiesWidget)
         self.email.setObjectName("email")
@@ -119,7 +120,7 @@ class ContactEditorUi(ResourceEditorUi):
 #        self.gridlayout.addWidget(self.phone, 3, 1, 1, 1)
 #        self.phone_label.setBuddy(self.phone)
 
-        box = QGroupBox("Phone")
+        box = QGroupBox(i18n("Phone"))
         vbox = QVBoxLayout(box)
         self.phone = QLineEdit(propertiesWidget)
         self.phone.setObjectName("phone")
