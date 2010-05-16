@@ -21,27 +21,37 @@ from os import system
 from os.path import join
 from PyKDE4.soprano import Soprano
 from PyKDE4.kdeui import KIcon
-from editors.resourcestable import ResourcesTable
+from PyKDE4.kdecore import i18n
+from editors.resourcestable import ResourcesTable, ResourcesTableModel
 from util import mime
 from editors.resourcecontextmenu import ResourceContextMenu
 
 
+            
 class RelationsTable(ResourcesTable):
     
     def __init__(self, mainWindow=False, dialogMode=False, resource=None):
         self.resource=resource
         super(RelationsTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode)
-        
-        
-    def labelHeaders(self):
-        return ["Name"]
+        #override the column policy
+#        self.table.horizontalHeader().setResizeMode(0,QHeaderView.Interactive)
+#        self.table.horizontalHeader().setStretchLastSection(True)
+#        self.table.resizeColumnsToContents()
 
-    def fetchData(self):
+
+    def createModel(self):
+        
+        self.model = ResourcesTableModel(self)
+        self.model.setHeaders([i18n("Name"), i18n("Date"),i18n("Type") ])
         
         if self.resource:
-            self.data = datamanager.findRelations(self.resource.uri())
-        else:
-            self.data = []
+            resources = datamanager.findRelations(self.resource.uri())
+            #TODO: find built-in conversion
+            ressourceArray = []
+            for elt in resources:
+                ressourceArray.append(elt)
+            self.model.setResources(ressourceArray)
+
   
     def statementAddedSlot(self, statement):
         predicate = statement.predicate().uri()
@@ -62,8 +72,8 @@ class RelationsTable(ResourcesTable):
         object = statement.object().uri()
         
         if predicate == Soprano.Vocabulary.NAO.isRelated() or predicate == PIMO.isRelated:
-            self.removeResource(subject.toString())
-            self.removeResource(object.toString())
+            self.removeResource(subject)
+            self.removeResource(object)
 
         #if a resource was completely removed, remove it from the relation table as well
         super(RelationsTable, self).statementRemovedSlot(statement)

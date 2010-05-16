@@ -50,13 +50,13 @@ def removeResource(uri):
     resource.remove()
 
 
-def findResourcesByType(nepomukType):
+def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None):
                 
     nepomukType = Nepomuk.Types.Class(nepomukType)
     term = Nepomuk.Query.ResourceTypeTerm(nepomukType)
     
     query = Nepomuk.Query.Query(term);
-    queryString = query.toSparqlQuery();
+    sparql = query.toSparqlQuery();
     
     #dirModel =  KDirModel()
     #searchUrl = query.toSearchUrl();
@@ -67,13 +67,19 @@ def findResourcesByType(nepomukType):
     
     #queryString = "select distinct ?r  where { ?r a ?v1 . ?v1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> <%s> .   }" % typeUri
     
-    return executeQuery(queryString)
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
 
 
-def executeAsyncQuery(sparql):
+def executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot):
     model = Nepomuk.ResourceManager.instance().mainModel()
     #iter = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
-    Soprano.Util.AsyncQuery.executeQuery(model, sparql, Soprano.Query.QueryLanguageSparql)
+    query = Soprano.Util.AsyncQuery.executeQuery(model, sparql, Soprano.Query.QueryLanguageSparql)
+    #self.query, SIGNAL("nextReady(Soprano.Util.AsyncQuery* ) "), self.queryNextReadySlot)
+    query.nextReady.connect(queryNextReadySlot)
+    if queryFinishedSlot:
+        query.finished.connect(queryFinishedSlot)
+
+
 
 def executeQuery(sparql):
         
@@ -106,8 +112,6 @@ def findRelations(uri):
         related.add(Nepomuk.Resource(elt))
     
     pimoRelatedInverse = Nepomuk.ResourceManager.instance().allResourcesWithProperty(PIMO.isRelated, Nepomuk.Variant(resource))
-
-
     relations = related.union(relatedInverse).union(pimoRelatedInverse)
     
     return relations
@@ -117,17 +121,21 @@ def findRelations(uri):
     #return data
 
 
-def findResourcesByLabel(label):
+
+def findResourcesByLabel(label, queryNextReadySlot, queryFinishedSlot=None):
+    #handle regex
+    label = label.replace("*",".*")
+    label = label.replace("?",".")
+   
+    sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"^%s\", \"i\")  }" % label 
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
     
+
+def findResourcesByLabelSync(label):
     queryString = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"%s\", \"i\")  }" % label 
-    
-    #queryString  ="select ?p ?o where {<nepomuk:/res/baf31883-a344-4b66-8031-b937447043e9> ?p ?o}"
-    
     model = Nepomuk.ResourceManager.instance().mainModel()
-    
     iter = model.executeQuery(queryString, Soprano.Query.QueryLanguageSparql)
     bindingNames = iter.bindingNames()
-
     data = []
     while iter.next() :
         bindingSet = iter.current()
@@ -171,7 +179,7 @@ def findResourceLiteralProperties(resource):
     
     return data
 
-def fullTextSearch(term):
+def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None):
     if term is None:
         return
     
@@ -181,9 +189,9 @@ def fullTextSearch(term):
     term  = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(term))
     query = Nepomuk.Query.Query(term)
     sparql = query.toSparqlQuery()
-    print sparql
-    data = executeQuery(sparql)
-    return data
+    #data = executeQuery(sparql)
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
+
 
     
 if __name__ == "__main__":

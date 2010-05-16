@@ -156,7 +156,7 @@ class ResourceEditorUi(object):
 
             
     def retranslateUi(self):
-        self.descriptionLabel.setText(QApplication.translate("ResourceEditor", i18n("&Description:"), None, QApplication.UnicodeUTF8))
+        self.descriptionLabel.setText( i18n("&Description:"))
         #self.relationsLabel.setText(QApplication.translate("ResourceEditor", "&Relations:", None, QApplication.UnicodeUTF8))
         
 

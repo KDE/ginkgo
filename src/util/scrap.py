@@ -9,7 +9,7 @@ from PyKDE4.kio import KDirModel, KRun
 from PyQt4.QtCore import QUrl, QVariant, QString
 from PyQt4.QtGui import *
 
-from dao import NCO
+from dao import NCO, PIMO
 
 import sys
 from PyKDE4.kdecore import ki18n, KAboutData, KCmdLineArgs
@@ -44,9 +44,14 @@ from PyKDE4.kdecore import KUrl
 ##url = KUrl(QString("http://www.google.com"))
 #run = KRun(url, widget, 0, False)
 
-text = _('Bookmark has been added successfully')
-print text
 
+rootClass = Nepomuk.Types.Class(PIMO.Agent)
+for sc in rootClass.subClasses():
+    print sc.name()
+
+model = Nepomuk.ResourceManager.instance().mainModel()
+
+model.createClass("","hello","hello","")
 #file = Nepomuk.Resource("file:///home/arkub/F/2010-04 OSS Industry Savings.pdf")
 #print file.resourceUri()
 #

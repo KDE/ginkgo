@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+#
 ## This file may be used under the terms of the GNU General Public
 ## License version 2.0 as published by the Free Software Foundation
 ## and appearing in the file LICENSE included in the packaging of
@@ -21,8 +21,7 @@ from os import system
 from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.kdecore import i18n
-from editors.resourcestable import ResourcesTable
-from editors.resourcecontextmenu import ResourceContextMenu
+from editors.resourcestable import ResourcesTable, ResourcesTableModel,ResourcesSortFilterProxyModel
 
 class ResourcesByTypeTable(ResourcesTable):
 
@@ -39,9 +38,11 @@ class ResourcesByTypeTable(ResourcesTable):
                 newresource = Nepomuk.Resource(subject)
                 self.addResource(newresource)
 
-    def labelHeaders(self):
-        return [i18n("Name")]
-  
-    def fetchData(self):
-        self.data = datamanager.findResourcesByType(self.nepomukType)
+        
+    def createModel(self):
+        self.model = ResourcesTableModel(self)
+        #self.model.setHeaders(["Full Name", "Creation Date", "Last Update"])
+        self.model.setHeaders([i18n("Name"), i18n("Date")])
+        datamanager.findResourcesByType(self.nepomukType, self.model.queryNextReadySlot, self.queryFinishedSlot)
+    
 

@@ -119,11 +119,11 @@ class TaskEditorUi(ResourceEditorUi):
     def retranslateUi(self):
         super(TaskEditorUi, self).retranslateUi()
         #self.name_label.setText(QApplication.translate("TaskEditor", "&Name:", None, QApplication.UnicodeUTF8))
-        self.noSuperTaskRadio.setText(QApplication.translate("TaskEditor", i18n("Non&e"), None, QApplication.UnicodeUTF8))
-        self.superTaskRadio.setText(QApplication.translate("TaskEditor", i18n("&Other"), None, QApplication.UnicodeUTF8))
-        self.lowPriority.setText(QApplication.translate("TaskEditor", i18n("&Low"), None, QApplication.UnicodeUTF8))
-        self.mediumPriority.setText(QApplication.translate("TaskEditor", i18n("&Medium"), None, QApplication.UnicodeUTF8))
-        self.highPriority.setText(QApplication.translate("TaskEditor", i18n("&High"), None, QApplication.UnicodeUTF8))
+        self.noSuperTaskRadio.setText(i18n("Non&e"))
+        self.superTaskRadio.setText(i18n("&Other"))
+        self.lowPriority.setText(i18n("&Low"))
+        self.mediumPriority.setText(i18n("&Medium"))
+        self.highPriority.setText(i18n("&High"))
         
 
     def createMainPropertiesWidget(self, parent):

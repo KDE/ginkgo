@@ -46,7 +46,7 @@ class TaskTreeDialogUi(object):
 
         
     def retranslateUi(self, dialog):
-        dialog.setWindowTitle(QApplication.translate("TaskTreeDialog", i18n("Task Selection"), None, QApplication.UnicodeUTF8))
+        dialog.setWindowTitle(i18n("Task Selection"))
 
 class TaskTreeDialog(QDialog, TaskTreeDialogUi):
 

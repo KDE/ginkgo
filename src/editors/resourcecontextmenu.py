@@ -63,3 +63,4 @@ class ResourceContextMenu(QMenu):
                 action = QAction(i18n("Open &page"), self)
                 self.addAction(action)
         
+

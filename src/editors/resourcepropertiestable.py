@@ -29,7 +29,7 @@ class ResourcePropertiesTable(QWidget):
 
 
     def __init__(self, mainWindow=False, resource=None, dialogMode=False):
-        super(ResourcePropertiesTable, self).__init__(mainWindow.editors)
+        super(ResourcePropertiesTable, self).__init__(mainWindow.workarea)
 
         self.resource = resource
         self.mainWindow = mainWindow
@@ -78,15 +78,9 @@ class ResourcePropertiesTable(QWidget):
 
         #self.table.setDragDropMode(QAbstractItemView.DragDrop)
         self.table.setDragDropMode(QAbstractItemView.NoDragDrop)
-        self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.table.setSelectionMode(QTableWidget.SingleSelection)
         self.table.setSortingEnabled(True)
         self.table.setShowGrid(True)
         self.table.verticalHeader().setVisible(False)
-        self.table.setAlternatingRowColors(True)
-        self.table.setEditTriggers(QTableWidget.NoEditTriggers)
-        self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.table.setSelectionMode(QTableWidget.SingleSelection)
 
         self.table.setColumnCount(len(self.labelHeaders()))
         self.table.setHorizontalHeaderLabels(self.labelHeaders())

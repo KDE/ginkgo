@@ -25,13 +25,14 @@ class ResourceChooserDialogUi(object):
         
         self.dialog = dialog
         dialog.setObjectName("dialog")
-        dialog.resize(300, 300)
+        dialog.resize(500, 300)
         self.gridlayout = QGridLayout(dialog)
         self.gridlayout.setMargin(9)
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
 
         self.table = ResourcesByTypeTable(mainWindow=dialog.parent(), nepomukType=nepomukType, dialogMode=True, excludeList=excludeList)
+        self.table.table.setColumnWidth(0,250)
         
         self.gridlayout.addWidget(self.table, 0, 0, 1, 1)
       
@@ -57,8 +58,7 @@ class ResourceChooserDialogUi(object):
             self.dialog.accept()
 
     def retranslateUi(self, dialog):
-        dialog.setWindowTitle(QApplication.translate("ResourceChooserDialog", i18n("Link to..."), None, QApplication.UnicodeUTF8))
-        #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("TaskTreeDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
+        dialog.setWindowTitle(i18n("Link to..."))
 
 class ResourceChooserDialog(QDialog, ResourceChooserDialogUi):
 
@@ -67,12 +67,7 @@ class ResourceChooserDialog(QDialog, ResourceChooserDialogUi):
         self.setupUi(self, nepomukType, excludeList)
 
     def accept(self):
-        
-        indexes = self.table.table.selectionModel().selectedRows()
-        self.selection =  []
-        for index in indexes:
-            item = self.table.table.item(index.row(), 0)
-            self.selection.append(item.data(Qt.UserRole).toPyObject())
+        self.selection =  self.table.selectedResources()
         QDialog.accept(self)
 
 if __name__ == "__main__":

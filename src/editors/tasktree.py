@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#
 ## This file may be used under the terms of the GNU General Public
 ## License version 2.0 as published by the Free Software Foundation
 ## and appearing in the file LICENSE included in the packaging of
@@ -21,7 +21,7 @@ from PyKDE4.kdecore import i18n
 from editors.resourcecontextmenu import ResourceContextMenu
 
 
-class TreeItem(object):
+class Node(object):
     def __init__(self, data, parent=None):
         self.parentItem = parent
         self.itemData = data
@@ -61,7 +61,7 @@ class TreeItem(object):
 
         for row in range(count):
             data = [None for v in range(columns)]
-            item = TreeItem(data, self)
+            item = Node(data, self)
             self.childItems.insert(position, item)
 
         return True
@@ -174,7 +174,7 @@ class TreeModel(QAbstractItemModel):
 
     def setupModelData(self, hiddenTask):
 
-        self.rootItem = TreeItem("Name")
+        self.rootItem = Node("Name")
         tasks = datamanager.findRootTasks()
         self.addChildren(self.rootItem, tasks, hiddenTask)
             
@@ -182,7 +182,7 @@ class TreeModel(QAbstractItemModel):
     def addChildren(self, node, tasks, hiddenTask):
         for task in tasks:
             if hiddenTask is None or not task.uri() == hiddenTask.uri(): 
-                child = TreeItem(task, node)
+                child = Node(task, node)
                 node.appendChild(child)
                 subtasks = datamanager.findSubTasks(task.uri())
                 self.addChildren(child, subtasks, hiddenTask)
@@ -204,11 +204,11 @@ class TaskTreeView(QTreeView):
         #self.setContextMenuPolicy(Qt.CustomContextMenu)
         #self.setSelectionMode(QAbstractItemView.ContiguousSelection)
         self.setSortingEnabled(True)
-        delegate = ItemDelegate()
+        delegate = NodeDelegate()
         self.setItemDelegate(delegate)
 
 
-class ItemDelegate(QItemDelegate):
+class NodeDelegate(QItemDelegate):
     def __init__(self, parent=None):
         super(QItemDelegate, self).__init__(parent)
     

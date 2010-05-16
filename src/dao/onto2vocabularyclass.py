@@ -45,10 +45,10 @@ def disambiguateKeyword(name, className):
 
 def extractRelevantResources(graph):
     resources = []
-    it = graph.listStatements( Soprano.Node(), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node() )
+    it = graph.listStatements( Soprano.ResourceNode(), Soprano.ResourceNode(Soprano.Vocabulary.RDF.type()), Soprano.ResourceNode() )
     while it.next():
         s = it.current()
-        if not s.context().isValid() or not graph.containsStatement( s.context(), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.NRL.GraphMetadata()) ):
+        if not s.context().isValid() or not graph.containsStatement( s.context(), Soprano.ResourceNode(Soprano.Vocabulary.RDF.type()), Soprano.ResourceNode(Soprano.Vocabulary.NRL.GraphMetadata()) ):
             resources.append(s.subject())
     return resources
 
