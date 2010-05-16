@@ -69,7 +69,7 @@ class TypesView(QWidget):
     def update(self):
         key = self.ontologies.currentText()
         if key != self.ontology:
-            self.mainWindow.setCursor(Qt.WaitCursor)
+            self.mainWindow.workarea.setCursor(Qt.WaitCursor)
             model = ResourcesTreeModel(mainWindow=self.mainWindow)
             if key == "All":
                 model.loadData(Soprano.Vocabulary.RDFS.Resource())
@@ -78,7 +78,7 @@ class TypesView(QWidget):
             
             self.typesTree.tree.setModel(model)
             self.ontology = key
-            self.mainWindow.unsetCursor()
+            self.mainWindow.workarea.unsetCursor()
         self.ontology = key
         
         

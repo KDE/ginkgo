@@ -31,7 +31,7 @@ from editors.taskeditor import TaskEditor
 from editors.tasktree import TaskTree
 from util.krun import krun
 from editors.resourcestable import ResourcesTable
-from dialogs.labelinputdialog import LabelInputDialog
+from dialogs.labelinputmatchdialog import LabelInputMatchDialog
 from views.typesview import TypesView
 from editors.classeditor import ClassEditor
 
@@ -405,6 +405,7 @@ class Ginkgo(KMainWindow):
                 i18n("Are you sure you want to delete <i>%1</i>?", resource.genericLabel()),
                 QMessageBox.Yes | QMessageBox.Cancel)
         if reply == QMessageBox.Yes:
+            self.workarea.setCursor(Qt.WaitCursor)
             datamanager.removeResource(uri)
     
             #TODO: check
@@ -414,7 +415,7 @@ class Ginkgo(KMainWindow):
                     for index in range(0, self.workarea.count()):
                         if editor == self.workarea.widget(index):
                             self.workarea.removeTab(index)
-            
+            self.workarea.unsetCursor()
             
         elif reply == QMessageBox.No:
             pass
@@ -425,7 +426,7 @@ class Ginkgo(KMainWindow):
         
         
     def showOpenResourceDialog(self):
-        dialog = LabelInputDialog(mainWindow = self)
+        dialog = LabelInputMatchDialog(mainWindow = self)
         if dialog.exec_():
             resource = dialog.selection()
             if resource:
@@ -463,11 +464,13 @@ class Ginkgo(KMainWindow):
             dialog = ResourceChooserDialog(self, nepomukType, excludeList)
             if dialog.exec_():
                 #save the current resource to make sure it exists in the db, then draw the relations
+                widget.setCursor(Qt.WaitCursor)
                 widget.save()
                 selection = dialog.selection
                 for resource in selection:
                     #item = QUrl(id)
                     widget.resource.addProperty(Soprano.Vocabulary.NAO.isRelated(), Nepomuk.Variant(resource))
+                widget.unsetCursor()
                 
     def linkToFile(self):
         path = QFileInfo(".").path()
@@ -494,6 +497,7 @@ class Ginkgo(KMainWindow):
 
        
     def unlink(self, predicateUrl, resourceUris, bidirectional=False):
+        self.workarea.setCursor(Qt.WaitCursor)
         resource = self.currentResource()
         if resource and resourceUris and len(resourceUris) > 0:
             for uri in resourceUris:
@@ -501,7 +505,7 @@ class Ginkgo(KMainWindow):
                 resource.removeProperty(predicateUrl, Nepomuk.Variant(target.resourceUri()))
                 if bidirectional:
                     target.removeProperty(predicateUrl, Nepomuk.Variant(resource.resourceUri()))
-        
+        self.workarea.unsetCursor()
         
     def closeEvent(self, event):
         self.saveSettings()
@@ -538,6 +542,7 @@ class Ginkgo(KMainWindow):
     
     def createPlaceButton(self, nepomukType, label):
         button = KPushButton(self.placesInternalWidget)
+        button.setStyleSheet("text-align:left")
         button.setObjectName(label)
         button.setText(label)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -595,6 +600,7 @@ class Ginkgo(KMainWindow):
             self.openResource(uri, True, True)
 
     def save(self):
+        self.workarea.setCursor(Qt.WaitCursor)
         currentEditor = self.workarea.currentWidget()
         index = self.workarea.currentIndex()
         currentEditor.save()
@@ -604,6 +610,7 @@ class Ginkgo(KMainWindow):
                 label = label[:self.maxTabTitleLength()] + "..."
             self.workarea.setTabText(index, label)
             self.currentTabChangedSlot(index)
+        self.workarea.unsetCursor()
 
     def delete(self):
         resource = self.currentResource()

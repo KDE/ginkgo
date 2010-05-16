@@ -18,10 +18,10 @@ from PyKDE4.kdecore import i18n
 from editors.resourcestable import ResourcesTable
 from dao import datamanager
 
-class LabelInputDialog(QDialog):
+class LabelInputMatchDialog(QDialog):
 
     def __init__(self, mainWindow=None, parent=None):
-        super(LabelInputDialog, self).__init__(parent)
+        super(LabelInputMatchDialog, self).__init__(parent)
         self.mainWindow = mainWindow
         self.setupUi(self)
         self.validate()
@@ -107,7 +107,7 @@ class LabelInputDialog(QDialog):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    form = LabelInputDialog(None)
+    form = LabelInputMatchDialog(None)
     form.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
     form.show()
     

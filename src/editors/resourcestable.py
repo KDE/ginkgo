@@ -196,6 +196,9 @@ class ResourcesTable(QWidget):
         self.dialogMode = dialogMode
         
         self.searchDialogMode = searchDialogMode
+        if self.searchDialogMode:
+            self.dialogMode = True
+            
         self.excludeList = excludeList
         self.resources = resources
         
