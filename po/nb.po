@@ -1,0 +1,232 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Olav Dahlum <odahlum@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-14 11:58+0200\n"
+"PO-Revision-Date: 2010-05-16 21:10+0200\n"
+"Last-Translator: Olav Dahlum <odahlum@gmail.com>\n"
+"Language-Team: Norwegian Bokmål <cooker-i18n@mandrivalinux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: dialogs/labelinputdialog.py:50
+msgid "Open Resource"
+msgstr "Åpne ressurs"
+
+#: dialogs/labelinputdialog.py:52
+msgid "&Name:"
+msgstr "&Navn:"
+
+#: dialogs/resourcechooserdialog.py:60 ginkgo.py:89 ginkgo.py:90
+msgid "Link to..."
+msgstr "Lenk til …"
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr ""
+
+#: editors/contacteditor.py:74
+msgid "First Name"
+msgstr "Fornavn"
+
+#: editors/contacteditor.py:91
+msgid "Last Name"
+msgstr "Etternavn"
+
+#: editors/contacteditor.py:99
+msgid "E-mail"
+msgstr "E-post"
+
+#: editors/contacteditor.py:123
+msgid "Phone"
+msgstr "Telefon"
+
+#: editors/fileeditor.py:48 editors/resourceeditor.py:187
+#: editors/resourcesbytypetable.py:43 editors/resourcestable.py:163
+#: editors/websiteeditor.py:54
+msgid "Name"
+msgstr "Navn"
+
+#: editors/fileeditor.py:58 editors/websiteeditor.py:66
+msgid "Open"
+msgstr "Åpne"
+
+#: editors/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr "&Åpne i ny fane"
+
+#: editors/resourcecontextmenu.py:50
+msgid "&Delete"
+msgstr "&Slett"
+
+#: editors/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr ""
+
+#: editors/resourcecontextmenu.py:59 editors/resourcestable.py:199
+msgid "Open &file"
+msgstr "Åpne &fil"
+
+#: editors/resourcecontextmenu.py:63 editors/resourcestable.py:202
+msgid "Open &page"
+msgstr "Åpne &side"
+
+#: editors/resourceeditor.py:59
+msgid "Select Icon - Ginkgo"
+msgstr "Velg ikon - Ginkgo"
+
+#: editors/resourceeditor.py:59
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Bilder (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:125
+msgid "Relations"
+msgstr "Relasjoner"
+
+#: editors/resourceeditor.py:126
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: editors/resourceeditor.py:159
+msgid "&Description:"
+msgstr "&Beskrivelse:"
+
+#: editors/resourcepropertiestable.py:139
+msgid "Property"
+msgstr "Egenskap"
+
+#: editors/resourcepropertiestable.py:139
+msgid "Value"
+msgstr "Verdi"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "&Ingen"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Andre"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Lav"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Medium"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "&Høy"
+
+#: editors/tasktree.py:325
+msgid "&New sub-task"
+msgstr "&Ny deloppgave"
+
+#: editors/websiteeditor.py:59
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:96
+msgid "Link to"
+msgstr "Lenk til"
+
+#: ginkgo.py:106
+msgid "&File"
+msgstr "&Fil"
+
+#: ginkgo.py:109
+msgid "&New"
+msgstr "&Ny"
+
+#: ginkgo.py:123
+msgid "&Edit"
+msgstr "&Rediger"
+
+#: ginkgo.py:128
+msgid "&View"
+msgstr "&Vis"
+
+#: ginkgo.py:138
+msgid "Toolbar"
+msgstr "Verktøylinje"
+
+#: ginkgo.py:145 ginkgo.py:146
+msgid "New"
+msgstr "Ny"
+
+#: ginkgo.py:183 ginkgo.py:187
+msgid "Search"
+msgstr "Søk"
+
+#: ginkgo.py:270
+msgid "New Task"
+msgstr "Ny oppgave"
+
+#: ginkgo.py:312
+msgid "New %1"
+msgstr "Ny %1"
+
+#: ginkgo.py:446
+msgid "Select File - Ginkgo"
+msgstr "Velg fil - Ginkgo"
+
+#: ginkgo.py:549 ginkgo.py:551
+msgid "Context - Ginkgo"
+msgstr ""
+
+#: ginkgo.py:549
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr ""
+
+#: ginkgo.py:551
+msgid "An error occurred while updating the context."
+msgstr ""
+
+#: ginkgo.py:595
+msgid "Search Results"
+msgstr "Søkeresultater"
+
+#: ginkgo.py:678
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:679
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:681
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr ""
+
+#: ginkgo.py:683
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr ""
+
+#: ginkgo.py:691
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:691
+msgid "Developer"
+msgstr "Utvikler"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Olav Dahlum"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "<odahlum@gmail.com>"
+
