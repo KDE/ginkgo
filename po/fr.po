@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-17 18:03+0200\n"
+"POT-Creation-Date: 2010-05-17 18:11+0200\n"
 "PO-Revision-Date: 2010-05-17 17:38+0100\n"
 "Last-Translator: Stéphane <Laurière>\n"
 "Language-Team: Mandriva 18n <cooker-i18n@mandrivalinux.org>\n"
@@ -18,393 +18,396 @@ msgstr ""
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-Basepath: http://svn.mandriva.com/svn/soft/nepomuk/ginkgo/\n"
 
-#: src/dialogs/labelinputmatchdialog.py:116
-#: src/dialogs/resourcechooserdialog.py:61 src/ginkgo.py:84 src/ginkgo.py:85
+#: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:84 ginkgo.py:85
 msgid "Link to..."
 msgstr "Relier à..."
 
-#: src/dialogs/labelinputmatchdialog.py:118
+#: dialogs/labelinputmatchdialog.py:118
 msgid "Open resource"
 msgstr "Ouvrir"
 
-#: src/dialogs/labelinputmatchdialog.py:120
+#: dialogs/labelinputmatchdialog.py:120
 msgid "&Name:"
 msgstr "&Nom:"
 
-#: src/dialogs/tasktreedialog.py:49
+#: dialogs/tasktreedialog.py:49
 msgid "Task Selection"
 msgstr "Sélection de tâche"
 
-#: src/editors/classeditor.py:73
+#: editors/classeditor.py:73
 msgid "Type Name"
 msgstr "Nom"
 
-#: src/editors/contacteditor.py:74
+#: editors/contacteditor.py:74
 msgid "First Name"
 msgstr "Prénom"
 
-#: src/editors/contacteditor.py:91
+#: editors/contacteditor.py:91
 msgid "Last Name"
 msgstr "Nom"
 
-#: src/editors/contacteditor.py:99
+#: editors/contacteditor.py:99
 msgid "E-mail"
 msgstr "E-mail"
 
-#: src/editors/contacteditor.py:123
+#: editors/contacteditor.py:123
 msgid "Phone"
 msgstr "Téléphone"
 
-#: src/editors/fileeditor.py:48 src/editors/resourceeditor.py:189
-#: src/editors/websiteeditor.py:54 src/views/relationstable.py:45
-#: src/views/resourcesbytypetable.py:45 src/views/resourcestable.py:276
+#: editors/fileeditor.py:48 editors/resourceeditor.py:189
+#: editors/websiteeditor.py:54 views/relationstable.py:45
+#: views/resourcesbytypetable.py:45 views/resourcestable.py:276
 msgid "Name"
 msgstr "Nom"
 
-#: src/editors/fileeditor.py:58 src/editors/websiteeditor.py:66
+#: editors/fileeditor.py:58 editors/websiteeditor.py:66
 msgid "Open"
 msgstr "Ouvrir"
 
-#: src/editors/resourceeditor.py:59
+#: editors/resourceeditor.py:59
 msgid "Select Icon - Ginkgo"
 msgstr "Selection d'icône - Gingko"
 
-#: src/editors/resourceeditor.py:59
+#: editors/resourceeditor.py:59
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Images (*.png *.jpg *.jpeg *.bmp)"
 
-#: src/editors/resourceeditor.py:127
+#: editors/resourceeditor.py:127
 msgid "Relations"
 msgstr "Relations"
 
-#: src/editors/resourceeditor.py:128
+#: editors/resourceeditor.py:128
 msgid "Properties"
 msgstr "Propriétés"
 
-#: src/editors/resourceeditor.py:161
+#: editors/resourceeditor.py:161
 msgid "&Description:"
 msgstr "&Description"
 
-#: src/editors/taskeditor.py:122
+#: editors/taskeditor.py:122
 msgid "Non&e"
 msgstr "Aucun&e"
 
-#: src/editors/taskeditor.py:123
+#: editors/taskeditor.py:123
 msgid "&Other"
 msgstr "&Autre"
 
-#: src/editors/taskeditor.py:124
+#: editors/taskeditor.py:124
 msgid "&Low"
 msgstr "&Basse"
 
-#: src/editors/taskeditor.py:125
+#: editors/taskeditor.py:125
 msgid "&Medium"
 msgstr "&Moyenne"
 
-#: src/editors/taskeditor.py:126
+#: editors/taskeditor.py:126
 msgid "&High"
 msgstr "&Elevée"
 
-#: src/editors/websiteeditor.py:59
+#: editors/websiteeditor.py:59
 msgid "URL"
 msgstr "URL"
 
-#: src/ginkgo.py:76
+#: ginkgo.py:76
 msgid "&Save"
 msgstr ""
 
-#: src/ginkgo.py:76
+#: ginkgo.py:76
 msgid "Save"
 msgstr ""
 
-#: src/ginkgo.py:78
+#: ginkgo.py:78
 #, fuzzy
 msgid "&Open"
 msgstr "Ouvrir"
 
-#: src/ginkgo.py:78
+#: ginkgo.py:78
 #, fuzzy
 msgid "Open a resource"
 msgstr "Ouvrir"
 
-#: src/ginkgo.py:79
+#: ginkgo.py:79
 #, fuzzy
 msgid "New &Tab"
 msgstr "Nouvelle tâche"
 
-#: src/ginkgo.py:79
+#: ginkgo.py:79
 #, fuzzy
 msgid "Create new tab"
 msgstr "Créer une nouvelle tâche"
 
-#: src/ginkgo.py:80
+#: ginkgo.py:80
 msgid "Close Tab"
 msgstr ""
 
-#: src/ginkgo.py:80
+#: ginkgo.py:80
 msgid "Close tab"
 msgstr ""
 
-#: src/ginkgo.py:81
+#: ginkgo.py:81
 #, fuzzy
 msgid "&Quit"
 msgstr "&Edition"
 
-#: src/ginkgo.py:81
+#: ginkgo.py:81
 #, fuzzy
 msgid "Close the application"
 msgstr "Créer un nouveau lieu"
 
-#: src/ginkgo.py:91
+#: ginkgo.py:91
 msgid "Link to"
 msgstr "Relier à"
 
-#: src/ginkgo.py:96
+#: ginkgo.py:96
 #, fuzzy
 msgid "File"
 msgstr "&Fichier"
 
-#: src/ginkgo.py:96
+#: ginkgo.py:96
 #, fuzzy
 msgid "Link to file"
 msgstr "Relier à"
 
-#: src/ginkgo.py:99
+#: ginkgo.py:99
 msgid "Set resource as context"
 msgstr ""
 
-#: src/ginkgo.py:99
+#: ginkgo.py:99
 msgid "Set the current resource as context"
 msgstr ""
 
-#: src/ginkgo.py:101 src/ginkgo.py:540
+#: ginkgo.py:101 ginkgo.py:540
 msgid "&File"
 msgstr "&Fichier"
 
-#: src/ginkgo.py:104
+#: ginkgo.py:104
 msgid "&New"
 msgstr "&Nouveau"
 
-#: src/ginkgo.py:118
+#: ginkgo.py:118
 msgid "&Edit"
 msgstr "&Edition"
 
-#: src/ginkgo.py:119 src/views/resourcecontextmenu.py:50
-#: src/views/resourcestree.py:280
+#: ginkgo.py:119 views/resourcecontextmenu.py:50 views/resourcestree.py:280
 msgid "&Delete"
 msgstr "&Supprimer"
 
-#: src/ginkgo.py:119
+#: ginkgo.py:119
 #, fuzzy
 msgid "Delete"
 msgstr "&Supprimer"
 
-#: src/ginkgo.py:123
+#: ginkgo.py:123
 msgid "&View"
 msgstr "&Voir"
 
-#: src/ginkgo.py:129
+#: ginkgo.py:129
 #, fuzzy
 msgid "Types"
 msgstr "Type"
 
-#: src/ginkgo.py:136
+#: ginkgo.py:136
 msgid "Toolbar"
 msgstr "Barre d'outils"
 
-#: src/ginkgo.py:143 src/ginkgo.py:144
+#: ginkgo.py:143 ginkgo.py:144
 msgid "New"
 msgstr "Nouveau"
 
-#: src/ginkgo.py:181 src/ginkgo.py:185
+#: ginkgo.py:181 ginkgo.py:185
 msgid "Search"
 msgstr "Rechercher"
 
-#: src/ginkgo.py:186
+#: ginkgo.py:186
 msgid "Full-text search"
 msgstr ""
 
-#: src/ginkgo.py:268
+#: ginkgo.py:268
 msgid "New Task"
 msgstr "Nouvelle tâche"
 
-#: src/ginkgo.py:279
+#: ginkgo.py:279
 msgid "New Type"
 msgstr "Nouveau Type"
 
-#: src/ginkgo.py:323
+#: ginkgo.py:323
 msgid "New %1"
 msgstr "Nouveau %1"
 
-#: src/ginkgo.py:397
+#: ginkgo.py:397
 msgid "Resource removal"
 msgstr "Suppression de ressource"
 
-#: src/ginkgo.py:398
+#: ginkgo.py:398
 msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Confirmez-vous la suppression de <i>%1</i>?"
 
-#: src/ginkgo.py:471
+#: ginkgo.py:471
 msgid "Select File - Ginkgo"
 msgstr "Sélection de fichier"
 
-#: src/ginkgo.py:531
+#: ginkgo.py:508
+msgid "Places"
+msgstr ""
+
+#: ginkgo.py:531
 msgid "&Contact"
 msgstr "&Contact"
 
-#: src/ginkgo.py:531
+#: ginkgo.py:531
 msgid "&Contacts"
 msgstr "&Contacts"
 
-#: src/ginkgo.py:531
+#: ginkgo.py:531
 msgid "Create new contact"
 msgstr "Créer un nouveau contact"
 
-#: src/ginkgo.py:532
+#: ginkgo.py:532
 msgid "&Project"
 msgstr "&Projet"
 
-#: src/ginkgo.py:532
+#: ginkgo.py:532
 msgid "&Projects"
 msgstr "&Projets"
 
-#: src/ginkgo.py:532
+#: ginkgo.py:532
 msgid "Create new project"
 msgstr "Créer un nouveau projet"
 
-#: src/ginkgo.py:533
+#: ginkgo.py:533
 msgid "&Task"
 msgstr "&Tâche"
 
-#: src/ginkgo.py:533
+#: ginkgo.py:533
 msgid "&Tasks"
 msgstr "&Tâches"
 
-#: src/ginkgo.py:533
+#: ginkgo.py:533
 msgid "Create new task"
 msgstr "Créer une nouvelle tâche"
 
-#: src/ginkgo.py:534
+#: ginkgo.py:534
 msgid "&Organization"
 msgstr "&Organisme"
 
-#: src/ginkgo.py:534
+#: ginkgo.py:534
 msgid "&Organizations"
 msgstr "&Organismes"
 
-#: src/ginkgo.py:534
+#: ginkgo.py:534
 msgid "Create new organization"
 msgstr "Créer un nouvel organisme"
 
-#: src/ginkgo.py:535
+#: ginkgo.py:535
 msgid "&Topic"
 msgstr "&Sujet"
 
-#: src/ginkgo.py:535
+#: ginkgo.py:535
 msgid "&Topics"
 msgstr "&Sujets"
 
-#: src/ginkgo.py:535
+#: ginkgo.py:535
 msgid "Create new topic"
 msgstr "Créer un nouveau sujet"
 
-#: src/ginkgo.py:536
+#: ginkgo.py:536
 msgid "&Event"
 msgstr "&Evénement"
 
-#: src/ginkgo.py:536
+#: ginkgo.py:536
 msgid "&Events"
 msgstr "&Evénements"
 
-#: src/ginkgo.py:536
+#: ginkgo.py:536
 msgid "Create new event"
 msgstr "Créer un nouvel événement"
 
-#: src/ginkgo.py:537
+#: ginkgo.py:537
 msgid "&Location"
 msgstr "&Lieu"
 
-#: src/ginkgo.py:537
+#: ginkgo.py:537
 msgid "&Locations"
 msgstr "&Lieux"
 
-#: src/ginkgo.py:537
+#: ginkgo.py:537
 msgid "Create new location"
 msgstr "Créer un nouveau lieu"
 
-#: src/ginkgo.py:538
+#: ginkgo.py:538
 msgid "&WebPage"
 msgstr "&Page Web"
 
-#: src/ginkgo.py:538
+#: ginkgo.py:538
 msgid "&Web Pages"
 msgstr "&Pages Web"
 
-#: src/ginkgo.py:538
+#: ginkgo.py:538
 msgid "Create new Web page"
 msgstr "Créer une nouvelle page Web"
 
-#: src/ginkgo.py:539
+#: ginkgo.py:539
 msgid "&Note"
 msgstr "&Note"
 
-#: src/ginkgo.py:539
+#: ginkgo.py:539
 msgid "&Notes"
 msgstr "&Notes"
 
-#: src/ginkgo.py:539
+#: ginkgo.py:539
 msgid "Create new note"
 msgstr "Créer une nouvelle note"
 
-#: src/ginkgo.py:540
+#: ginkgo.py:540
 msgid "&Files"
 msgstr "&Fichiers"
 
-#: src/ginkgo.py:540
+#: ginkgo.py:540
 msgid "Create new file"
 msgstr "Créer un nouveau fichier"
 
-#: src/ginkgo.py:642 src/ginkgo.py:644
+#: ginkgo.py:642 ginkgo.py:644
 msgid "Context - Ginkgo"
 msgstr "Contexte"
 
-#: src/ginkgo.py:642
+#: ginkgo.py:642
 msgid "The context has been succesfully updated to <i>%1</i>."
 msgstr "Le contexte a été mis à jour avec succès."
 
-#: src/ginkgo.py:644
+#: ginkgo.py:644
 msgid "An error occurred while updating the context."
 msgstr "Une erreur est survenue lors de la mise à jour du contexte."
 
-#: src/ginkgo.py:710
+#: ginkgo.py:710
 msgid "Search Results"
 msgstr "Résultats de recherche"
 
-#: src/ginkgo.py:821 src/ginkgo.py:844
+#: ginkgo.py:821 ginkgo.py:844
 msgid "Move &up"
 msgstr "Déplacer vers le &haut"
 
-#: src/ginkgo.py:823 src/ginkgo.py:846
+#: ginkgo.py:823 ginkgo.py:846
 msgid "Move &down"
 msgstr "Déplacer vers le &bas"
 
-#: src/ginkgo.py:825 src/ginkgo.py:848
+#: ginkgo.py:825 ginkgo.py:848
 msgid "&Remove entry"
 msgstr "&Supprimer l'entrée"
 
-#: src/ginkgo.py:866
+#: ginkgo.py:866
 msgid "Ginkgo"
 msgstr "Ginkgo"
 
-#: src/ginkgo.py:867
+#: ginkgo.py:867
 msgid "(c) 2010, Mandriva, Stéphane Laurière"
 msgstr "(c) 2010, Mandriva, Stéphane Laurière"
 
-#: src/ginkgo.py:869
+#: ginkgo.py:869
 msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
 msgstr "Ginkgo est un navigateur pour Nepomuk, le toolkit sémantique de KDE."
 
-#: src/ginkgo.py:871
+#: ginkgo.py:871
 msgid ""
 "Ginkgo lets you create and explore links between your personal data such as "
 "e-mails, contacts, files, Web pages."
@@ -413,56 +416,56 @@ msgstr ""
 "d'information personnels comme des contacts, des projets, des fichiers et "
 "des pages Web."
 
-#: src/ginkgo.py:878
+#: ginkgo.py:878
 msgid "Stéphane Laurière"
 msgstr "Stéphane Laurière"
 
-#: src/ginkgo.py:878
+#: ginkgo.py:878
 msgid "Developer"
 msgstr "Développeur"
 
-#: src/views/relationstable.py:45 src/views/resourcesbytypetable.py:45
-#: src/views/resourcestable.py:276
+#: views/relationstable.py:45 views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
 msgid "Date"
 msgstr "Date"
 
-#: src/views/relationstable.py:45 src/views/resourcestable.py:276
+#: views/relationstable.py:45 views/resourcestable.py:276
 msgid "Type"
 msgstr "Type"
 
-#: src/views/resourcecontextmenu.py:45
+#: views/resourcecontextmenu.py:45
 msgid "&Open in new tab"
 msgstr "&Ouvrir dans un nouvel onglet"
 
-#: src/views/resourcecontextmenu.py:51
+#: views/resourcecontextmenu.py:51
 msgid "Delete this resource from the Nepomuk database"
 msgstr "Supprimer cette ressource de la base de données Nepomuk"
 
-#: src/views/resourcecontextmenu.py:59 src/views/resourcestable.py:355
+#: views/resourcecontextmenu.py:59 views/resourcestable.py:355
 msgid "Open &file"
 msgstr "Ouvrir le &fichier"
 
-#: src/views/resourcecontextmenu.py:63 src/views/resourcestable.py:358
+#: views/resourcecontextmenu.py:63 views/resourcestable.py:358
 msgid "Open &page"
 msgstr "Ouvrir la &page"
 
-#: src/views/resourcepropertiestable.py:133
+#: views/resourcepropertiestable.py:133
 msgid "Property"
 msgstr "Propriété"
 
-#: src/views/resourcepropertiestable.py:133
+#: views/resourcepropertiestable.py:133
 msgid "Value"
 msgstr "Valeur"
 
-#: src/views/resourcestree.py:283 src/views/resourcestree.py:321
+#: views/resourcestree.py:283 views/resourcestree.py:321
 msgid "&Add to places"
 msgstr "&Ajouter aux emplacements"
 
-#: src/views/tasktree.py:325
+#: views/tasktree.py:325
 msgid "&New sub-task"
 msgstr "&Nouvelle sous-tâche"
 
-#: src/views/typesview.py:37
+#: views/typesview.py:37
 msgid "Ontologies:"
 msgstr "Ontologies:"
 

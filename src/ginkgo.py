@@ -505,7 +505,7 @@ class Ginkgo(KMainWindow):
         self.saveSettings()
             
     def createPlacesWidget(self):
-        self.placesWidget = QDockWidget("Places", self)
+        self.placesWidget = QDockWidget(i18n("Places"), self)
         self.placesWidget.setObjectName("Places")
         self.placesWidget.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         

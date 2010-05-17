@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-17 18:03+0200\n"
+"POT-Creation-Date: 2010-05-17 18:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,6 +233,10 @@ msgstr ""
 
 #: ginkgo.py:471
 msgid "Select File - Ginkgo"
+msgstr ""
+
+#: ginkgo.py:508
+msgid "Places"
 msgstr ""
 
 #: ginkgo.py:531
