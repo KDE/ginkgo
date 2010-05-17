@@ -1,0 +1,466 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-17 18:11+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:84 ginkgo.py:85
+msgid "Link to..."
+msgstr "Länka till"
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr "Öppna resurs"
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
+msgstr "&Namn:"
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr ""
+
+#: editors/classeditor.py:73
+msgid "Type Name"
+msgstr ""
+
+#: editors/contacteditor.py:74
+msgid "First Name"
+msgstr "Förnamn"
+
+#: editors/contacteditor.py:91
+msgid "Last Name"
+msgstr "Efternamn"
+
+#: editors/contacteditor.py:99
+msgid "E-mail"
+msgstr "E-post"
+
+#: editors/contacteditor.py:123
+msgid "Phone"
+msgstr "Telefon"
+
+#: editors/fileeditor.py:48 editors/resourceeditor.py:189
+#: editors/websiteeditor.py:54 views/relationstable.py:45
+#: views/resourcesbytypetable.py:45 views/resourcestable.py:276
+msgid "Name"
+msgstr "Namn"
+
+#: editors/fileeditor.py:58 editors/websiteeditor.py:66
+msgid "Open"
+msgstr "Öppna"
+
+#: editors/resourceeditor.py:59
+msgid "Select Icon - Ginkgo"
+msgstr "Välj ikon - Ginkgo"
+
+#: editors/resourceeditor.py:59
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Bilder (*.png *.jpg *.bmp)"
+
+#: editors/resourceeditor.py:127
+msgid "Relations"
+msgstr ""
+
+#: editors/resourceeditor.py:128
+msgid "Properties"
+msgstr "Inställningar"
+
+#: editors/resourceeditor.py:161
+msgid "&Description:"
+msgstr "&Beskrivning"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "Inge&n"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Andra"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Låg"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Mellan"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "&Hög"
+
+#: editors/websiteeditor.py:59
+msgid "URL"
+msgstr "Adress"
+
+#: ginkgo.py:76
+msgid "&Save"
+msgstr "&Spara"
+
+#: ginkgo.py:76
+msgid "Save"
+msgstr "Spara"
+
+#: ginkgo.py:78
+msgid "&Open"
+msgstr "&Öppna"
+
+#: ginkgo.py:78
+msgid "Open a resource"
+msgstr "Öppna en resurs"
+
+#: ginkgo.py:79
+msgid "New &Tab"
+msgstr "Ny &flik"
+
+#: ginkgo.py:79
+msgid "Create new tab"
+msgstr "Skapa ny flik"
+
+#: ginkgo.py:80
+msgid "Close Tab"
+msgstr "Stäng Flik"
+
+#: ginkgo.py:80
+msgid "Close tab"
+msgstr "Stäng flik"
+
+#: ginkgo.py:81
+msgid "&Quit"
+msgstr "&Avsluta"
+
+#: ginkgo.py:81
+msgid "Close the application"
+msgstr "Stäng applikationen"
+
+#: ginkgo.py:91
+msgid "Link to"
+msgstr "Länka till"
+
+#: ginkgo.py:96
+msgid "File"
+msgstr "Fil"
+
+#: ginkgo.py:96
+msgid "Link to file"
+msgstr "Länka till fil"
+
+#: ginkgo.py:99
+msgid "Set resource as context"
+msgstr ""
+
+#: ginkgo.py:99
+msgid "Set the current resource as context"
+msgstr ""
+
+#: ginkgo.py:101 ginkgo.py:540
+msgid "&File"
+msgstr "&Fil"
+
+#: ginkgo.py:104
+msgid "&New"
+msgstr "&Ny"
+
+#: ginkgo.py:118
+msgid "&Edit"
+msgstr "&Redigera"
+
+#: ginkgo.py:119 views/resourcecontextmenu.py:50 views/resourcestree.py:280
+msgid "&Delete"
+msgstr "&Radera"
+
+#: ginkgo.py:119
+msgid "Delete"
+msgstr "Radera"
+
+#: ginkgo.py:123
+msgid "&View"
+msgstr ""
+
+#: ginkgo.py:129
+msgid "Types"
+msgstr ""
+
+#: ginkgo.py:136
+msgid "Toolbar"
+msgstr "Verktygsfält"
+
+#: ginkgo.py:143 ginkgo.py:144
+msgid "New"
+msgstr "Ny"
+
+#: ginkgo.py:181 ginkgo.py:185
+msgid "Search"
+msgstr "Sök"
+
+#: ginkgo.py:186
+msgid "Full-text search"
+msgstr ""
+
+#: ginkgo.py:268
+msgid "New Task"
+msgstr "Ny uppgift"
+
+#: ginkgo.py:279
+msgid "New Type"
+msgstr ""
+
+#: ginkgo.py:323
+msgid "New %1"
+msgstr "Ny %1"
+
+#: ginkgo.py:397
+msgid "Resource removal"
+msgstr "Avlägsning av resurs"
+
+#: ginkgo.py:398
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "Är du säker att du vill radera <i>%1</i>?"
+
+#: ginkgo.py:471
+msgid "Select File - Ginkgo"
+msgstr "Välj fil - Ginkgo"
+
+#: ginkgo.py:508
+msgid "Places"
+msgstr "Platser"
+
+#: ginkgo.py:531
+msgid "&Contact"
+msgstr "&Kontakt"
+
+#: ginkgo.py:531
+msgid "&Contacts"
+msgstr "&Kontakter"
+
+#: ginkgo.py:531
+msgid "Create new contact"
+msgstr "Skapa ny kontakt"
+
+#: ginkgo.py:532
+msgid "&Project"
+msgstr "&Projekt"
+
+#: ginkgo.py:532
+msgid "&Projects"
+msgstr ""
+
+#: ginkgo.py:532
+msgid "Create new project"
+msgstr "Skapa nytt projekt"
+
+#: ginkgo.py:533
+msgid "&Task"
+msgstr "&Uppgift"
+
+#: ginkgo.py:533
+msgid "&Tasks"
+msgstr "&Uppgifter"
+
+#: ginkgo.py:533
+msgid "Create new task"
+msgstr "Skapa ny uppgift"
+
+#: ginkgo.py:534
+msgid "&Organization"
+msgstr "&Organisation"
+
+#: ginkgo.py:534
+msgid "&Organizations"
+msgstr "&Organisationer"
+
+#: ginkgo.py:534
+msgid "Create new organization"
+msgstr "Skapa ny organisation"
+
+#: ginkgo.py:535
+msgid "&Topic"
+msgstr "&Ämne"
+
+#: ginkgo.py:535
+msgid "&Topics"
+msgstr "&Ämnen"
+
+#: ginkgo.py:535
+msgid "Create new topic"
+msgstr "Skapa nytt ämne"
+
+#: ginkgo.py:536
+msgid "&Event"
+msgstr "&Händelse"
+
+#: ginkgo.py:536
+msgid "&Events"
+msgstr "&Händelser"
+
+#: ginkgo.py:536
+msgid "Create new event"
+msgstr "Skapa ny händelse"
+
+#: ginkgo.py:537
+msgid "&Location"
+msgstr ""
+
+#: ginkgo.py:537
+msgid "&Locations"
+msgstr ""
+
+#: ginkgo.py:537
+msgid "Create new location"
+msgstr ""
+
+#: ginkgo.py:538
+msgid "&WebPage"
+msgstr "&Webbsida"
+
+#: ginkgo.py:538
+msgid "&Web Pages"
+msgstr "&Webbsidor"
+
+#: ginkgo.py:538
+msgid "Create new Web page"
+msgstr "Skapa ny webbsida"
+
+#: ginkgo.py:539
+msgid "&Note"
+msgstr "&Notering"
+
+#: ginkgo.py:539
+msgid "&Notes"
+msgstr "&Noteringar"
+
+#: ginkgo.py:539
+msgid "Create new note"
+msgstr "Skapa ny notering"
+
+#: ginkgo.py:540
+msgid "&Files"
+msgstr "&Filer"
+
+#: ginkgo.py:540
+msgid "Create new file"
+msgstr "Skapa ny fil"
+
+#: ginkgo.py:642 ginkgo.py:644
+msgid "Context - Ginkgo"
+msgstr ""
+
+#: ginkgo.py:642
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr ""
+
+#: ginkgo.py:644
+msgid "An error occurred while updating the context."
+msgstr ""
+
+#: ginkgo.py:710
+msgid "Search Results"
+msgstr "Sök-resultat"
+
+#: ginkgo.py:821 ginkgo.py:844
+msgid "Move &up"
+msgstr "Flytta &upp"
+
+#: ginkgo.py:823 ginkgo.py:846
+msgid "Move &down"
+msgstr "Flytta &ner"
+
+#: ginkgo.py:825 ginkgo.py:848
+msgid "&Remove entry"
+msgstr ""
+
+#: ginkgo.py:866
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:867
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:869
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginkgo är en navigator för Nepomuk, semantiskt verktygset för KDE"
+
+#: ginkgo.py:871
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr "Ginkgo låter dig skapa och utforska länkar mellan din personliga data så som "
+"e-post, kontakter, filer, webbsidor."
+
+#: ginkgo.py:878
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:878
+msgid "Developer"
+msgstr "Utvecklare"
+
+#: views/relationstable.py:45 views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
+msgid "Date"
+msgstr "Datum"
+
+#: views/relationstable.py:45 views/resourcestable.py:276
+msgid "Type"
+msgstr "Typ"
+
+#: views/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr "&Öppna i ny flik"
+
+#: views/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Radera denna resurs från Nepomuk's databas"
+
+#: views/resourcecontextmenu.py:59 views/resourcestable.py:355
+msgid "Open &file"
+msgstr "Öppna &fil"
+
+#: views/resourcecontextmenu.py:63 views/resourcestable.py:358
+msgid "Open &page"
+msgstr "Öppna &sida"
+
+#: views/resourcepropertiestable.py:133
+msgid "Property"
+msgstr "Inställning"
+
+#: views/resourcepropertiestable.py:133
+msgid "Value"
+msgstr "Värde"
+
+#: views/resourcestree.py:283 views/resourcestree.py:321
+msgid "&Add to places"
+msgstr "&Lägg till i platser"
+
+#: views/tasktree.py:325
+msgid "&New sub-task"
+msgstr ""
+
+#: views/typesview.py:37
+msgid "Ontologies:"
+msgstr ""
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Kristoffer Grundström"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kristoffer.grundstrom1983@gmail.com"
