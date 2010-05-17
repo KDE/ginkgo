@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-17 09:44+0200\n"
+"POT-Creation-Date: 2010-05-17 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
-#: ginkgo.py:93 ginkgo.py:94
+#: ginkgo.py:84 ginkgo.py:85
 msgid "Link to..."
 msgstr ""
 
@@ -107,101 +107,113 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: ginkgo.py:100
+#: ginkgo.py:91
 msgid "Link to"
 msgstr ""
 
-#: ginkgo.py:110
+#: ginkgo.py:101
 msgid "&File"
 msgstr ""
 
-#: ginkgo.py:113
+#: ginkgo.py:104
 msgid "&New"
 msgstr ""
 
-#: ginkgo.py:127
+#: ginkgo.py:118
 msgid "&Edit"
 msgstr ""
 
-#: ginkgo.py:132
+#: ginkgo.py:123
 msgid "&View"
 msgstr ""
 
-#: ginkgo.py:145
+#: ginkgo.py:136
 msgid "Toolbar"
 msgstr ""
 
-#: ginkgo.py:152 ginkgo.py:153
+#: ginkgo.py:143 ginkgo.py:144
 msgid "New"
 msgstr ""
 
-#: ginkgo.py:190 ginkgo.py:194
+#: ginkgo.py:181 ginkgo.py:185
 msgid "Search"
 msgstr ""
 
-#: ginkgo.py:277
+#: ginkgo.py:268
 msgid "New Task"
 msgstr ""
 
-#: ginkgo.py:288
+#: ginkgo.py:279
 msgid "New Type"
 msgstr ""
 
-#: ginkgo.py:330
+#: ginkgo.py:323
 msgid "New %1"
 msgstr ""
 
-#: ginkgo.py:404
+#: ginkgo.py:397
 msgid "Resource removal"
 msgstr ""
 
-#: ginkgo.py:405
+#: ginkgo.py:398
 msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr ""
 
-#: ginkgo.py:476
+#: ginkgo.py:471
 msgid "Select File - Ginkgo"
 msgstr ""
 
-#: ginkgo.py:572 ginkgo.py:574
+#: ginkgo.py:642 ginkgo.py:644
 msgid "Context - Ginkgo"
 msgstr ""
 
-#: ginkgo.py:572
+#: ginkgo.py:642
 msgid "The context has been succesfully updated to <i>%1</i>."
 msgstr ""
 
-#: ginkgo.py:574
+#: ginkgo.py:644
 msgid "An error occurred while updating the context."
 msgstr ""
 
-#: ginkgo.py:636
+#: ginkgo.py:710
 msgid "Search Results"
 msgstr ""
 
-#: ginkgo.py:761
+#: ginkgo.py:821 ginkgo.py:844
+msgid "Move &up"
+msgstr ""
+
+#: ginkgo.py:823 ginkgo.py:846
+msgid "Move &down"
+msgstr ""
+
+#: ginkgo.py:825 ginkgo.py:848
+msgid "&Remove entry"
+msgstr ""
+
+#: ginkgo.py:866
 msgid "Ginkgo"
 msgstr ""
 
-#: ginkgo.py:762
+#: ginkgo.py:867
 msgid "(c) 2010, Mandriva, Stéphane Laurière"
 msgstr ""
 
-#: ginkgo.py:764
+#: ginkgo.py:869
 msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
 msgstr ""
 
-#: ginkgo.py:766
+#: ginkgo.py:871
 msgid ""
 "Ginkgo lets you create and explore links between your personal data such as "
 "e-mails, contacts, files, Web pages."
 msgstr ""
 
-#: ginkgo.py:773
+#: ginkgo.py:878
 msgid "Stéphane Laurière"
 msgstr ""
 
-#: ginkgo.py:773
+#: ginkgo.py:878
 msgid "Developer"
 msgstr ""
 
