@@ -1,0 +1,313 @@
+# Translation of ginkgo.po to Romanian
+# Copyright (c) 1999-2010 Mandriva
+#
+# Vă rugăm să nu actualizaţi fișierul, cu excepția cazului în care sînteți
+# sigur de calitatea traducerii dumneavoastră, de gramatică și de ortografie.
+# Acestea din urmă sînt de prea multe ori aproximative.
+# Corectarea lor ulterioară nu are nici un alt rezultat decît acela de
+# pierdere de timp pentru toata lumea.
+#
+# VĂ RUGĂM SĂ RESPECTAȚI SEMNELE DE PUNCTUAȚIE ALE LIMBII ROMÂNE!
+#
+# Nu suprimați spațiul care urmează unui semn de punctuație de sfîrșit de
+# frază; trebuie respectată versiunea originală. În acest caz, este foarte
+# probabil ca programul să afișeze un mesaj la sfîrșit. Suprimînd acel spațiu,
+# cele două cuvintele vor fi afișate legat.
+#
+# Traduceți de manieră INTELIGENTĂ (de ce nu și prin comparație cu alte
+# traduceri ale acestui fișier în alte limbi) și nu cuvînt cu cuvînt. Unele
+# astfel de traduceri nu au nici un sens în limba română.
+#
+# ATENȚIE LA FONTURILE UTILIZATE! Pentru a reda corect diacriticele folosiți
+# disponerea tastaturii românească standard, codarea de caractere UTF-8 și
+# asigurați-vă că fonturile utilizate sînt cu virgulițe, NU CU SEDILE!
+# Exemplu:
+#          font incorect (cu sedile): şŞ ţŢ
+#          font corect (cu virgule): șȘ țȚ
+#
+# Pentru a vă asigura că folosiți fonturile corecte, vizitați:
+#          http://i18n.ro/Fonturi_romanesti/testare
+#
+# Vă mulțumim pentru înțelegere.
+#                                                       Echipa de traducători,
+#                                                       www.Mandrivausers.ro
+#
+# Traducători de-a lungul timpului:
+#  Florin Cătălin RUSSEN <cfrussen@yahoo.co.uk>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nepomuk-ginkgo\n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-17 16:33+0200\n"
+"PO-Revision-Date: 2010-05-17 18:07+0100\n"
+"Last-Translator: Cătălin Florin RUSSEN <cfrussen@yahoo.co.uk>\n"
+"Language-Team: Romanian <cooker-i18n@mandrivalinux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3;plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1))\n"
+
+#: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:84 ginkgo.py:85
+msgid "Link to..."
+msgstr "Leagă la..."
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr "Deschide resursa"
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
+msgstr "&Nume:"
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Selecție sarcină"
+
+#: editors/classeditor.py:73
+msgid "Type Name"
+msgstr "Tastați numele"
+
+#: editors/contacteditor.py:74
+msgid "First Name"
+msgstr "Prenume"
+
+#: editors/contacteditor.py:91
+msgid "Last Name"
+msgstr "Nume"
+
+#: editors/contacteditor.py:99
+msgid "E-mail"
+msgstr "Poștă electronică"
+
+#: editors/contacteditor.py:123
+msgid "Phone"
+msgstr "Telefon"
+
+#: editors/fileeditor.py:48 editors/resourceeditor.py:189
+#: editors/websiteeditor.py:54 views/relationstable.py:45
+#: views/resourcesbytypetable.py:45 views/resourcestable.py:276
+msgid "Name"
+msgstr "Nume"
+
+#: editors/fileeditor.py:58 editors/websiteeditor.py:66
+msgid "Open"
+msgstr "Deschide"
+
+#: editors/resourceeditor.py:59
+msgid "Select Icon - Ginkgo"
+msgstr "Selectare iconiță - Ginkgo"
+
+#: editors/resourceeditor.py:59
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Imagini (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:127
+msgid "Relations"
+msgstr "Relații"
+
+#: editors/resourceeditor.py:128
+msgid "Properties"
+msgstr "Proprietăți"
+
+#: editors/resourceeditor.py:161
+msgid "&Description:"
+msgstr "&Descriere:"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "N&eant"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Altul"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Jos"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Mediu"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "&Înalt"
+
+#: editors/websiteeditor.py:59
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:91
+msgid "Link to"
+msgstr "Leagă la"
+
+#: ginkgo.py:101
+msgid "&File"
+msgstr "&Fișier"
+
+#: ginkgo.py:104
+msgid "&New"
+msgstr "&Nou"
+
+#: ginkgo.py:118
+msgid "&Edit"
+msgstr "&Editează"
+
+#: ginkgo.py:123
+msgid "&View"
+msgstr "&Vizualizează"
+
+#: ginkgo.py:136
+msgid "Toolbar"
+msgstr "Bara de unelte"
+
+#: ginkgo.py:143 ginkgo.py:144
+msgid "New"
+msgstr "Nou"
+
+#: ginkgo.py:181 ginkgo.py:185
+msgid "Search"
+msgstr "Caută"
+
+#: ginkgo.py:268
+msgid "New Task"
+msgstr "Sarcină nouă"
+
+#: ginkgo.py:279
+msgid "New Type"
+msgstr "Tip nou"
+
+#: ginkgo.py:323
+msgid "New %1"
+msgstr "Nou %1"
+
+#: ginkgo.py:397
+msgid "Resource removal"
+msgstr "Înlăturare resursă"
+
+#: ginkgo.py:398
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "Sigur doriți să ștergeți <i>%1</i>?"
+
+#: ginkgo.py:471
+msgid "Select File - Ginkgo"
+msgstr "Selectare fișier - Ginkgo"
+
+#: ginkgo.py:642 ginkgo.py:644
+msgid "Context - Ginkgo"
+msgstr "Context - Ginkgo"
+
+#: ginkgo.py:642
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "Contextul a fost actualizat cu succes la <i>%1</i>."
+
+#: ginkgo.py:644
+msgid "An error occurred while updating the context."
+msgstr "S-a produs o eroare la actualizarea contextului."
+
+#: ginkgo.py:710
+msgid "Search Results"
+msgstr "Rezultatele căutării"
+
+#: ginkgo.py:821 ginkgo.py:844
+msgid "Move &up"
+msgstr "Mută s&us"
+
+#: ginkgo.py:823 ginkgo.py:846
+msgid "Move &down"
+msgstr "Mută j&os"
+
+#: ginkgo.py:825 ginkgo.py:848
+msgid "&Remove entry"
+msgstr "Înlătu&ră intrarea"
+
+#: ginkgo.py:866
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:867
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:869
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr ""
+"Ginkgo este un navigator pentru Nepomuk, trusa de unelte semantice KDE."
+
+#: ginkgo.py:871
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr ""
+"Ginkgo vă permite să creați și să explorați legăturile dintre datele voastre "
+"personale precum mesaje, contacte, fișiere, pagini de Internet."
+
+#: ginkgo.py:878
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:878
+msgid "Developer"
+msgstr "Dezvoltator"
+
+#: views/relationstable.py:45 views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
+msgid "Date"
+msgstr "Dată"
+
+#: views/relationstable.py:45 views/resourcestable.py:276
+msgid "Type"
+msgstr "Tip"
+
+#: views/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr "&Deschide într-un tab nou"
+
+#: views/resourcecontextmenu.py:50 views/resourcestree.py:280
+msgid "&Delete"
+msgstr "&Șterge"
+
+#: views/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Șterge această resursă din baza de date Nepomuk"
+
+#: views/resourcecontextmenu.py:59 views/resourcestable.py:355
+msgid "Open &file"
+msgstr "Deschide &fișierul"
+
+#: views/resourcecontextmenu.py:63 views/resourcestable.py:358
+msgid "Open &page"
+msgstr "Deschide &pagina"
+
+#: views/resourcepropertiestable.py:133
+msgid "Property"
+msgstr "Proprietate"
+
+#: views/resourcepropertiestable.py:133
+msgid "Value"
+msgstr "Valoare"
+
+#: views/resourcestree.py:283 views/resourcestree.py:321
+msgid "&Add to places"
+msgstr "&Adaugă la locuri"
+
+#: views/tasktree.py:325
+msgid "&New sub-task"
+msgstr "Subsarcină &nouă"
+
+#: views/typesview.py:37
+msgid "Ontologies:"
+msgstr "Ontologii:"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Florin Cătălin RUSSEN"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "cfrussen@yahoo.co.uk"
