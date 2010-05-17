@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-14 11:58+0200\n"
+"POT-Creation-Date: 2010-05-17 09:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,20 +16,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: dialogs/labelinputdialog.py:50
-msgid "Open Resource"
-msgstr ""
-
-#: dialogs/labelinputdialog.py:52
-msgid "&Name:"
-msgstr ""
-
-#: dialogs/resourcechooserdialog.py:60 ginkgo.py:89 ginkgo.py:90
+#: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:93 ginkgo.py:94
 msgid "Link to..."
+msgstr ""
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr ""
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
 msgstr ""
 
 #: dialogs/tasktreedialog.py:49
 msgid "Task Selection"
+msgstr ""
+
+#: editors/classeditor.py:73
+msgid "Type Name"
 msgstr ""
 
 #: editors/contacteditor.py:74
@@ -48,34 +53,14 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: editors/fileeditor.py:48 editors/resourceeditor.py:187
-#: editors/resourcesbytypetable.py:43 editors/resourcestable.py:163
-#: editors/websiteeditor.py:54
+#: editors/fileeditor.py:48 editors/resourceeditor.py:189
+#: editors/websiteeditor.py:54 views/relationstable.py:45
+#: views/resourcesbytypetable.py:45 views/resourcestable.py:276
 msgid "Name"
 msgstr ""
 
 #: editors/fileeditor.py:58 editors/websiteeditor.py:66
 msgid "Open"
-msgstr ""
-
-#: editors/resourcecontextmenu.py:45
-msgid "&Open in new tab"
-msgstr ""
-
-#: editors/resourcecontextmenu.py:50
-msgid "&Delete"
-msgstr ""
-
-#: editors/resourcecontextmenu.py:51
-msgid "Delete this resource from the Nepomuk database"
-msgstr ""
-
-#: editors/resourcecontextmenu.py:59 editors/resourcestable.py:199
-msgid "Open &file"
-msgstr ""
-
-#: editors/resourcecontextmenu.py:63 editors/resourcestable.py:202
-msgid "Open &page"
 msgstr ""
 
 #: editors/resourceeditor.py:59
@@ -86,24 +71,16 @@ msgstr ""
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr ""
 
-#: editors/resourceeditor.py:125
+#: editors/resourceeditor.py:127
 msgid "Relations"
 msgstr ""
 
-#: editors/resourceeditor.py:126
+#: editors/resourceeditor.py:128
 msgid "Properties"
 msgstr ""
 
-#: editors/resourceeditor.py:159
+#: editors/resourceeditor.py:161
 msgid "&Description:"
-msgstr ""
-
-#: editors/resourcepropertiestable.py:139
-msgid "Property"
-msgstr ""
-
-#: editors/resourcepropertiestable.py:139
-msgid "Value"
 msgstr ""
 
 #: editors/taskeditor.py:122
@@ -126,98 +103,155 @@ msgstr ""
 msgid "&High"
 msgstr ""
 
-#: editors/tasktree.py:325
-msgid "&New sub-task"
-msgstr ""
-
 #: editors/websiteeditor.py:59
 msgid "URL"
 msgstr ""
 
-#: ginkgo.py:96
+#: ginkgo.py:100
 msgid "Link to"
 msgstr ""
 
-#: ginkgo.py:106
+#: ginkgo.py:110
 msgid "&File"
 msgstr ""
 
-#: ginkgo.py:109
+#: ginkgo.py:113
 msgid "&New"
 msgstr ""
 
-#: ginkgo.py:123
+#: ginkgo.py:127
 msgid "&Edit"
 msgstr ""
 
-#: ginkgo.py:128
+#: ginkgo.py:132
 msgid "&View"
 msgstr ""
 
-#: ginkgo.py:138
+#: ginkgo.py:145
 msgid "Toolbar"
 msgstr ""
 
-#: ginkgo.py:145 ginkgo.py:146
+#: ginkgo.py:152 ginkgo.py:153
 msgid "New"
 msgstr ""
 
-#: ginkgo.py:183 ginkgo.py:187
+#: ginkgo.py:190 ginkgo.py:194
 msgid "Search"
 msgstr ""
 
-#: ginkgo.py:270
+#: ginkgo.py:277
 msgid "New Task"
 msgstr ""
 
-#: ginkgo.py:312
+#: ginkgo.py:288
+msgid "New Type"
+msgstr ""
+
+#: ginkgo.py:330
 msgid "New %1"
 msgstr ""
 
-#: ginkgo.py:446
+#: ginkgo.py:404
+msgid "Resource removal"
+msgstr ""
+
+#: ginkgo.py:405
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr ""
+
+#: ginkgo.py:476
 msgid "Select File - Ginkgo"
 msgstr ""
 
-#: ginkgo.py:549 ginkgo.py:551
+#: ginkgo.py:572 ginkgo.py:574
 msgid "Context - Ginkgo"
 msgstr ""
 
-#: ginkgo.py:549
+#: ginkgo.py:572
 msgid "The context has been succesfully updated to <i>%1</i>."
 msgstr ""
 
-#: ginkgo.py:551
+#: ginkgo.py:574
 msgid "An error occurred while updating the context."
 msgstr ""
 
-#: ginkgo.py:595
+#: ginkgo.py:636
 msgid "Search Results"
 msgstr ""
 
-#: ginkgo.py:678
+#: ginkgo.py:761
 msgid "Ginkgo"
 msgstr ""
 
-#: ginkgo.py:679
+#: ginkgo.py:762
 msgid "(c) 2010, Mandriva, Stéphane Laurière"
 msgstr ""
 
-#: ginkgo.py:681
+#: ginkgo.py:764
 msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
 msgstr ""
 
-#: ginkgo.py:683
+#: ginkgo.py:766
 msgid ""
 "Ginkgo lets you create and explore links between your personal data such as "
 "e-mails, contacts, files, Web pages."
 msgstr ""
 
-#: ginkgo.py:691
+#: ginkgo.py:773
 msgid "Stéphane Laurière"
 msgstr ""
 
-#: ginkgo.py:691
+#: ginkgo.py:773
 msgid "Developer"
+msgstr ""
+
+#: views/relationstable.py:45 views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
+msgid "Date"
+msgstr ""
+
+#: views/relationstable.py:45 views/resourcestable.py:276
+msgid "Type"
+msgstr ""
+
+#: views/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr ""
+
+#: views/resourcecontextmenu.py:50 views/resourcestree.py:280
+msgid "&Delete"
+msgstr ""
+
+#: views/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr ""
+
+#: views/resourcecontextmenu.py:59 views/resourcestable.py:355
+msgid "Open &file"
+msgstr ""
+
+#: views/resourcecontextmenu.py:63 views/resourcestable.py:358
+msgid "Open &page"
+msgstr ""
+
+#: views/resourcepropertiestable.py:133
+msgid "Property"
+msgstr ""
+
+#: views/resourcepropertiestable.py:133
+msgid "Value"
+msgstr ""
+
+#: views/resourcestree.py:283 views/resourcestree.py:321
+msgid "&Add to places"
+msgstr ""
+
+#: views/tasktree.py:325
+msgid "&New sub-task"
+msgstr ""
+
+#: views/typesview.py:37
+msgid "Ontologies:"
 msgstr ""
 
 #: rc.cpp:1
