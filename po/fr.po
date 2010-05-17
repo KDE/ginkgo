@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-17 16:33+0200\n"
-"PO-Revision-Date: 2010-05-17 16:39+0100\n"
+"POT-Creation-Date: 2010-05-17 17:35+0200\n"
+"PO-Revision-Date: 2010-05-17 17:38+0100\n"
 "Last-Translator: Stéphane <Laurière>\n"
 "Language-Team: Mandriva 18n <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,6 @@ msgid "Task Selection"
 msgstr "Sélection de tâche"
 
 #: editors/classeditor.py:73
-#, fuzzy
 msgid "Type Name"
 msgstr "Nom"
 
@@ -121,6 +120,7 @@ msgid "Link to"
 msgstr "Relier à"
 
 #: ginkgo.py:101
+#: ginkgo.py:540
 msgid "&File"
 msgstr "&Fichier"
 
@@ -173,6 +173,122 @@ msgstr "Confirmez-vous la suppression de <i>%1</i>?"
 #: ginkgo.py:471
 msgid "Select File - Ginkgo"
 msgstr "Sélection de fichier"
+
+#: ginkgo.py:531
+msgid "&Contact"
+msgstr "&Contact"
+
+#: ginkgo.py:531
+msgid "&Contacts"
+msgstr "&Contacts"
+
+#: ginkgo.py:531
+msgid "Create new contact"
+msgstr "Créer un nouveau contact"
+
+#: ginkgo.py:532
+msgid "&Project"
+msgstr "&Projet"
+
+#: ginkgo.py:532
+msgid "&Projects"
+msgstr "&Projets"
+
+#: ginkgo.py:532
+msgid "Create new project"
+msgstr "Créer un nouveau projet"
+
+#: ginkgo.py:533
+msgid "&Task"
+msgstr "&Tâche"
+
+#: ginkgo.py:533
+msgid "&Tasks"
+msgstr "&Tâches"
+
+#: ginkgo.py:533
+msgid "Create new task"
+msgstr "Créer une nouvelle tâche"
+
+#: ginkgo.py:534
+msgid "&Organization"
+msgstr "&Organisme"
+
+#: ginkgo.py:534
+msgid "&Organizations"
+msgstr "&Organismes"
+
+#: ginkgo.py:534
+msgid "Create new organization"
+msgstr "Créer un nouvel organisme"
+
+#: ginkgo.py:535
+msgid "&Topic"
+msgstr "&Sujet"
+
+#: ginkgo.py:535
+msgid "&Topics"
+msgstr "&Sujets"
+
+#: ginkgo.py:535
+msgid "Create new topic"
+msgstr "Créer un nouveau sujet"
+
+#: ginkgo.py:536
+msgid "&Event"
+msgstr "&Evénement"
+
+#: ginkgo.py:536
+msgid "&Events"
+msgstr "&Evénements"
+
+#: ginkgo.py:536
+msgid "Create new event"
+msgstr "Créer un nouvel événement"
+
+#: ginkgo.py:537
+msgid "&Location"
+msgstr "&Lieu"
+
+#: ginkgo.py:537
+msgid "&Locations"
+msgstr "&Lieux"
+
+#: ginkgo.py:537
+msgid "Create new location"
+msgstr "Créer un nouveau lieu"
+
+#: ginkgo.py:538
+msgid "&WebPage"
+msgstr "&Page Web"
+
+#: ginkgo.py:538
+msgid "&Web Pages"
+msgstr "&Pages Web"
+
+#: ginkgo.py:538
+msgid "Create new Web page"
+msgstr "Créer une nouvelle page Web"
+
+#: ginkgo.py:539
+msgid "&Note"
+msgstr "&Note"
+
+#: ginkgo.py:539
+msgid "&Notes"
+msgstr "&Notes"
+
+#: ginkgo.py:539
+msgid "Create new note"
+msgstr "Créer une nouvelle note"
+
+#: ginkgo.py:540
+msgid "&Files"
+msgstr "&Fichiers"
+
+#: ginkgo.py:540
+msgid "Create new file"
+msgstr "Créer un nouveau fichier"
 
 #: ginkgo.py:642
 #: ginkgo.py:644

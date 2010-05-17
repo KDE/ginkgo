@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-17 16:33+0200\n"
+"POT-Creation-Date: 2010-05-17 17:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Link to"
 msgstr ""
 
-#: ginkgo.py:101
+#: ginkgo.py:101 ginkgo.py:540
 msgid "&File"
 msgstr ""
 
@@ -161,6 +161,122 @@ msgstr ""
 
 #: ginkgo.py:471
 msgid "Select File - Ginkgo"
+msgstr ""
+
+#: ginkgo.py:531
+msgid "&Contact"
+msgstr ""
+
+#: ginkgo.py:531
+msgid "&Contacts"
+msgstr ""
+
+#: ginkgo.py:531
+msgid "Create new contact"
+msgstr ""
+
+#: ginkgo.py:532
+msgid "&Project"
+msgstr ""
+
+#: ginkgo.py:532
+msgid "&Projects"
+msgstr ""
+
+#: ginkgo.py:532
+msgid "Create new project"
+msgstr ""
+
+#: ginkgo.py:533
+msgid "&Task"
+msgstr ""
+
+#: ginkgo.py:533
+msgid "&Tasks"
+msgstr ""
+
+#: ginkgo.py:533
+msgid "Create new task"
+msgstr ""
+
+#: ginkgo.py:534
+msgid "&Organization"
+msgstr ""
+
+#: ginkgo.py:534
+msgid "&Organizations"
+msgstr ""
+
+#: ginkgo.py:534
+msgid "Create new organization"
+msgstr ""
+
+#: ginkgo.py:535
+msgid "&Topic"
+msgstr ""
+
+#: ginkgo.py:535
+msgid "&Topics"
+msgstr ""
+
+#: ginkgo.py:535
+msgid "Create new topic"
+msgstr ""
+
+#: ginkgo.py:536
+msgid "&Event"
+msgstr ""
+
+#: ginkgo.py:536
+msgid "&Events"
+msgstr ""
+
+#: ginkgo.py:536
+msgid "Create new event"
+msgstr ""
+
+#: ginkgo.py:537
+msgid "&Location"
+msgstr ""
+
+#: ginkgo.py:537
+msgid "&Locations"
+msgstr ""
+
+#: ginkgo.py:537
+msgid "Create new location"
+msgstr ""
+
+#: ginkgo.py:538
+msgid "&WebPage"
+msgstr ""
+
+#: ginkgo.py:538
+msgid "&Web Pages"
+msgstr ""
+
+#: ginkgo.py:538
+msgid "Create new Web page"
+msgstr ""
+
+#: ginkgo.py:539
+msgid "&Note"
+msgstr ""
+
+#: ginkgo.py:539
+msgid "&Notes"
+msgstr ""
+
+#: ginkgo.py:539
+msgid "Create new note"
+msgstr ""
+
+#: ginkgo.py:540
+msgid "&Files"
+msgstr ""
+
+#: ginkgo.py:540
+msgid "Create new file"
 msgstr ""
 
 #: ginkgo.py:642 ginkgo.py:644

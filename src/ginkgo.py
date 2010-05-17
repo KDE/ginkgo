@@ -122,7 +122,7 @@ class Ginkgo(KMainWindow):
         
         viewMenu = self.menuBar().addMenu(i18n("&View"))
         for type in self.placesData:
-            viewMenu.addAction(self.createAction(type[1] + "s", self.showResourcesByType, None, type[3], None, type[0]))
+            viewMenu.addAction(self.createAction(type[2], self.showResourcesByType, None, type[3], None, type[0]))
         
         #viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
         viewMenu.addSeparator()
@@ -528,16 +528,16 @@ class Ginkgo(KMainWindow):
         
         else:
             self.placesData = [
-                         [NCO.Contact, "&Contact", "&Contact", "contact-new", "Create new contact"],
-                         [PIMO.Project, "&Project", "&Project", "nepomuk", "Create new project"],
-                         [PIMO.Task, "&Task", "&Task", "view-task-add", "Create new task"],
-                         [PIMO.Organization, "&Organization", "&Organization", "nepomuk", "Create new organization"],
-                         [PIMO.Topic, "&Topic", "&Topic", "nepomuk", "Create new topic"],
-                         [PIMO.Event, "&Event", "&Event", "nepomuk", "Create new event"],
-                         [PIMO.Location, "&Location", "&Location", "nepomuk", "Create new location"],
-                         [NFO.Website, "&WebPage", "&Web Page", "text-html", "Create new Web page"],
-                         [PIMO.Note, "&Note", "&Note", "text-plain", "Create new note"],
-                         [NFO.FileDataObject, "&File","&File","text-plain","Create new file"]
+                         [NCO.Contact, i18n("&Contact"), i18n("&Contacts"), "contact-new", i18n("Create new contact")],
+                         [PIMO.Project, i18n("&Project"), i18n("&Projects"), "nepomuk", i18n("Create new project")],
+                         [PIMO.Task, i18n("&Task"), i18n("&Tasks"), "view-task-add", i18n("Create new task")],
+                         [PIMO.Organization, i18n("&Organization"), i18n("&Organizations"), "nepomuk", i18n("Create new organization")],
+                         [PIMO.Topic, i18n("&Topic"), i18n("&Topics"), "nepomuk", i18n("Create new topic")],
+                         [PIMO.Event, i18n("&Event"), i18n("&Events"), "nepomuk", i18n("Create new event")],
+                         [PIMO.Location, i18n("&Location"), i18n("&Locations"), "nepomuk", i18n("Create new location")],
+                         [NFO.Website, i18n("&WebPage"), i18n("&Web Pages"), "text-html", i18n("Create new Web page")],
+                         [PIMO.Note, i18n("&Note"), i18n("&Notes"), "text-plain", i18n("Create new note")],
+                         [NFO.FileDataObject, i18n("&File"),i18n("&Files"),"text-plain",i18n("Create new file")]
                          ]
 #        else:
 #            self.placesData =  placesData
@@ -564,7 +564,7 @@ class Ginkgo(KMainWindow):
         verticalLayout.setObjectName("placeslayout")
         
         for type in self.placesData:
-            button = self.createPlaceButton(placesInternalWidget, type[0], type[1] + "s")
+            button = self.createPlaceButton(placesInternalWidget, type[0], type[2])
             verticalLayout.addWidget(button)
         
 #        button = self.createPlaceButton(placesInternalWidget, NFO.FileDataObject, "Files")
