@@ -73,12 +73,12 @@ class Ginkgo(KMainWindow):
         for type in self.placesData:
             newResourceActions.append(self.createAction(type[1], getattr(self, "newResource"), None, type[3], type[4], type[0]))
         
-        saveAction = self.createAction("&Save", self.save, QKeySequence.Save, "document-save", "Save")
+        saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
         
-        openResourceAction = self.createAction("&Open", self.showOpenResourceDialog, QKeySequence.Open, None, "Open a resource")
-        newTabAction = self.createAction("New &Tab", self.newTab, QKeySequence.AddTab, "tab-new-background-small", "Create new tab")
-        closeTabAction = self.createAction("Close Tab", self.closeCurrentTab, QKeySequence.Close, "tab-close", "Close tab")
-        quitAction = self.createAction("&Quit", self.close, "Ctrl+Q", "application-exit", "Close the application")
+        openResourceAction = self.createAction(i18n("&Open"), self.showOpenResourceDialog, QKeySequence.Open, None, i18n("Open a resource"))
+        newTabAction = self.createAction(i18n("New &Tab"), self.newTab, QKeySequence.AddTab, "tab-new-background-small", i18n("Create new tab"))
+        closeTabAction = self.createAction(i18n("Close Tab"), self.closeCurrentTab, QKeySequence.Close, "tab-close", i18n("Close tab"))
+        quitAction = self.createAction(i18n("&Quit"), self.close, "Ctrl+Q", "application-exit", i18n("Close the application"))
 
         self.linkToButton = QToolButton()
         self.linkToButton.setToolTip(i18n("Link to..."))
@@ -93,10 +93,10 @@ class Ginkgo(KMainWindow):
         for type in self.placesData:
             self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
         
-        self.linkToMenu.addAction(self.createAction("File", self.linkToFile, None, None, "Link to file"))
+        self.linkToMenu.addAction(self.createAction(i18n("File"), self.linkToFile, None, None, i18n("Link to file")))
         self.linkToButton.setMenu(self.linkToMenu)
 
-        self.setContextAction = self.createAction("Set resource as context", self.setResourceAsContext, None, "edit-node", "Set the current resource as context")
+        self.setContextAction = self.createAction(i18n("Set resource as context"), self.setResourceAsContext, None, "edit-node", i18n("Set the current resource as context"))
 
         mainMenu = self.menuBar().addMenu(i18n("&File"))
         newResourceMenu = QMenu(mainMenu)
@@ -116,7 +116,7 @@ class Ginkgo(KMainWindow):
         mainMenu.addAction(quitAction)
         
         editMenu = self.menuBar().addMenu(i18n("&Edit"))
-        deleteAction = self.createAction("&Delete", self.delete, None, None, "Delete")
+        deleteAction = self.createAction(i18n("&Delete"), self.delete, None, None, i18n("Delete"))
         editMenu.addMenu(self.linkToMenu)
         editMenu.addAction(deleteAction)
         
@@ -126,7 +126,7 @@ class Ginkgo(KMainWindow):
         
         #viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
         viewMenu.addSeparator()
-        viewMenu.addAction(self.createAction("Types", self.showTypes, None, "nepomuk", None, None))
+        viewMenu.addAction(self.createAction(i18n("Types"), self.showTypes, None, "nepomuk", None, None))
         
 
         self.menuBar().addMenu(self.helpMenu())
@@ -183,7 +183,7 @@ class Ginkgo(KMainWindow):
         searchButton.setPopupMode(QToolButton.InstantPopup)
         searchMenu = QMenu(self)
         searchMenu.setTitle(i18n("Search"))
-        self.fullTextSearchOption = self.createAction("Full-text search", checkable=True)
+        self.fullTextSearchOption = self.createAction(i18n("Full-text search"), checkable=True)
         self.fullTextSearchOption.setChecked(True)
         searchMenu.addAction(self.fullTextSearchOption)
         searchButton.setMenu(searchMenu)
