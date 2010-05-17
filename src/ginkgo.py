@@ -50,23 +50,15 @@ class Ginkgo(KMainWindow):
         #self.workarea.setCloseButtonEnabled(True)
         self.setCentralWidget(self.workarea)
         
-        mainTypes = [
-                     [NCO.Contact, "&Contact", "&Contact", "contact-new", "Create new contact"],
-                     [PIMO.Project, "&Project", "&Project", "nepomuk", "Create new project"],
-                     [PIMO.Task, "&Task", "&Task", "view-task-add", "Create new task"],
-                     [PIMO.Organization, "&Organization", "&Organization", "nepomuk", "Create new organization"],
-                     [PIMO.Topic, "&Topic", "&Topic", "nepomuk", "Create new topic"],
-                     [PIMO.Event, "&Event", "&Event", "nepomuk", "Create new event"],
-                     [PIMO.Location, "&Location", "&Location", "nepomuk", "Create new location"],
-                     [NFO.Website, "&WebPage", "&Web Page", "text-html", "Create new Web page"],
-                     [PIMO.Note, "&Note", "&Note", "text-plain", "Create new note"],
-                     ]
+        self.loadPlacesData()
         
-        placesWidget = self.createPlacesWidget(mainTypes)
-        self.createActions(mainTypes)
+        self.createActions()
         
-        self.addDockWidget(Qt.LeftDockWidgetArea, placesWidget)
-
+        
+        self.createPlacesWidget()
+        
+        
+        
         status = self.statusBar()
         status.setSizeGripEnabled(False)
         status.showMessage("Ready", 5000)
@@ -74,11 +66,11 @@ class Ginkgo(KMainWindow):
         self.restoreSettings()
         self.setWindowTitle("Ginkgo")
 
-    def createActions(self, mainTypes):
+    def createActions(self):
 
         newResourceActions = []
 
-        for type in mainTypes:
+        for type in self.placesData:
             newResourceActions.append(self.createAction(type[1], getattr(self, "newResource"), None, type[3], type[4], type[0]))
         
         saveAction = self.createAction("&Save", self.save, QKeySequence.Save, "document-save", "Save")
@@ -87,7 +79,6 @@ class Ginkgo(KMainWindow):
         newTabAction = self.createAction("New &Tab", self.newTab, QKeySequence.AddTab, "tab-new-background-small", "Create new tab")
         closeTabAction = self.createAction("Close Tab", self.closeCurrentTab, QKeySequence.Close, "tab-close", "Close tab")
         quitAction = self.createAction("&Quit", self.close, "Ctrl+Q", "application-exit", "Close the application")
-
 
         self.linkToButton = QToolButton()
         self.linkToButton.setToolTip(i18n("Link to..."))
@@ -99,7 +90,7 @@ class Ginkgo(KMainWindow):
         self.linkToMenu = QMenu(self)
         self.linkToMenu.setTitle(i18n("Link to"))
         self.linkToMenu.setIcon(KIcon("nepomuk"))
-        for type in mainTypes:
+        for type in self.placesData:
             self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
         
         self.linkToMenu.addAction(self.createAction("File", self.linkToFile, None, None, "Link to file"))
@@ -130,10 +121,10 @@ class Ginkgo(KMainWindow):
         editMenu.addAction(deleteAction)
         
         viewMenu = self.menuBar().addMenu(i18n("&View"))
-        for type in mainTypes:
+        for type in self.placesData:
             viewMenu.addAction(self.createAction(type[1] + "s", self.showResourcesByType, None, type[3], None, type[0]))
         
-        viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
+        #viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
         viewMenu.addSeparator()
         viewMenu.addAction(self.createAction("Types", self.showTypes, None, "nepomuk", None, None))
         
@@ -321,6 +312,8 @@ class Ginkgo(KMainWindow):
             resource = Nepomuk.Resource(nepomukType.toString())
             #todo: add a property for associating an editor to a nepomukType dynamically
             label = str(resource.genericLabel()) + "Editor"
+            if resource.genericLabel() == "file":
+                label = "FileEditor"
             className = "editors." + label.lower() + "." + label
             try:
                 newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=nepomukType)
@@ -375,9 +368,9 @@ class Ginkgo(KMainWindow):
         if url and len(url.toString()) > 0:
             kurl = KUrl(url.toString())
             krun(kurl, self, isLocal)
-        elif uri and len(uri) > 0:
-            kurl = KUrl(uri)
-            krun(uri, self, isLocal)
+        elif resource.resourceUri() and len(resource.resourceUri().toString()) > 0:
+            kurl = KUrl(resource.resourceUri().toString())
+            krun(kurl, self, isLocal)
         
 
     def findResourceEditor(self, resource):
@@ -460,13 +453,15 @@ class Ginkgo(KMainWindow):
             excludeList = datamanager.findRelations(widget.resource.resourceUri())
             #exclude the current resource itself for avoiding creating a link to itself
             excludeList.add(widget.resource)
-            #dialog = ResourceChooserDialog(self, nepomukType, excludeList)
-            dialog = LabelInputMatchDialog(mainWindow=self, nepomukType=nepomukType, excludeList=excludeList)
+            dialog = ResourceChooserDialog(self, nepomukType, excludeList)
+            #dialog = LabelInputMatchDialog(mainWindow=self, nepomukType=nepomukType, excludeList=excludeList)
             if dialog.exec_():
                 #save the current resource to make sure it exists in the db, then draw the relations
                 widget.setCursor(Qt.WaitCursor)
                 widget.save()
-                for resource in dialog.selectedResources():
+                #for resource in dialog.selectedResources():
+                
+                for resource in dialog.selection:
                     #item = QUrl(id)
                     widget.resource.addProperty(Soprano.Vocabulary.NAO.isRelated(), Nepomuk.Variant(resource))
                 widget.unsetCursor()
@@ -508,39 +503,48 @@ class Ginkgo(KMainWindow):
         
     def closeEvent(self, event):
         self.saveSettings()
-
-
             
-    def createPlacesWidget(self, mainTypes):
-        placesWidget = QDockWidget("Places", self)
-        placesWidget.setObjectName("Places")
-        placesWidget.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+    def createPlacesWidget(self):
+        self.placesWidget = QDockWidget("Places", self)
+        self.placesWidget.setObjectName("Places")
+        self.placesWidget.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         
-        self.placesInternalWidget = QWidget()
-        self.placesInternalWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.installPlaces()
         
-        verticalLayout = QVBoxLayout(self.placesInternalWidget)
-        verticalLayout.setObjectName("placeslayout")
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.placesWidget)
+
+
+    def loadPlacesData(self):
+        """Try to restore the places from the settings, otherwise set default places."""    
+
+        placesData = QSettings().value("Ginkgo/Places")
+
+        list = placesData.toList()
+        if False and len(list) > 0:
+            places = []
+            for elt in list:
+                places.append(elt.toStringList())
+            self.placesData = places
         
-        for type in mainTypes:
-            button = self.createPlaceButton(type[0], type[1] + "s")
-            verticalLayout.addWidget(button)
-        
-        button = self.createPlaceButton(NFO.FileDataObject, "Files")
-        verticalLayout.addWidget(button)
-        
-        spacerItem = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        verticalLayout.addItem(spacerItem)
-        
-        placesWidget.setWidget(self.placesInternalWidget)
-        
-        
-        return placesWidget
+        else:
+            self.placesData = [
+                         [NCO.Contact, "&Contact", "&Contact", "contact-new", "Create new contact"],
+                         [PIMO.Project, "&Project", "&Project", "nepomuk", "Create new project"],
+                         [PIMO.Task, "&Task", "&Task", "view-task-add", "Create new task"],
+                         [PIMO.Organization, "&Organization", "&Organization", "nepomuk", "Create new organization"],
+                         [PIMO.Topic, "&Topic", "&Topic", "nepomuk", "Create new topic"],
+                         [PIMO.Event, "&Event", "&Event", "nepomuk", "Create new event"],
+                         [PIMO.Location, "&Location", "&Location", "nepomuk", "Create new location"],
+                         [NFO.Website, "&WebPage", "&Web Page", "text-html", "Create new Web page"],
+                         [PIMO.Note, "&Note", "&Note", "text-plain", "Create new note"],
+                         [NFO.FileDataObject, "&File","&File","text-plain","Create new file"]
+                         ]
+#        else:
+#            self.placesData =  placesData
+    #viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
     
-    
-    
-    def createPlaceButton(self, nepomukType, label):
-        button = KPushButton(self.placesInternalWidget)
+    def createPlaceButton(self, parent, nepomukType, label):
+        button = KPushButton(parent)
         button.setStyleSheet("text-align:left")
         button.setObjectName(label)
         button.setText(label)
@@ -548,7 +552,73 @@ class Ginkgo(KMainWindow):
         button.setProperty("nepomukType", nepomukType)
         button.setProperty("label", label)
         button.clicked.connect(self.showResourcesByType)
+        button.setContextMenuPolicy(Qt.CustomContextMenu)
+        button.customContextMenuRequested.connect(self.showPlacesContextMenu)
         return button
+    
+    def installPlaces(self):
+        placesInternalWidget = QWidget()
+        placesInternalWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        
+        verticalLayout = QVBoxLayout(placesInternalWidget)
+        verticalLayout.setObjectName("placeslayout")
+        
+        for type in self.placesData:
+            button = self.createPlaceButton(placesInternalWidget, type[0], type[1] + "s")
+            verticalLayout.addWidget(button)
+        
+#        button = self.createPlaceButton(placesInternalWidget, NFO.FileDataObject, "Files")
+#        verticalLayout.addWidget(button)
+        
+        spacerItem = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        verticalLayout.addItem(spacerItem)
+        
+        self.placesWidget.setWidget(placesInternalWidget)
+
+    def addToPlaces(self, uri):
+        resource = Nepomuk.Resource(uri)
+        #button = self.createPlaceButton(uri.toString(), resource.genericLabel() + "s")
+        newPlaceData = [uri.toString(), resource.genericLabel(), resource.genericLabel() + "s", None, None]
+        self.placesData.append(newPlaceData)
+        self.installPlaces()
+        
+    def removeFromPlaces(self, nepomukType):
+        index = 0
+        for placeData in self.placesData:
+            if placeData and placeData[0] == nepomukType:
+                self.placesData.pop(index)
+                break
+            index = index + 1
+        self.installPlaces()
+    
+    def movePlaceUp(self, nepomukType):
+        index = 0
+        for placeData in self.placesData:
+            if placeData and placeData[0] == nepomukType:
+                self.placesData.pop(index)
+                self.placesData.insert(index-1, placeData)
+                break
+            index = index + 1
+        self.installPlaces()
+        
+    def movePlaceDown(self, nepomukType):
+        index = 0
+        for placeData in self.placesData:
+            if placeData and placeData[0] == nepomukType:
+                self.placesData.pop(index)
+                self.placesData.insert(index+1, placeData)
+                break
+            index = index + 1
+        self.installPlaces()
+        
+        
+    def showPlacesContextMenu(self, points):
+        button  = self.sender()
+        nepomukType = button.property("nepomukType")
+        menu = PlacesContextMenu(self, nepomukType=nepomukType)
+        pos = button.mapToGlobal(points)
+        menu.exec_(pos)
+         
     
     def showResourcesByType(self):
         nepomukType = QUrl(self.sender().property("nepomukType").toString())
@@ -585,6 +655,7 @@ class Ginkgo(KMainWindow):
             if hasattr(editor, "resource") and editor.resource:
                 currentResourcesUris.append(editor.resource.resourceUri().toString())
         settings.setValue("Ginkgo/Resources", QVariant(currentResourcesUris))
+        settings.setValue("Ginkgo/Places", QVariant(self.placesData))
             
     def restoreSettings(self): 
         settings = QSettings()
@@ -597,6 +668,9 @@ class Ginkgo(KMainWindow):
         resourcesUris = settings.value("Ginkgo/Resources").toStringList()
         for uri in resourcesUris:
             self.openResource(uri, True, True)
+
+        
+        
 
     def save(self):
         self.workarea.setCursor(Qt.WaitCursor)
@@ -641,11 +715,7 @@ class Ginkgo(KMainWindow):
         self.workarea.insertTab(index, widget, label)
         self.workarea.setCurrentIndex(index)
 
-    def addToPlaces(self, uri):
-        resource = Nepomuk.Resource(uri)
-        button = self.createPlaceButton(uri.toString(), resource.genericLabel() + "s")
-        self.placesInternalWidget.layout().addWidget(button)
-         
+
     
     def typeIcon(self, nepomukType, size=16):
         if nepomukType == NFO.Website:
@@ -743,7 +813,42 @@ class Ginkgo(KMainWindow):
 
     def maxTabTitleLength(self):
         return 30
+
+
+
+
+    def processAction(self, key, nepomukType):
+        if key == i18n("Move &up"):
+            self.movePlaceUp(nepomukType)
+        elif key == i18n("Move &down"):
+            self.movePlaceDown(nepomukType)
+        elif key == i18n("&Remove entry"):
+            self.removeFromPlaces(nepomukType)
+        
+
+
+class PlacesContextMenu(QMenu):
+    def __init__(self, parent=None, nepomukType=None):
+        super(PlacesContextMenu, self).__init__(parent)
+        self.nepomukType = nepomukType
+        self.parent = parent
+        self.createActions()
+        self.triggered.connect(self.actionTriggered)
+        QMetaObject.connectSlotsByName(self)
     
+    def actionTriggered(self, action):
+        key = unicode(action.text())
+        self.parent.processAction(key, self.nepomukType)
+        
+    def createActions(self):
+        action = QAction(i18n("Move &up"), self)
+        self.addAction(action)
+        action = QAction(i18n("Move &down"), self)
+        self.addAction(action)
+        action = QAction(i18n("&Remove entry"), self)
+        self.addAction(action)
+
+
 
 #http://stackoverflow.com/questions/452969/does-python-have-an-equivalent-to-java-class-forname
 def getClass(clazz):

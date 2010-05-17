@@ -50,10 +50,28 @@ def removeResource(uri):
     resource.remove()
 
 
+def test():
+    labelTerm = Nepomuk.Query.ComparisonTerm(Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel()), Nepomuk.Query.LiteralTerm(Soprano.LiteralValue("Alex")), Nepomuk.Query.ComparisonTerm.Contains)
+    #labelTerm.setVariableName("label")
+    #query = Nepomuk.Query.Query(labelTerm)
+    
+    nepomukType = Nepomuk.Types.Class(NCO.Contact)
+    typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)
+    
+    andTerm = Nepomuk.Query.AndTerm([typeTerm, labelTerm])
+    
+    query = Nepomuk.Query.Query(labelTerm)
+    print query.toSparqlQuery()
+    
+    data = executeQuery(query.toSparqlQuery())
+    print data
+
 def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None):
                 
     nepomukType = Nepomuk.Types.Class(nepomukType)
     term = Nepomuk.Query.ResourceTypeTerm(nepomukType)
+    
+    
     
     query = Nepomuk.Query.Query(term);
     sparql = query.toSparqlQuery();
@@ -193,6 +211,48 @@ def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None):
     executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
 
 
+
+
+#QUrl Nepomuk::PimoModel::createClass( const QUrl& parentClassUri,
+#                                      const QString& label,
+#                                      const QString& comment,
+#                                      const QString& icon )
+#{
+#    if ( label.isEmpty() ) {
+#        setError( "No label for new class set." );
+#        return QUrl();
+#    }
+#
+#    Types::Class parentClass( parentClassUri );
+#    if( parentClassUri != Vocabulary::PIMO::Thing() &&
+#        !parentClass.isSubClassOf( Vocabulary::PIMO::Thing() ) ) {
+#        setError( "New PIMO class needs to be subclass of pimo:Thing." );
+#        return QUrl();
+#    }
+#
+#    QUrl classUri = newClassUri( label );
+#
+#    QList<Soprano::Statement> sl;
+#    sl << Soprano::Statement( classUri, Soprano::Vocabulary::RDF::type(), Soprano::Vocabulary::RDFS::Class() )
+#       << Soprano::Statement( classUri, Soprano::Vocabulary::RDFS::subClassOf(), parentClassUri )
+#       << Soprano::Statement( classUri, Soprano::Vocabulary::RDFS::label(), Soprano::LiteralValue( label ) )
+#       << Soprano::Statement( classUri, Soprano::Vocabulary::NAO::created(), Soprano::LiteralValue( QDateTime::currentDateTime() ) );
+#    if ( !comment.isEmpty() ) {
+#        sl << Soprano::Statement( classUri, Soprano::Vocabulary::RDFS::comment(), Soprano::LiteralValue( comment ) );
+#    }
+#    if ( !icon.isEmpty() ) {
+#        // FIXME: create a proper Symbol object, if possible maybe a subclass DesktopIcon if its a standard icon
+#        sl << Soprano::Statement( classUri, Soprano::Vocabulary::NAO::hasSymbol(), Soprano::LiteralValue( icon ) );
+#    }
+#
+#    if( addPimoStatements( sl ) == Soprano::Error::ErrorNone ) {
+#        return classUri;
+#    }
+#    else {
+#        return QUrl();
+#    }
+#}
+
     
 if __name__ == "__main__":
     #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)
@@ -201,12 +261,13 @@ if __name__ == "__main__":
 #        print elt.resourceUri().toString() + " "+ elt.genericLabel()
 #    
 #    getFileResource("/home/arkub/F/CMakecccccc_Tutorial.pdf")
-    nepomukType = NCO.Contact
-    res = Nepomuk.Resource(nepomukType)
-    print nepomukType
-    for prop in res.properties():
-        print prop.toString()
-        print res.property(prop).toString()
+#    nepomukType = NCO.Contact
+#    res = Nepomuk.Resource(nepomukType)
+#    print nepomukType
+#    for prop in res.properties():
+#        print prop.toString()
+#        print res.property(prop).toString()
+    test()
     
     
 
