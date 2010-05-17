@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-17 17:35+0200\n"
+"POT-Creation-Date: 2010-05-17 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,8 +107,64 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
+#: ginkgo.py:76
+msgid "&Save"
+msgstr ""
+
+#: ginkgo.py:76
+msgid "Save"
+msgstr ""
+
+#: ginkgo.py:78
+msgid "&Open"
+msgstr ""
+
+#: ginkgo.py:78
+msgid "Open a resource"
+msgstr ""
+
+#: ginkgo.py:79
+msgid "New &Tab"
+msgstr ""
+
+#: ginkgo.py:79
+msgid "Create new tab"
+msgstr ""
+
+#: ginkgo.py:80
+msgid "Close Tab"
+msgstr ""
+
+#: ginkgo.py:80
+msgid "Close tab"
+msgstr ""
+
+#: ginkgo.py:81
+msgid "&Quit"
+msgstr ""
+
+#: ginkgo.py:81
+msgid "Close the application"
+msgstr ""
+
 #: ginkgo.py:91
 msgid "Link to"
+msgstr ""
+
+#: ginkgo.py:96
+msgid "File"
+msgstr ""
+
+#: ginkgo.py:96
+msgid "Link to file"
+msgstr ""
+
+#: ginkgo.py:99
+msgid "Set resource as context"
+msgstr ""
+
+#: ginkgo.py:99
+msgid "Set the current resource as context"
 msgstr ""
 
 #: ginkgo.py:101 ginkgo.py:540
@@ -123,8 +179,20 @@ msgstr ""
 msgid "&Edit"
 msgstr ""
 
+#: ginkgo.py:119 views/resourcecontextmenu.py:50 views/resourcestree.py:280
+msgid "&Delete"
+msgstr ""
+
+#: ginkgo.py:119
+msgid "Delete"
+msgstr ""
+
 #: ginkgo.py:123
 msgid "&View"
+msgstr ""
+
+#: ginkgo.py:129
+msgid "Types"
 msgstr ""
 
 #: ginkgo.py:136
@@ -137,6 +205,10 @@ msgstr ""
 
 #: ginkgo.py:181 ginkgo.py:185
 msgid "Search"
+msgstr ""
+
+#: ginkgo.py:186
+msgid "Full-text search"
 msgstr ""
 
 #: ginkgo.py:268
@@ -344,10 +416,6 @@ msgstr ""
 
 #: views/resourcecontextmenu.py:45
 msgid "&Open in new tab"
-msgstr ""
-
-#: views/resourcecontextmenu.py:50 views/resourcestree.py:280
-msgid "&Delete"
 msgstr ""
 
 #: views/resourcecontextmenu.py:51
