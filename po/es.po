@@ -1,0 +1,478 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-17 18:11+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Diego Bello Carreño <dbello@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dialogs/labelinputmatchdialog.py:116
+#: dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:84
+#: ginkgo.py:85
+msgid "Link to..."
+msgstr "Enlazar a..."
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr "Abrir recurso"
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
+msgstr "&Nombre:"
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Selección de tarea"
+
+#: editors/classeditor.py:73
+msgid "Type Name"
+msgstr "Ingrese Nombre"
+
+#: editors/contacteditor.py:74
+msgid "First Name"
+msgstr "Primer Nombre"
+
+#: editors/contacteditor.py:91
+msgid "Last Name"
+msgstr "Apellido"
+
+#: editors/contacteditor.py:99
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: editors/contacteditor.py:123
+msgid "Phone"
+msgstr "Teléfono"
+
+#: editors/fileeditor.py:48
+#: editors/resourceeditor.py:189
+#: editors/websiteeditor.py:54
+#: views/relationstable.py:45
+#: views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
+msgid "Name"
+msgstr "Nombre"
+
+#: editors/fileeditor.py:58
+#: editors/websiteeditor.py:66
+msgid "Open"
+msgstr "Abrir"
+
+#: editors/resourceeditor.py:59
+msgid "Select Icon - Ginkgo"
+msgstr "Seleccionar Ícono - Ginkgo"
+
+#: editors/resourceeditor.py:59
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Imágenes (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:127
+msgid "Relations"
+msgstr "Relaciones"
+
+#: editors/resourceeditor.py:128
+msgid "Properties"
+msgstr "Propiedades"
+
+#: editors/resourceeditor.py:161
+msgid "&Description:"
+msgstr "&Descripción:"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "Nin&guno"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Otro"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Bajo"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Medio"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "Al&to"
+
+#: editors/websiteeditor.py:59
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:76
+msgid "&Save"
+msgstr "&Guardar"
+
+#: ginkgo.py:76
+msgid "Save"
+msgstr "Guardar"
+
+#: ginkgo.py:78
+msgid "&Open"
+msgstr "&Abrir"
+
+#: ginkgo.py:78
+msgid "Open a resource"
+msgstr "Abrir un recurso"
+
+#: ginkgo.py:79
+msgid "New &Tab"
+msgstr "Nueva &Pestaña"
+
+#: ginkgo.py:79
+msgid "Create new tab"
+msgstr "Crear una nueva pestaña"
+
+#: ginkgo.py:80
+msgid "Close Tab"
+msgstr "Cerrar Pestaña"
+
+#: ginkgo.py:80
+msgid "Close tab"
+msgstr "Cerrar pestaña"
+
+#: ginkgo.py:81
+msgid "&Quit"
+msgstr "&Salir"
+
+#: ginkgo.py:81
+msgid "Close the application"
+msgstr "Cerrar la aplicación"
+
+#: ginkgo.py:91
+msgid "Link to"
+msgstr "Enlazar a"
+
+#: ginkgo.py:96
+msgid "File"
+msgstr "Archivo"
+
+#: ginkgo.py:96
+msgid "Link to file"
+msgstr "Enlazar a archivo"
+
+#: ginkgo.py:99
+msgid "Set resource as context"
+msgstr "Establecer el recurso como contexto"
+
+#: ginkgo.py:99
+msgid "Set the current resource as context"
+msgstr "Establecer el recurso actual como contexto"
+
+#: ginkgo.py:101
+#: ginkgo.py:540
+msgid "&File"
+msgstr "&Archivo"
+
+#: ginkgo.py:104
+msgid "&New"
+msgstr "&Nuevo"
+
+#: ginkgo.py:118
+msgid "&Edit"
+msgstr "&Editar"
+
+#: ginkgo.py:119
+#: views/resourcecontextmenu.py:50
+#: views/resourcestree.py:280
+msgid "&Delete"
+msgstr "&Borrar"
+
+#: ginkgo.py:119
+msgid "Delete"
+msgstr "Borrar"
+
+#: ginkgo.py:123
+msgid "&View"
+msgstr "&Ver"
+
+#: ginkgo.py:129
+msgid "Types"
+msgstr "Tipos"
+
+#: ginkgo.py:136
+msgid "Toolbar"
+msgstr "Barra de herramientas"
+
+#: ginkgo.py:143
+#: ginkgo.py:144
+msgid "New"
+msgstr "Nuevo"
+
+#: ginkgo.py:181
+#: ginkgo.py:185
+msgid "Search"
+msgstr "Buscar"
+
+#: ginkgo.py:186
+msgid "Full-text search"
+msgstr "Búsqueda de texto completo"
+
+#: ginkgo.py:268
+msgid "New Task"
+msgstr "Nueva Tarea"
+
+#: ginkgo.py:279
+msgid "New Type"
+msgstr "Nuevo Tipo"
+
+#: ginkgo.py:323
+msgid "New %1"
+msgstr "Nuevo %1"
+
+#: ginkgo.py:397
+msgid "Resource removal"
+msgstr "Eliminar recurso"
+
+#: ginkgo.py:398
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "¿Está seguro de que desea eliminar <i>%1</i>?"
+
+#: ginkgo.py:471
+msgid "Select File - Ginkgo"
+msgstr "Seleccione Archivo - Ginkgo"
+
+#: ginkgo.py:508
+msgid "Places"
+msgstr "Lugares"
+
+#: ginkgo.py:531
+msgid "&Contact"
+msgstr "&Contacto"
+
+#: ginkgo.py:531
+msgid "&Contacts"
+msgstr "&Contactos"
+
+#: ginkgo.py:531
+msgid "Create new contact"
+msgstr "Crear un nuevo contacto"
+
+#: ginkgo.py:532
+msgid "&Project"
+msgstr "&Proyecto"
+
+#: ginkgo.py:532
+msgid "&Projects"
+msgstr "&Proyectos"
+
+#: ginkgo.py:532
+msgid "Create new project"
+msgstr "Crear un nuevo proyecto"
+
+#: ginkgo.py:533
+msgid "&Task"
+msgstr "&Tarea"
+
+#: ginkgo.py:533
+msgid "&Tasks"
+msgstr "&Tareas"
+
+#: ginkgo.py:533
+msgid "Create new task"
+msgstr "Crear una tarea nueva"
+
+#: ginkgo.py:534
+msgid "&Organization"
+msgstr "&Organización"
+
+#: ginkgo.py:534
+msgid "&Organizations"
+msgstr "&Organizaciones"
+
+#: ginkgo.py:534
+msgid "Create new organization"
+msgstr "Crear una nueva organización"
+
+#: ginkgo.py:535
+msgid "&Topic"
+msgstr "&Tópico"
+
+#: ginkgo.py:535
+msgid "&Topics"
+msgstr "&Tópicos"
+
+#: ginkgo.py:535
+msgid "Create new topic"
+msgstr "Crear un nuevo tópico"
+
+#: ginkgo.py:536
+msgid "&Event"
+msgstr "&Evento"
+
+#: ginkgo.py:536
+msgid "&Events"
+msgstr "&Eventos"
+
+#: ginkgo.py:536
+msgid "Create new event"
+msgstr "Crear un nuevo evento"
+
+#: ginkgo.py:537
+msgid "&Location"
+msgstr "&Lugar"
+
+#: ginkgo.py:537
+msgid "&Locations"
+msgstr "&Lugares"
+
+#: ginkgo.py:537
+msgid "Create new location"
+msgstr "Crear un nuevo lugar"
+
+#: ginkgo.py:538
+msgid "&WebPage"
+msgstr "Página &Web"
+
+#: ginkgo.py:538
+msgid "&Web Pages"
+msgstr "Páginas &Web"
+
+#: ginkgo.py:538
+msgid "Create new Web page"
+msgstr "Crear una nueva página Web"
+
+#: ginkgo.py:539
+msgid "&Note"
+msgstr "&Nota"
+
+#: ginkgo.py:539
+msgid "&Notes"
+msgstr "&Notas"
+
+#: ginkgo.py:539
+msgid "Create new note"
+msgstr "Crear una nueva nota"
+
+#: ginkgo.py:540
+msgid "&Files"
+msgstr "&Archivos"
+
+#: ginkgo.py:540
+msgid "Create new file"
+msgstr "Crear un archivo nuevo"
+
+#: ginkgo.py:642
+#: ginkgo.py:644
+msgid "Context - Ginkgo"
+msgstr "Contexto - Ginkgo"
+
+#: ginkgo.py:642
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "El contexto se ha actualizado a <i>%1</i> exitosamente."
+
+#: ginkgo.py:644
+msgid "An error occurred while updating the context."
+msgstr "Ocurrió un error mientras se actualizaba el contexto."
+
+#: ginkgo.py:710
+msgid "Search Results"
+msgstr "Resultados de la búsqueda"
+
+#: ginkgo.py:821
+#: ginkgo.py:844
+msgid "Move &up"
+msgstr "Mover arri&ba"
+
+#: ginkgo.py:823
+#: ginkgo.py:846
+msgid "Move &down"
+msgstr "Mover aba&jo"
+
+#: ginkgo.py:825
+#: ginkgo.py:848
+msgid "&Remove entry"
+msgstr "&Remover entrada"
+
+#: ginkgo.py:866
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:867
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:869
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginkgo es un navegador para Nepomuk, el conjunto de herramientas semánticas de KDE."
+
+#: ginkgo.py:871
+msgid "Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages."
+msgstr "Ginkgo le permite crear y explorar enlaces entre sus datos personales tales como correos electrónicos, contactos, archivos y páginas Web."
+
+#: ginkgo.py:878
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:878
+msgid "Developer"
+msgstr "Desarrollador"
+
+#: views/relationstable.py:45
+#: views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
+msgid "Date"
+msgstr "Fecha"
+
+#: views/relationstable.py:45
+#: views/resourcestable.py:276
+msgid "Type"
+msgstr "Tipo"
+
+#: views/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr "Abrir en una nueva &pestaña"
+
+#: views/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Borrar este recurso de la base de datos de Nepomuk"
+
+#: views/resourcecontextmenu.py:59
+#: views/resourcestable.py:355
+msgid "Open &file"
+msgstr "Abrir a&rchivo"
+
+#: views/resourcecontextmenu.py:63
+#: views/resourcestable.py:358
+msgid "Open &page"
+msgstr "Abrir &página"
+
+#: views/resourcepropertiestable.py:133
+msgid "Property"
+msgstr "Propiedad"
+
+#: views/resourcepropertiestable.py:133
+msgid "Value"
+msgstr "Valor"
+
+#: views/resourcestree.py:283
+#: views/resourcestree.py:321
+msgid "&Add to places"
+msgstr "&Agregar a lugares"
+
+#: views/tasktree.py:325
+msgid "&New sub-task"
+msgstr "&Nueva sub-tarea"
+
+#: views/typesview.py:37
+msgid "Ontologies:"
+msgstr "Ontologías:"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Diego Bello"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "dbello@gmail.com"
+
