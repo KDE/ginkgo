@@ -18,8 +18,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import i18n
-from editors.relationstable import RelationsTable
-from editors.resourcepropertiestable import ResourcePropertiesTable
+from views.relationstable import RelationsTable
+from views.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
 import os
 

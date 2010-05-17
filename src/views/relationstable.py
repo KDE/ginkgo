@@ -22,9 +22,9 @@ from os.path import join
 from PyKDE4.soprano import Soprano
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
-from editors.resourcestable import ResourcesTable, ResourcesTableModel
+from views.resourcestable import ResourcesTable, ResourcesTableModel
 from util import mime
-from editors.resourcecontextmenu import ResourceContextMenu
+from views.resourcecontextmenu import ResourceContextMenu
 
 
             

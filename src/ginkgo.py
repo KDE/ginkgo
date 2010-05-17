@@ -24,16 +24,16 @@ from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import *
 from dao import PIMO, TMO, NFO, NCO, datamanager, NIE
-from dialogs.resourcechooserdialog import ResourceChooserDialog
-from editors.resourceeditor import ResourceEditor
-from editors.resourcesbytypetable import ResourcesByTypeTable
-from editors.taskeditor import TaskEditor
-from editors.tasktree import TaskTree
 from util.krun import krun
-from editors.resourcestable import ResourcesTable
 from dialogs.labelinputmatchdialog import LabelInputMatchDialog
+from dialogs.resourcechooserdialog import ResourceChooserDialog
 from views.typesview import TypesView
+from views.resourcesbytypetable import ResourcesByTypeTable
+from views.tasktree import TaskTree
+from views.resourcestable import ResourcesTable
 from editors.classeditor import ClassEditor
+from editors.resourceeditor import ResourceEditor
+from editors.taskeditor import TaskEditor
 
 import resources_rc
 
@@ -428,9 +428,8 @@ class Ginkgo(KMainWindow):
     def showOpenResourceDialog(self):
         dialog = LabelInputMatchDialog(mainWindow = self)
         if dialog.exec_():
-            resource = dialog.selection()
-            if resource:
-                self.openResource(resource.resourceUri(), True, False)
+            if dialog.selectedResource():
+                self.openResource(dialog.selectedResource().resourceUri(), True, False)
 
     def currentTabChangedSlot(self, index):
         resource = self.currentResource()
@@ -461,13 +460,13 @@ class Ginkgo(KMainWindow):
             excludeList = datamanager.findRelations(widget.resource.resourceUri())
             #exclude the current resource itself for avoiding creating a link to itself
             excludeList.add(widget.resource)
-            dialog = ResourceChooserDialog(self, nepomukType, excludeList)
+            #dialog = ResourceChooserDialog(self, nepomukType, excludeList)
+            dialog = LabelInputMatchDialog(mainWindow=self, nepomukType=nepomukType, excludeList=excludeList)
             if dialog.exec_():
                 #save the current resource to make sure it exists in the db, then draw the relations
                 widget.setCursor(Qt.WaitCursor)
                 widget.save()
-                selection = dialog.selection
-                for resource in selection:
+                for resource in dialog.selectedResources():
                     #item = QUrl(id)
                     widget.resource.addProperty(Soprano.Vocabulary.NAO.isRelated(), Nepomuk.Variant(resource))
                 widget.unsetCursor()

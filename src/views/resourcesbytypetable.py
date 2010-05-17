@@ -21,13 +21,13 @@ from os import system
 from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.kdecore import i18n
-from editors.resourcestable import ResourcesTable, ResourcesTableModel,ResourcesSortFilterProxyModel
+from views.resourcestable import ResourcesTable, ResourcesTableModel,ResourcesSortFilterProxyModel
 
 class ResourcesByTypeTable(ResourcesTable):
 
-    def __init__(self, mainWindow=False, dialogMode=False, nepomukType=None, excludeList=None):
+    def __init__(self, mainWindow=False, dialogMode=False, nepomukType=None, excludeList=None, searchDialogMode=False):
         self.nepomukType = nepomukType
-        super(ResourcesByTypeTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode, excludeList=excludeList)
+        super(ResourcesByTypeTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode, excludeList=excludeList, searchDialogMode=searchDialogMode)
 
     def statementAddedSlot(self, statement):
         predicate = statement.predicate().uri()

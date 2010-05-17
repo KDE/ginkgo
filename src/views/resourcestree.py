@@ -19,8 +19,7 @@ from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
 from PyKDE4.kdecore import i18n
-from editors.resourcecontextmenu import ResourceContextMenu
-from editors import resourcecontextmenu
+from views.resourcecontextmenu import ResourceContextMenu
 
 
 class ResourceNode(object):

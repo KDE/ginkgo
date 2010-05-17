@@ -14,7 +14,7 @@
 
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QMetaObject, QString
 from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog
-from editors.tasktree import TaskTree
+from views.tasktree import TaskTree
 from PyKDE4 import nepomuk
 from PyKDE4.kdecore import i18n
 

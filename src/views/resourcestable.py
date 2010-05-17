@@ -24,7 +24,7 @@ from os import system
 from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
-from editors.resourcecontextmenu import ResourceContextMenu
+from views.resourcecontextmenu import ResourceContextMenu
 from datetime import *
 import os
 import subprocess
@@ -131,6 +131,7 @@ class ResourcesTableModel(QAbstractTableModel):
                 self.beginRemoveRows(QModelIndex(), row, row)
                 self.resources.pop(row)
                 self.endRemoveRows()
+                break
                 
     
     #this slot has to be in the model, not in the table, otherwise when we change the model table
@@ -252,10 +253,10 @@ class ResourcesTable(QWidget):
         self.table.setAlternatingRowColors(True)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        if not self.searchDialogMode:
-            self.table.setSelectionMode(QTableWidget.ExtendedSelection)
-        else:
-            self.table.setSelectionMode(QTableWidget.SingleSelection)
+        #if not self.searchDialogMode:
+        self.table.setSelectionMode(QTableWidget.ExtendedSelection)
+        #else:
+        #    self.table.setSelectionMode(QTableWidget.SingleSelection)
             
         
         self.table.setDragDropMode(QAbstractItemView.NoDragDrop)

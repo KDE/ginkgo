@@ -13,16 +13,19 @@
 ## information regarding copyright ownership.
 
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QMetaObject, QString, QSize, QModelIndex
-from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog, QWidget, QSizePolicy
+from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog, QWidget, QSizePolicy, QTableWidget
 from PyKDE4.kdecore import i18n
-from editors.resourcestable import ResourcesTable
+from views.resourcestable import ResourcesTable
 from dao import datamanager
+from views.resourcesbytypetable import ResourcesByTypeTable
 
 class LabelInputMatchDialog(QDialog):
 
-    def __init__(self, mainWindow=None, parent=None):
+    def __init__(self, parent=None, mainWindow=None, nepomukType=None, excludeList=None):
         super(LabelInputMatchDialog, self).__init__(parent)
         self.mainWindow = mainWindow
+        self.nepomukType = nepomukType
+        self.excludeList = excludeList
         self.setupUi(self)
         self.validate()
 
@@ -48,10 +51,16 @@ class LabelInputMatchDialog(QDialog):
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(True)
         
 
-    def selection(self):
+    def selectedResource(self):
         if len(self.matchingItems.selectedResources()) > 0:
             return self.matchingItems.selectedResources()[0]
         return None
+    
+    def selectedResources(self):
+        if len(self.matchingItems.selectedResources()) > 0:
+            return self.matchingItems.selectedResources()
+        return None
+    
 
     def accept(self):
         
@@ -76,8 +85,13 @@ class LabelInputMatchDialog(QDialog):
         self.gridlayout.addWidget(self.input, 1, 0, 1, 1)
         self.label.setBuddy(self.input)
         
-        
-        self.matchingItems = ResourcesTable(mainWindow=dialog.mainWindow, searchDialogMode=True)
+        if self.nepomukType:
+            self.matchingItems = ResourcesByTypeTable(mainWindow=dialog.mainWindow, searchDialogMode=True, nepomukType=self.nepomukType)
+            
+        else:
+            self.matchingItems = ResourcesTable(mainWindow=dialog.mainWindow, searchDialogMode=True)
+            self.matchingItems.table.setSelectionMode(QTableWidget.SingleSelection)
+            
         self.matchingLabel = QLabel(dialog)
         self.gridlayout.addWidget(self.matchingLabel, 2, 0, 1, 1)
         self.gridlayout.addWidget(self.matchingItems, 3, 0, 1, 1)
@@ -98,7 +112,10 @@ class LabelInputMatchDialog(QDialog):
 
 
     def retranslateUi(self, dialog):
-        dialog.setWindowTitle(i18n("Open Resource"))
+        if self.nepomukType:
+            dialog.setWindowTitle(i18n("Link to..."))
+        else:
+            dialog.setWindowTitle(i18n("Open resource"))
         #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("PersonEditDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
         self.label.setText(i18n("&Name:"))
         self.matchingLabel.setText("Matching items:")
