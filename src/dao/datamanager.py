@@ -34,7 +34,7 @@ def createResource(label, nepomukType):
 def getFileResource(path):
     absolutePath = os.path.abspath(path)
     name = os.path.basename(path)
-    url = "file://"+absolutePath
+    url = "file://" + absolutePath
     file = Nepomuk.Resource(QUrl(url))
     
 #    print file.isValid()
@@ -142,8 +142,8 @@ def findRelations(uri):
 
 def findResourcesByLabel(label, queryNextReadySlot, queryFinishedSlot=None):
     #handle regex
-    label = label.replace("*",".*")
-    label = label.replace("?",".")
+    label = label.replace("*", ".*")
+    label = label.replace("?", ".")
    
     sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"^%s\", \"i\")  }" % label 
     executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
@@ -168,7 +168,7 @@ def findResourcesByLabelSync(label):
     return data
 
 def findRootTasks():
-    sparql = "select ?r  where { ?r a <%s> . OPTIONAL { { ?r <%s> ?st . } UNION { ?st <%s> ?r . } } . FILTER(!BOUND(?st)) . ?r nao:prefLabel ?label}  order by ?label" % (PIMO.Task.toString(), TMO.superTask.toString(),TMO.subTask.toString())
+    sparql = "select ?r  where { ?r a <%s> . OPTIONAL { { ?r <%s> ?st . } UNION { ?st <%s> ?r . } } . FILTER(!BOUND(?st)) . ?r nao:prefLabel ?label}  order by ?label" % (PIMO.Task.toString(), TMO.superTask.toString(), TMO.subTask.toString())
     return executeQuery(sparql)
 
 def findSubTasks(taskUri):
@@ -204,54 +204,66 @@ def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None):
     if len(term.strip()) == 0:
         return
     
-    term  = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(term))
+    term = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(term))
     query = Nepomuk.Query.Query(term)
     sparql = query.toSparqlQuery()
     #data = executeQuery(sparql)
     executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
 
 
+#Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
+def createPimoClass(parentClassUri, label, comment=None, icon=None):
+    if label is None or len(label.strip()) == 0:
+        print "Class label cannot be empty."
+        return None
+    
+    parentClass = Nepomuk.Types.Class(parentClassUri)
+    pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
+    if parentClassUri != PIMO.Thing and parentClass.isSubClassOf(pimoThingClass):
+        print "New PIMO class needs to be subclass of pimo:Thing."
+        return None
+    
+    #TODO: see pimomodel.cpp
+#        if ( !name.isEmpty() ) {
+#        QString normalizedName = name.replace( QRegExp( "[^\\w\\.\\-_:]" ), "" );
+#        QUrl s = "nepomuk:/" + normalizedName;
+#        while( 1 ) {
+#            if ( !q->executeQuery( QString("ask where { { <%1> ?p1 ?o1 . } UNION { ?r2 <%1> ?o2 . } UNION { ?r3 ?p3 <%1> . } }")
+#                                   .arg( QString::fromAscii( s.toEncoded() ) ), Soprano::Query::QueryLanguageSparql ).boolValue() ) {
+#                return s;
+#            }
+#            s = "nepomuk:/" + normalizedName + '_' +  KRandom::randomString( 20 );
+#        }
+#    }
 
+    classUri = Nepomuk.ResourceManager.instance().generateUniqueUri()
 
-#QUrl Nepomuk::PimoModel::createClass( const QUrl& parentClassUri,
-#                                      const QString& label,
-#                                      const QString& comment,
-#                                      const QString& icon )
-#{
-#    if ( label.isEmpty() ) {
-#        setError( "No label for new class set." );
-#        return QUrl();
-#    }
-#
-#    Types::Class parentClass( parentClassUri );
-#    if( parentClassUri != Vocabulary::PIMO::Thing() &&
-#        !parentClass.isSubClassOf( Vocabulary::PIMO::Thing() ) ) {
-#        setError( "New PIMO class needs to be subclass of pimo:Thing." );
-#        return QUrl();
-#    }
-#
-#    QUrl classUri = newClassUri( label );
-#
-#    QList<Soprano::Statement> sl;
-#    sl << Soprano::Statement( classUri, Soprano::Vocabulary::RDF::type(), Soprano::Vocabulary::RDFS::Class() )
-#       << Soprano::Statement( classUri, Soprano::Vocabulary::RDFS::subClassOf(), parentClassUri )
-#       << Soprano::Statement( classUri, Soprano::Vocabulary::RDFS::label(), Soprano::LiteralValue( label ) )
-#       << Soprano::Statement( classUri, Soprano::Vocabulary::NAO::created(), Soprano::LiteralValue( QDateTime::currentDateTime() ) );
-#    if ( !comment.isEmpty() ) {
-#        sl << Soprano::Statement( classUri, Soprano::Vocabulary::RDFS::comment(), Soprano::LiteralValue( comment ) );
-#    }
-#    if ( !icon.isEmpty() ) {
-#        // FIXME: create a proper Symbol object, if possible maybe a subclass DesktopIcon if its a standard icon
-#        sl << Soprano::Statement( classUri, Soprano::Vocabulary::NAO::hasSymbol(), Soprano::LiteralValue( icon ) );
-#    }
-#
-#    if( addPimoStatements( sl ) == Soprano::Error::ErrorNone ) {
-#        return classUri;
-#    }
-#    else {
-#        return QUrl();
-#    }
-#}
+    ctx = Soprano.Node(pimoContext())
+    model = Nepomuk.ResourceManager.instance().mainModel()
+    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDFS.Class()), ctx)
+    model.addStatement(stmt)
+    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(parentClassUri), ctx)
+    model.addStatement(stmt)
+    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.label()), Soprano.Node(Soprano.LiteralValue(label)), ctx)
+    model.addStatement(stmt)
+    
+#Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
+def pimoContext():
+    sparql = sparql = "select ?c ?onto where {?c a <%s> . OPTIONAL {?c a ?onto . FILTER(?onto=<%s>). } } " % (str(PIMO.PersonalInformationModel.toString()), str(Soprano.Vocabulary.NRL.Ontology().toString()))
+    model = Nepomuk.ResourceManager.instance().mainModel()
+    it = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
+    if it.next():
+        pimoContext = it.binding(0).uri()
+        if not it.binding(1).isValid():
+            it.close()
+            model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), Soprano.Vocabulary.NRL.Ontology(), pimoContext)
+
+    else:
+        it.close()
+        pimoContext = Nepomuk.ResourceManager.instance().generateUniqueUri()
+        model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), PIMO.PersonalInformationModel, pimoContext)
+        model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), Soprano.Vocabulary.NRL.Ontology(), pimoContext)
+    return pimoContext
 
     
 if __name__ == "__main__":
@@ -267,7 +279,7 @@ if __name__ == "__main__":
 #    for prop in res.properties():
 #        print prop.toString()
 #        print res.property(prop).toString()
-    test()
     
+    createPimoClass(PIMO.Thing, "Song")
     
 

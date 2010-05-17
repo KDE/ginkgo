@@ -23,9 +23,10 @@ from views.resourcecontextmenu import ResourceContextMenu
 
 
 class ResourceNode(object):
-    def __init__(self, data, parent=None):
+    def __init__(self, data, label=None, parent=None):
         self.parentNode = parent
         self.nodeData = data
+        self.label = label
         self.children = []
 
     def addChild(self, child):
@@ -99,7 +100,11 @@ class ResourcesTreeModel(QAbstractItemModel):
             item = index.internalPointer()
             #print item.nodeData.label("")
             if index.column() == 0:
-                return item.nodeData.name()
+                #return item.nodeData.name()
+                if item.label:
+                    return item.label
+                else:
+                    return item.nodeData.name()
 #            elif index.column() ==1:
 #                return item.nodeData.comment(QString())
         else:
@@ -189,13 +194,14 @@ class ResourcesTreeModel(QAbstractItemModel):
         subClasses = typeClass.subClasses()
         tuples = []
         for subClass in subClasses:
-            tuples.append((subClass, subClass.name()))
+            #TODO: why subClass are not instance of Resource?
+            subClassResource = Nepomuk.Resource(subClass.uri())
+            tuples.append((subClass, subClassResource.genericLabel()))
         
         sortedSubClasses = sorted(tuples, key=lambda tuple: tuple[1])
-        #sortedSubClasses = subClasses
         
         for tuple in sortedSubClasses:
-            child = ResourceNode(tuple[0], node)
+            child = ResourceNode(tuple[0], tuple[1], node)
             node.addChild(child)
             self.addChildren(child, tuple[0])
 
@@ -320,8 +326,11 @@ class TypesContextMenu(ResourceContextMenu):
         self.addOpenAction()
         action = QAction(i18n("&Add to places"), self)
         self.addAction(action)
-#        action = QAction(i18n("&New sub-type"), self)
-#        self.addAction(action)
+        nodeClass = Nepomuk.Types.Class(self.selectedUris[0])
+        pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
+        if nodeClass.isSubClassOf(pimoThingClass):
+            action = QAction(i18n("&New sub-type"), self)
+            self.addAction(action)
 #        self.addDeleteAction()
         
 

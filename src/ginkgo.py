@@ -872,11 +872,12 @@ if __name__ == "__main__":
     homePage = "http://nepomuk.kde.org"
     bugEmail = "https://qa.mandriva.com"
 
-    aboutData = KAboutData (appName, catalog, programName, version, description,
-                              license, copyright, text, homePage, bugEmail)
+    aboutData = KAboutData (appName, catalog, programName, version, description, license, copyright, text, homePage, bugEmail)
 
-    aboutData.addAuthor (ki18n ("Stéphane Laurière"), ki18n("Developer"), "slauriere@mandriva.com")
+    aboutData.addAuthor(ki18n ("Stéphane Laurière"), ki18n("Developer"), "slauriere@mandriva.com")
+    
     aboutData.setProgramIconName("nepomuk")
+    aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
     
     
     
