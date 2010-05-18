@@ -101,7 +101,7 @@ msgstr "&Medio"
 
 #: editors/taskeditor.py:126
 msgid "&High"
-msgstr "Al&to"
+msgstr "&Alto"
 
 #: editors/websiteeditor.py:59
 msgid "URL"
@@ -161,7 +161,7 @@ msgstr "Enlazar a archivo"
 
 #: ginkgo.py:99
 msgid "Set resource as context"
-msgstr "Establecer el recurso como contexto"
+msgstr "Establecer recurso como contexto"
 
 #: ginkgo.py:99
 msgid "Set the current resource as context"
@@ -294,15 +294,15 @@ msgstr "Crear una nueva organización"
 
 #: ginkgo.py:535
 msgid "&Topic"
-msgstr "&Tópico"
+msgstr "&Tema"
 
 #: ginkgo.py:535
 msgid "&Topics"
-msgstr "&Tópicos"
+msgstr "&Temas"
 
 #: ginkgo.py:535
 msgid "Create new topic"
-msgstr "Crear un nuevo tópico"
+msgstr "Crear un nuevo tema"
 
 #: ginkgo.py:536
 msgid "&Event"
@@ -367,7 +367,7 @@ msgstr "Contexto - Ginkgo"
 
 #: ginkgo.py:642
 msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr "El contexto se ha actualizado a <i>%1</i> exitosamente."
+msgstr "El contexto se ha actualizado exitosamente a <i>%1</i>."
 
 #: ginkgo.py:644
 msgid "An error occurred while updating the context."
@@ -390,7 +390,7 @@ msgstr "Mover aba&jo"
 #: ginkgo.py:825
 #: ginkgo.py:848
 msgid "&Remove entry"
-msgstr "&Remover entrada"
+msgstr "&Eliminar entrada"
 
 #: ginkgo.py:866
 msgid "Ginkgo"
@@ -465,14 +465,4 @@ msgstr "&Nueva sub-tarea"
 #: views/typesview.py:37
 msgid "Ontologies:"
 msgstr "Ontologías:"
-
-#: rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Diego Bello"
-
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "dbello@gmail.com"
 
