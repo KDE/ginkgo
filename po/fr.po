@@ -373,7 +373,7 @@ msgstr "Contexte"
 
 #: ginkgo.py:642
 msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr "Le contexte a été mis à jour avec succès."
+msgstr "Le contexte de travail est à présent <i>%1</i>."
 
 #: ginkgo.py:644
 msgid "An error occurred while updating the context."
