@@ -19,7 +19,8 @@ from PyQt4.QtGui import *
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import *
 from PyKDE4.kio import *
-from dao import PIMO, datamanager, NFO, NIE, NCO
+from dao import datamanager
+from ontologies import NFO, NIE, PIMO, NCO
 from os import system
 from os.path import join
 from PyKDE4 import soprano
@@ -358,7 +359,8 @@ class ResourcesTable(QWidget):
         elif key == i18n("Open &page"):
             for uri in selectedUris:
                 self.mainWindow.openResourceExternally(uri, False)
-
+        elif key == i18n("&Write e-mail to"):
+            self.mainWindow.writeEmail(selectedUris)
 
         
         #http://code.google.com/p/ file pydingo/handlers/directory/handler.py

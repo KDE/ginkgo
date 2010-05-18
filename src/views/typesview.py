@@ -20,7 +20,7 @@ from PyKDE4.kdeui import *
 from PyKDE4.kdecore import i18n
 from PyKDE4.soprano import Soprano 
 from views.resourcestree import ResourcesTree, ResourcesTreeModel
-from dao import PIMO
+from ontologies import PIMO
 
 
 class TypesView(QWidget):
@@ -44,6 +44,10 @@ class TypesView(QWidget):
         self.ontologies.activated.connect(self.update)
         
         hbox.addWidget(self.ontologies)
+        
+        
+        
+        
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Minimum)
         hbox.addItem(spacerItem)
 
@@ -69,7 +73,7 @@ class TypesView(QWidget):
     def update(self):
         key = self.ontologies.currentText()
         if key != self.ontology:
-            self.mainWindow.workarea.setCursor(Qt.WaitCursor)
+            self.mainWindow.setCursor(Qt.WaitCursor)
             model = ResourcesTreeModel(mainWindow=self.mainWindow)
             if key == "All":
                 model.loadData(Soprano.Vocabulary.RDFS.Resource())
@@ -78,7 +82,7 @@ class TypesView(QWidget):
             
             self.typesTree.tree.setModel(model)
             self.ontology = key
-            self.mainWindow.workarea.unsetCursor()
+            self.mainWindow.unsetCursor()
         self.ontology = key
         
         

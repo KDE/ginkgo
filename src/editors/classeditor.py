@@ -18,7 +18,8 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.soprano import Soprano
-from dao import datamanager, PIMO, NCO
+from dao import datamanager
+from ontologies import NFO, NIE, PIMO, NCO
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi
 from PyKDE4.kdecore import i18n
 

@@ -23,7 +23,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import *
-from dao import PIMO, TMO, NFO, NCO, datamanager, NIE
+from dao import datamanager
+from ontologies import NFO, NIE, PIMO, NCO, TMO
 from util.krun import krun
 from dialogs.labelinputmatchdialog import LabelInputMatchDialog
 from dialogs.resourcechooserdialog import ResourceChooserDialog
@@ -73,7 +74,7 @@ class Ginkgo(KMainWindow):
         for type in self.placesData:
             newResourceActions.append(self.createAction(type[1], getattr(self, "newResource"), None, type[3], type[4], type[0]))
         
-        saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
+        self.saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
         
         openResourceAction = self.createAction(i18n("&Open"), self.showOpenResourceDialog, QKeySequence.Open, None, i18n("Open a resource"))
         newTabAction = self.createAction(i18n("New &Tab"), self.newTab, QKeySequence.AddTab, "tab-new-background-small", i18n("Create new tab"))
@@ -93,7 +94,6 @@ class Ginkgo(KMainWindow):
         for type in self.placesData:
             self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
         
-        self.linkToMenu.addAction(self.createAction(i18n("File"), self.linkToFile, None, None, i18n("Link to file")))
         self.linkToButton.setMenu(self.linkToMenu)
 
         self.setContextAction = self.createAction(i18n("Set resource as context"), self.setResourceAsContext, None, "edit-node", i18n("Set the current resource as context"))
@@ -109,7 +109,7 @@ class Ginkgo(KMainWindow):
         mainMenu.addAction(newResourceMenu.menuAction())
         mainMenu.addAction(openResourceAction)
         mainMenu.addSeparator()
-        mainMenu.addAction(saveAction)
+        mainMenu.addAction(self.saveAction)
         mainMenu.addSeparator()
         mainMenu.addAction(newTabAction)
         mainMenu.addAction(closeTabAction)
@@ -155,7 +155,7 @@ class Ginkgo(KMainWindow):
 
         #mainToolbar.addAction(action)
         
-        mainToolbar.addAction(saveAction)
+        mainToolbar.addAction(self.saveAction)
         mainToolbar.addAction(newTabAction)
         
         
@@ -371,7 +371,25 @@ class Ginkgo(KMainWindow):
         elif resource.resourceUri() and len(resource.resourceUri().toString()) > 0:
             kurl = KUrl(resource.resourceUri().toString())
             krun(kurl, self, isLocal)
-        
+            
+    
+    def writeEmail(self, uris):
+        mailto = ""
+        for uri in uris:
+            res = Nepomuk.Resource(uri)
+            emailAddress = res.property(NCO.emailAddress)
+            if emailAddress and len(emailAddress.toString()) > 0:
+                emailAddress = emailAddress.toString()
+                #don't add twice the same address
+                if mailto.find(emailAddress+",") == -1:
+                    mailto = mailto + str(emailAddress) + ","
+            else:
+                warning = QMessageBox(QMessageBox.Warning, i18n("Warning"), "No e-mail address was found for %s." % res.genericLabel(), QMessageBox.NoButton, self)
+                warning.addButton("&Continue", QMessageBox.AcceptRole)
+                warning.exec_()
+
+        if len(mailto) > 1:
+            krun("mailto:%s" % mailto, self, False)
 
     def findResourceEditor(self, resource):
         """Finds an editor where the resource is being edited. If no editor is found, returns None."""
@@ -419,7 +437,7 @@ class Ginkgo(KMainWindow):
         
         
     def showOpenResourceDialog(self):
-        dialog = LabelInputMatchDialog(mainWindow = self)
+        dialog = LabelInputMatchDialog(mainWindow=self)
         if dialog.exec_():
             if dialog.selectedResource():
                 self.openResource(dialog.selectedResource().resourceUri(), True, False)
@@ -430,11 +448,18 @@ class Ginkgo(KMainWindow):
             self.linkToButton.setEnabled(True)
             self.linkToMenu.setEnabled(True)
             self.setContextAction.setEnabled(True)
+            
         else:
             self.linkToButton.setEnabled(False)
             self.linkToMenu.setEnabled(False)
             self.setContextAction.setEnabled(False)
-    
+            
+        currentWorkWidget = self.workarea.currentWidget()
+        #test on save, not on resource since the resource can be new
+        if (hasattr(currentWorkWidget, "save")):
+            self.saveAction.setEnabled(True)
+        else:
+            self.saveAction.setEnabled(False)
 
     def linkTo(self):
         action = self.sender()
@@ -457,14 +482,15 @@ class Ginkgo(KMainWindow):
             #dialog = LabelInputMatchDialog(mainWindow=self, nepomukType=nepomukType, excludeList=excludeList)
             if dialog.exec_():
                 #save the current resource to make sure it exists in the db, then draw the relations
-                widget.setCursor(Qt.WaitCursor)
+                self.setCursor(Qt.WaitCursor)
                 widget.save()
+                self.unsetCursor()
                 #for resource in dialog.selectedResources():
                 
                 for resource in dialog.selection:
                     #item = QUrl(id)
                     widget.resource.addProperty(Soprano.Vocabulary.NAO.isRelated(), Nepomuk.Variant(resource))
-                widget.unsetCursor()
+                
                 
     def linkToFile(self):
         path = QFileInfo(".").path()
@@ -537,7 +563,7 @@ class Ginkgo(KMainWindow):
                          [PIMO.Location, i18n("&Location"), i18n("&Locations"), "nepomuk", i18n("Create new location")],
                          [NFO.Website, i18n("&WebPage"), i18n("&Web Pages"), "text-html", i18n("Create new Web page")],
                          [PIMO.Note, i18n("&Note"), i18n("&Notes"), "text-plain", i18n("Create new note")],
-                         [NFO.FileDataObject, i18n("&File"),i18n("&Files"),"text-plain",i18n("Create new file")]
+                         [NFO.FileDataObject, i18n("&File"), i18n("&Files"), "text-plain", i18n("Create new file")]
                          ]
 #        else:
 #            self.placesData =  placesData
@@ -596,7 +622,7 @@ class Ginkgo(KMainWindow):
         for placeData in self.placesData:
             if placeData and placeData[0] == nepomukType:
                 self.placesData.pop(index)
-                self.placesData.insert(index-1, placeData)
+                self.placesData.insert(index - 1, placeData)
                 break
             index = index + 1
         self.installPlaces()
@@ -606,14 +632,14 @@ class Ginkgo(KMainWindow):
         for placeData in self.placesData:
             if placeData and placeData[0] == nepomukType:
                 self.placesData.pop(index)
-                self.placesData.insert(index+1, placeData)
+                self.placesData.insert(index + 1, placeData)
                 break
             index = index + 1
         self.installPlaces()
         
         
     def showPlacesContextMenu(self, points):
-        button  = self.sender()
+        button = self.sender()
         nepomukType = button.property("nepomukType")
         menu = PlacesContextMenu(self, nepomukType=nepomukType)
         pos = button.mapToGlobal(points)
@@ -673,17 +699,18 @@ class Ginkgo(KMainWindow):
         
 
     def save(self):
-        self.workarea.setCursor(Qt.WaitCursor)
         currentEditor = self.workarea.currentWidget()
-        index = self.workarea.currentIndex()
-        currentEditor.save()
-        if self.currentResource():
-            label = currentEditor.resource.genericLabel()
-            if label and len(label) > self.maxTabTitleLength():
-                label = label[:self.maxTabTitleLength()] + "..."
-            self.workarea.setTabText(index, label)
-            self.currentTabChangedSlot(index)
-        self.workarea.unsetCursor()
+        if (hasattr(currentEditor, "save")):
+            self.setCursor(Qt.WaitCursor)
+            index = self.workarea.currentIndex()
+            currentEditor.save()
+            if self.currentResource():
+                label = currentEditor.resource.genericLabel()
+                if label and len(label) > self.maxTabTitleLength():
+                    label = label[:self.maxTabTitleLength()] + "..."
+                self.workarea.setTabText(index, label)
+                self.currentTabChangedSlot(index)
+            self.unsetCursor()
 
     def delete(self):
         resource = self.currentResource()
@@ -704,7 +731,7 @@ class Ginkgo(KMainWindow):
         if self.fullTextSearchOption.isChecked():
             datamanager.fullTextSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot)
         else:
-            datamanager.findResourcesByLabel(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot)
+            datamanager.labelSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot)
             
         
         self.replaceCurrentTab(searchView, i18n("Search Results"))
@@ -713,9 +740,7 @@ class Ginkgo(KMainWindow):
         index = self.workarea.currentIndex()
         self.workarea.removeTab(index)
         self.workarea.insertTab(index, widget, label)
-        self.workarea.setCurrentIndex(index)
-
-
+        self.workarea.setCurrentIndex(index)        
     
     def typeIcon(self, nepomukType, size=16):
         if nepomukType == NFO.Website:
@@ -749,7 +774,10 @@ class Ginkgo(KMainWindow):
     #TODO: for table icons, for which KIcon won't work..
     def resourceQIcon(self, resource):
         types = resource.types()
-        if NCO.Contact in types:
+        iconPath = resource.genericIcon()
+        if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
+            return QIcon(iconPath)
+        elif NCO.Contact in types:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/x-office-contact.png")
         elif PIMO.Task in types:
             return QIcon("/usr/share/icons/oxygen/16x16/actions/view-task.png")

@@ -118,7 +118,7 @@ class LabelInputMatchDialog(QDialog):
             dialog.setWindowTitle(i18n("Open resource"))
         #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("PersonEditDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
         self.label.setText(i18n("&Name:"))
-        self.matchingLabel.setText("Matching items:")
+        self.matchingLabel.setText(i18n("Matching items:"))
 
 
 if __name__ == "__main__":

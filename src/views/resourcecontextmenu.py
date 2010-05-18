@@ -18,7 +18,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
-from dao import NFO
+from ontologies import NFO, NCO
 
 
 class ResourceContextMenu(QMenu):
@@ -39,7 +39,9 @@ class ResourceContextMenu(QMenu):
     def createActions(self):
         self.addOpenAction()
         self.addExternalOpenAction()
+        self.addSendMailAction()
         self.addDeleteAction()
+        
 
     def addOpenAction(self):
         openInNewTabAction = QAction(i18n("&Open in new tab"), self)
@@ -64,3 +66,12 @@ class ResourceContextMenu(QMenu):
                 self.addAction(action)
         
 
+
+    def addSendMailAction(self):
+        for item in self.selectedUris:
+            res = Nepomuk.Resource(item)
+            #TODO: check that the NCO.emailAddress property is not void
+            if not NCO.Contact in res.types():
+                return
+        action = QAction(i18n("&Write e-mail to"), self)
+        self.addAction(action)

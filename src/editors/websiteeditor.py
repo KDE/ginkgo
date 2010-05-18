@@ -17,7 +17,8 @@ from PyKDE4.nepomuk import Nepomuk
 from PyQt4 import Qsci, QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from dao import datamanager, PIMO, NCO, NFO, NIE
+from dao import datamanager
+from ontologies import NFO, NIE, PIMO, NCO
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi
 from util.krun import krun
 from PyKDE4.kdecore import KUrl

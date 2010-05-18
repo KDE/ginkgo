@@ -11,7 +11,8 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-from dao import TMO, datamanager, PIMO
+from dao import datamanager
+from ontologies import PIMO
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *

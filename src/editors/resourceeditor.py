@@ -42,8 +42,6 @@ class ResourceEditor(QWidget):
         
         if self.__class__ == getClass("editors.resourceeditor.ResourceEditor"):
             self.ui = ResourceEditorUi(self)
-            
-
         
 
     def resourceIcon(self):
@@ -66,7 +64,8 @@ class ResourceEditor(QWidget):
             self.ui.iconButton.setIcon(KIcon(fname))
 
     def save(self):
-        self.mainWindow.workarea.setCursor(Qt.WaitCursor)
+        #self.mainWindow.workarea.setCursor(Qt.WaitCursor)
+        self.setCursor(Qt.WaitCursor)
         if self.resource is None:
             self.resource = self.mainWindow.createResource(self.ui.resourceLabel(), self.nepomukType)
         
@@ -81,7 +80,7 @@ class ResourceEditor(QWidget):
         #save generic properties
         self.resource.setLabel(self.ui.resourceLabel())
         self.resource.setDescription(self.ui.description.toPlainText())
-        self.mainWindow.workarea.unsetCursor()
+        self.unsetCursor()
                             
     def focus(self):
         self.ui.name.setFocus(Qt.OtherFocusReason)

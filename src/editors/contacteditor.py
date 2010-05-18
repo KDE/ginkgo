@@ -17,7 +17,8 @@ from PyKDE4.nepomuk import Nepomuk
 from PyQt4 import Qsci, QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from dao import datamanager, PIMO, NCO
+from dao import datamanager
+from ontologies import NFO, NIE, PIMO, NCO
 from os import listdir
 from os.path import isfile, isdir, expanduser, join
 from editors.resourceeditor import ResourceEditor, ResourceEditorUi

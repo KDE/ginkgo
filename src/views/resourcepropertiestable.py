@@ -16,7 +16,8 @@
 from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from dao import PIMO, datamanager, NFO, NIE
+from dao import datamanager
+from ontologies import NFO, NIE, PIMO
 from os import system
 from os.path import join
 from PyKDE4 import soprano
