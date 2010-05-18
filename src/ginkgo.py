@@ -200,15 +200,15 @@ class Ginkgo(KMainWindow):
                         iconSize=16, checkable=False, signal="triggered()"):
         
         
-        action = QAction(i18n(text), self)
+        action = QAction(text, self)
         if icon is not None:
             action.setIcon(KIcon(icon))
                 
         if shortcut is not None:
             action.setShortcut(shortcut)
         if tip is not None:
-            action.setToolTip(i18n(tip))
-            action.setStatusTip(i18n(tip))
+            action.setToolTip(tip)
+            action.setStatusTip(tip)
         if slot is not None:
             self.connect(action, SIGNAL(signal), slot)
 
@@ -671,32 +671,37 @@ class Ginkgo(KMainWindow):
         #self.iface = dbus.Interface(self.dobject, "org.kde.nepomuk.Strigi")
 
     def saveSettings(self):
-        settings = QSettings()
-        settings.setValue("Ginkgo/Size", QVariant(self.size()))
-        settings.setValue("Ginkgo/Position", QVariant(self.pos()))
-        settings.setValue("Ginkgo/State", QVariant(self.saveState()))
+        config = KConfig("ginkgo")
+        ggroup = KConfigGroup(config, "general" )
+        ggroup.writeEntry( "size", QVariant(self.size() ))
+
+        ggroup.writeEntry("position", QVariant(self.pos()))
+        ggroup.writeEntry("state", QVariant(self.saveState()))
         currentResourcesUris = QStringList()
         for i in range(self.workarea.count()):
             editor = self.workarea.widget(i)
             if hasattr(editor, "resource") and editor.resource:
                 currentResourcesUris.append(editor.resource.resourceUri().toString())
-        settings.setValue("Ginkgo/Resources", QVariant(currentResourcesUris))
-        settings.setValue("Ginkgo/Places", QVariant(self.placesData))
+        ggroup.writeEntry("active-resources", QVariant(currentResourcesUris))
+        ggroup.writeEntry("places", QVariant(self.placesData))
+        config.sync()
             
     def restoreSettings(self): 
-        settings = QSettings()
-        size = settings.value("Ginkgo/Size", QVariant(QSize(600, 500))).toSize()
+                
+        config = KConfig("general")
+        ggroup = KConfigGroup(config, "ginkgo" )
+        size = ggroup.readEntry("size", QSize(800, 500)).toSize()
         self.resize(size)
-        position = settings.value("Ginkgo/Position", QVariant(QPoint(200, 100))).toPoint()
+        
+        position = ggroup.readEntry("position", QPoint(200, 100)).toPoint()
         self.move(position)
-        self.restoreState(settings.value("Ginkgo/State").toByteArray())
+        self.restoreState(ggroup.readEntry("state", QByteArray()).toByteArray())
 
-        resourcesUris = settings.value("Ginkgo/Resources").toStringList()
+        resourcesUris = ggroup.readEntry("active-resources", QStringList()).toStringList()
         for uri in resourcesUris:
             self.openResource(uri, True, True)
 
-        
-        
+
 
     def save(self):
         currentEditor = self.workarea.currentWidget()
