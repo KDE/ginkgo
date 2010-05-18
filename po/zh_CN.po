@@ -1,0 +1,466 @@
+# translation of ginkgo.po to Chinese Simplified
+# Copyright (C) 2007 Free Software Foundation, Inc.
+#
+# Funda Wang <fundawang@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kdelibs4\n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-17 18:11+0200\n"
+"PO-Revision-Date: 2010-05-18 15:09+0800\n"
+"Last-Translator: Funda Wang <fundawang@gmail.com>\n"
+"Language-Team: zh_CN <kde-china@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:84 ginkgo.py:85
+msgid "Link to..."
+msgstr "链接到..."
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr "打开资源"
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
+msgstr "名称(&N)："
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "任务选中内容"
+
+#: editors/classeditor.py:73
+msgid "Type Name"
+msgstr "类型名称"
+
+#: editors/contacteditor.py:74
+msgid "First Name"
+msgstr "名"
+
+#: editors/contacteditor.py:91
+msgid "Last Name"
+msgstr "姓"
+
+#: editors/contacteditor.py:99
+msgid "E-mail"
+msgstr "电子邮件"
+
+#: editors/contacteditor.py:123
+msgid "Phone"
+msgstr "电话"
+
+#: editors/fileeditor.py:48 editors/resourceeditor.py:189
+#: editors/websiteeditor.py:54 views/relationstable.py:45
+#: views/resourcesbytypetable.py:45 views/resourcestable.py:276
+msgid "Name"
+msgstr "名称"
+
+#: editors/fileeditor.py:58 editors/websiteeditor.py:66
+msgid "Open"
+msgstr "打开"
+
+#: editors/resourceeditor.py:59
+msgid "Select Icon - Ginkgo"
+msgstr "选择图标 - Ginkgo"
+
+#: editors/resourceeditor.py:59
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "图像 (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:127
+msgid "Relations"
+msgstr "关系"
+
+#: editors/resourceeditor.py:128
+msgid "Properties"
+msgstr "属性"
+
+#: editors/resourceeditor.py:161
+msgid "&Description:"
+msgstr "描述(&D)："
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "无(&E)"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "其它(&O)"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "低(&L)"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "中(&M)"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "高(&H)"
+
+#: editors/websiteeditor.py:59
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:76
+msgid "&Save"
+msgstr "保存(&S)"
+
+#: ginkgo.py:76
+msgid "Save"
+msgstr "保存"
+
+#: ginkgo.py:78
+msgid "&Open"
+msgstr "打开(&O)"
+
+#: ginkgo.py:78
+msgid "Open a resource"
+msgstr "打开资源"
+
+#: ginkgo.py:79
+msgid "New &Tab"
+msgstr "新建标签(&T)"
+
+#: ginkgo.py:79
+msgid "Create new tab"
+msgstr "创建新标签"
+
+#: ginkgo.py:80
+msgid "Close Tab"
+msgstr "关闭标签"
+
+#: ginkgo.py:80
+msgid "Close tab"
+msgstr "关闭标签"
+
+#: ginkgo.py:81
+msgid "&Quit"
+msgstr "退出(&Q)"
+
+#: ginkgo.py:81
+msgid "Close the application"
+msgstr "关闭应用程序"
+
+#: ginkgo.py:91
+msgid "Link to"
+msgstr "链接到"
+
+#: ginkgo.py:96
+msgid "File"
+msgstr "文件"
+
+#: ginkgo.py:96
+msgid "Link to file"
+msgstr "链接到文件"
+
+#: ginkgo.py:99
+msgid "Set resource as context"
+msgstr "将资源设定为环境"
+
+#: ginkgo.py:99
+msgid "Set the current resource as context"
+msgstr "将当前资源设定为环境关闭当前文档。"
+
+#: ginkgo.py:101 ginkgo.py:540
+msgid "&File"
+msgstr "文件(&F)"
+
+#: ginkgo.py:104
+msgid "&New"
+msgstr "新建(&N)"
+
+#: ginkgo.py:118
+msgid "&Edit"
+msgstr "编辑(&E)"
+
+#: ginkgo.py:119 views/resourcecontextmenu.py:50 views/resourcestree.py:280
+msgid "&Delete"
+msgstr "删除(&D)"
+
+#: ginkgo.py:119
+msgid "Delete"
+msgstr "删除"
+
+#: ginkgo.py:123
+msgid "&View"
+msgstr "查看(&V)"
+
+#: ginkgo.py:129
+msgid "Types"
+msgstr "类型"
+
+#: ginkgo.py:136
+msgid "Toolbar"
+msgstr "工具栏"
+
+#: ginkgo.py:143 ginkgo.py:144
+msgid "New"
+msgstr "新建"
+
+#: ginkgo.py:181 ginkgo.py:185
+msgid "Search"
+msgstr "搜索"
+
+#: ginkgo.py:186
+msgid "Full-text search"
+msgstr "全文搜索"
+
+#: ginkgo.py:268
+msgid "New Task"
+msgstr "新建任务"
+
+#: ginkgo.py:279
+msgid "New Type"
+msgstr "新建类型"
+
+#: ginkgo.py:323
+msgid "New %1"
+msgstr "新建 %1"
+
+#: ginkgo.py:397
+msgid "Resource removal"
+msgstr "资源删除"
+
+#: ginkgo.py:398
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "您确定想要删除 <i>%1</i> 吗？"
+
+#: ginkgo.py:471
+msgid "Select File - Ginkgo"
+msgstr "选择文件 - Ginkgo"
+
+#: ginkgo.py:508
+msgid "Places"
+msgstr "位置"
+
+#: ginkgo.py:531
+msgid "&Contact"
+msgstr "联系(&C)"
+
+#: ginkgo.py:531
+msgid "&Contacts"
+msgstr "联系(&C)"
+
+#: ginkgo.py:531
+msgid "Create new contact"
+msgstr "创建联系"
+
+#: ginkgo.py:532
+msgid "&Project"
+msgstr "工程(&P)"
+
+#: ginkgo.py:532
+msgid "&Projects"
+msgstr "工程(&P)"
+
+#: ginkgo.py:532
+msgid "Create new project"
+msgstr "创建新工程"
+
+#: ginkgo.py:533
+msgid "&Task"
+msgstr "任务(&T)"
+
+#: ginkgo.py:533
+msgid "&Tasks"
+msgstr "任务(&T)"
+
+#: ginkgo.py:533
+msgid "Create new task"
+msgstr "创建新任务"
+
+#: ginkgo.py:534
+msgid "&Organization"
+msgstr "组织(&O)"
+
+#: ginkgo.py:534
+msgid "&Organizations"
+msgstr "组织(&O)"
+
+#: ginkgo.py:534
+msgid "Create new organization"
+msgstr "创建新组织"
+
+#: ginkgo.py:535
+msgid "&Topic"
+msgstr "主题(&T)"
+
+#: ginkgo.py:535
+msgid "&Topics"
+msgstr "主题(&T)"
+
+#: ginkgo.py:535
+msgid "Create new topic"
+msgstr "创建新主题"
+
+#: ginkgo.py:536
+msgid "&Event"
+msgstr "事件(&E)"
+
+#: ginkgo.py:536
+msgid "&Events"
+msgstr "事件(&E)"
+
+#: ginkgo.py:536
+msgid "Create new event"
+msgstr "创建新事件"
+
+#: ginkgo.py:537
+msgid "&Location"
+msgstr "位置(&L)"
+
+#: ginkgo.py:537
+msgid "&Locations"
+msgstr "位置(&L)"
+
+#: ginkgo.py:537
+msgid "Create new location"
+msgstr "创建新位置"
+
+#: ginkgo.py:538
+msgid "&WebPage"
+msgstr "网页(&W)"
+
+#: ginkgo.py:538
+msgid "&Web Pages"
+msgstr "网页(&W)"
+
+#: ginkgo.py:538
+msgid "Create new Web page"
+msgstr "创建新网页"
+
+#: ginkgo.py:539
+msgid "&Note"
+msgstr "备忘(&N)"
+
+#: ginkgo.py:539
+msgid "&Notes"
+msgstr "备忘(&N)"
+
+#: ginkgo.py:539
+msgid "Create new note"
+msgstr "创建备忘"
+
+#: ginkgo.py:540
+msgid "&Files"
+msgstr "文件(&F)"
+
+#: ginkgo.py:540
+msgid "Create new file"
+msgstr "创建新文件"
+
+#: ginkgo.py:642 ginkgo.py:644
+msgid "Context - Ginkgo"
+msgstr "环境 - Ginkgo"
+
+#: ginkgo.py:642
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "环境已经成功更新到 <i>%1</i>。"
+
+#: ginkgo.py:644
+msgid "An error occurred while updating the context."
+msgstr "更新环境时出错。"
+
+#: ginkgo.py:710
+msgid "Search Results"
+msgstr "搜索结果"
+
+#: ginkgo.py:821 ginkgo.py:844
+msgid "Move &up"
+msgstr "上移(&U)"
+
+#: ginkgo.py:823 ginkgo.py:846
+msgid "Move &down"
+msgstr "下移(&D)"
+
+#: ginkgo.py:825 ginkgo.py:848
+msgid "&Remove entry"
+msgstr "删除条目(&R)"
+
+#: ginkgo.py:866
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:867
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:869
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginkgo 是 Nepomuk 这一 KDE 语义工具箱的导航器。"
+
+#: ginkgo.py:871
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr ""
+"Ginkgo 可让您在电子邮件、联系人、文件、网页之间创建和浏览链接。"
+
+#: ginkgo.py:878
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:878
+msgid "Developer"
+msgstr "开发者"
+
+#: views/relationstable.py:45 views/resourcesbytypetable.py:45
+#: views/resourcestable.py:276
+msgid "Date"
+msgstr "日期"
+
+#: views/relationstable.py:45 views/resourcestable.py:276
+msgid "Type"
+msgstr "类型"
+
+#: views/resourcecontextmenu.py:45
+msgid "&Open in new tab"
+msgstr "在新标签中打开(&O)"
+
+#: views/resourcecontextmenu.py:51
+msgid "Delete this resource from the Nepomuk database"
+msgstr "从 Nepomuk 数据库中删除此资源"
+
+#: views/resourcecontextmenu.py:59 views/resourcestable.py:355
+msgid "Open &file"
+msgstr "打开文件(&F)"
+
+#: views/resourcecontextmenu.py:63 views/resourcestable.py:358
+msgid "Open &page"
+msgstr "打开页面(&P)"
+
+#: views/resourcepropertiestable.py:133
+msgid "Property"
+msgstr "属性"
+
+#: views/resourcepropertiestable.py:133
+msgid "Value"
+msgstr "值"
+
+#: views/resourcestree.py:283 views/resourcestree.py:321
+msgid "&Add to places"
+msgstr "添加到位置(&A)"
+
+#: views/tasktree.py:325
+msgid "&New sub-task"
+msgstr "新建子任务(&N)"
+
+#: views/typesview.py:37
+msgid "Ontologies:"
+msgstr ""
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "KDE 中国"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde-china@kde.org"
