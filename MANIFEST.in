@@ -1,0 +1,9 @@
+include ChangeLog ginkgo LICENSE README setup.cfg
+recursive-include src/dao *
+recursive-include src/dialogs *
+recursive-include src/editors *
+recursive-include src/ontologies *
+recursive-include src/util *
+recursive-include src/views *
+include src/ginkgo.py src/resources_rc.py
+
