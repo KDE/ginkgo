@@ -57,14 +57,20 @@ def test():
     
     nepomukType = Nepomuk.Types.Class(NCO.Contact)
     typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)
+    query = Nepomuk.Query.Query(typeTerm)
     
-    andTerm = Nepomuk.Query.AndTerm([typeTerm, labelTerm])
-    
-    query = Nepomuk.Query.Query(labelTerm)
-    print query.toSparqlQuery()
-    
-    data = executeQuery(query.toSparqlQuery())
-    print data
+    data =executeQuery(query.toSparqlQuery())
+    for elt in data:
+        elt.addProperty(Soprano.Vocabulary.RDF.type(), Nepomuk.Variant(NCO.PersonContact))
+        
+        
+#    andTerm = Nepomuk.Query.AndTerm([typeTerm, labelTerm])
+#    
+
+#    print query.toSparqlQuery()
+#    
+
+#    print data
 
 def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None):
                 
@@ -291,6 +297,7 @@ if __name__ == "__main__":
 #        print prop.toString()
 #        print res.property(prop).toString()
     
-    createPimoClass(PIMO.Thing, "Song")
+#    createPimoClass(PIMO.Thing, "Song")
+    test()
     
 

@@ -425,6 +425,8 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     contacts = datamanager.findResourcesByType(NCO.Contact)
     
+    
+    
     model = ResourcesTableModel()
     model.setHeaders(["Full Name", "Creation Date", "Last Update"])
 

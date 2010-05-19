@@ -345,6 +345,8 @@ class Ginkgo(KMainWindow):
                     label = str(typeResource.genericLabel()) + "Editor"
                     if label == "fileEditor":
                         label = "FileEditor"
+                    elif label == "PersonContactEditor":
+                        label = "ContactEditor"
                     className = "editors." + label.lower() + "." + label
                     try:
                         newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
@@ -382,7 +384,7 @@ class Ginkgo(KMainWindow):
             if emailAddress and len(emailAddress.toString()) > 0:
                 emailAddress = emailAddress.toString()
                 #don't add twice the same address
-                if mailto.find(emailAddress+",") == -1:
+                if mailto.find(emailAddress + ",") == -1:
                     mailto = mailto + str(emailAddress) + ","
             else:
                 warning = QMessageBox(QMessageBox.Warning, i18n("Warning"), "No e-mail address was found for %s." % res.genericLabel(), QMessageBox.NoButton, self)
@@ -545,7 +547,7 @@ class Ginkgo(KMainWindow):
         """Try to restore the places from the settings, otherwise set default places."""    
 
         config = KConfig("ginkgo")
-        ggroup = KConfigGroup(config, "general" )
+        ggroup = KConfigGroup(config, "general")
         
         placesData = ggroup.readEntry("places", [])
         
@@ -559,7 +561,7 @@ class Ginkgo(KMainWindow):
         
         else:
             self.placesData = [
-                         [NCO.Contact, i18n("&Contact"), i18n("&Contacts"), "contact-new", i18n("Create new contact")],
+                         [NCO.PersonContact, i18n("&Contact"), i18n("&Contacts"), "contact-new", i18n("Create new contact")],
                          [PIMO.Project, i18n("&Project"), i18n("&Projects"), "nepomuk", i18n("Create new project")],
                          [PIMO.Task, i18n("&Task"), i18n("&Tasks"), "view-task-add", i18n("Create new task")],
                          [PIMO.Organization, i18n("&Organization"), i18n("&Organizations"), "nepomuk", i18n("Create new organization")],
@@ -677,8 +679,8 @@ class Ginkgo(KMainWindow):
 
     def saveSettings(self):
         config = KConfig("ginkgo")
-        ggroup = KConfigGroup(config, "general" )
-        ggroup.writeEntry( "size", QVariant(self.size() ))
+        ggroup = KConfigGroup(config, "general")
+        ggroup.writeEntry("size", QVariant(self.size()))
 
         ggroup.writeEntry("position", QVariant(self.pos()))
         ggroup.writeEntry("state", QVariant(self.saveState()))
@@ -694,7 +696,7 @@ class Ginkgo(KMainWindow):
     def restoreSettings(self): 
                 
         config = KConfig("ginkgo")
-        ggroup = KConfigGroup(config, "general" )
+        ggroup = KConfigGroup(config, "general")
         size = ggroup.readEntry("size", QSize(800, 500)).toSize()
         self.resize(size)
         
@@ -757,7 +759,7 @@ class Ginkgo(KMainWindow):
             return KIcon("text-html")
         elif nepomukType == PIMO.Task:
             return KIcon("view-task")
-        elif nepomukType == NCO.Contact:
+        elif nepomukType == NCO.PersonContact:
             if size == 16:
                 return KIcon("x-office-contact")
             else:
@@ -773,7 +775,7 @@ class Ginkgo(KMainWindow):
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-html.png")
         elif nepomukType == PIMO.Task:
             return QIcon("/usr/share/icons/oxygen/16x16/actions/view-task.png")
-        elif nepomukType == NCO.Contact:
+        elif nepomukType == NCO.PersonContact:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/x-office-contact.png")
         elif nepomukType == PIMO.Note:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-plain.png")
@@ -787,7 +789,7 @@ class Ginkgo(KMainWindow):
         iconPath = resource.genericIcon()
         if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
             return QIcon(iconPath)
-        elif NCO.Contact in types:
+        elif NCO.PersonContact in types:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/x-office-contact.png")
         elif PIMO.Task in types:
             return QIcon("/usr/share/icons/oxygen/16x16/actions/view-task.png")
@@ -811,7 +813,7 @@ class Ginkgo(KMainWindow):
     def resourceIcon(self, resource, size=16):
         types = resource.types()
         if size == 16:
-            if NCO.Contact in types:
+            if NCO.PersonContact in types:
                 return KIcon("x-office-contact")
             elif PIMO.Task in types:
                 return KIcon("view-task")
@@ -834,7 +836,7 @@ class Ginkgo(KMainWindow):
                 return QIcon(iconPath)
             elif PIMO.Task in types:
                 return KIcon("view-task")
-            elif NCO.Contact in types:
+            elif NCO.PersonContact in types:
                 #TODO: replace with KIcon, but with proper size
                 return QIcon("/usr/share/icons/oxygen/48x48/mimetypes/x-office-contact.png")
             

@@ -70,7 +70,7 @@ class ResourceContextMenu(QMenu):
         for item in self.selectedUris:
             res = Nepomuk.Resource(item)
             #TODO: check that the NCO.emailAddress property is not void
-            if not NCO.Contact in res.types():
+            if not NCO.PersonContact in res.types():
                 return
         action = QAction(i18n("&Write e-mail to"), self)
         self.addAction(action)
