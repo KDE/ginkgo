@@ -55,8 +55,6 @@ class ContactEditorUi(ResourceEditorUi):
         propertiesWidget = QWidget(parent)
 
         self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setMargin(9)
-        self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
         #self.gridlayout.setColumnStretch(0, 1)
@@ -68,7 +66,7 @@ class ContactEditorUi(ResourceEditorUi):
 #        self.gridlayout.addWidget(self.firstname_label, 0, 0, 1, 1)
         self.firstname = QLineEdit(propertiesWidget)
         self.firstname.setObjectName("name")
-        self.firstname.setMinimumWidth(180)
+        #self.firstname.setMinimumWidth(180)
         
         self.firstname.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 #        self.firstname_label.setBuddy(self.firstname)
@@ -134,12 +132,13 @@ class ContactEditorUi(ResourceEditorUi):
         return propertiesWidget
 
     def updateFields(self):
+        super(ContactEditorUi, self).updateFields()
         if self.editor.resource:
             self.firstname.setText(self.editor.resource.property(NCO.nameGiven).toString())
             self.lastname.setText(self.editor.resource.property(NCO.nameFamily).toString())
             self.email.setText(self.editor.resource.property(NCO.emailAddress).toString())
             self.phone.setText(self.editor.resource.property(NCO.phoneNumber).toString())
-            self.description.setText(self.editor.resource.description())
+
 
     def retranslateUi(self):
         super(ContactEditorUi, self).retranslateUi()
@@ -149,6 +148,4 @@ class ContactEditorUi(ResourceEditorUi):
 #        self.phone_label.setText(QApplication.translate("PersonEditDialog", "&Phone:", None, QApplication.UnicodeUTF8))
 
 
-    def resourceLabel(self):
-        return self.firstname.text()+" "+self.lastname.text()
     

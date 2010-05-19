@@ -72,7 +72,7 @@ class Ginkgo(KMainWindow):
         newResourceActions = []
 
         for type in self.placesData:
-            newResourceActions.append(self.createAction(type[1], getattr(self, "newResource"), None, type[3], type[4], type[0]))
+            newResourceActions.append(self.createAction(type[1], getattr(self, "newResourceSlot"), None, type[3], type[4], type[0]))
         
         self.saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
         
@@ -96,6 +96,7 @@ class Ginkgo(KMainWindow):
         
         self.linkToButton.setMenu(self.linkToMenu)
 
+        #icon: code-context possibly
         self.setContextAction = self.createAction(i18n("Set resource as context"), self.setResourceAsContext, None, "edit-node", i18n("Set the current resource as context"))
 
         mainMenu = self.menuBar().addMenu(i18n("&File"))
@@ -269,15 +270,12 @@ class Ginkgo(KMainWindow):
         return newTaskEditor
 
 
-    def newSubType(self, superTypeUri=Soprano.Vocabulary.RDFS.Resource()):
+    def newType(self, superClassUri=Soprano.Vocabulary.RDFS.Resource()):
 
-        superTypeResource = None
-        if superTypeUri:
-            superTypeResource = Nepomuk.Resource(superTypeUri)
-            
-        newTypeEditor = ClassEditor(resource=None, superTypeResource=superTypeResource, mainWindow=self)
-        self.addTab(newTypeEditor, i18n("New Type"), True, False)
-        return newTypeEditor
+        newEditor = ClassEditor(resource=None, superClassUri=superClassUri, mainWindow=self)
+        self.addTab(newEditor, i18n("New Type"), True, False)
+        newEditor.focus()
+        return newEditor
 
 
     def createResource(self, label, ntype):
@@ -294,7 +292,7 @@ class Ginkgo(KMainWindow):
     
     
         
-    def newResource(self):
+    def newResourceSlot(self):
         action = self.sender()
         nepomukType = action.property("nepomukType")
         
@@ -304,26 +302,29 @@ class Ginkgo(KMainWindow):
         else:
             nepomukType = QUrl(nepomukType.toString())
 
+        self.newResource(nepomukType)
+
+    def newResource(self, classUri):
         newEditor = None 
-        if nepomukType == PIMO.Task:
+        if classUri == PIMO.Task:
             newEditor = self.newTask(None)
         else:
             
-            resource = Nepomuk.Resource(nepomukType.toString())
+            resource = Nepomuk.Resource(classUri.toString())
             #todo: add a property for associating an editor to a nepomukType dynamically
             label = str(resource.genericLabel()) + "Editor"
             if resource.genericLabel() == "file":
                 label = "FileEditor"
             className = "editors." + label.lower() + "." + label
             try:
-                newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=nepomukType)
+                newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=classUri)
             except ImportError:
-                newEditor = ResourceEditor(mainWindow=self, resource=None, nepomukType=nepomukType)
+                newEditor = ResourceEditor(mainWindow=self, resource=None, nepomukType=classUri)
                 
             self.addTab(newEditor, i18n("New %1", str(resource.genericLabel())), True, False)
          
         if newEditor:   
-            newEditor.focus()
+            newEditor.focus()        
 
     def openResource(self, uri=False, newTab=False, inBackground=True):
 
@@ -543,7 +544,11 @@ class Ginkgo(KMainWindow):
     def loadPlacesData(self):
         """Try to restore the places from the settings, otherwise set default places."""    
 
-        placesData = QSettings().value("Ginkgo/Places")
+        config = KConfig("ginkgo")
+        ggroup = KConfigGroup(config, "general" )
+        
+        placesData = ggroup.readEntry("places", [])
+        
 
         list = placesData.toList()
         if False and len(list) > 0:
@@ -604,7 +609,7 @@ class Ginkgo(KMainWindow):
     def addToPlaces(self, uri):
         resource = Nepomuk.Resource(uri)
         #button = self.createPlaceButton(uri.toString(), resource.genericLabel() + "s")
-        newPlaceData = [uri.toString(), resource.genericLabel(), resource.genericLabel() + "s", None, None]
+        newPlaceData = [uri.toString(), i18n(resource.genericLabel()), i18n(resource.genericLabel()), None, None]
         self.placesData.append(newPlaceData)
         self.installPlaces()
         
@@ -683,13 +688,13 @@ class Ginkgo(KMainWindow):
             if hasattr(editor, "resource") and editor.resource:
                 currentResourcesUris.append(editor.resource.resourceUri().toString())
         ggroup.writeEntry("active-resources", QVariant(currentResourcesUris))
-        ggroup.writeEntry("places", QVariant(self.placesData))
+        ggroup.writeEntry("places", self.placesData)
         config.sync()
             
     def restoreSettings(self): 
                 
-        config = KConfig("general")
-        ggroup = KConfigGroup(config, "ginkgo" )
+        config = KConfig("ginkgo")
+        ggroup = KConfigGroup(config, "general" )
         size = ggroup.readEntry("size", QSize(800, 500)).toSize()
         self.resize(size)
         
@@ -789,12 +794,15 @@ class Ginkgo(KMainWindow):
         elif NFO.Website in types:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-html.png")
         elif NFO.FileDataObject in types:
-            mimetype = mimetypes.guess_type(str(resource.property(NIE.url).toString()))
-            elt = mimetype[0]
-            if elt:
-                elt = elt.replace("/", "-")
-                return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/%s.png" % elt)
-            return QIcon(":/nepomuk-small")
+            try:
+                mimetype = mimetypes.guess_type(str(resource.property(NIE.url).toString()))
+                elt = mimetype[0]
+                if elt:
+                    elt = elt.replace("/", "-")
+                    return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/%s.png" % elt)
+            except Exception, e:
+                #TODO: log error, fix error
+                return QIcon(":/nepomuk-small")
         elif PIMO.Note in types:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-plain.png")
         else:

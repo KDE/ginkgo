@@ -68,9 +68,7 @@ class FileEditorUi(ResourceEditorUi):
         self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)
         
         return propertiesWidget
-    
-    def resourceLabel(self):
-        return self.name.text()
+
     
     
     

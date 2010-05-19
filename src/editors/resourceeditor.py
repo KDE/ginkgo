@@ -23,10 +23,10 @@ from views.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
 import os
 
-def getClass( clazz ):
+def getClass(clazz):
     parts = clazz.split('.')
     module = ".".join(parts[:-1])
-    module = __import__( module )
+    module = __import__(module)
     for comp in parts[1:]:
         module = getattr(module, comp)            
     return module
@@ -83,7 +83,7 @@ class ResourceEditor(QWidget):
         self.unsetCursor()
                             
     def focus(self):
-        self.ui.name.setFocus(Qt.OtherFocusReason)
+        self.ui.label.setFocus(Qt.OtherFocusReason)
 
 class ResourceEditorUi(object):
     
@@ -103,8 +103,35 @@ class ResourceEditorUi(object):
         rightpane = QSplitter(self.editor)
         rightpane.setOrientation(Qt.Vertical)
         
+#        button = KPushButton()
+#        button.setIcon(KIcon("edit-rename"))
+#        button.setStyleSheet("border:none;")
+#        hbox.addWidget(button)
+        
         descriptionWidget = QWidget(rightpane)
+
+        infoWidget = QWidget(descriptionWidget)
+
+        hbox = QHBoxLayout(infoWidget)
+        self.label = QLineEdit()
+        self.label.setMinimumWidth(300)
+        self.label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        hbox.setContentsMargins(0, 0, 0, 0)
+        
+        hbox.addWidget(self.label)
+        
+        spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        hbox.addItem(spacerItem)
+        
+        typesInfoLabel = QLabel(i18n("Type(s): "))
+        self.typesInfo = QLabel() 
+        
+        hbox.addWidget(typesInfoLabel)
+        hbox.addWidget(self.typesInfo)
+        
         vboxlayout = QVBoxLayout(descriptionWidget)
+        #gridlayout = QGridLayout(descriptionWidget)
+        
         self.descriptionLabel = QLabel(descriptionWidget) 
         self.description = QTextEdit(self.editor)
         self.description.setTabChangesFocus(True)
@@ -113,6 +140,19 @@ class ResourceEditorUi(object):
         self.description.setObjectName("Notes")
         self.description.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.descriptionLabel.setBuddy(self.description)
+        
+        hline = QFrame(descriptionWidget)
+        #hline.setGeometry(QRect(150, 190, 118, 3))
+        hline.setFrameShape(QFrame.HLine)
+        #hline.setFrameShadow(QFrame.Sunken)
+        
+        vboxlayout.addWidget(infoWidget)
+        vboxlayout.addWidget(hline)
+#        gridlayout.addWidget(infoWidget, 0, 0, 1, 1)
+#        gridlayout.addWidget(hline, 1, 0, 1, 1)
+        
+        infoWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        
         vboxlayout.addWidget(self.descriptionLabel)
         vboxlayout.addWidget(self.description)
         
@@ -132,7 +172,7 @@ class ResourceEditorUi(object):
         
         rightpane.addWidget(descriptionWidget)
         rightpane.addWidget(relpropWidget)
-        rightpane.setSizes([100,300])
+        rightpane.setSizes([100, 300])
         
         #self.tabs.addTab(self.description, "Description")
         #self.tabs.setTabPosition(QTabWidget.North)
@@ -148,16 +188,25 @@ class ResourceEditorUi(object):
         
         self.retranslateUi()
         self.updateFields()
-        
 
     def updateFields(self):
         if self.editor.resource:
-            self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
+            if hasattr(self, "name"):
+                self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
             self.description.setText(self.editor.resource.description())
-
+            self.label.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
+            types = ""
+            for type in self.editor.resource.types():
+                if type == Soprano.Vocabulary.RDFS.Resource():
+                    continue
+                typestr = str(type.toString())
+                typestr = typestr[typestr.find("#")+1:]
+                types = types  + i18n(typestr) +" "
+                
+            self.typesInfo.setText(types)
             
     def retranslateUi(self):
-        self.descriptionLabel.setText( i18n("&Description:"))
+        self.descriptionLabel.setText(i18n("&Description:"))
         #self.relationsLabel.setText(QApplication.translate("ResourceEditor", "&Relations:", None, QApplication.UnicodeUTF8))
         
 
@@ -181,20 +230,16 @@ class ResourceEditorUi(object):
         propertiesWidget = QWidget(parent)
 
         self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setMargin(9)
-        self.gridlayout.setSpacing(6)
+#        self.gridlayout.setMargin(9)
+#        self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        nameBox = QGroupBox(i18n("Name"))
-        #self.name_label = QLabel(propertiesWidget)
-        #self.name_label.setObjectName("name_label")
-        #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
-        self.name = QLineEdit(propertiesWidget)
-        self.name.setObjectName("name")
-        vbox = QVBoxLayout(nameBox)
-        vbox.addWidget(self.name)
-        self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
-        #self.name_label.setBuddy(self.name)
+#        nameBox = QGroupBox(i18n("Name"))
+#        self.name = QLineEdit(propertiesWidget)
+#        self.name.setObjectName("name")
+#        vbox = QVBoxLayout(nameBox)
+#        vbox.addWidget(self.name)
+#        self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
         
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)
@@ -202,4 +247,4 @@ class ResourceEditorUi(object):
         return propertiesWidget
     
     def resourceLabel(self):
-        return self.name.text()
+        return self.label.text()

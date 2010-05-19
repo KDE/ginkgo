@@ -52,7 +52,7 @@ class TaskEditor(ResourceEditor):
         if self.ui.dateBox.isChecked():
             dueDate = self.ui.dueDate.date()
         
-        self.resource.setLabel(self.ui.name.text())
+        self.resource.setLabel(self.ui.label.text())
         self.resource.setProperty(TMO.priority, Nepomuk.Variant(priority))
         if dueDate:
             self.resource.setProperty(TMO.dueDate, Nepomuk.Variant(dueDate))
@@ -193,6 +193,3 @@ class TaskEditorUi(ResourceEditorUi):
         self.gridlayout.addItem(spacerItem, 5, 0, 1, 1)
         
         return propertiesWidget
-    
-    def resourceLabel(self):
-        return self.name.text()

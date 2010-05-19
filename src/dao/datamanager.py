@@ -223,13 +223,13 @@ def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None):
 
 #Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
 def createPimoClass(parentClassUri, label, comment=None, icon=None):
-    if label is None or len(label.strip()) == 0:
+    if label is None or len(str(label).strip()) == 0:
         print "Class label cannot be empty."
         return None
     
     parentClass = Nepomuk.Types.Class(parentClassUri)
     pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
-    if parentClassUri != PIMO.Thing and parentClass.isSubClassOf(pimoThingClass):
+    if parentClassUri != PIMO.Thing and not parentClass.isSubClassOf(pimoThingClass):
         print "New PIMO class needs to be subclass of pimo:Thing."
         return None
     
@@ -256,10 +256,11 @@ def createPimoClass(parentClassUri, label, comment=None, icon=None):
     model.addStatement(stmt)
     stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.label()), Soprano.Node(Soprano.LiteralValue(label)), ctx)
     model.addStatement(stmt)
+    return Nepomuk.Resource(classUri)
     
 #Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
 def pimoContext():
-    sparql = sparql = "select ?c ?onto where {?c a <%s> . OPTIONAL {?c a ?onto . FILTER(?onto=<%s>). } } " % (str(PIMO.PersonalInformationModel.toString()), str(Soprano.Vocabulary.NRL.Ontology().toString()))
+    sparql = "select ?c ?onto where {?c a <%s> . OPTIONAL {?c a ?onto . FILTER(?onto=<%s>). } } " % (str(PIMO.PersonalInformationModel.toString()), str(Soprano.Vocabulary.NRL.Ontology().toString()))
     model = Nepomuk.ResourceManager.instance().mainModel()
     it = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
     if it.next():

@@ -25,67 +25,51 @@ from PyKDE4.kdecore import i18n
 
 
 class ClassEditor(ResourceEditor):
-    def __init__(self, mainWindow=False, resource=None, superTypeResource=None, nepomukType=None):
+    def __init__(self, mainWindow=False, resource=None, superClassUri=None, nepomukType=None):
         super(ClassEditor, self).__init__(mainWindow=mainWindow, resource=resource, nepomukType=Soprano.Vocabulary.RDFS.Class())
         self.defaultIcon = ""
-        self.superTypeResource = superTypeResource
+        self.superClassUri = superClassUri
         self.ui = ClassEditorUi(self)
     
             
     def save(self):
         
-        super(ClassEditor, self).save()
-        
-        if self.superTypeResource:
-            self.resource.addProperty(Soprano.Vocabulary.RDFS.subClassOf(), Nepomuk.Variant(self.superTypeResource))
-    
+        #don't call the superclass save method this classes or not standard resource types
+        self.setCursor(Qt.WaitCursor)
+        if self.resource is None:
+            print self.superClassUri
+            self.resource = datamanager.createPimoClass(self.superClassUri, self.ui.label.text())
+        self.unsetCursor()
 
-        pimoThingClass = Nepomuk.Resource(PIMO.Thing)
-        self.resource.addProperty(Soprano.Vocabulary.RDFS.subClassOf(), Nepomuk.Variant(pimoThingClass))
-        resourceClass = Nepomuk.Resource(Soprano.Vocabulary.RDFS.Class())
-        self.resource.addProperty(Soprano.Vocabulary.RDFS.subClassOf(), Nepomuk.Variant(resourceClass))
-        
-            
+    def focus(self):
+        self.ui.name.setFocus(Qt.OtherFocusReason)    
 
 class ClassEditorUi(ResourceEditorUi):
     
-    def createMainPropertiesWidget(self, parent):
+#    def createMainPropertiesWidget(self, parent):
+#
+#        propertiesWidget = QWidget(parent)
+#
+#        self.gridlayout = QGridLayout(propertiesWidget)
+#        self.gridlayout.setObjectName("gridlayout")
+#        
+#        self.name = QLineEdit(propertiesWidget)
+#        self.name.setObjectName("name")
+#        
+#        self.name.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+#        fnameBox = QGroupBox(i18n("Type Name"))
+#        vbox = QVBoxLayout(fnameBox)
+#        vbox.addWidget(self.name)
+#        self.gridlayout.addWidget(fnameBox, 0, 0, 1, 1)
+#       
+#        spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
+#        self.gridlayout.addItem(spacerItem, 4, 0, 1, 1)
+#
+#        return propertiesWidget
 
-        propertiesWidget = QWidget(parent)
-
-        self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setMargin(9)
-        self.gridlayout.setSpacing(6)
-        self.gridlayout.setObjectName("gridlayout")
-        
-        #self.gridlayout.setColumnStretch(0, 1)
-        #self.gridlayout.setColumnStretch(1, 20)
- 
-#        self.firstname_label = QLabel(propertiesWidget)
-#        self.firstname_label.setObjectName("firstname_label")
-#        self.firstname_label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-#        self.gridlayout.addWidget(self.firstname_label, 0, 0, 1, 1)
-        self.name = QLineEdit(propertiesWidget)
-        self.name.setObjectName("name")
-        self.name.setMinimumWidth(180)
-        
-        self.name.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-#        self.firstname_label.setBuddy(self.firstname)
-        fnameBox = QGroupBox(i18n("Type Name"))
-        #self.name_label = QLabel(propertiesWidget)
-        #self.name_label.setObjectName("name_label")
-        #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
-        vbox = QVBoxLayout(fnameBox)
-        vbox.addWidget(self.name)
-        self.gridlayout.addWidget(fnameBox, 0, 0, 1, 1)
-       
-        spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 4, 0, 1, 1)
-
-        return propertiesWidget
-
-    def updateFields(self):
-        pass
+#    def updateFields(self):
+#        if self.editor.resource:
+#            self.label.setText(self.editor.resource.genericLabel())
     
     def retranslateUi(self):
         super(ClassEditorUi, self).retranslateUi()

@@ -273,13 +273,17 @@ class ResourcesTree(QWidget):
         index = self.tree.indexAt(points)
         if index:
             item = self.tree.model().getItem(index)
-            menu = TypesContextMenu(self, resourceUri=item.nodeData.uri())
-            pos = self.tree.mapToGlobal(points)
-            menu.exec_(pos)
+            if item:
+                menu = TypesContextMenu(self, resourceUri=item.nodeData.uri())
+                pos = self.tree.mapToGlobal(points)
+                menu.exec_(pos)
             
     def processAction(self, key, selectedUris):
-        if key == i18n('&New sub-type'):
-            self.mainWindow.newSubType(superTypeUri=selectedUris[0])
+        if key == i18n("New &instance"):
+            self.mainWindow.newResource(selectedUris[0])
+            
+        elif key == i18n('&New sub-type'):
+            self.mainWindow.newType(superClassUri=selectedUris[0])
         
         elif key == i18n('&Open in new tab'):
             self.mainWindow.openResource(uri=selectedUris[0], newTab=True)
@@ -287,9 +291,13 @@ class ResourcesTree(QWidget):
         elif key == i18n("&Delete"):
             for uri in selectedUris:
                 self.mainWindow.removeResource(uri)
+        
         elif key == i18n("&Add to places"):
             for uri in selectedUris:
                 self.mainWindow.addToPlaces(uri)
+                
+        elif key == i18n("&New type"):
+            self.mainWindow.newType(superClassUri=selectedUris[0])
 
 class TypesSortFilterProxyModel(QSortFilterProxyModel):
  
@@ -324,14 +332,22 @@ class TypesContextMenu(ResourceContextMenu):
         super(TypesContextMenu, self).__init__(parent=parent, selectedUris=[resourceUri])
         
     def createActions(self):
-        self.addOpenAction()
-        action = QAction(i18n("&Add to places"), self)
-        self.addAction(action)
-        nodeClass = Nepomuk.Types.Class(self.selectedUris[0])
-        pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
-        if nodeClass.isSubClassOf(pimoThingClass):
-            action = QAction(i18n("&New sub-type"), self)
+        if self.selectedUris[0] == PIMO.Thing:
+            action = QAction(i18n("&New type"), self)
             self.addAction(action)
+        else:
+            action = QAction(i18n("New &instance"), self)
+            self.addAction(action)
+            self.addSeparator()
+            self.addOpenAction()
+            action = QAction(i18n("&Add to places"), self)
+            self.addAction(action)
+            nodeClass = Nepomuk.Types.Class(self.selectedUris[0])
+            pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
+            if nodeClass.isSubClassOf(pimoThingClass):
+                self.addSeparator()
+                action = QAction(i18n("&New sub-type"), self)
+                self.addAction(action)
 #        self.addDeleteAction()
         
 

@@ -46,11 +46,20 @@ class TypesView(QWidget):
         hbox.addWidget(self.ontologies)
         
         
-        
+        actionData = [Soprano.Vocabulary.RDFS.Class(), i18n("&Type"), i18n("&Types"), "document-new", i18n("Create new type")]
+        #self.createAction(type[1], getattr(self, "newResource"), None, type[3], type[4], type[0]))
+        #action = self.mainWindow.createAction(actionData[1], self.mainWindow.newResource, None, actionData[3], actionData[4], actionData[0])
+#        button = KPushButton()
+#        button.setText(i18n("New type"))
+        #button.setStyleSheet("border:none")
+        #button.setIcon(KIcon("document-new"))
+#        button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+#        button.clicked.connect(self.mainWindow.newType)
+#        hbox.addWidget(button)
+                         
         
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Minimum)
         hbox.addItem(spacerItem)
-
                 
         layout.addWidget(configWidget, 0, 0, 1, 1)
         self.setCursor(Qt.WaitCursor)

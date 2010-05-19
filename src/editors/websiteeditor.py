@@ -44,13 +44,10 @@ class WebsiteEditorUi(ResourceEditorUi):
         propertiesWidget = QWidget(parent)
 
         self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setMargin(9)
-        self.gridlayout.setSpacing(6)
-        self.gridlayout.setObjectName("gridlayout")
 
         self.name = QLineEdit(propertiesWidget)
         self.name.setObjectName("name")
-        self.name.setMinimumWidth(180)
+
         self.name.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         fnameBox = QGroupBox(i18n("Name"))
         vbox = QVBoxLayout(fnameBox)
