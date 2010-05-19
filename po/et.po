@@ -1,0 +1,495 @@
+# Translations of the ginkgo labels
+# Copyright (C) Stéphane Laurière
+# This file is distributed under the same license as the ginkgo package.
+# FIRST AUTHOR <slauriere@mandriva.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-18 22:20+0200\n"
+"PO-Revision-Date: 2010-05-19 19:45+0100\n"
+"Last-Translator: Marek Laane <bald@starman.ee>\n"
+"Language-Team: Mandriva 18n <cooker-i18n@mandrivalinux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: dialogs/labelinputmatchdialog.py:116
+#: dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:85
+#: ginkgo.py:86
+msgid "Link to..."
+msgstr "Linkimine..."
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr "Ressursi avamine"
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
+msgstr "&Nimi:"
+
+#: dialogs/labelinputmatchdialog.py:121
+msgid "Matching items:"
+msgstr "Sobivad elemendid:"
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Ülesande valimine"
+
+#: editors/classeditor.py:74
+msgid "Type Name"
+msgstr "Kirjuta nimi"
+
+#: editors/contacteditor.py:75
+msgid "First Name"
+msgstr "Eesnimi"
+
+#: editors/contacteditor.py:92
+msgid "Last Name"
+msgstr "Perekonnanimi"
+
+#: editors/contacteditor.py:100
+msgid "E-mail"
+msgstr "E-post"
+
+#: editors/contacteditor.py:124
+msgid "Phone"
+msgstr "Telefon"
+
+#: editors/fileeditor.py:49
+#: editors/resourceeditor.py:188
+#: editors/websiteeditor.py:55
+#: views/relationstable.py:46
+#: views/resourcesbytypetable.py:46
+#: views/resourcestable.py:277
+msgid "Name"
+msgstr "Nimi"
+
+#: editors/fileeditor.py:59
+#: editors/websiteeditor.py:67
+msgid "Open"
+msgstr "Ava"
+
+#: editors/resourceeditor.py:57
+msgid "Select Icon - Ginkgo"
+msgstr "Ikooni valimine - Gingko"
+
+#: editors/resourceeditor.py:57
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Pildid (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:126
+msgid "Relations"
+msgstr "Seosed"
+
+#: editors/resourceeditor.py:127
+msgid "Properties"
+msgstr "Omadused"
+
+#: editors/resourceeditor.py:160
+msgid "&Description:"
+msgstr "Kirjel&dus:"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "P&uudub"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Muu"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Väike"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Keskmine"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "Suu&r"
+
+#: editors/websiteeditor.py:60
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:77
+msgid "&Save"
+msgstr "&Salvesta"
+
+#: ginkgo.py:77
+msgid "Save"
+msgstr "Salvesta"
+
+#: ginkgo.py:79
+msgid "&Open"
+msgstr "&Ava"
+
+#: ginkgo.py:79
+msgid "Open a resource"
+msgstr "Ava ressurss"
+
+#: ginkgo.py:80
+msgid "New &Tab"
+msgstr "&Uus kaart"
+
+#: ginkgo.py:80
+msgid "Create new tab"
+msgstr "Loo uus kaart"
+
+#: ginkgo.py:81
+msgid "Close Tab"
+msgstr "Sulge kaart"
+
+#: ginkgo.py:81
+msgid "Close tab"
+msgstr "Sulge kaart"
+
+#: ginkgo.py:82
+msgid "&Quit"
+msgstr "&Välju"
+
+#: ginkgo.py:82
+msgid "Close the application"
+msgstr "Sulge rakendus"
+
+#: ginkgo.py:92
+msgid "Link to"
+msgstr "Linkimine"
+
+#: ginkgo.py:99
+msgid "Set resource as context"
+msgstr "Määra ressurss kontekstiks"
+
+#: ginkgo.py:99
+msgid "Set the current resource as context"
+msgstr "Määra aktiivne ressurss kontekstiks"
+
+#: ginkgo.py:101
+#: ginkgo.py:570
+msgid "&File"
+msgstr "&Fail"
+
+#: ginkgo.py:104
+msgid "&New"
+msgstr "&Uus"
+
+#: ginkgo.py:118
+msgid "&Edit"
+msgstr "&Redigeerimine"
+
+#: ginkgo.py:119
+#: views/resourcecontextmenu.py:52
+#: views/resourcestree.py:287
+msgid "&Delete"
+msgstr "&Kustuta"
+
+#: ginkgo.py:119
+msgid "Delete"
+msgstr "Kustuta"
+
+#: ginkgo.py:123
+msgid "&View"
+msgstr "&Vaade"
+
+#: ginkgo.py:129
+msgid "Types"
+msgstr "Tüübid"
+
+#: ginkgo.py:136
+msgid "Toolbar"
+msgstr "Tööriistariba"
+
+#: ginkgo.py:143
+#: ginkgo.py:144
+msgid "New"
+msgstr "Uus"
+
+#: ginkgo.py:181
+#: ginkgo.py:185
+msgid "Search"
+msgstr "Otsi"
+
+#: ginkgo.py:186
+msgid "Full-text search"
+msgstr "Täistekstiotsing"
+
+#: ginkgo.py:268
+msgid "New Task"
+msgstr "Uus ülesanne"
+
+#: ginkgo.py:279
+msgid "New Type"
+msgstr "Uus tüüp"
+
+#: ginkgo.py:323
+msgid "New %1"
+msgstr "Uus %1"
+
+#: ginkgo.py:387
+msgid "Warning"
+msgstr "Hoiatus"
+
+#: ginkgo.py:415
+msgid "Resource removal"
+msgstr "Ressursi eemaldamine"
+
+#: ginkgo.py:416
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "Kas tõesti kustutada <i>%1</i>?"
+
+#: ginkgo.py:497
+msgid "Select File - Ginkgo"
+msgstr "Faili valimine - Ginkgo"
+
+#: ginkgo.py:534
+msgid "Places"
+msgstr "Jaotused"
+
+#: ginkgo.py:561
+msgid "&Contact"
+msgstr "&Kontakt"
+
+#: ginkgo.py:561
+msgid "&Contacts"
+msgstr "&Kontaktid"
+
+#: ginkgo.py:561
+msgid "Create new contact"
+msgstr "Loo uus kontakt"
+
+#: ginkgo.py:562
+msgid "&Project"
+msgstr "&Projekt"
+
+#: ginkgo.py:562
+msgid "&Projects"
+msgstr "&Projektid"
+
+#: ginkgo.py:562
+msgid "Create new project"
+msgstr "Loo uus projekt"
+
+#: ginkgo.py:563
+msgid "&Task"
+msgstr "Ülesa&nne"
+
+#: ginkgo.py:563
+msgid "&Tasks"
+msgstr "Ülesa&nded"
+
+#: ginkgo.py:563
+msgid "Create new task"
+msgstr "Loo uus ülesanne"
+
+#: ginkgo.py:564
+msgid "&Organization"
+msgstr "&Organisatsioon"
+
+#: ginkgo.py:564
+msgid "&Organizations"
+msgstr "&Organisatsioonid"
+
+#: ginkgo.py:564
+msgid "Create new organization"
+msgstr "Loo uus organisatsioon"
+
+#: ginkgo.py:565
+msgid "&Topic"
+msgstr "&Teema"
+
+#: ginkgo.py:565
+msgid "&Topics"
+msgstr "&Teemad"
+
+#: ginkgo.py:565
+msgid "Create new topic"
+msgstr "Loo uus teema"
+
+#: ginkgo.py:566
+msgid "&Event"
+msgstr "&Sündmus"
+
+#: ginkgo.py:566
+msgid "&Events"
+msgstr "&Sündmused"
+
+#: ginkgo.py:566
+msgid "Create new event"
+msgstr "Loo uus sündmus"
+
+#: ginkgo.py:567
+msgid "&Location"
+msgstr "&Asukoht"
+
+#: ginkgo.py:567
+msgid "&Locations"
+msgstr "&Asukohad"
+
+#: ginkgo.py:567
+msgid "Create new location"
+msgstr "Loo uus asukoht"
+
+#: ginkgo.py:568
+msgid "&WebPage"
+msgstr "&Veebilehekülg"
+
+#: ginkgo.py:568
+msgid "&Web Pages"
+msgstr "&Veebileheküljed"
+
+#: ginkgo.py:568
+msgid "Create new Web page"
+msgstr "Loo uus veebilehekülg"
+
+#: ginkgo.py:569
+msgid "&Note"
+msgstr "&Märge"
+
+#: ginkgo.py:569
+msgid "&Notes"
+msgstr "&Märkmed"
+
+#: ginkgo.py:569
+msgid "Create new note"
+msgstr "Loo uus märge"
+
+#: ginkgo.py:570
+msgid "&Files"
+msgstr "&Failid"
+
+#: ginkgo.py:570
+msgid "Create new file"
+msgstr "Loo uus fail"
+
+#: ginkgo.py:672
+#: ginkgo.py:674
+msgid "Context - Ginkgo"
+msgstr "Kontekst - Ginkgo"
+
+#: ginkgo.py:672
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "Kontekst uuendati edukalt, uus kontekst on <i>%1</i>."
+
+#: ginkgo.py:674
+msgid "An error occurred while updating the context."
+msgstr "Konteksti uuendamisel tekkis tõrge."
+
+#: ginkgo.py:746
+msgid "Search Results"
+msgstr "Otsingutulemused"
+
+#: ginkgo.py:861
+#: ginkgo.py:884
+msgid "Move &up"
+msgstr "L&iiguta üles"
+
+#: ginkgo.py:863
+#: ginkgo.py:886
+msgid "Move &down"
+msgstr "Lii&guta alla"
+
+#: ginkgo.py:865
+#: ginkgo.py:888
+msgid "&Remove entry"
+msgstr "&Eemalda kirje"
+
+#: ginkgo.py:906
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:907
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "(c) 2010: Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:909
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginkgo on KDE semantilise tööriistakomplekti Nepomuk navigaator."
+
+#: ginkgo.py:911
+msgid "Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages."
+msgstr "Ginkgo võimaldab luua ja uurida seoseid sinu isiklike andmete vahel (e-kirjad, kontaktid, failid, veebileheküljed jms.)."
+
+#: ginkgo.py:917
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:917
+msgid "Developer"
+msgstr "Arendaja"
+
+#: ginkgo.py:920
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Marek Laane"
+
+#: ginkgo.py:920
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "bald@smail.ee"
+
+#: views/relationstable.py:46
+#: views/resourcesbytypetable.py:46
+#: views/resourcestable.py:277
+msgid "Date"
+msgstr "Kuupäev"
+
+#: views/relationstable.py:46
+#: views/resourcestable.py:277
+msgid "Type"
+msgstr "Tüüp"
+
+#: views/resourcecontextmenu.py:47
+msgid "&Open in new tab"
+msgstr "&Ava uuel kaardil"
+
+#: views/resourcecontextmenu.py:53
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Kustuta see ressurss Nepomuki andmebaasist"
+
+#: views/resourcecontextmenu.py:61
+#: views/resourcestable.py:356
+msgid "Open &file"
+msgstr "Ava &fail"
+
+#: views/resourcecontextmenu.py:65
+#: views/resourcestable.py:359
+msgid "Open &page"
+msgstr "Ava le&hekülg"
+
+#: views/resourcecontextmenu.py:76
+#: views/resourcestable.py:362
+msgid "&Write e-mail to"
+msgstr "Saa&da kiri"
+
+#: views/resourcepropertiestable.py:134
+msgid "Property"
+msgstr "Omadus"
+
+#: views/resourcepropertiestable.py:134
+msgid "Value"
+msgstr "Väärtus"
+
+#: views/resourcestree.py:290
+#: views/resourcestree.py:328
+msgid "&Add to places"
+msgstr "Lis&a jaotustesse"
+
+#: views/resourcestree.py:333
+msgid "&New sub-type"
+msgstr "&Uus alamtüüp"
+
+#: views/tasktree.py:326
+msgid "&New sub-task"
+msgstr "&Uus alamülesanne"
+
+#: views/typesview.py:37
+msgid "Ontologies:"
+msgstr "Ontoloogiad:"
+
