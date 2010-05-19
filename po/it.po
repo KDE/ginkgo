@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-17 18:11+0200\n"
-"PO-Revision-Date: 2010-05-16 22:24+0200\n"
+"PO-Revision-Date: 2010-05-19 23:01+0200\n"
 "Last-Translator: Andrea Celli <andrea.celli@libero.it>\n"
-"Language-Team: Italian <timl@freelists.org>\n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,6 @@ msgid "Link to..."
 msgstr "Collega a ...:"
 
 #: dialogs/labelinputmatchdialog.py:118
-#, fuzzy
 msgid "Open resource"
 msgstr "Apri risorsa"
 
@@ -36,9 +35,8 @@ msgid "Task Selection"
 msgstr "Scelta attività"
 
 #: editors/classeditor.py:73
-#, fuzzy
 msgid "Type Name"
-msgstr "Nome"
+msgstr "Scrivi il nome"
 
 #: editors/contacteditor.py:74
 msgid "First Name"
@@ -112,70 +110,63 @@ msgstr "URL"
 
 #: ginkgo.py:76
 msgid "&Save"
-msgstr ""
+msgstr "&Salva"
 
 #: ginkgo.py:76
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: ginkgo.py:78
-#, fuzzy
 msgid "&Open"
-msgstr "Apri"
+msgstr "&Apri"
 
 #: ginkgo.py:78
-#, fuzzy
 msgid "Open a resource"
-msgstr "Apri risorsa"
+msgstr "Apre una risorsa"
 
 #: ginkgo.py:79
-#, fuzzy
 msgid "New &Tab"
-msgstr "Nuova attività"
+msgstr "Nuova s&cheda"
 
 #: ginkgo.py:79
-#, fuzzy
 msgid "Create new tab"
-msgstr "&Apri in una nuova scheda"
+msgstr "Crea una nuova scheda"
 
 #: ginkgo.py:80
 msgid "Close Tab"
-msgstr ""
+msgstr "Chiudi scheda"
 
 #: ginkgo.py:80
 msgid "Close tab"
-msgstr ""
+msgstr "Chiude la scheda"
 
 #: ginkgo.py:81
-#, fuzzy
 msgid "&Quit"
-msgstr "&Modifica"
+msgstr "&Esci"
 
 #: ginkgo.py:81
 msgid "Close the application"
-msgstr ""
+msgstr "Chiude l'applicazione"
 
 #: ginkgo.py:91
 msgid "Link to"
-msgstr "Collegare a"
+msgstr "Collega a"
 
 #: ginkgo.py:96
-#, fuzzy
 msgid "File"
-msgstr "&File"
+msgstr "File"
 
 #: ginkgo.py:96
-#, fuzzy
 msgid "Link to file"
-msgstr "Collegare a"
+msgstr "Collega a un file"
 
 #: ginkgo.py:99
 msgid "Set resource as context"
-msgstr ""
+msgstr "Imposta risorsa come contesto"
 
 #: ginkgo.py:99
 msgid "Set the current resource as context"
-msgstr ""
+msgstr "Imposta questa risorsa come contesto"
 
 #: ginkgo.py:101 ginkgo.py:540
 msgid "&File"
@@ -194,9 +185,8 @@ msgid "&Delete"
 msgstr "&Rimuovi"
 
 #: ginkgo.py:119
-#, fuzzy
 msgid "Delete"
-msgstr "&Rimuovi"
+msgstr "Rimuove"
 
 #: ginkgo.py:123
 msgid "&View"
@@ -204,7 +194,7 @@ msgstr "&Visualizza"
 
 #: ginkgo.py:129
 msgid "Types"
-msgstr ""
+msgstr "Tipi"
 
 #: ginkgo.py:136
 msgid "Toolbar"
@@ -220,16 +210,15 @@ msgstr "Cerca"
 
 #: ginkgo.py:186
 msgid "Full-text search"
-msgstr ""
+msgstr "Cerca su tutto il testo"
 
 #: ginkgo.py:268
 msgid "New Task"
 msgstr "Nuova attività"
 
 #: ginkgo.py:279
-#, fuzzy
 msgid "New Type"
-msgstr "Nuova attività"
+msgstr "Nuovo tipo"
 
 #: ginkgo.py:323
 msgid "New %1"
@@ -237,11 +226,11 @@ msgstr "Nuovo %1"
 
 #: ginkgo.py:397
 msgid "Resource removal"
-msgstr ""
+msgstr "Rimozione risorsa"
 
 #: ginkgo.py:398
 msgid "Are you sure you want to delete <i>%1</i>?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare <i>%1</i>?"
 
 #: ginkgo.py:471
 msgid "Select File - Ginkgo"
@@ -249,130 +238,123 @@ msgstr "Scelta file - Ginkgo"
 
 #: ginkgo.py:508
 msgid "Places"
-msgstr ""
+msgstr "Posti"
 
 #: ginkgo.py:531
 msgid "&Contact"
-msgstr ""
+msgstr "&Contatto"
 
 #: ginkgo.py:531
 msgid "&Contacts"
-msgstr ""
+msgstr "&Contatti"
 
 #: ginkgo.py:531
 msgid "Create new contact"
-msgstr ""
+msgstr "Crea un nuovo contatto"
 
 #: ginkgo.py:532
-#, fuzzy
 msgid "&Project"
-msgstr "Proprietà"
+msgstr "&Progetto"
 
 #: ginkgo.py:532
-#, fuzzy
 msgid "&Projects"
-msgstr "Proprietà"
+msgstr "&Progetti"
 
 #: ginkgo.py:532
 msgid "Create new project"
-msgstr ""
+msgstr "Crea nuovi progetti"
 
 #: ginkgo.py:533
-#, fuzzy
 msgid "&Task"
-msgstr "Nuova attività"
+msgstr "A&ttività"
 
 #: ginkgo.py:533
 msgid "&Tasks"
-msgstr ""
+msgstr "A&ttività"
 
 #: ginkgo.py:533
 msgid "Create new task"
-msgstr ""
+msgstr "Crea nuove attività"
 
 #: ginkgo.py:534
 msgid "&Organization"
-msgstr ""
+msgstr "&Organizzazione"
 
 #: ginkgo.py:534
 msgid "&Organizations"
-msgstr ""
+msgstr "&Organizzazioni"
 
 #: ginkgo.py:534
 msgid "Create new organization"
-msgstr ""
+msgstr "Crea una nuova organizzazione"
 
 #: ginkgo.py:535
 msgid "&Topic"
-msgstr ""
+msgstr "&Argomento"
 
 #: ginkgo.py:535
 msgid "&Topics"
-msgstr ""
+msgstr "&Argomenti"
 
 #: ginkgo.py:535
 msgid "Create new topic"
-msgstr ""
+msgstr "Crea un nuovo argomento"
 
 #: ginkgo.py:536
 msgid "&Event"
-msgstr ""
+msgstr "&Evento"
 
 #: ginkgo.py:536
 msgid "&Events"
-msgstr ""
+msgstr "&Eventi"
 
 #: ginkgo.py:536
 msgid "Create new event"
-msgstr ""
+msgstr "Crea un nuovo evento"
 
 #: ginkgo.py:537
 msgid "&Location"
-msgstr ""
+msgstr "&Collocazione"
 
 #: ginkgo.py:537
-#, fuzzy
 msgid "&Locations"
-msgstr "Relazioni"
+msgstr "&Collocazioni"
 
 #: ginkgo.py:537
 msgid "Create new location"
-msgstr ""
+msgstr "Crea una nuova collocazione"
 
 #: ginkgo.py:538
 msgid "&WebPage"
-msgstr ""
+msgstr "Pagina &Web"
 
 #: ginkgo.py:538
 msgid "&Web Pages"
-msgstr ""
+msgstr "Pagine &Web"
 
 #: ginkgo.py:538
 msgid "Create new Web page"
-msgstr ""
+msgstr "Crea una nuova pagina Web"
 
 #: ginkgo.py:539
-#, fuzzy
 msgid "&Note"
-msgstr "&Nuovo"
+msgstr "&Nota"
 
 #: ginkgo.py:539
-#, fuzzy
 msgid "&Notes"
-msgstr "&Nuovo"
+msgstr "&Note"
 
 #: ginkgo.py:539
 msgid "Create new note"
-msgstr ""
+msgstr "Crea una nuova nota"
 
 #: ginkgo.py:540
-#, fuzzy
 msgid "&Files"
 msgstr "&File"
 
 #: ginkgo.py:540
 msgid "Create new file"
-msgstr ""
+msgstr "Crea un nuovo file"
 
 #: ginkgo.py:642 ginkgo.py:644
 msgid "Context - Ginkgo"
@@ -392,15 +374,15 @@ msgstr "Risultati della ricerca"
 
 #: ginkgo.py:821 ginkgo.py:844
 msgid "Move &up"
-msgstr ""
+msgstr "Sposta in s&u"
 
 #: ginkgo.py:823 ginkgo.py:846
 msgid "Move &down"
-msgstr ""
+msgstr "Sposta in &giù"
 
 #: ginkgo.py:825 ginkgo.py:848
 msgid "&Remove entry"
-msgstr ""
+msgstr "&Rimuovi voce"
 
 #: ginkgo.py:866
 msgid "Ginkgo"
@@ -433,11 +415,11 @@ msgstr "Sviluppatore"
 #: views/relationstable.py:45 views/resourcesbytypetable.py:45
 #: views/resourcestable.py:276
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: views/relationstable.py:45 views/resourcestable.py:276
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: views/resourcecontextmenu.py:45
 msgid "&Open in new tab"
@@ -465,7 +447,7 @@ msgstr "Valore"
 
 #: views/resourcestree.py:283 views/resourcestree.py:321
 msgid "&Add to places"
-msgstr ""
+msgstr "&Aggiungi ai posti"
 
 #: views/tasktree.py:325
 msgid "&New sub-task"
@@ -473,7 +455,7 @@ msgstr "&Nuova sub-attività"
 
 #: views/typesview.py:37
 msgid "Ontologies:"
-msgstr ""
+msgstr "Ontologie:"
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -483,4 +465,5 @@ msgstr "Andrea Celli"
 #: rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "anndrea.celli@libero.it"
+msgstr "andrea.celli@libero.it"
+
