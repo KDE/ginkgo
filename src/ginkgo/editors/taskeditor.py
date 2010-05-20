@@ -16,9 +16,9 @@
 from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from ontologies import TMO
-from dialogs.tasktreedialog import TaskTreeDialog
-from editors.resourceeditor import ResourceEditor, ResourceEditorUi
+from ginkgo.ontologies import TMO
+from ginkgo.dialogs.tasktreedialog import TaskTreeDialog
+from ginkgo.editors.resourceeditor import ResourceEditor, ResourceEditorUi
 from PyKDE4.kdecore import i18n
 
 class TaskEditor(ResourceEditor):

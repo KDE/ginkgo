@@ -2,7 +2,7 @@
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from dao import datamanager, TMO, PIMO
+from ginkgo.dao import datamanager, TMO, PIMO
 import sys
  
 class Node(object):

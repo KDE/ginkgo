@@ -18,7 +18,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
-from ontologies import NFO, NCO
+from ginkgo.ontologies import NFO, NCO
 
 
 class ResourceContextMenu(QMenu):

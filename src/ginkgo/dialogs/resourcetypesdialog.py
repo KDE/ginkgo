@@ -16,9 +16,9 @@ from PyQt4.QtCore import Qt, SIGNAL, QObject, QMetaObject, QString, QSize, QMode
 from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog, QWidget, QSizePolicy, QTableWidget
 from PyKDE4.kdecore import i18n
 from PyKDE4.nepomuk import Nepomuk
-from views.resourcestable import ResourcesTable
-from dao import datamanager
-from views.resourcetypestable import ResourceTypesTable
+from ginkgo.views.resourcestable import ResourcesTable
+from ginkgo.dao import datamanager
+from ginkgo.views.resourcetypestable import ResourceTypesTable
 
 
 class ResourceTypesDialog(QDialog):

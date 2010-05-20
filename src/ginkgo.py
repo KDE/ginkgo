@@ -23,20 +23,20 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import *
-from dao import datamanager
-from ontologies import NFO, NIE, PIMO, NCO, TMO
-from util.krun import krun
-from dialogs.livesearchdialog import LiveSearchDialog
-from dialogs.resourcechooserdialog import ResourceChooserDialog
-from views.typesview import TypesView
-from views.resourcesbytypetable import ResourcesByTypeTable
-from views.tasktree import TaskTree
-from views.resourcestable import ResourcesTable
-from editors.classeditor import ClassEditor
-from editors.resourceeditor import ResourceEditor
-from editors.taskeditor import TaskEditor
+from ginkgo.dao import datamanager
+from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
+from ginkgo.util.krun import krun
+from ginkgo.dialogs.livesearchdialog import LiveSearchDialog
+from ginkgo.dialogs.resourcechooserdialog import ResourceChooserDialog
+from ginkgo.views.typesview import TypesView
+from ginkgo.views.resourcesbytypetable import ResourcesByTypeTable
+from ginkgo.views.tasktree import TaskTree
+from ginkgo.views.resourcestable import ResourcesTable
+from ginkgo.editors.classeditor import ClassEditor
+from ginkgo.editors.resourceeditor import ResourceEditor
+from ginkgo.editors.taskeditor import TaskEditor
 
-import resources_rc
+from ginkgo import resources_rc
 
 
 

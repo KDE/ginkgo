@@ -19,13 +19,13 @@ from PyQt4.QtGui import *
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import *
 from PyKDE4.kio import *
-from dao import datamanager
-from ontologies import NFO, NIE, PIMO, NCO
+from ginkgo.dao import datamanager
+from ginkgo.ontologies import NFO, NIE, PIMO, NCO
 from os import system
 from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
-from views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.resourcecontextmenu import ResourceContextMenu
 from datetime import *
 import os
 import subprocess

@@ -9,7 +9,7 @@ from PyKDE4.kio import KDirModel, KRun
 from PyQt4.QtCore import QUrl, QVariant, QString
 from PyQt4.QtGui import *
 
-from dao import NCO, PIMO
+from ginkgo.dao import NCO, PIMO
 
 import sys
 from PyKDE4.kdecore import ki18n, KAboutData, KCmdLineArgs

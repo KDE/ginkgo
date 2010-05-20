@@ -16,16 +16,16 @@
 from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from dao import datamanager
-from ontologies import NFO, NIE, PIMO
+from ginkgo.dao import datamanager
+from ginkgo.ontologies import NFO, NIE, PIMO
 from os import system
 from os.path import join
 from PyKDE4.soprano import Soprano
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
-from views.resourcestable import ResourcesTable, ResourcesTableModel
-from util import mime
-from views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
+from ginkgo.util import mime
+from ginkgo.views.resourcecontextmenu import ResourceContextMenu
 
 
             

@@ -1,9 +1,5 @@
-#!/bin/sh
+#!/bin/env python
 
-APP=`basename $0`
+import ginkgo
 
-export datadir=/usr/share/apps/ginkgo
-PYTHON_EXEC=/usr/bin/python
-
-export PYTHONPATH="$PYTHONPATH"
-exec ${PYTHON_EXEC} -OO ${datadir}/$APP.py "$@"
+ginkgo.start()

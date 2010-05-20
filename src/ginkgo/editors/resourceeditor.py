@@ -18,11 +18,11 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import i18n
-from views.relationstable import RelationsTable
-from views.resourcepropertiestable import ResourcePropertiesTable
+from ginkgo.views.relationstable import RelationsTable
+from ginkgo.views.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
 from PyKDE4.nepomuk import Nepomuk
-from dialogs.resourcetypesdialog import ResourceTypesDialog
+from ginkgo.dialogs.resourcetypesdialog import ResourceTypesDialog
 import os
 
 def getClass(clazz):

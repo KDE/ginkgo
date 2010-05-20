@@ -19,8 +19,8 @@ from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import i18n
 from PyKDE4.soprano import Soprano 
-from views.resourcestree import ResourcesTree, ResourcesTreeModel
-from ontologies import PIMO
+from ginkgo.views.resourcestree import ResourcesTree, ResourcesTreeModel
+from ginkgo.ontologies import PIMO
 
 
 class TypesView(QWidget):

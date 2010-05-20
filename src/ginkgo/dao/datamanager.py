@@ -17,7 +17,7 @@ from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
 from sys import exc_info
 from traceback import format_exception
-from ontologies import NFO, NIE, PIMO, NCO, TMO
+from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
 import os
 
 def createResource(label, nepomukType):

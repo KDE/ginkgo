@@ -11,15 +11,15 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-from dao import datamanager
-from ontologies import PIMO
+from ginkgo.dao import datamanager
+from ginkgo.ontologies import PIMO
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
 from PyKDE4.kdecore import i18n
-from views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.resourcecontextmenu import ResourceContextMenu
 
 
 class Node(object):

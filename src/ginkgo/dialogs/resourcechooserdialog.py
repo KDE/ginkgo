@@ -15,8 +15,8 @@
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QMetaObject, QString
 from PyQt4.QtGui import QGridLayout, QLabel, QLineEdit, QTextEdit, QDialogButtonBox, QApplication, QDialog, QTableWidget
 from PyKDE4 import nepomuk
-from views.resourcestable import ResourcesTable
-from views.resourcesbytypetable import ResourcesByTypeTable
+from ginkgo.views.resourcestable import ResourcesTable
+from ginkgo.views.resourcesbytypetable import ResourcesByTypeTable
 from PyKDE4.kdecore import i18n
 
 class ResourceChooserDialogUi(object):
