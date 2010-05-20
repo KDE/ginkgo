@@ -34,7 +34,7 @@ class ResourceEditor(QWidget):
         self.resource = resource
         self.nepomukType = nepomukType
         
-        if self.__class__ == getClass("editors.resourceeditor.ResourceEditor"):
+        if self.__class__ == ResourceEditor.__class__:
             self.ui = ResourceEditorUi(self)
         
 
