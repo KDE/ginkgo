@@ -909,39 +909,3 @@ def getClass(clazz):
     for comp in parts[1:]:
         module = getattr(module, comp)            
     return module
-
-
-if __name__ == "__main__":
-    appName = "ginkgo"
-    catalog = "ginkgo"
-    programName = ki18n ("Ginkgo")
-    copyright = ki18n("(c) 2010, Mandriva, Stéphane Laurière")
-    version = "1.0"
-    description = ki18n ("Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.")
-    license = KAboutData.License_GPL_V2
-    text = ki18n ("Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages.")
-    homePage = "http://nepomuk.kde.org"
-    bugEmail = "https://qa.mandriva.com"
-
-    aboutData = KAboutData (appName, catalog, programName, version, description, license, copyright, text, homePage, bugEmail)
-
-    aboutData.addAuthor(ki18n ("Stéphane Laurière"), ki18n("Developer"), "slauriere@mandriva.com")
-    
-    aboutData.setProgramIconName("nepomuk")
-    aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
-    
-    
-    
-    KCmdLineArgs.init (sys.argv, aboutData)
-    
-    app = KApplication()
-
-    #app.setOrganizationName("KDE")
-    #app.setOrganizationDomain("kde.org")
-    app.setApplicationName("Gingko")
-    app.setWindowIcon(KIcon("nepomuk"))
-    ginkgo = Ginkgo()
-    ginkgo.show()
-
-    sys.exit(app.exec_())
-
