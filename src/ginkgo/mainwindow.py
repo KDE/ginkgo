@@ -321,7 +321,7 @@ class Ginkgo(KMainWindow):
             elif label == "PersonContactEditor":
                 label = "ContactEditor"
 
-            className = "editors." + label.lower() + "." + label
+            className = "ginkgo.editors." + label.lower() + "." + label
             
             try:
                 newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=classUri)
@@ -355,7 +355,7 @@ class Ginkgo(KMainWindow):
                     elif label == "PersonContactEditor":
                         label = "ContactEditor"
                         
-                    className = "editors." + label.lower() + "." + label
+                    className = "ginkgo.editors." + label.lower() + "." + label
                     try:
                         newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
                     except ImportError:
