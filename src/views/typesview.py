@@ -67,16 +67,6 @@ class TypesView(QWidget):
         self.unsetCursor()
         
         layout.addWidget(self.typesTree, 1, 0, 30, 1)
-        
-        self.retranslateUi()
-        self.updateFields()
-        
-
-    def updateFields(self):
-        pass
-            
-    def retranslateUi(self):
-        pass
 
 
     def update(self):

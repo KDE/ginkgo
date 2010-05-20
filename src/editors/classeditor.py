@@ -71,5 +71,4 @@ class ClassEditorUi(ResourceEditorUi):
 #        if self.editor.resource:
 #            self.label.setText(self.editor.resource.genericLabel())
     
-    def retranslateUi(self):
-        super(ClassEditorUi, self).retranslateUi()
+    pass

@@ -17,6 +17,7 @@ from PyQt4 import Qsci, QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from dao import datamanager
+from PyKDE4.soprano import Soprano
 from ontologies import NFO, NIE, PIMO, NCO
 from os import listdir
 from os.path import isfile, isdir, expanduser, join
@@ -46,30 +47,25 @@ class FileEditorUi(ResourceEditorUi):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        nameBox = QGroupBox(i18n("Name"))
-        #self.name_label = QLabel(propertiesWidget)
-        #self.name_label.setObjectName("name_label")
-        #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
-        self.name = QLineEdit(propertiesWidget)
-        self.name.setObjectName("name")
-        vbox = QVBoxLayout(nameBox)
-        vbox.addWidget(self.name)
-        
         button = QPushButton(propertiesWidget)
         button.setText(i18n("Open"))
         button.clicked.connect(self.editor.openFile)
-        vbox.addWidget(button)
 
-        self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
+        self.gridlayout.addWidget(button, 0, 0, 1, 1)
         #self.name_label.setBuddy(self.name)
   
         
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)
+        self.gridlayout.addItem(spacerItem, 1, 0, 1, 1)
         
         return propertiesWidget
 
     
-    
+    def updateFields(self):
+        super(FileEditorUi, self).updateFields()
+        if self.editor.resource:
+            label = self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()
+            if not label or len(label) == 0:
+                self.label.setText(self.editor.resource.property(NFO.fileName).toString())
     
 

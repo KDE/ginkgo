@@ -19,10 +19,10 @@ from views.resourcestable import ResourcesTable
 from dao import datamanager
 from views.resourcesbytypetable import ResourcesByTypeTable
 
-class LabelInputMatchDialog(QDialog):
+class LiveSearchDialog(QDialog):
 
     def __init__(self, parent=None, mainWindow=None, nepomukType=None, excludeList=None):
-        super(LabelInputMatchDialog, self).__init__(parent)
+        super(LiveSearchDialog, self).__init__(parent)
         self.mainWindow = mainWindow
         self.nepomukType = nepomukType
         self.excludeList = excludeList
@@ -77,13 +77,13 @@ class LabelInputMatchDialog(QDialog):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        self.label = QLabel(dialog)
-        self.label.setObjectName("label")
-        self.gridlayout.addWidget(self.label, 0, 0, 1, 1)
+        label = QLabel(dialog)
+        label.setText(i18n("&Name:"))
+        self.gridlayout.addWidget(label, 0, 0, 1, 1)
         self.input = QLineEdit(dialog)
         self.input.setObjectName("input")
         self.gridlayout.addWidget(self.input, 1, 0, 1, 1)
-        self.label.setBuddy(self.input)
+        label.setBuddy(self.input)
         
         if self.nepomukType:
             self.matchingItems = ResourcesByTypeTable(mainWindow=dialog.mainWindow, searchDialogMode=True, nepomukType=self.nepomukType)
@@ -92,8 +92,10 @@ class LabelInputMatchDialog(QDialog):
             self.matchingItems = ResourcesTable(mainWindow=dialog.mainWindow, searchDialogMode=True)
             self.matchingItems.table.setSelectionMode(QTableWidget.SingleSelection)
             
-        self.matchingLabel = QLabel(dialog)
-        self.gridlayout.addWidget(self.matchingLabel, 2, 0, 1, 1)
+        label = QLabel(dialog)
+        label.setText(i18n("Matching items:"))
+        
+        self.gridlayout.addWidget(label, 2, 0, 1, 1)
         self.gridlayout.addWidget(self.matchingItems, 3, 0, 1, 1)
 
         self.buttonBox = QDialogButtonBox(dialog)
@@ -102,29 +104,21 @@ class LabelInputMatchDialog(QDialog):
         self.buttonBox.setObjectName("buttonBox")
         self.gridlayout.addWidget(self.buttonBox, 4, 0, 1, 1)
 
-        self.retranslateUi(dialog)
-        self.buttonBox.accepted.connect(dialog.accept)
-        self.buttonBox.rejected.connect(dialog.reject)
-        
-        QMetaObject.connectSlotsByName(dialog)
-        #dialog.setTabOrder(self.firstname, self.yearSpinBox)
-        #dialog.setTabOrder(self.yearSpinBox, self.minutesSpinBox)
-
-
-    def retranslateUi(self, dialog):
         if self.nepomukType:
             dialog.setWindowTitle(i18n("Link to..."))
         else:
             dialog.setWindowTitle(i18n("Open resource"))
-        #self.acquiredDateEdit.setDisplayFormat(QApplication.translate("PersonEditDialog", "ddd MMM d, yyyy", None, QApplication.UnicodeUTF8))
-        self.label.setText(i18n("&Name:"))
-        self.matchingLabel.setText(i18n("Matching items:"))
+
+        self.buttonBox.accepted.connect(dialog.accept)
+        self.buttonBox.rejected.connect(dialog.reject)
+        
+        QMetaObject.connectSlotsByName(dialog)
 
 
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    form = LabelInputMatchDialog(None)
+    form = LiveSearchDialog(None)
     form.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
     form.show()
     

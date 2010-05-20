@@ -140,12 +140,4 @@ class ContactEditorUi(ResourceEditorUi):
             self.phone.setText(self.editor.resource.property(NCO.phoneNumber).toString())
 
 
-    def retranslateUi(self):
-        super(ContactEditorUi, self).retranslateUi()
-#        self.firstname_label.setText(QApplication.translate("PersonEditDialog", "&First Name:", None, QApplication.UnicodeUTF8))
-#        self.lastname_label.setText(QApplication.translate("PersonEditDialog", "&Last Name:", None, QApplication.UnicodeUTF8))
-#        self.email_label.setText(QApplication.translate("PersonEditDialog", "&E-mail:", None, QApplication.UnicodeUTF8))        
-#        self.phone_label.setText(QApplication.translate("PersonEditDialog", "&Phone:", None, QApplication.UnicodeUTF8))
-
-
     

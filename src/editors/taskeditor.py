@@ -92,11 +92,10 @@ class TaskEditorUi(ResourceEditorUi):
     
 
     def updateFields(self):
+        super(TaskEditorUi, self).updateFields()
+        
         if self.editor.resource:
-            self.name.setText(self.editor.resource.genericLabel())
-            self.description.setText(self.editor.resource.description())
             property = self.editor.resource.property(TMO.priority)
-            
             if property and len(property.toString())>0:
                 if property.toString() == TMO.TMO_Instance_Priority_Low.toString():
                     self.lowPriority.setChecked(True)
@@ -116,14 +115,6 @@ class TaskEditorUi(ResourceEditorUi):
             self.superTaskRadio.setText(self.editor.superTask.genericLabel())
             
 
-    def retranslateUi(self):
-        super(TaskEditorUi, self).retranslateUi()
-        #self.name_label.setText(QApplication.translate("TaskEditor", "&Name:", None, QApplication.UnicodeUTF8))
-        self.noSuperTaskRadio.setText(i18n("Non&e"))
-        self.superTaskRadio.setText(i18n("&Other"))
-        self.lowPriority.setText(i18n("&Low"))
-        self.mediumPriority.setText(i18n("&Medium"))
-        self.highPriority.setText(i18n("&High"))
         
 
     def createMainPropertiesWidget(self, parent):
@@ -134,27 +125,16 @@ class TaskEditorUi(ResourceEditorUi):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        nameBox = QGroupBox("Name")
-        #self.name_label = QLabel(propertiesWidget)
-        #self.name_label.setObjectName("name_label")
-        #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
-        self.name = QLineEdit(propertiesWidget)
-        self.name.setObjectName("name")
-        vbox = QVBoxLayout(nameBox)
-        vbox.addWidget(self.name)
-        self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
-        #self.name_label.setBuddy(self.name)
-  
-        parentBox = QGroupBox("Parent Task")
-        self.noSuperTaskRadio = QRadioButton("None")
-        self.superTaskRadio = QRadioButton("Other")
+        parentBox = QGroupBox(i18n("Parent Task"))
+        self.noSuperTaskRadio = QRadioButton(i18n("Non&e"))
+        self.superTaskRadio = QRadioButton(i18n("&Other"))
         self.noSuperTaskRadio.setChecked(True)
         vbox = QVBoxLayout()
         vbox.addWidget(self.noSuperTaskRadio)
         vbox.addWidget(self.superTaskRadio)
         button = QPushButton(propertiesWidget)
         button.setObjectName("Parent")
-        button.setText("Select...")
+        button.setText(i18n("Select..."))
         button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         vbox.addWidget(button)
         parentBox.setLayout(vbox)
@@ -164,10 +144,10 @@ class TaskEditorUi(ResourceEditorUi):
         self.editor.connect(button, SIGNAL("clicked()"), self.editor.selectSuperTask)
         
 
-        priorityBox = QGroupBox("Priority")
-        self.lowPriority = QRadioButton("Low")
-        self.mediumPriority = QRadioButton("Medium")
-        self.highPriority = QRadioButton("High")
+        priorityBox = QGroupBox(i18n("Priority"))
+        self.lowPriority = QRadioButton(i18n("&Low"))
+        self.mediumPriority = QRadioButton(i18n("&Medium"))
+        self.highPriority = QRadioButton(i18n("&High"))
         vbox = QVBoxLayout()
         vbox.addWidget(self.lowPriority)
         vbox.addWidget(self.mediumPriority)
@@ -177,7 +157,7 @@ class TaskEditorUi(ResourceEditorUi):
         priorityBox.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
 
-        self.dateBox = QGroupBox("Due date")
+        self.dateBox = QGroupBox(i18n("Due date"))
         self.dateBox.setCheckable(True)
         hbox = QHBoxLayout()
         self.dueDate = QDateEdit()

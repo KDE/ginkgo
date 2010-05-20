@@ -189,10 +189,13 @@ class ResourcesTable(QWidget):
     '''
     - In dialog mode, we don't want that double clicking an item opens it up in a new editor. We want instead that this makes the dialog accept the selected item.
     - We still need to keep the possibility to pass resources, since some tables don't use the asyncquery mode (relations table for instance)
-    - searchDialogMode is used by labelinputdialog.py for live results of matching items below the input line edit
+    - searchDialogMode is used by livesearchdialog.py for live results of matching items below the input line edit
     '''
     def __init__(self, mainWindow=False, resources=None, dialogMode=False, excludeList=None, searchDialogMode=False):
-        super(ResourcesTable, self).__init__(mainWindow.workarea)
+        if mainWindow:
+            super(ResourcesTable, self).__init__(mainWindow.workarea)
+        else:
+            super(ResourcesTable, self).__init__()
 
         self.mainWindow = mainWindow
         self.dialogMode = dialogMode

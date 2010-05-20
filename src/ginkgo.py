@@ -26,7 +26,7 @@ from PyKDE4.kdecore import *
 from dao import datamanager
 from ontologies import NFO, NIE, PIMO, NCO, TMO
 from util.krun import krun
-from dialogs.labelinputmatchdialog import LabelInputMatchDialog
+from dialogs.livesearchdialog import LiveSearchDialog
 from dialogs.resourcechooserdialog import ResourceChooserDialog
 from views.typesview import TypesView
 from views.resourcesbytypetable import ResourcesByTypeTable
@@ -92,8 +92,11 @@ class Ginkgo(KMainWindow):
         self.linkToMenu.setTitle(i18n("Link to"))
         self.linkToMenu.setIcon(KIcon("nepomuk"))
         for type in self.placesData:
-            self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
-        
+            if type[0] is not NFO.FileDataObject:
+                self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
+            else:
+                self.linkToMenu.addAction(self.createAction(type[1], self.linkToFile, None, type[3], None, type[0]))
+                
         self.linkToButton.setMenu(self.linkToMenu)
 
         #icon: code-context possibly
@@ -440,7 +443,7 @@ class Ginkgo(KMainWindow):
         
         
     def showOpenResourceDialog(self):
-        dialog = LabelInputMatchDialog(mainWindow=self)
+        dialog = LiveSearchDialog(mainWindow=self)
         if dialog.exec_():
             if dialog.selectedResource():
                 self.openResource(dialog.selectedResource().resourceUri(), True, False)

@@ -45,14 +45,6 @@ class WebsiteEditorUi(ResourceEditorUi):
 
         self.gridlayout = QGridLayout(propertiesWidget)
 
-        self.name = QLineEdit(propertiesWidget)
-        self.name.setObjectName("name")
-
-        self.name.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        fnameBox = QGroupBox(i18n("Name"))
-        vbox = QVBoxLayout(fnameBox)
-        vbox.addWidget(self.name)
-        self.gridlayout.addWidget(fnameBox, 0, 0, 1, 1)
        
         box = QGroupBox(i18n("URL"))
         vbox = QVBoxLayout(box)
@@ -65,10 +57,10 @@ class WebsiteEditorUi(ResourceEditorUi):
         button.clicked.connect(self.openWebPage)
         vbox.addWidget(button)
         
-        self.gridlayout.addWidget(box, 2, 0, 1, 1)
+        self.gridlayout.addWidget(box, 0, 0, 1, 1)
 
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 4, 0, 1, 1)
+        self.gridlayout.addItem(spacerItem, 1, 0, 1, 1)
         
 
         return propertiesWidget
@@ -78,22 +70,12 @@ class WebsiteEditorUi(ResourceEditorUi):
         krun(kurl, QWidget(), False)
         
     def updateFields(self):
+        super(WebsiteEditorUi, self).updateFields()
         if self.editor.resource:
-            self.name.setText(self.editor.resource.genericLabel())
-            
             if len(self.editor.resource.property(NIE.url).toString()) > 0:
                 self.url.setText(self.editor.resource.property(NIE.url).toString())
             else:
                 self.url.setText(self.editor.resource.uri())
-            
-            self.description.setText(self.editor.resource.description())
-
-    def retranslateUi(self):
-        super(WebsiteEditorUi, self).retranslateUi()
-#        self.firstname_label.setText(QApplication.translate("PersonEditDialog", "&First Name:", None, QApplication.UnicodeUTF8))
-#        self.lastname_label.setText(QApplication.translate("PersonEditDialog", "&Last Name:", None, QApplication.UnicodeUTF8))
-#        self.email_label.setText(QApplication.translate("PersonEditDialog", "&E-mail:", None, QApplication.UnicodeUTF8))        
-#        self.phone_label.setText(QApplication.translate("PersonEditDialog", "&Phone:", None, QApplication.UnicodeUTF8))
 
 
     def resourceLabel(self):

@@ -21,6 +21,8 @@ from PyKDE4.kdecore import i18n
 from views.relationstable import RelationsTable
 from views.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
+from PyKDE4.nepomuk import Nepomuk
+from dialogs.resourcetypesdialog import ResourceTypesDialog
 import os
 
 def getClass(clazz):
@@ -56,10 +58,10 @@ class ResourceEditor(QWidget):
         path = QFileInfo("~/").path()
         fname = QFileDialog.getOpenFileName(self, i18n("Select Icon - Ginkgo"), path, i18n("Images (*.png *.jpg *.jpeg *.bmp)"))
         
-        #first save the resource to make sure it exists
-        self.save()
-        
         if fname and len(fname) > 0 and os.path.exists(fname):
+            #save the resource to create it if it doesn't exist yet
+            if not self.resource:
+                self.save()
             self.resource.setSymbols([fname])
             self.ui.iconButton.setIcon(KIcon(fname))
 
@@ -80,10 +82,34 @@ class ResourceEditor(QWidget):
         #save generic properties
         self.resource.setLabel(self.ui.resourceLabel())
         self.resource.setDescription(self.ui.description.toPlainText())
+        
+        self.ui.updateFields()
+        
         self.unsetCursor()
                             
     def focus(self):
         self.ui.label.setFocus(Qt.OtherFocusReason)
+        
+    def focusOnLabelField(self):
+        self.ui.label.setFocus(Qt.OtherFocusReason)
+        self.ui.label.selectAll()
+        
+    def showResourceTypesDialog(self):
+        #save the resource to create it if it doesn't exist yet
+        if not self.resource:
+            self.save()
+                
+        dialog =  ResourceTypesDialog(mainWindow=self.mainWindow, resource=self.resource)
+        if dialog.exec_():
+            selection =  dialog.selectedResources()
+            types = []
+            for res in selection:
+                types.append(res.resourceUri())
+                
+            self.resource.setTypes(types)
+            self.ui.updateFields()
+            
+
 
 class ResourceEditorUi(object):
     
@@ -114,46 +140,50 @@ class ResourceEditorUi(object):
 
         hbox = QHBoxLayout(infoWidget)
         self.label = QLineEdit()
-        self.label.setMinimumWidth(300)
-        self.label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        shortcut = QShortcut(QKeySequence("Ctrl+L"), self.label);
+        shortcut.activated.connect(self.editor.focusOnLabelField)
+        
+        self.label.setMinimumWidth(400)
+        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         hbox.setContentsMargins(0, 0, 0, 0)
         
         hbox.addWidget(self.label)
         
-        spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        spacerItem = QSpacerItem(1, 1, QSizePolicy.Minimum, QSizePolicy.Minimum)
         hbox.addItem(spacerItem)
         
-        typesInfoLabel = QLabel(i18n("Type(s): "))
-        self.typesInfo = QLabel() 
+        #typesInfo = QLabel(i18n("Type(s): "))
+        self.typesInfo = KPushButton() 
+        self.typesInfo.clicked.connect(self.editor.showResourceTypesDialog)
         
-        hbox.addWidget(typesInfoLabel)
         hbox.addWidget(self.typesInfo)
         
         vboxlayout = QVBoxLayout(descriptionWidget)
         #gridlayout = QGridLayout(descriptionWidget)
         
-        self.descriptionLabel = QLabel(descriptionWidget) 
+#        descriptionLabel = QLabel(descriptionWidget)
+#        descriptionLabel.setText(i18n("&Description:")) 
         self.description = QTextEdit(self.editor)
         self.description.setTabChangesFocus(True)
         #self.description.setLineWrapMode(QTextEdit.NoWrap)
         self.description.setAcceptRichText(False)
         self.description.setObjectName("Notes")
         self.description.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.descriptionLabel.setBuddy(self.description)
+#        descriptionLabel.setBuddy(self.description)
         
-        hline = QFrame(descriptionWidget)
+        #hline = QFrame(descriptionWidget)
         #hline.setGeometry(QRect(150, 190, 118, 3))
-        hline.setFrameShape(QFrame.HLine)
+        #hline.setFrameShape(QFrame.HLine)
         #hline.setFrameShadow(QFrame.Sunken)
         
         vboxlayout.addWidget(infoWidget)
-        vboxlayout.addWidget(hline)
+        #vboxlayout.addWidget(hline)
 #        gridlayout.addWidget(infoWidget, 0, 0, 1, 1)
 #        gridlayout.addWidget(hline, 1, 0, 1, 1)
         
         infoWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         
-        vboxlayout.addWidget(self.descriptionLabel)
+#        vboxlayout.addWidget(descriptionLabel)
         vboxlayout.addWidget(self.description)
         
         relpropWidget = KTabWidget(rightpane)
@@ -185,8 +215,7 @@ class ResourceEditorUi(object):
         splitter.addWidget(rightpane)
         splitter.setStretchFactor(0, 0)
         splitter.setStretchFactor(1, 1)
-        
-        self.retranslateUi()
+
         self.updateFields()
 
     def updateFields(self):
@@ -203,11 +232,7 @@ class ResourceEditorUi(object):
                 typestr = typestr[typestr.find("#")+1:]
                 types = types  + i18n(typestr) +" "
                 
-            self.typesInfo.setText(types)
-            
-    def retranslateUi(self):
-        self.descriptionLabel.setText(i18n("&Description:"))
-        #self.relationsLabel.setText(QApplication.translate("ResourceEditor", "&Relations:", None, QApplication.UnicodeUTF8))
+            self.typesInfo.setText(i18n("Type(s): ")+types)
         
 
     def createIconWidget(self, parent):

@@ -32,7 +32,7 @@ from views.resourcecontextmenu import ResourceContextMenu
 class RelationsTable(ResourcesTable):
     
     def __init__(self, mainWindow=False, dialogMode=False, resource=None):
-        self.resource=resource
+        self.resource = resource
         super(RelationsTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode)
         #override the column policy
 #        self.table.horizontalHeader().setResizeMode(0,QHeaderView.Interactive)
@@ -43,7 +43,7 @@ class RelationsTable(ResourcesTable):
     def createModel(self):
         
         self.model = ResourcesTableModel(self)
-        self.model.setHeaders([i18n("Name"), i18n("Date"),i18n("Type") ])
+        self.model.setHeaders([i18n("Name"), i18n("Date"), i18n("Type") ])
         
         if self.resource:
             resources = datamanager.findRelations(self.resource.uri())
@@ -82,7 +82,7 @@ class RelationsTable(ResourcesTable):
     def processAction(self, key, resourceUri):
         if super(RelationsTable, self).processAction(key, resourceUri):
             return True
-        elif self.resource and key == "&Unlink from "+self.resource.genericLabel():
+        elif self.resource and key == i18n("&Unlink from %1", self.resource.genericLabel()):
             self.mainWindow.unlink(Soprano.Vocabulary.NAO.isRelated(), resourceUri, True)
             self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
         
@@ -103,7 +103,7 @@ class RelationsTableContextMenu(ResourceContextMenu):
             self.addOpenAction()
             self.addExternalOpenAction()
             
-            action = QAction("Unlink from "+self.parent.resource.genericLabel(), self)
+            action = QAction(i18n("&Unlink from %1", self.parent.resource.genericLabel()), self)
             action.setIcon(KIcon("nepomuk"))
             self.addAction(action)
             self.addSendMailAction()
