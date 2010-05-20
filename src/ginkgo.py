@@ -322,6 +322,7 @@ class Ginkgo(KMainWindow):
                 label = "ContactEditor"
 
             className = "editors." + label.lower() + "." + label
+            
             try:
                 newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=classUri)
             except ImportError:
@@ -339,6 +340,7 @@ class Ginkgo(KMainWindow):
         resource = Nepomuk.Resource(uri)
         
         editor = self.findResourceEditor(resource)
+        print editor
         
         if editor:
             self.workarea.setCurrentWidget(editor)
@@ -353,8 +355,9 @@ class Ginkgo(KMainWindow):
                         label = "FileEditor"
                     elif label == "PersonContactEditor":
                         label = "ContactEditor"
+                        
                     className = "editors." + label.lower() + "." + label
-
+                    print className
                     try:
                         newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
                     except ImportError:
@@ -364,6 +367,8 @@ class Ginkgo(KMainWindow):
             if newEditor is None:
                 newEditor = ResourceEditor(mainWindow=self, resource=resource, nepomukType=Soprano.Vocabulary.RDFS.Resource())
             
+            
+            print newEditor
             label = resource.genericLabel()
             if label and len(label) > self.maxTabTitleLength():
                 label = label[:self.maxTabTitleLength()] + "..."

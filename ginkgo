@@ -5,6 +5,5 @@ APP=`basename $0`
 export datadir=/usr/share/apps/ginkgo
 PYTHON_EXEC=/usr/bin/python
 
-cd ${datadir}
 export PYTHONPATH="$PYTHONPATH"
-exec ${PYTHON_EXEC} -OO $APP.py "$@"
+exec ${PYTHON_EXEC} -OO ${datadir}/$APP.py "$@"
