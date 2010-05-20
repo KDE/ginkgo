@@ -9,10 +9,20 @@ Requirements
 - PyQt 4+
 - KDE 4.4+
 
+Installation
+------------
+On Mandriva Linux: urpmi ginkgo
+
+On other operating systems:
+- Download the latest release from: http://svn.mandriva.com/svn/packages/cooker/ginkgo/current/SOURCES/
+- Uncompress the file and enter the top level directory
+- Run the following command as root:
+     python setup.py install 
+
+
 Bugs
 ----
 https://qa.mandriva.com/
-
 
 Source code
 -----------

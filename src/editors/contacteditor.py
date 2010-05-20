@@ -38,7 +38,6 @@ class ContactEditor(ResourceEditor):
         
         super(ContactEditor, self).save()
         
-        
         self.resource.setProperty(NCO.nameGiven, Nepomuk.Variant(self.ui.firstname.text()))
         self.resource.setProperty(NCO.nameFamily, Nepomuk.Variant(self.ui.lastname.text()))
         self.resource.setProperty(NCO.emailAddress, Nepomuk.Variant(self.ui.email.text()))
@@ -57,13 +56,7 @@ class ContactEditorUi(ResourceEditorUi):
         self.gridlayout = QGridLayout(propertiesWidget)
         self.gridlayout.setObjectName("gridlayout")
         
-        #self.gridlayout.setColumnStretch(0, 1)
-        #self.gridlayout.setColumnStretch(1, 20)
- 
-#        self.firstname_label = QLabel(propertiesWidget)
-#        self.firstname_label.setObjectName("firstname_label")
-#        self.firstname_label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-#        self.gridlayout.addWidget(self.firstname_label, 0, 0, 1, 1)
+
         self.firstname = QLineEdit(propertiesWidget)
         self.firstname.setObjectName("name")
         #self.firstname.setMinimumWidth(180)
@@ -102,22 +95,6 @@ class ContactEditorUi(ResourceEditorUi):
         vbox.addWidget(self.email)
         self.gridlayout.addWidget(box, 2, 0, 1, 1)
 
-        
-#        self.email_label = QLabel(propertiesWidget)
-#        self.email_label.setObjectName("email_label")
-#        self.gridlayout.addWidget(self.email_label, 2, 0, 1, 1)
-#        self.email = QLineEdit(propertiesWidget)
-#        self.email.setObjectName("email")
-#        self.gridlayout.addWidget(self.email, 2, 1, 1, 1)
-#        self.email_label.setBuddy(self.email)
-        
-#        self.phone_label = QLabel(propertiesWidget)
-#        self.phone_label.setObjectName("phone_label")
-#        self.gridlayout.addWidget(self.phone_label, 3, 0, 1, 1)
-#        self.phone = QLineEdit(propertiesWidget)
-#        self.phone.setObjectName("phone")
-#        self.gridlayout.addWidget(self.phone, 3, 1, 1, 1)
-#        self.phone_label.setBuddy(self.phone)
 
         box = QGroupBox(i18n("Phone"))
         vbox = QVBoxLayout(box)

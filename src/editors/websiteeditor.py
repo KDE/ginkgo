@@ -78,6 +78,4 @@ class WebsiteEditorUi(ResourceEditorUi):
                 self.url.setText(self.editor.resource.uri())
 
 
-    def resourceLabel(self):
-        return self.name.text()
     

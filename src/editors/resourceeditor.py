@@ -25,14 +25,6 @@ from PyKDE4.nepomuk import Nepomuk
 from dialogs.resourcetypesdialog import ResourceTypesDialog
 import os
 
-def getClass(clazz):
-    parts = clazz.split('.')
-    module = ".".join(parts[:-1])
-    module = __import__(module)
-    for comp in parts[1:]:
-        module = getattr(module, comp)            
-    return module
-
 
 class ResourceEditor(QWidget):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None):
@@ -83,7 +75,12 @@ class ResourceEditor(QWidget):
         self.resource.setLabel(self.ui.resourceLabel())
         self.resource.setDescription(self.ui.description.toPlainText())
         
-        self.ui.updateFields()
+        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
+        #TODO: do we need to do that?
+        if self.__class__ == ResourceEditor.__class__:
+            self.ui.updateFields()
+
+        
         
         self.unsetCursor()
                             

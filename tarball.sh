@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="0.1.1"
+VERSION="0.1.2"
 SVN_BASE=http://svn.mandriva.com/svn/soft/nepomuk/ginkgo
 
 rm -fr ginkgo-${VERSION}
@@ -10,7 +10,6 @@ cd ginkgo-${VERSION}
 
 for entry in \
  src \
- bin \
  po \
  ChangeLog \
  LICENSE \
