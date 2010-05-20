@@ -3,14 +3,14 @@
 
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
-from ginkgo import mainwindow
+from ginkgo.mainwindow import Ginkgo
 import sys
 
 if __name__ == "__main__":
     appName = "ginkgo"
     catalog = "ginkgo"
     programName = ki18n ("Ginkgo")
-    copyright = ki18n("(c) 2010, Mandriva, Stéphane Laurière")
+    copyright = ki18n("(c) 2010, Mandriva, StÃ©phane LauriÃ¨re")
     version = "1.0"
     description = ki18n ("Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.")
     license = KAboutData.License_GPL_V2
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     aboutData = KAboutData (appName, catalog, programName, version, description, license, copyright, text, homePage, bugEmail)
 
-    aboutData.addAuthor(ki18n ("Stéphane Laurière"), ki18n("Developer"), "slauriere@mandriva.com")
+    aboutData.addAuthor(ki18n ("StÃ©phane LauriÃ¨re"), ki18n("Developer"), "slauriere@mandriva.com")
     
     aboutData.setProgramIconName("nepomuk")
     aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
