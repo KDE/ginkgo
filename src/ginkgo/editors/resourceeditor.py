@@ -42,7 +42,9 @@ class ResourceEditor(QWidget):
         self.resource = resource
         self.nepomukType = nepomukType
         
-        if self.__class__ == getClass("editors.resourceeditor.ResourceEditor"):
+#        print self.__class__
+#        print ResourceEditor.__class__
+        if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
             self.ui = ResourceEditorUi(self)
         
 
@@ -84,7 +86,7 @@ class ResourceEditor(QWidget):
         self.resource.setDescription(self.ui.description.toPlainText())
         
         #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
-        if self.__class__ == getClass("editors.resourceeditor.ResourceEditor"):
+        if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
             self.ui.updateFields()
         
         self.unsetCursor()
