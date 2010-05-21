@@ -1,0 +1,478 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Michal Bukovjan <bukm@centrum.cz>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-18 22:20+0200\n"
+"PO-Revision-Date: 2010-05-21 22:58+0200\n"
+"Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: dialogs/labelinputmatchdialog.py:116 dialogs/resourcechooserdialog.py:61
+#: ginkgo.py:85 ginkgo.py:86
+msgid "Link to..."
+msgstr "Propojit s…"
+
+#: dialogs/labelinputmatchdialog.py:118
+msgid "Open resource"
+msgstr "Otevřít zdroj"
+
+#: dialogs/labelinputmatchdialog.py:120
+msgid "&Name:"
+msgstr "&Název:"
+
+#: dialogs/labelinputmatchdialog.py:121
+msgid "Matching items:"
+msgstr "Odpovídající položky:"
+
+#: dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Výběr úlohy"
+
+#: editors/classeditor.py:74
+msgid "Type Name"
+msgstr "Název typu"
+
+#: editors/contacteditor.py:75
+msgid "First Name"
+msgstr "Jméno"
+
+#: editors/contacteditor.py:92
+msgid "Last Name"
+msgstr "Příjmení"
+
+#: editors/contacteditor.py:100
+msgid "E-mail"
+msgstr "E-mail"
+
+#: editors/contacteditor.py:124
+msgid "Phone"
+msgstr "Telefon"
+
+#: editors/fileeditor.py:49 editors/resourceeditor.py:188
+#: editors/websiteeditor.py:55 views/relationstable.py:46
+#: views/resourcesbytypetable.py:46 views/resourcestable.py:277
+msgid "Name"
+msgstr "Název"
+
+#: editors/fileeditor.py:59 editors/websiteeditor.py:67
+msgid "Open"
+msgstr "Otevřít"
+
+#: editors/resourceeditor.py:57
+msgid "Select Icon - Ginkgo"
+msgstr "Vyberte ikonu - Ginkgo"
+
+#: editors/resourceeditor.py:57
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Obrázky (*.png *.jpg *.jpeg *.bmp)"
+
+#: editors/resourceeditor.py:126
+msgid "Relations"
+msgstr "Vztahy"
+
+#: editors/resourceeditor.py:127
+msgid "Properties"
+msgstr "Vlastnosti"
+
+#: editors/resourceeditor.py:160
+msgid "&Description:"
+msgstr "&Popis:"
+
+#: editors/taskeditor.py:122
+msgid "Non&e"
+msgstr "Žá&dná"
+
+#: editors/taskeditor.py:123
+msgid "&Other"
+msgstr "&Jiná"
+
+#: editors/taskeditor.py:124
+msgid "&Low"
+msgstr "&Nízká"
+
+#: editors/taskeditor.py:125
+msgid "&Medium"
+msgstr "&Střední"
+
+#: editors/taskeditor.py:126
+msgid "&High"
+msgstr "&Vysoká"
+
+#: editors/websiteeditor.py:60
+msgid "URL"
+msgstr "URL"
+
+#: ginkgo.py:77
+msgid "&Save"
+msgstr "&Uložit"
+
+#: ginkgo.py:77
+msgid "Save"
+msgstr "Uložit"
+
+#: ginkgo.py:79
+msgid "&Open"
+msgstr "&Otevřít"
+
+#: ginkgo.py:79
+msgid "Open a resource"
+msgstr "Otevřít zdroj"
+
+#: ginkgo.py:80
+msgid "New &Tab"
+msgstr "Nový &panel"
+
+#: ginkgo.py:80
+msgid "Create new tab"
+msgstr "Vytvořit nový panel"
+
+#: ginkgo.py:81
+msgid "Close Tab"
+msgstr "Zavřít panel"
+
+#: ginkgo.py:81
+msgid "Close tab"
+msgstr "Zavřít panel"
+
+#: ginkgo.py:82
+msgid "&Quit"
+msgstr "U&končit"
+
+#: ginkgo.py:82
+msgid "Close the application"
+msgstr "Zavřít aplikaci"
+
+#: ginkgo.py:92
+msgid "Link to"
+msgstr "Propojit"
+
+#: ginkgo.py:99
+msgid "Set resource as context"
+msgstr "Nastavit zdroj jako kontext"
+
+#: ginkgo.py:99
+msgid "Set the current resource as context"
+msgstr "Nastavit aktuální zdroj jako kontext"
+
+#: ginkgo.py:101 ginkgo.py:570
+msgid "&File"
+msgstr "Sou&bor"
+
+#: ginkgo.py:104
+msgid "&New"
+msgstr "&Nový"
+
+#: ginkgo.py:118
+msgid "&Edit"
+msgstr "&Upravit"
+
+#: ginkgo.py:119 views/resourcecontextmenu.py:52 views/resourcestree.py:287
+msgid "&Delete"
+msgstr "&Smazat"
+
+#: ginkgo.py:119
+msgid "Delete"
+msgstr "Smazat"
+
+#: ginkgo.py:123
+msgid "&View"
+msgstr "&Zobrazit"
+
+#: ginkgo.py:129
+msgid "Types"
+msgstr "Typy"
+
+#: ginkgo.py:136
+msgid "Toolbar"
+msgstr "Nástrojová lišta"
+
+#: ginkgo.py:143 ginkgo.py:144
+msgid "New"
+msgstr "Nový"
+
+#: ginkgo.py:181 ginkgo.py:185
+msgid "Search"
+msgstr "Hledat"
+
+#: ginkgo.py:186
+msgid "Full-text search"
+msgstr "Plnotextové vyhledávání"
+
+#: ginkgo.py:268
+msgid "New Task"
+msgstr "Nová úloha"
+
+#: ginkgo.py:279
+msgid "New Type"
+msgstr "Nový typ"
+
+#: ginkgo.py:323
+msgid "New %1"
+msgstr "Nový %1"
+
+#: ginkgo.py:387
+msgid "Warning"
+msgstr "Varování"
+
+#: ginkgo.py:415
+msgid "Resource removal"
+msgstr "Odstranění zdroje"
+
+#: ginkgo.py:416
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "Jste si jisti, že chcete smazat <i>%1</i>?"
+
+#: ginkgo.py:497
+msgid "Select File - Ginkgo"
+msgstr "Vybrat soubor - Ginkgo"
+
+#: ginkgo.py:534
+msgid "Places"
+msgstr "Místa"
+
+#: ginkgo.py:561
+msgid "&Contact"
+msgstr "&Kontakt"
+
+#: ginkgo.py:561
+msgid "&Contacts"
+msgstr "&Kontakty"
+
+#: ginkgo.py:561
+msgid "Create new contact"
+msgstr "Vytvořit nový kontakt"
+
+#: ginkgo.py:562
+msgid "&Project"
+msgstr "&Projekt"
+
+#: ginkgo.py:562
+msgid "&Projects"
+msgstr "&Projekty"
+
+#: ginkgo.py:562
+msgid "Create new project"
+msgstr "Vytvořit nový projekt"
+
+#: ginkgo.py:563
+msgid "&Task"
+msgstr "Ú&loha"
+
+#: ginkgo.py:563
+msgid "&Tasks"
+msgstr "Ú&lohy"
+
+#: ginkgo.py:563
+msgid "Create new task"
+msgstr "Vytvořit novou úlohu"
+
+#: ginkgo.py:564
+msgid "&Organization"
+msgstr "&Organizace"
+
+#: ginkgo.py:564
+msgid "&Organizations"
+msgstr "&Organizace"
+
+#: ginkgo.py:564
+msgid "Create new organization"
+msgstr "Vytvořit novou organizaci"
+
+#: ginkgo.py:565
+msgid "&Topic"
+msgstr "&Téma"
+
+#: ginkgo.py:565
+msgid "&Topics"
+msgstr "&Témata"
+
+#: ginkgo.py:565
+msgid "Create new topic"
+msgstr "Vytvořit nové téma"
+
+#: ginkgo.py:566
+msgid "&Event"
+msgstr "&Událost"
+
+#: ginkgo.py:566
+msgid "&Events"
+msgstr "&Události"
+
+#: ginkgo.py:566
+msgid "Create new event"
+msgstr "Vytvořit novou událost"
+
+#: ginkgo.py:567
+msgid "&Location"
+msgstr "&Místo"
+
+#: ginkgo.py:567
+msgid "&Locations"
+msgstr "&Místa"
+
+#: ginkgo.py:567
+msgid "Create new location"
+msgstr "Vytvořit nové místo"
+
+#: ginkgo.py:568
+msgid "&WebPage"
+msgstr "&Webová stránka"
+
+#: ginkgo.py:568
+msgid "&Web Pages"
+msgstr "&Webové stránky"
+
+#: ginkgo.py:568
+msgid "Create new Web page"
+msgstr "Vytvořit novou webovou stránku"
+
+#: ginkgo.py:569
+msgid "&Note"
+msgstr "Poz&námka"
+
+#: ginkgo.py:569
+msgid "&Notes"
+msgstr "Poz&námky"
+
+#: ginkgo.py:569
+msgid "Create new note"
+msgstr "Vytvořit novou poznámku"
+
+#: ginkgo.py:570
+msgid "&Files"
+msgstr "Sou&bory"
+
+#: ginkgo.py:570
+msgid "Create new file"
+msgstr "Vytvořit nový soubor"
+
+#: ginkgo.py:672 ginkgo.py:674
+msgid "Context - Ginkgo"
+msgstr "Kontext - Ginkgo"
+
+#: ginkgo.py:672
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "Kontext byl úspěšně aktualizován na <i>%1</i>."
+
+#: ginkgo.py:674
+msgid "An error occurred while updating the context."
+msgstr "Při aktualizaci kontextu se vyskytla chyba."
+
+#: ginkgo.py:746
+msgid "Search Results"
+msgstr "Výsledky hledání"
+
+#: ginkgo.py:861 ginkgo.py:884
+msgid "Move &up"
+msgstr "Nahor&u"
+
+#: ginkgo.py:863 ginkgo.py:886
+msgid "Move &down"
+msgstr "&Dolů"
+
+#: ginkgo.py:865 ginkgo.py:888
+msgid "&Remove entry"
+msgstr "Odst&ranit položku"
+
+#: ginkgo.py:906
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:907
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "©2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:909
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr ""
+"Ginkgo je navigátor pro Nepomuk, soubor sémantických nástrojů pro KDE."
+
+#: ginkgo.py:911
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr ""
+"Ginkgo vám umožňuje vytvářet a procházet propojení mezi vašimi osobními "
+"údaji jako "
+"emaily, kontakty, soubory a webovými stránkami."
+
+#: ginkgo.py:917
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:917
+msgid "Developer"
+msgstr "Vývojář"
+
+#: ginkgo.py:920 rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Michal Bukovjan"
+
+#: ginkgo.py:920 rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "bukm@centrum.cz"
+
+#: views/relationstable.py:46 views/resourcesbytypetable.py:46
+#: views/resourcestable.py:277
+msgid "Date"
+msgstr "Datum"
+
+#: views/relationstable.py:46 views/resourcestable.py:277
+msgid "Type"
+msgstr "Typ"
+
+#: views/resourcecontextmenu.py:47
+msgid "&Open in new tab"
+msgstr "&Otevřít v novém panelu"
+
+#: views/resourcecontextmenu.py:53
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Odstranit tento zdroj z databáze Nepomuk"
+
+#: views/resourcecontextmenu.py:61 views/resourcestable.py:356
+msgid "Open &file"
+msgstr "Otevřít sou&bor"
+
+#: views/resourcecontextmenu.py:65 views/resourcestable.py:359
+msgid "Open &page"
+msgstr "Otevřít &stránku"
+
+#: views/resourcecontextmenu.py:76 views/resourcestable.py:362
+msgid "&Write e-mail to"
+msgstr "Napsat e&mail"
+
+#: views/resourcepropertiestable.py:134
+msgid "Property"
+msgstr "Vlastnost"
+
+#: views/resourcepropertiestable.py:134
+msgid "Value"
+msgstr "Hodnota"
+
+#: views/resourcestree.py:290 views/resourcestree.py:328
+msgid "&Add to places"
+msgstr "Přid&at k místům"
+
+#: views/resourcestree.py:333
+msgid "&New sub-type"
+msgstr "&Nový podtyp"
+
+#: views/tasktree.py:326
+msgid "&New sub-task"
+msgstr "&Nová dílčí úloha"
+
+#: views/typesview.py:37
+msgid "Ontologies:"
+msgstr "Ontologie:"
+
