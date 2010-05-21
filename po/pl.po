@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-17 18:03+0200\n"
-"PO-Revision-Date: 2010-05-17 19:00+0100\n"
+"PO-Revision-Date: 2010-05-21 17:48+0100\n"
 "Last-Translator: Marek Walczak <kubdat@poczta.fm>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -183,7 +183,7 @@ msgstr "&Nowy"
 
 #: ginkgo.py:118
 msgid "&Edit"
-msgstr "&Edytuj"
+msgstr "&Edycja"
 
 #: ginkgo.py:119
 #: views/resourcecontextmenu.py:50
