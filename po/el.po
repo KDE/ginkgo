@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-18 22:20+0200\n"
-"PO-Revision-Date: 2010-05-19 20:17+0200\n"
+"PO-Revision-Date: 2010-05-24 13:04+0200\n"
 "Last-Translator: Glentadakis Dimitrios <dglent@gmail.com>\n"
 "Language-Team: Greek <translators_team@mandrivalinux.gr>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Επιλογή διεργασίας"
 
 #: editors/classeditor.py:74
 msgid "Type Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: editors/contacteditor.py:75
 msgid "First Name"
@@ -71,7 +71,7 @@ msgstr "Άνοιγμα"
 
 #: editors/resourceeditor.py:57
 msgid "Select Icon - Ginkgo"
-msgstr ""
+msgstr "Επιλογή εικονιδίου - Ginkgo"
 
 #: editors/resourceeditor.py:57
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
@@ -79,59 +79,59 @@ msgstr "Εικόνες (*.png *.jpg *.jpeg *.bmp)"
 
 #: editors/resourceeditor.py:126
 msgid "Relations"
-msgstr ""
+msgstr "Σχέσεις"
 
 #: editors/resourceeditor.py:127
 msgid "Properties"
-msgstr ""
+msgstr "Ιδιότητες"
 
 #: editors/resourceeditor.py:160
 msgid "&Description:"
-msgstr ""
+msgstr "&Περιγραφή:"
 
 #: editors/taskeditor.py:122
 msgid "Non&e"
-msgstr ""
+msgstr "Κανένα"
 
 #: editors/taskeditor.py:123
 msgid "&Other"
-msgstr ""
+msgstr "&Άλλο"
 
 #: editors/taskeditor.py:124
 msgid "&Low"
-msgstr ""
+msgstr "&Χαμηλή"
 
 #: editors/taskeditor.py:125
 msgid "&Medium"
-msgstr ""
+msgstr "&Μεσαία"
 
 #: editors/taskeditor.py:126
 msgid "&High"
-msgstr ""
+msgstr "&Υψηλή"
 
 #: editors/websiteeditor.py:60
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ginkgo.py:77
 msgid "&Save"
-msgstr ""
+msgstr "Απο&θήκευση"
 
 #: ginkgo.py:77
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: ginkgo.py:79
 msgid "&Open"
-msgstr ""
+msgstr "&Άνοιγμα"
 
 #: ginkgo.py:79
 msgid "Open a resource"
-msgstr ""
+msgstr "Άνοιγμα μιας πηγής"
 
 #: ginkgo.py:80
 msgid "New &Tab"
-msgstr ""
+msgstr "Νέα &καρτέλα"
 
 #: ginkgo.py:80
 msgid "Create new tab"
@@ -143,247 +143,247 @@ msgstr "Κλείσιμο καρτέλας"
 
 #: ginkgo.py:81
 msgid "Close tab"
-msgstr ""
+msgstr "Κλείσιμο καρτέλας"
 
 #: ginkgo.py:82
 msgid "&Quit"
-msgstr ""
+msgstr "&Έξοδος"
 
 #: ginkgo.py:82
 msgid "Close the application"
-msgstr ""
+msgstr "Κλείσιμο της εφαρμογής"
 
 #: ginkgo.py:92
 msgid "Link to"
-msgstr ""
+msgstr "Δεσμός με"
 
 #: ginkgo.py:99
 msgid "Set resource as context"
-msgstr ""
+msgstr "Καθορισμός πηγής ως σχετικό περιεχόμενο"
 
 #: ginkgo.py:99
 msgid "Set the current resource as context"
-msgstr ""
+msgstr "Καθορισμός της τρέχουσας πηγής ως σχετικό περιεχόμενο"
 
 #: ginkgo.py:101 ginkgo.py:570
 msgid "&File"
-msgstr ""
+msgstr "&Αρχείο"
 
 #: ginkgo.py:104
 msgid "&New"
-msgstr ""
+msgstr "&Νέο"
 
 #: ginkgo.py:118
 msgid "&Edit"
-msgstr ""
+msgstr "&Επεξεργασία"
 
 #: ginkgo.py:119 views/resourcecontextmenu.py:52 views/resourcestree.py:287
 msgid "&Delete"
-msgstr ""
+msgstr "&Διαγραφή"
 
 #: ginkgo.py:119
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: ginkgo.py:123
 msgid "&View"
-msgstr ""
+msgstr "&Προβολή"
 
 #: ginkgo.py:129
 msgid "Types"
-msgstr ""
+msgstr "Τύποι"
 
 #: ginkgo.py:136
 msgid "Toolbar"
-msgstr ""
+msgstr "Γραμμή εργαλείων"
 
 #: ginkgo.py:143 ginkgo.py:144
 msgid "New"
-msgstr ""
+msgstr "Νέο"
 
 #: ginkgo.py:181 ginkgo.py:185
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: ginkgo.py:186
 msgid "Full-text search"
-msgstr ""
+msgstr "Αναζήτηση με πλήρες κείμενο"
 
 #: ginkgo.py:268
 msgid "New Task"
-msgstr ""
+msgstr "Νέα εργασία"
 
 #: ginkgo.py:279
 msgid "New Type"
-msgstr ""
+msgstr "Νέος τύπος"
 
 #: ginkgo.py:323
 msgid "New %1"
-msgstr ""
+msgstr "Νέο %1"
 
 #: ginkgo.py:387
 msgid "Warning"
-msgstr ""
+msgstr "Προσοχή"
 
 #: ginkgo.py:415
 msgid "Resource removal"
-msgstr ""
+msgstr "Αφαίρεση της πηγής"
 
 #: ginkgo.py:416
 msgid "Are you sure you want to delete <i>%1</i>?"
-msgstr ""
+msgstr "Επιθυμείτε σίγουρα την διαγραφή του <i>%1</i>;"
 
 #: ginkgo.py:497
 msgid "Select File - Ginkgo"
-msgstr ""
+msgstr "Επιλογή αρχείου - Ginkgo"
 
 #: ginkgo.py:534
 msgid "Places"
-msgstr ""
+msgstr "Τοποθεσίες"
 
 #: ginkgo.py:561
 msgid "&Contact"
-msgstr ""
+msgstr "&Επαφή"
 
 #: ginkgo.py:561
 msgid "&Contacts"
-msgstr ""
+msgstr "&Επαφές"
 
 #: ginkgo.py:561
 msgid "Create new contact"
-msgstr ""
+msgstr "Δημιουργία νέας επαφής"
 
 #: ginkgo.py:562
 msgid "&Project"
-msgstr ""
+msgstr "&Έργο"
 
 #: ginkgo.py:562
 msgid "&Projects"
-msgstr ""
+msgstr "&Έργα"
 
 #: ginkgo.py:562
 msgid "Create new project"
-msgstr ""
+msgstr "Δημιουργία νέου έργου"
 
 #: ginkgo.py:563
 msgid "&Task"
-msgstr ""
+msgstr "&Εργασία"
 
 #: ginkgo.py:563
 msgid "&Tasks"
-msgstr ""
+msgstr "&Εργασίες"
 
 #: ginkgo.py:563
 msgid "Create new task"
-msgstr ""
+msgstr "Δημιουργία νέας εργασίας"
 
 #: ginkgo.py:564
 msgid "&Organization"
-msgstr ""
+msgstr "&Οργανισμός"
 
 #: ginkgo.py:564
 msgid "&Organizations"
-msgstr ""
+msgstr "&Οργανισμοί"
 
 #: ginkgo.py:564
 msgid "Create new organization"
-msgstr ""
+msgstr "Δημιουργία νέου οργανισμού"
 
 #: ginkgo.py:565
 msgid "&Topic"
-msgstr ""
+msgstr "&Θέμα"
 
 #: ginkgo.py:565
 msgid "&Topics"
-msgstr ""
+msgstr "&Θέματα"
 
 #: ginkgo.py:565
 msgid "Create new topic"
-msgstr ""
+msgstr "Δημιουργία νέου θέματος"
 
 #: ginkgo.py:566
 msgid "&Event"
-msgstr ""
+msgstr "&Γεγονός"
 
 #: ginkgo.py:566
 msgid "&Events"
-msgstr ""
+msgstr "&Γεγονότα"
 
 #: ginkgo.py:566
 msgid "Create new event"
-msgstr ""
+msgstr "Δημιουργία νέου γεγονότος"
 
 #: ginkgo.py:567
 msgid "&Location"
-msgstr ""
+msgstr "&Τοποθεσία"
 
 #: ginkgo.py:567
 msgid "&Locations"
-msgstr ""
+msgstr "&Τοποθεσίες"
 
 #: ginkgo.py:567
 msgid "Create new location"
-msgstr ""
+msgstr "Δημιουργία νέας τοποθεσίας"
 
 #: ginkgo.py:568
 msgid "&WebPage"
-msgstr ""
+msgstr "&Ιστοσελίδα"
 
 #: ginkgo.py:568
 msgid "&Web Pages"
-msgstr ""
+msgstr "&Ιστοσελίδες"
 
 #: ginkgo.py:568
 msgid "Create new Web page"
-msgstr ""
+msgstr "Δημιουργία νέας ιστοσελίδας"
 
 #: ginkgo.py:569
 msgid "&Note"
-msgstr ""
+msgstr "&Σημείωση"
 
 #: ginkgo.py:569
 msgid "&Notes"
-msgstr ""
+msgstr "&Σημειώσεις"
 
 #: ginkgo.py:569
 msgid "Create new note"
-msgstr ""
+msgstr "Δημιουργία νέας σημείωσης"
 
 #: ginkgo.py:570
 msgid "&Files"
-msgstr ""
+msgstr "&Αρχεία"
 
 #: ginkgo.py:570
 msgid "Create new file"
-msgstr ""
+msgstr "Δημιουργία νέου αρχείου"
 
 #: ginkgo.py:672 ginkgo.py:674
 msgid "Context - Ginkgo"
-msgstr ""
+msgstr "Σχετικό περιεχόμενο - Ginkgo"
 
 #: ginkgo.py:672
 msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr ""
+msgstr "Το σχετικό περιεχόμενο ενημερώθηκε με επιτυχία στο <i>%1</i>."
 
 #: ginkgo.py:674
 msgid "An error occurred while updating the context."
-msgstr ""
+msgstr "Παρουσιάστηκε σφάλμα κατά την ενημέρωση του σχετικού περιεχομένου."
 
 #: ginkgo.py:746
 msgid "Search Results"
-msgstr "Αποτέλεσμα αναζήτησης"
+msgstr "Αποτελέσματα αναζήτησης"
 
 #: ginkgo.py:861 ginkgo.py:884
 msgid "Move &up"
-msgstr ""
+msgstr "Μετακίνηση &πάνω"
 
 #: ginkgo.py:863 ginkgo.py:886
 msgid "Move &down"
-msgstr ""
+msgstr "Μετακίνηση &κάτω"
 
 #: ginkgo.py:865 ginkgo.py:888
 msgid "&Remove entry"
-msgstr ""
+msgstr "&Αφαίρεση καταχώρησης"
 
 #: ginkgo.py:906
 msgid "Ginkgo"
@@ -396,12 +396,16 @@ msgstr "(c) 2010, Mandriva, Stéphane Laurière"
 #: ginkgo.py:909
 msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
 msgstr ""
+"Το Ginkgo είναι ένας περιηγητής για το Nepomuk, το σημασιολογικό σετ "
+"εργαλείων του KDE."
 
 #: ginkgo.py:911
 msgid ""
 "Ginkgo lets you create and explore links between your personal data such as "
 "e-mails, contacts, files, Web pages."
 msgstr ""
+"Το Ginkgo σας επιτρέπει την δημιουργία και περιήγηση δεσμών ανάμεσα στα "
+"προσωπικά δεδομένα όπως αλληλογραφία, επαφές, αρχεία, ιστοσελίδες."
 
 #: ginkgo.py:917
 msgid "Stéphane Laurière"
@@ -436,7 +440,7 @@ msgstr "&Άνοιγμα σε νέα καρτέλα"
 
 #: views/resourcecontextmenu.py:53
 msgid "Delete this resource from the Nepomuk database"
-msgstr ""
+msgstr "Διαγραφή αυτής της πηγής από την βάση δεδομένων του Nepomuk"
 
 #: views/resourcecontextmenu.py:61 views/resourcestable.py:356
 msgid "Open &file"
@@ -444,15 +448,15 @@ msgstr "Άνοιγμα αρχείου"
 
 #: views/resourcecontextmenu.py:65 views/resourcestable.py:359
 msgid "Open &page"
-msgstr ""
+msgstr "Άνοιγμα &σελίδας"
 
 #: views/resourcecontextmenu.py:76 views/resourcestable.py:362
 msgid "&Write e-mail to"
-msgstr ""
+msgstr "&Εγγραφή αλληλογραφίας προς"
 
 #: views/resourcepropertiestable.py:134
 msgid "Property"
-msgstr ""
+msgstr "Ιδιοκτησία"
 
 #: views/resourcepropertiestable.py:134
 msgid "Value"
@@ -460,17 +464,18 @@ msgstr "Τιμή"
 
 #: views/resourcestree.py:290 views/resourcestree.py:328
 msgid "&Add to places"
-msgstr ""
+msgstr "&Προσθήκη στις τοποθεσίες"
 
 #: views/resourcestree.py:333
 msgid "&New sub-type"
-msgstr ""
+msgstr "&Νέος υπό-τύπος"
 
 #: views/tasktree.py:326
 msgid "&New sub-task"
-msgstr ""
+msgstr "&Νέα υπό-εργασία"
 
 #: views/typesview.py:37
 msgid "Ontologies:"
 msgstr "Οντολογίες:"
+
 
