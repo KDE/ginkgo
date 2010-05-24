@@ -20,6 +20,9 @@ from traceback import format_exception
 from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
 import os
 
+DC_TERMS = "http://purl.org/dc/terms/"
+DC_TYPES = "http://purl.org/dc/dcmitype/"
+
 def createResource(label, nepomukType):
     newResource = Nepomuk.Resource()
     newResource.setLabel(label)
@@ -50,10 +53,24 @@ def removeResource(uri):
     resource.remove()
 
 
-def test():
+def scrap1():
+    url  =QUrl("nepomuk:/res/a8b8ed53-3f5e-4199-b824-f7f0360408c5")
+    res = Nepomuk.Resource(url)
+    print res
+    
+    print res.genericIcon()
+    print "finishing"
+    
+    
+
+def scrap():
+    
+    
+    
     labelTerm = Nepomuk.Query.ComparisonTerm(Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel()), Nepomuk.Query.LiteralTerm(Soprano.LiteralValue("Alex")), Nepomuk.Query.ComparisonTerm.Contains)
-    #labelTerm.setVariableName("label")
+    labelTerm.setVariableName("label")
     #query = Nepomuk.Query.Query(labelTerm)
+
     
     nepomukType = Nepomuk.Types.Class(NCO.Contact)
     typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)
@@ -72,7 +89,7 @@ def test():
 
 #    print data
 
-def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None):
+def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None, controller=None):
                 
     nepomukType = Nepomuk.Types.Class(nepomukType)
     term = Nepomuk.Query.ResourceTypeTerm(nepomukType)
@@ -81,6 +98,7 @@ def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None)
     
     query = Nepomuk.Query.Query(term);
     sparql = query.toSparqlQuery();
+    
     
     #dirModel =  KDirModel()
     #searchUrl = query.toSearchUrl();
@@ -91,14 +109,19 @@ def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None)
     
     #queryString = "select distinct ?r  where { ?r a ?v1 . ?v1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> <%s> .   }" % typeUri
     
-    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 
-def executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot):
+def executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller=None):
+    """The controller variable is used for the controller to close and disconnect the query when necessary"""
+    
     model = Nepomuk.ResourceManager.instance().mainModel()
     #iter = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
     query = Soprano.Util.AsyncQuery.executeQuery(model, sparql, Soprano.Query.QueryLanguageSparql)
     #self.query, SIGNAL("nextReady(Soprano.Util.AsyncQuery* ) "), self.queryNextReadySlot)
+    
+    if controller:
+        controller.setQuery(query)
     query.nextReady.connect(queryNextReadySlot)
     if queryFinishedSlot:
         query.finished.connect(queryFinishedSlot)
@@ -146,13 +169,13 @@ def findRelations(uri):
 
 
 #used by the matchitemdialog, see also the function labelSearch
-def findResourcesByLabel(label, queryNextReadySlot, queryFinishedSlot=None):
+def findResourcesByLabel(label, queryNextReadySlot, queryFinishedSlot=None, controller=None):
     #handle regex
     label = label.replace("*", ".*")
     label = label.replace("?", ".")
        
     sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"^%s\", \"i\")  }" % label
-    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
     
 
 def findResourcesByLabelSync(label):
@@ -204,16 +227,21 @@ def findResourceLiteralProperties(resource):
     return data
 
 
+def listResourcesOrderedByDate(queryNextReadySlot, queryFinishedSlot, controller):
+    sparql = "select distinct ?r, ?label  where { ?r nao:prefLabel ?label  .  ?r nao:lastModified ?lastModified } order by desc(?lastModified) limit 100" 
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
+    
+
 #see also findResourcesByLabel
-def labelSearch(label, queryNextReadySlot, queryFinishedSlot):
+def labelSearch(label, queryNextReadySlot, queryFinishedSlot, controller):
     label = label.replace("*", ".*")
     label = label.replace("?", ".")
        
     sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"%s\", \"i\")  }" % label
-    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 
-def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None):
+def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None, controller=None):
     if term is None:
         return
     
@@ -224,7 +252,7 @@ def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None):
     query = Nepomuk.Query.Query(term)
     sparql = query.toSparqlQuery()
     #data = executeQuery(sparql)
-    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot)
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 
 #Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
@@ -260,6 +288,11 @@ def createPimoClass(parentClassUri, label, comment=None, icon=None):
     model.addStatement(stmt)
     stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(parentClassUri), ctx)
     model.addStatement(stmt)
+    
+    #TODO: check why all classes in the db are subclass of themselves
+    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(QUrl(classUri)), ctx)
+    model.addStatement(stmt)
+    
     stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.label()), Soprano.Node(Soprano.LiteralValue(label)), ctx)
     model.addStatement(stmt)
     return Nepomuk.Resource(classUri)
@@ -282,6 +315,29 @@ def pimoContext():
         model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), Soprano.Vocabulary.NRL.Ontology(), pimoContext)
     return pimoContext
 
+
+
+def uriToOntologyLabel(namespace):
+    """
+    Converts an uri to a label.
+    Example: http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task -> pimo
+    """
+    
+    if namespace.find(DC_TERMS) == 0:
+        return "DCMI terms"
+    
+    elif namespace.find(DC_TYPES) == 0:
+        return "DCMI type"
+
+    index1 = namespace.rfind("/")
+    index2 = namespace.find("#")
+    if index1 > 0 and index2 > index1:
+        return namespace[index1+1:index2]
+    #user created type
+    if namespace.find("nepomuk:/") == 0:
+        return "pimo extended"
+
+    return namespace
     
 if __name__ == "__main__":
     #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)
@@ -298,6 +354,6 @@ if __name__ == "__main__":
 #        print res.property(prop).toString()
     
 #    createPimoClass(PIMO.Thing, "Song")
-    test()
+    scrap1()
     
 

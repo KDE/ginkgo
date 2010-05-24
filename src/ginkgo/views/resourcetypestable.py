@@ -28,26 +28,33 @@ from ginkgo.util import mime
 from ginkgo.views.resourcecontextmenu import ResourceContextMenu
 
 
+class ResourceTypesTableModel(ResourcesTableModel):
+    def __init__(self, parent=None):
+        super(ResourceTypesTableModel, self).__init__(parent)
+        
+    def itemAt(self, index):
+        resource = self.resources[index.row()]
+        column = index.column()
+        if column == 0:
+            return datamanager.uriToOntologyLabel(str(resource.resourceUri().toString()))
+        elif column == 1:
+            return resource.genericLabel()
             
 class ResourceTypesTable(ResourcesTable):
     
-    def __init__(self, mainWindow=False, dialogMode=False, resource=None):
+    def __init__(self, mainWindow=False, resource=None, dialog=None):
         self.resource = resource
-        super(ResourceTypesTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode)
-        #override the column policy
-#        self.table.horizontalHeader().setResizeMode(0,QHeaderView.Interactive)
-#        self.table.horizontalHeader().setStretchLastSection(True)
-#        self.table.resizeColumnsToContents()
+        super(ResourceTypesTable, self).__init__(mainWindow=mainWindow, dialog=dialog)
 
+        self.table.sortByColumn(1, Qt.AscendingOrder)
         self.updateSelection()
         
     def createModel(self):
         
-        self.model = ResourcesTableModel(self)
-        self.model.setHeaders([i18n("Name")])
+        self.model = ResourceTypesTableModel(self)
+        self.model.setHeaders([i18n("Ontology"), i18n("Name")])
         
         if self.resource:
-            resourceTypes = self.resource.types()
             #TODO: find built-in conversion
             resourceSet = []
             array = []
@@ -55,8 +62,8 @@ class ResourceTypesTable(ResourcesTable):
 #                typeResource = Nepomuk.Resource(elt)
 #                ressourceArray.append(typeResource)
             
-            #rootClass = Nepomuk.Types.Class(Soprano.Vocabulary.RDFS.Resource())
-            rootClass = Nepomuk.Types.Class(PIMO.Thing)
+            rootClass = Nepomuk.Types.Class(Soprano.Vocabulary.RDFS.Resource())
+            #rootClass = Nepomuk.Types.Class(PIMO.Thing)
             #rootItem = Nepomuk.Resource()
             self.addChildren(rootClass.uri(), array)
                     
@@ -87,6 +94,9 @@ class ResourceTypesTable(ResourcesTable):
             for resourceType  in self.resource.types():
                 if item.resourceUri() == resourceType:
                     mindex = self.model.index(index, 0, QModelIndex())
+                    pindex = self.table.model().mapFromSource(mindex)
+                    self.table.selectionModel().select(pindex, QItemSelectionModel.Select)
+                    mindex = self.model.index(index, 1, QModelIndex())
                     pindex = self.table.model().mapFromSource(mindex)
                     self.table.selectionModel().select(pindex, QItemSelectionModel.Select)
                     break

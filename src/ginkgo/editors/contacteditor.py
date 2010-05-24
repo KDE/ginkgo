@@ -14,6 +14,7 @@
 
 
 from PyKDE4.nepomuk import Nepomuk
+from PyKDE4.soprano import Soprano
 from PyQt4 import Qsci, QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -45,9 +46,13 @@ class ContactEditor(ResourceEditor):
     
     def focus(self):
         self.ui.firstname.setFocus(Qt.OtherFocusReason)    
-            
+    
 
 class ContactEditorUi(ResourceEditorUi):
+    
+    
+    def nameTextEditedSlot(self, text):
+        self.label.setText(str(self.firstname.text()).strip()+" "+str(self.lastname.text()).strip())
     
     def createMainPropertiesWidget(self, parent):
 
@@ -56,34 +61,26 @@ class ContactEditorUi(ResourceEditorUi):
         self.gridlayout = QGridLayout(propertiesWidget)
         self.gridlayout.setObjectName("gridlayout")
         
-
         self.firstname = QLineEdit(propertiesWidget)
         self.firstname.setObjectName("name")
-        #self.firstname.setMinimumWidth(180)
-        
         self.firstname.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-#        self.firstname_label.setBuddy(self.firstname)
+
         fnameBox = QGroupBox(i18n("First Name"))
-        #self.name_label = QLabel(propertiesWidget)
-        #self.name_label.setObjectName("name_label")
-        #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
         vbox = QVBoxLayout(fnameBox)
         vbox.addWidget(self.firstname)
         self.gridlayout.addWidget(fnameBox, 0, 0, 1, 1)
        
         
-        self.lastname_label = QLabel(propertiesWidget)
-        self.lastname_label.setObjectName("lastname_label")
-        #self.gridlayout.addWidget(self.lastname_label, 1, 0, 1, 1)
         self.lastname = QLineEdit(propertiesWidget)
         self.lastname.setObjectName("name")
-        #self.gridlayout.addWidget(self.lastname, 1, 1, 1, 1)
-        #self.lastname_label.setBuddy(self.lastname)
+
+        #update the label field automatically only if it's empty
+        if self.editor.resource is None or len(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()) == 0:
+            self.firstname.textEdited.connect(self.nameTextEditedSlot)
+            self.lastname.textEdited.connect(self.nameTextEditedSlot)
+
         
         lnameBox = QGroupBox(i18n("Last Name"))
-        #self.name_label = QLabel(propertiesWidget)
-        #self.name_label.setObjectName("name_label")
-        #self.gridlayout.addWidget(self.name_label, 1, 0, 1, 1)
         vbox = QVBoxLayout(lnameBox)
         vbox.addWidget(self.lastname)
         self.gridlayout.addWidget(lnameBox, 1, 0, 1, 1)
@@ -105,6 +102,7 @@ class ContactEditorUi(ResourceEditorUi):
 
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 4, 0, 1, 1)
+
 
         return propertiesWidget
 

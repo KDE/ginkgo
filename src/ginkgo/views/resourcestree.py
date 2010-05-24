@@ -24,10 +24,9 @@ from ginkgo.views.resourcecontextmenu import ResourceContextMenu
 
 
 class ResourceNode(object):
-    def __init__(self, data, label=None, parent=None):
+    def __init__(self, data, parent=None):
         self.parentNode = parent
         self.nodeData = data
-        self.label = label
         self.children = []
 
     def addChild(self, child):
@@ -38,9 +37,6 @@ class ResourceNode(object):
 
     def childrenCount(self):
         return len(self.children)
-
-    def columnCount(self):
-        return 1
 
     def parent(self):
         return self.parentNode
@@ -76,15 +72,17 @@ class ResourceNode(object):
 class ResourcesTreeModel(QAbstractItemModel):
     def __init__(self, parent=None, mainWindow=None):
         super(ResourcesTreeModel, self).__init__(parent)
-        self.headerData = ["Name","Description"]
+        self.headerData = ["Name","Ontology", "Description"]
         self.mainWindow = mainWindow
         
 
     def columnCount(self, parent):
         if parent.isValid():
-            return parent.internalPointer().columnCount()
+            #return parent.internalPointer().columnCount()
+            return len(self.headerData)
+            
         else:
-            return self.rootItem.columnCount()
+            return len(self.headerData)
 
     def data(self, index, role):
         if not index.isValid():
@@ -92,7 +90,7 @@ class ResourcesTreeModel(QAbstractItemModel):
         if role == Qt.DecorationRole:
             item = index.internalPointer()
             type = item.nodeData
-            if self.mainWindow:
+            if self.mainWindow and index.column() == 0:
                 return self.mainWindow.typeQIcon(type.uri())
             else:
                 return None
@@ -102,12 +100,19 @@ class ResourcesTreeModel(QAbstractItemModel):
             #print item.nodeData.label("")
             if index.column() == 0:
                 #return item.nodeData.name()
-                if item.label:
-                    return item.label
-                else:
-                    return item.nodeData.name()
-#            elif index.column() ==1:
-#                return item.nodeData.comment(QString())
+#                if item.label:
+#                    return item.label
+#                else:
+#                    return item.nodeData.name()
+                return item.nodeData.genericLabel()
+            elif index.column() ==1:
+                return datamanager.uriToOntologyLabel(str(item.nodeData.resourceUri().toString()))
+                
+            elif index.column() == 2:
+                desc=  item.nodeData.genericDescription()
+                desc = desc.replace("\n","")
+                return desc
+
         else:
             return None
             
@@ -181,28 +186,35 @@ class ResourcesTreeModel(QAbstractItemModel):
 
     def loadData(self, rootType = PIMO.Thing):
 
-        
-
         #type = Soprano.Vocabulary.RDFS.Resource()
-        rootClass = Nepomuk.Types.Class(rootType)
+        #rootClass = Nepomuk.Types.Class(rootType)
         
-        self.rootItem = ResourceNode(rootClass)
-        self.addChildren(self.rootItem, rootClass)
+        rootTypeResource = Nepomuk.Resource(rootType)
+        
+        self.rootItem = ResourceNode(rootTypeResource)
+        self.addChildren(self.rootItem, rootTypeResource)
             
 
-    def addChildren(self, node, typeClass):
+    def addChildren(self, node, typeResource):
+        
+        typeClass = Nepomuk.Types.Class(typeResource.resourceUri())
         
         subClasses = typeClass.subClasses()
         tuples = []
         for subClass in subClasses:
             #TODO: why subClass are not instance of Resource?
+            #TODO: why pimo:Thing is not listed in the subClasses of itself while it is in the database
+            #don't add to the children list a class that subclasses itself
+            if typeResource.resourceUri() == subClass.uri():
+                continue
             subClassResource = Nepomuk.Resource(subClass.uri())
-            tuples.append((subClass, subClassResource.genericLabel()))
+            tuples.append((subClassResource, subClassResource.genericLabel()))
         
-        sortedSubClasses = sorted(tuples, key=lambda tuple: tuple[1])
+        sortedResources = sorted(tuples, key=lambda tuple: tuple[1])
         
-        for tuple in sortedSubClasses:
-            child = ResourceNode(tuple[0], tuple[1], node)
+        for tuple in sortedResources:
+            
+            child = ResourceNode(tuple[0], node)
             node.addChild(child)
             self.addChildren(child, tuple[0])
 
@@ -230,6 +242,7 @@ class ResourcesTree(QWidget):
         model = ResourcesTreeModel(mainWindow=self.mainWindow)
         model.loadData()
         self.tree.setModel(model)
+        self.tree.setColumnWidth(0, 300)
 
         #won't work properly except if 1) used from the __main__ method, 2) this class (not from ginkgo.py: segfault)
         #proxyModel = TypesSortFilterProxyModel(None)
@@ -274,7 +287,7 @@ class ResourcesTree(QWidget):
         if index:
             item = self.tree.model().getItem(index)
             if item:
-                menu = TypesContextMenu(self, resourceUri=item.nodeData.uri())
+                menu = TypesContextMenu(self, resourceUri=item.nodeData.resourceUri())
                 pos = self.tree.mapToGlobal(points)
                 menu.exec_(pos)
             

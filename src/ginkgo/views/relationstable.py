@@ -31,9 +31,9 @@ from ginkgo.views.resourcecontextmenu import ResourceContextMenu
             
 class RelationsTable(ResourcesTable):
     
-    def __init__(self, mainWindow=False, dialogMode=False, resource=None):
+    def __init__(self, mainWindow=False, dialog=None, resource=None):
         self.resource = resource
-        super(RelationsTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode)
+        super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog)
         #override the column policy
 #        self.table.horizontalHeader().setResizeMode(0,QHeaderView.Interactive)
 #        self.table.horizontalHeader().setStretchLastSection(True)

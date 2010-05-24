@@ -38,7 +38,7 @@ class LiveSearchDialog(QDialog):
             #count = self.matchingItems.table.model().rowCount(QModelIndex())
             self.matchingItems.installModels()
             #self.matchingItems.table.rowCountChanged(count, 0)
-            datamanager.findResourcesByLabel(input, self.matchingItems.model.queryNextReadySlot, self.matchingItems.queryFinishedSlot)
+            datamanager.findResourcesByLabel(input, self.matchingItems.model.queryNextReadySlot, self.matchingItems.queryFinishedSlot, self.matchingItems)
         
         #self.validate()
         
@@ -86,10 +86,10 @@ class LiveSearchDialog(QDialog):
         label.setBuddy(self.input)
         
         if self.nepomukType:
-            self.matchingItems = ResourcesByTypeTable(mainWindow=dialog.mainWindow, searchDialogMode=True, nepomukType=self.nepomukType)
+            self.matchingItems = ResourcesByTypeTable(mainWindow=dialog.mainWindow, nepomukType=self.nepomukType, dialog=self)
             
         else:
-            self.matchingItems = ResourcesTable(mainWindow=dialog.mainWindow, searchDialogMode=True)
+            self.matchingItems = ResourcesTable(mainWindow=dialog.mainWindow, dialog=self)
             self.matchingItems.table.setSelectionMode(QTableWidget.SingleSelection)
             
         label = QLabel(dialog)

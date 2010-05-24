@@ -31,7 +31,7 @@ class ResourceChooserDialogUi(object):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
 
-        self.table = ResourcesByTypeTable(mainWindow=dialog.parent(), nepomukType=nepomukType, dialogMode=True, excludeList=excludeList)
+        self.table = ResourcesByTypeTable(mainWindow=dialog.parent(), nepomukType=nepomukType, excludeList=excludeList, dialog=self)
         self.table.table.setColumnWidth(0,250)
         
         self.gridlayout.addWidget(self.table, 0, 0, 1, 1)

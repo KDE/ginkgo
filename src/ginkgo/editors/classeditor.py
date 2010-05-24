@@ -42,7 +42,7 @@ class ClassEditor(ResourceEditor):
         self.unsetCursor()
 
     def focus(self):
-        self.ui.name.setFocus(Qt.OtherFocusReason)    
+        self.ui.label.setFocus(Qt.OtherFocusReason)    
 
 class ClassEditorUi(ResourceEditorUi):
     

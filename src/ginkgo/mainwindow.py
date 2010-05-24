@@ -92,7 +92,7 @@ class Ginkgo(KMainWindow):
         self.linkToMenu.setTitle(i18n("Link to"))
         self.linkToMenu.setIcon(KIcon("nepomuk"))
         for type in self.placesData:
-            if type[0] is not NFO.FileDataObject:
+            if type[0] != NFO.FileDataObject:
                 self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
             else:
                 self.linkToMenu.addAction(self.createAction(type[1], self.linkToFile, None, type[3], None, type[0]))
@@ -100,7 +100,14 @@ class Ginkgo(KMainWindow):
         self.linkToButton.setMenu(self.linkToMenu)
 
         #icon: code-context possibly
-        self.setContextAction = self.createAction(i18n("Set resource as context"), self.setResourceAsContext, None, "edit-node", i18n("Set the current resource as context"))
+        self.setContextAction = self.createAction(i18n("Set resource as context"), self.setCurrentResourceAsContext, None, "code-context", i18n("Set the current resource as context"))
+
+        self.stopQueryAction = self.createAction(i18n("Stop query"), self.closeCurrentQuery, None, "process-stop", i18n("Stop query"))
+        
+
+        showTypesAction = self.createAction(i18n("View data types"), self.showTypes, None, "code-class", i18n("Display the available data types"))
+
+        showRecentlyModifiedResourceAction = self.createAction(i18n("Recent"), self.showRecentlyModifiedResources, None, "document-open-recent", i18n("Show recently modified resources"))
 
         mainMenu = self.menuBar().addMenu(i18n("&File"))
         newResourceMenu = QMenu(mainMenu)
@@ -120,9 +127,9 @@ class Ginkgo(KMainWindow):
         mainMenu.addAction(quitAction)
         
         editMenu = self.menuBar().addMenu(i18n("&Edit"))
-        deleteAction = self.createAction(i18n("&Delete"), self.delete, None, None, i18n("Delete"))
+        self.deleteAction = self.createAction(i18n("&Delete"), self.delete, None, None, i18n("Delete"))
         editMenu.addMenu(self.linkToMenu)
-        editMenu.addAction(deleteAction)
+        editMenu.addAction(self.deleteAction)
         
         viewMenu = self.menuBar().addMenu(i18n("&View"))
         for type in self.placesData:
@@ -161,11 +168,15 @@ class Ginkgo(KMainWindow):
         
         mainToolbar.addAction(self.saveAction)
         mainToolbar.addAction(newTabAction)
-        
+        mainToolbar.addAction(self.stopQueryAction)
+        mainToolbar.addSeparator()
         
         mainToolbar.addWidget(self.linkToButton)
         mainToolbar.addAction(self.setContextAction)
         mainToolbar.addSeparator()
+        mainToolbar.addAction(showRecentlyModifiedResourceAction)
+        mainToolbar.addSeparator()
+        mainToolbar.addAction(showTypesAction)
         
         searchWidget = QWidget()
         hbox = QHBoxLayout(searchWidget)
@@ -239,6 +250,9 @@ class Ginkgo(KMainWindow):
             del self.future[index]
         except:
             pass
+
+        self.closeCurrentQuery()
+        
         self.workarea.removeTab(index)
         if index == 0:
             pass
@@ -354,8 +368,9 @@ class Ginkgo(KMainWindow):
                         label = "FileEditor"
                     elif label == "PersonContactEditor":
                         label = "ContactEditor"
-                        
+                    
                     className = "ginkgo.editors." + label.lower() + "." + label
+
                     try:
                         newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
                     except ImportError:
@@ -456,14 +471,14 @@ class Ginkgo(KMainWindow):
     def currentTabChangedSlot(self, index):
         resource = self.currentResource()
         if resource:
-            self.linkToButton.setEnabled(True)
-            self.linkToMenu.setEnabled(True)
-            self.setContextAction.setEnabled(True)
-            
+            flag = True
         else:
-            self.linkToButton.setEnabled(False)
-            self.linkToMenu.setEnabled(False)
-            self.setContextAction.setEnabled(False)
+            flag = False
+            
+        self.linkToButton.setEnabled(flag)
+        self.linkToMenu.setEnabled(flag)
+        self.setContextAction.setEnabled(flag)
+        self.deleteAction.setEnabled(flag)
             
         currentWorkWidget = self.workarea.currentWidget()
         #test on save, not on resource since the resource can be new
@@ -471,6 +486,18 @@ class Ginkgo(KMainWindow):
             self.saveAction.setEnabled(True)
         else:
             self.saveAction.setEnabled(False)
+
+        if (hasattr(currentWorkWidget, "_query")):
+            if currentWorkWidget.query() != None:
+                self.stopQueryAction.setEnabled(True)
+            else:
+                self.stopQueryAction.setEnabled(False)
+        else:
+            self.stopQueryAction.setEnabled(False)
+
+
+
+        
 
     def linkTo(self):
         action = self.sender()
@@ -526,6 +553,8 @@ class Ginkgo(KMainWindow):
         else:
             return None
 
+    def currentWorkWidget(self):
+        return self.workarea.currentWidget()
        
     def unlink(self, predicateUrl, resourceUris, bidirectional=False):
         self.workarea.setCursor(Qt.WaitCursor)
@@ -555,18 +584,28 @@ class Ginkgo(KMainWindow):
         """Try to restore the places from the settings, otherwise set default places."""    
 
         config = KConfig("ginkgo")
-        ggroup = KConfigGroup(config, "general")
+        ggroup = KConfigGroup(config, "places")
         
-        placesData = ggroup.readEntry("places", [])
-        
+                
+        placesTypes = ggroup.readEntry("types", QStringList()).toStringList()
+        if placesTypes and len(placesTypes) > 0:
+            self.placesData = []
+            for type in placesTypes:
+                self.placesData.append([QUrl(type)])
+            
+            placesLabels = ggroup.readEntry("labels", QStringList()).toStringList()
+            placesLabelsPlural = ggroup.readEntry("labels-plural", QStringList()).toStringList()
+            placesIcons = ggroup.readEntry("icons", QStringList()).toStringList()
+            placesTips = ggroup.readEntry("tips", QStringList()).toStringList()
+            
+            for index in range(0, len(self.placesData)):
+                
+                self.placesData[index].append(placesLabels[index])
+                self.placesData[index].append(placesLabelsPlural[index])
+                self.placesData[index].append(placesIcons[index])
+                self.placesData[index].append(placesTips[index])
+            
 
-        list = placesData.toList()
-        if False and len(list) > 0:
-            places = []
-            for elt in list:
-                places.append(elt.toStringList())
-            self.placesData = places
-        
         else:
             self.placesData = [
                          [NCO.PersonContact, i18n("&Contact"), i18n("&Contacts"), "contact-new", i18n("Create new contact")],
@@ -608,7 +647,7 @@ class Ginkgo(KMainWindow):
             button = self.createPlaceButton(placesInternalWidget, type[0], type[2])
             verticalLayout.addWidget(button)
         
-#        button = self.createPlaceButton(placesInternalWidget, NFO.FileDataObject, "Files")
+#        button = self.createPlaceButton(placesInternalWidget, NFO. Object, "Files")
 #        verticalLayout.addWidget(button)
         
         spacerItem = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -619,7 +658,7 @@ class Ginkgo(KMainWindow):
     def addToPlaces(self, uri):
         resource = Nepomuk.Resource(uri)
         #button = self.createPlaceButton(uri.toString(), resource.genericLabel() + "s")
-        newPlaceData = [uri.toString(), i18n(resource.genericLabel()), i18n(resource.genericLabel()), None, None]
+        newPlaceData = [uri, i18n(resource.genericLabel()), i18n(resource.genericLabel()), "nepomuk", None]
         self.placesData.append(newPlaceData)
         self.installPlaces()
         
@@ -673,10 +712,14 @@ class Ginkgo(KMainWindow):
             self.replaceCurrentTab(currentEditor, label)
 
         
-    def setResourceAsContext(self):
+    def setCurrentResourceAsContext(self):
+        resource = self.currentResource()
+        self.setResourceAsContext(resource)
+        
+    def setResourceAsContext(self, resource):
         sbus = dbus.SessionBus()
         self.dobject = sbus.get_object("org.kde.nepomuk.services.nepomukusercontextservice", '/nepomukusercontextservice')
-        resource = self.currentResource()
+        
         if resource:
             self.dobject.setCurrentUserContext(str(resource.resourceUri().toString()))
             if self.dobject.currentUserContext() == str(resource.resourceUri().toString()):
@@ -691,6 +734,16 @@ class Ginkgo(KMainWindow):
         ggroup.writeEntry("size", QVariant(self.size()))
 
         ggroup.writeEntry("position", QVariant(self.pos()))
+        
+        currentEditor = self.workarea.currentWidget()
+        
+        if currentEditor and hasattr(currentEditor, "ui"):
+            try:
+                ggroup.writeEntry("description-splitter-state", QVariant(currentEditor.ui.rightpane.saveState()))
+            except Exception, e:
+                pass
+        
+        
         ggroup.writeEntry("state", QVariant(self.saveState()))
         currentResourcesUris = QStringList()
         for i in range(self.workarea.count()):
@@ -698,9 +751,28 @@ class Ginkgo(KMainWindow):
             if hasattr(editor, "resource") and editor.resource:
                 currentResourcesUris.append(editor.resource.resourceUri().toString())
         ggroup.writeEntry("active-resources", QVariant(currentResourcesUris))
-        ggroup.writeEntry("places", self.placesData)
+        
+        
+        ggroup = KConfigGroup(config, "places")
+        self.savePlacesSettings(ggroup, 0, "types")
+        self.savePlacesSettings(ggroup, 1, "labels")
+        self.savePlacesSettings(ggroup, 2, "labels-plural")
+        self.savePlacesSettings(ggroup, 3, "icons")
+        self.savePlacesSettings(ggroup, 4, "tips")
+
         config.sync()
-            
+        
+    def savePlacesSettings(self, ggroup, index, label):
+        places = QStringList()
+        for place in self.placesData:
+            #place[0] is of type QUrl
+            if index == 0:
+                places.append(str(place[index].toString()))
+            else:
+                places.append(str(place[index]))
+        ggroup.writeEntry(label, QVariant(places))
+        
+       
     def restoreSettings(self): 
                 
         config = KConfig("ginkgo")
@@ -711,12 +783,14 @@ class Ginkgo(KMainWindow):
         position = ggroup.readEntry("position", QPoint(200, 100)).toPoint()
         self.move(position)
         self.restoreState(ggroup.readEntry("state", QByteArray()).toByteArray())
-
+        
+        self.descriptionSplitterState = ggroup.readEntry("description-splitter-state", QByteArray()).toByteArray()
+        
         resourcesUris = ggroup.readEntry("active-resources", QStringList()).toStringList()
         for uri in resourcesUris:
             self.openResource(uri, True, True)
-
-
+            
+        
 
     def save(self):
         currentEditor = self.workarea.currentWidget()
@@ -739,8 +813,15 @@ class Ginkgo(KMainWindow):
 
 
     def showTypes(self):
+        self.setCursor(Qt.WaitCursor)
         currentEditor = TypesView(mainWindow=self)
         self.replaceCurrentTab(currentEditor, "Types")
+        self.unsetCursor()
+        
+    def showRecentlyModifiedResources(self):
+        recentlyModifiedResourcesView = ResourcesTable(mainWindow=self, sortColumn=-1)
+        datamanager.listResourcesOrderedByDate(recentlyModifiedResourcesView.model.queryNextReadySlot, recentlyModifiedResourcesView.queryFinishedSlot, recentlyModifiedResourcesView)
+        self.replaceCurrentTab(recentlyModifiedResourcesView, i18n("What's New"))
 
 
     def runSearch(self):
@@ -749,18 +830,41 @@ class Ginkgo(KMainWindow):
         searchView = ResourcesTable(mainWindow=self)
         
         if self.fullTextSearchOption.isChecked():
-            datamanager.fullTextSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot)
+            datamanager.fullTextSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot, searchView)
         else:
-            datamanager.labelSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot)
+            datamanager.labelSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot, searchView)
             
         
         self.replaceCurrentTab(searchView, i18n("Search Results"))
 
     def replaceCurrentTab(self, widget, label):
         index = self.workarea.currentIndex()
+
+        self.closeCurrentQuery()
+        
         self.workarea.removeTab(index)
         self.workarea.insertTab(index, widget, label)
-        self.workarea.setCurrentIndex(index)        
+        self.workarea.setCurrentIndex(index) 
+        
+
+
+    def closeCurrentQuery(self):
+        """
+        Makes sure the query used by the current tab view is closed and that its signals get disconnected 
+        before destroying the view.
+        """
+        
+        if hasattr(self.workarea.currentWidget(), "_query"):
+            query = self.workarea.currentWidget().query()
+            #query is set to None by the controller when the query has finished
+            if query != None:
+                query.nextReady.disconnect()
+                query.finished.disconnect()
+                query.close()
+                #for making sure a second call to closeCurrentQuery won't crash the app
+                self.workarea.currentWidget().setQuery(None)
+                self.stopQueryAction.setEnabled(False)
+
     
     def typeIcon(self, nepomukType, size=16):
         if nepomukType == NFO.Website:
@@ -794,6 +898,12 @@ class Ginkgo(KMainWindow):
     #TODO: for table icons, for which KIcon won't work..
     def resourceQIcon(self, resource):
         types = resource.types()
+        #custom type instances raise an issue with the call to genericIcon which crashes the application
+        #TODO: fix bug in libnepomuk with Nepomuk.Resource.genericIcon()
+        for type in types:
+            if str(type.toString()).find("nepomuk:/") == 0:
+                return QIcon(":/nepomuk-small")
+        
         iconPath = resource.genericIcon()
         if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
             return QIcon(iconPath)
@@ -805,8 +915,11 @@ class Ginkgo(KMainWindow):
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-html.png")
         elif NFO.FileDataObject in types:
             try:
-                mimetype = mimetypes.guess_type(str(resource.property(NIE.url).toString()))
+                path = str(resource.property(NIE.url).toString())
+                mimetype = mimetypes.guess_type(path)
                 elt = mimetype[0]
+                if elt.find("image/") == 0:
+                    return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/image-x-generic.png")
                 if elt:
                     elt = elt.replace("/", "-")
                     return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/%s.png" % elt)
@@ -839,6 +952,13 @@ class Ginkgo(KMainWindow):
             else:
                 return KIcon("nepomuk")
         else:
+            #custom type instances raise an issue with the call to genericIcon which crashes the application
+            #TODO: fix bug in libnepomuk with Nepomuk.Resource.genericIcon()
+
+            for type in types:
+                if str(type.toString()).find("nepomuk:/") == 0:
+                    return KIcon("nepomuk")
+            
             iconPath = resource.genericIcon()
             if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
                 return QIcon(iconPath)

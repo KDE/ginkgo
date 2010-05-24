@@ -26,9 +26,10 @@ from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel,Reso
 
 class ResourcesByTypeTable(ResourcesTable):
 
-    def __init__(self, mainWindow=False, dialogMode=False, nepomukType=None, excludeList=None, searchDialogMode=False):
+    def __init__(self, mainWindow=False, nepomukType=None, excludeList=None, dialog=None):
         self.nepomukType = nepomukType
-        super(ResourcesByTypeTable, self).__init__(mainWindow=mainWindow, dialogMode=dialogMode, excludeList=excludeList, searchDialogMode=searchDialogMode)
+        super(ResourcesByTypeTable, self).__init__(mainWindow=mainWindow, dialog=dialog, excludeList=excludeList)
+        
 
     def statementAddedSlot(self, statement):
         predicate = statement.predicate().uri()
@@ -44,6 +45,6 @@ class ResourcesByTypeTable(ResourcesTable):
         self.model = ResourcesTableModel(self)
         #self.model.setHeaders(["Full Name", "Creation Date", "Last Update"])
         self.model.setHeaders([i18n("Name"), i18n("Date")])
-        datamanager.findResourcesByType(self.nepomukType, self.model.queryNextReadySlot, self.queryFinishedSlot)
-    
+        datamanager.findResourcesByType(self.nepomukType, self.model.queryNextReadySlot, self.queryFinishedSlot, self)
+        
 

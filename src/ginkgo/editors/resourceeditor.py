@@ -66,6 +66,8 @@ class ResourceEditor(QWidget):
                 self.save()
             self.resource.setSymbols([fname])
             self.ui.iconButton.setIcon(KIcon(fname))
+            
+
 
     def save(self):
         #self.mainWindow.workarea.setCursor(Qt.WaitCursor)
@@ -78,17 +80,16 @@ class ResourceEditor(QWidget):
             if len(self.resource.types()) == 0:
                 self.resource = self.mainWindow.createResource(self.ui.resourceLabel(), self.nepomukType)      
         
+
         self.ui.relationsTable.setResource(self.resource)
         self.ui.propsTable.setResource(self.resource)
-        
-        #save generic properties
+#        #save generic properties
         self.resource.setLabel(self.ui.resourceLabel())
         self.resource.setDescription(self.ui.description.toPlainText())
-        
-        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
+#        
+#        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
         if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
             self.ui.updateFields()
-        
         self.unsetCursor()
                             
     def focus(self):
@@ -130,15 +131,15 @@ class ResourceEditorUi(object):
         vlayout.addWidget(self.createMainPropertiesWidget(card))
         
         #create the right pane: description + relations
-        rightpane = QSplitter(self.editor)
-        rightpane.setOrientation(Qt.Vertical)
+        self.rightpane = QSplitter(self.editor)
+        self.rightpane.setOrientation(Qt.Vertical)
         
 #        button = KPushButton()
 #        button.setIcon(KIcon("edit-rename"))
 #        button.setStyleSheet("border:none;")
 #        hbox.addWidget(button)
         
-        descriptionWidget = QWidget(rightpane)
+        descriptionWidget = QWidget(self.rightpane)
 
         infoWidget = QWidget(descriptionWidget)
 
@@ -159,6 +160,8 @@ class ResourceEditorUi(object):
         #typesInfo = QLabel(i18n("Type(s): "))
         self.typesInfo = KPushButton() 
         self.typesInfo.clicked.connect(self.editor.showResourceTypesDialog)
+        
+        
         
         hbox.addWidget(self.typesInfo)
         
@@ -190,7 +193,7 @@ class ResourceEditorUi(object):
 #        vboxlayout.addWidget(descriptionLabel)
         vboxlayout.addWidget(self.description)
         
-        relpropWidget = KTabWidget(rightpane)
+        relpropWidget = KTabWidget(self.rightpane)
         #vboxlayout = QVBoxLayout(relationsWidget)
         #self.relationsLabel = QLabel(relationsWidget)
         
@@ -204,9 +207,10 @@ class ResourceEditorUi(object):
 #        vboxlayout.addWidget(self.relationsLabel)
 #        vboxlayout.addWidget(relationsTable)
         
-        rightpane.addWidget(descriptionWidget)
-        rightpane.addWidget(relpropWidget)
-        rightpane.setSizes([100, 300])
+        self.rightpane.addWidget(descriptionWidget)
+        self.rightpane.addWidget(relpropWidget)
+        self.rightpane.setSizes([100, 300])
+        self.rightpane.restoreState(self.editor.mainWindow.descriptionSplitterState)
         
         #self.tabs.addTab(self.description, "Description")
         #self.tabs.setTabPosition(QTabWidget.North)
@@ -216,7 +220,7 @@ class ResourceEditorUi(object):
         hlayout.addWidget(splitter)
         splitter.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         splitter.addWidget(card)
-        splitter.addWidget(rightpane)
+        splitter.addWidget(self.rightpane)
         splitter.setStretchFactor(0, 0)
         splitter.setStretchFactor(1, 1)
 
@@ -226,14 +230,25 @@ class ResourceEditorUi(object):
         if self.editor.resource:
             if hasattr(self, "name"):
                 self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
+            cursor = self.description.textCursor()
+            pos = cursor.position()
             self.description.setText(self.editor.resource.description())
+            cursor.setPosition(pos)
+            self.description.setTextCursor(cursor)
             self.label.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
             types = ""
             for type in self.editor.resource.types():
                 if type == Soprano.Vocabulary.RDFS.Resource():
                     continue
                 typestr = str(type.toString())
-                typestr = typestr[typestr.find("#")+1:]
+                if typestr.find("#") > 0:
+                    typestr = typestr[typestr.find("#")+1:]
+                elif typestr.find("nepomuk:/") == 0:
+                    #this is a custom type, we need to get the label of the ressource
+                    typeResource = Nepomuk.Resource(typestr)
+                    typestr = typeResource.genericLabel()
+                else:
+                    typestr = typestr[typestr.rfind("/")+1:]
                 types = types  + i18n(typestr) +" "
                 
             self.typesInfo.setText(i18n("Type(s): ")+types)
@@ -263,15 +278,14 @@ class ResourceEditorUi(object):
 #        self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-#        nameBox = QGroupBox(i18n("Name"))
-#        self.name = QLineEdit(propertiesWidget)
-#        self.name.setObjectName("name")
-#        vbox = QVBoxLayout(nameBox)
-#        vbox.addWidget(self.name)
-#        self.gridlayout.addWidget(nameBox, 1, 0, 1, 2)
+#        tagBox = QGroupBox(i18n("Tags"))
+#        self.tags = Nepomuk.TagWidget()
+#        vbox = QVBoxLayout(tagBox)
+#        vbox.addWidget(self.tags)
+#        self.gridlayout.addWidget(tagBox, 0, 0, 1, 2)
         
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 2, 0, 1, 1)
+        self.gridlayout.addItem(spacerItem, 1, 0, 1, 1)
         
         return propertiesWidget
     

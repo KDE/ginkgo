@@ -22,121 +22,121 @@ from os import system
 from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.kdecore import i18n
+from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 import os
 import subprocess
-   
-
-class ResourcePropertiesTable(QWidget):
 
 
-    def __init__(self, mainWindow=False, resource=None, dialogMode=False):
-        super(ResourcePropertiesTable, self).__init__(mainWindow.workarea)
-
-        self.resource = resource
-        self.mainWindow = mainWindow
-        self.dialogMode = dialogMode
-
-        model = Nepomuk.ResourceManager.instance().mainModel()
-        model.statementAdded.connect(self.statementAddedSlot)
-        model.statementRemoved.connect(self.statementRemovedSlot)
-
-        self.createTable()
-        self.setData()
-        
-        verticalLayout = QVBoxLayout(self)
-        verticalLayout.setObjectName("editor")
-        verticalLayout.addWidget(self.table)
-        self.setLayout(verticalLayout)
-        
+class PropertyContextMenu(QMenu):
+    def __init__(self, parent=None, propvalue=False):
+        super(PropertyContextMenu, self).__init__(parent)
+        self.propvalue = propvalue
+        self.parent = parent
+        self.createActions()
+        self.triggered.connect(self.actionTriggered)
         QMetaObject.connectSlotsByName(self)
-
-    #abstract
-    def statementAddedSlot(self, statement):
-        predicate = statement.predicate().uri()
-
-    def statementRemovedSlot(self, statement):
-        subject = statement.subject().uri()
-        predicate = statement.predicate().uri()
-
-
-    def createTable(self):
-        self.table = QTableWidget()
-        self.table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    
+    def actionTriggered(self, action):
+        key = unicode(action.text())
+        self.parent.processAction(key, self.propvalue)
         
-        self.table.horizontalHeader().setStretchLastSection(True)
-        self.table.resizeColumnsToContents()
-        
-        self.table.setWordWrap(True)
-        self.table.setDragEnabled(False)
-        self.table.setAcceptDrops(False)
-        self.table.setDropIndicatorShown(False)
-        self.table.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.table.setAlternatingRowColors(True)
-        self.table.setEditTriggers(QTableWidget.NoEditTriggers)
-        self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.table.setSelectionMode(QTableWidget.SingleSelection)
+    def createActions(self):
+        copyAction = QAction(i18n("&Copy value to clipboard"), self)
+        #openInNewTabAction.setIcon(KIcon("tab-new-background-small"))
+        self.addAction(copyAction)
+    
 
-        #self.table.setDragDropMode(QAbstractItemView.DragDrop)
-        self.table.setDragDropMode(QAbstractItemView.NoDragDrop)
-        self.table.setSortingEnabled(True)
-        self.table.setShowGrid(True)
-        self.table.verticalHeader().setVisible(False)
-
-        self.table.setColumnCount(len(self.labelHeaders()))
-        self.table.setHorizontalHeaderLabels(self.labelHeaders())
+class ResourcePropertiesTableModel(ResourcesTableModel):
+    def __init__(self, parent=None, data=None):
+        super(ResourcePropertiesTableModel, self).__init__(parent)
+        self.data = data
         
-        
+    def itemAt(self, index):
+        column = index.column()
+        if column == 0:
+            propname = self.data[index.row()][0]
+            if propname.find("#") > 0:
+                propname = propname[propname.find("#")+1:]
+            return propname
+        elif column == 1:
+            value = self.data[index.row()][1]
+            if value:
+                return value.toString()
+            return ""
 
-        #QObject.connect(self.table, SIGNAL("customContextMenuRequested (const QPoint&)"), self.showContextMenu)
+    def rowCount(self, index):
+        return len(self.data)
+    
+    def columnCount(self, index):
+        return len(self.headers)
+
+    def data(self, index, role):
+        if not index.isValid():
+            return QVariant()
+        if role == Qt.TextAlignmentRole:
+            if index.column() == 0:
+                return Qt.AlignLeft | Qt.AlignVCenter
+            elif index.column() == 1:
+                return Qt.AlignLeft | Qt.AlignVCenter
+            elif index.column() == 2:
+                return Qt.AlignLeft | Qt.AlignVCenter
+        elif role == Qt.DisplayRole:
+
+            return self.itemAt(index)
+            
+
+        return QVariant()
+
+    def headerData(self, section, orientation, role):
+        if role != Qt.DisplayRole:
+            return QVariant()
+        if orientation == Qt.Horizontal:
+            return self.headers[section]
+        else:
+            return None
+   
+#TODO: inherit from ResourcesTable
+class ResourcePropertiesTable(ResourcesTable):
+
+
+    
+    def __init__(self, mainWindow=False, resource=None, dialog=None):
+        self.resource = resource
+        super(ResourcePropertiesTable, self).__init__(mainWindow=mainWindow, dialog=dialog)
+        self.resource = resource
+        self.table.horizontalHeader().setResizeMode(0, QHeaderView.Interactive)
+        self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
+
+    def createModel(self):
+        data = datamanager.findResourceLiteralProperties(self.resource)
+        if self.resource:
+            uriprop = ["uri", self.resource.resourceUri()]
+            data.append(uriprop)
+        self.model = ResourcePropertiesTableModel(self, data=data)
+        
+        self.model.setHeaders([i18n("Property"), i18n("Value")])
 
 
     def showContextMenu(self, points):
         index = self.table.indexAt(points)
-        if index:
-            item = self.table.item(index.row(), 0)
-            selection = None
-            if item:
-                selection = item.data(Qt.UserRole).toPyObject()
-            menu = self.createContextMenu(selection)
-            pos = self.table.mapToGlobal(points)
-            menu.exec_(pos)
-
-
-    def setData(self):
-        self.fetchData()
-        if self.data:
-            self.table.setRowCount(len(self.data))
-            self.table.setColumnCount(len(self.labelHeaders()))
-            self.table.setHorizontalHeaderLabels(self.labelHeaders())
-            selected = None
-            for row, propvalue in enumerate(self.data):
+        if index.isValid():
+            #convert the proxy index to the source index
+            #see http://doc.trolltech.com/4.6/qsortfilterproxymodel.html
+            sourceIndex = self.table.model().mapToSource(index)
+            propvalue = self.table.model().sourceModel().data[sourceIndex.row()]
+            if propvalue:
+                menu = self.createContextMenu(propvalue)
+                pos = self.table.mapToGlobal(points)
+                menu.exec_(pos)
                 
-                propname = propvalue[0]
-                propname = propname[propname.find("#")+1:]
-                item = QTableWidgetItem(propname)
-                #icon = self.mainWindow.getResourceIcon(resource, 16)
-                #item.setIcon(icon)
                 
-                #item.setData(Qt.UserRole, resource.resourceUri().toString())
-                self.table.setItem(row, 0, item)
-                self.table.setItem(row, 1, QTableWidgetItem(propvalue[1].toString()))
-                
-            
-            self.table.resizeColumnsToContents()
-            if selected is not None:
-                selected.setSelected(True)
-                self.table.setCurrentItem(selected)
-                self.table.scrollToItem(selected)
-    
-    #abstract            
-    def labelHeaders(self):
-        return [i18n("Property"), i18n("Value")]
-  
-
-    def fetchData(self):
-        self.data = datamanager.findResourceLiteralProperties(self.resource)
+    def createContextMenu(self, propvalue):
+        return PropertyContextMenu(self, propvalue)
 
     def setResource(self, resource):
         self.resource = resource
-        self.setData()        
+        self.installModels()        
+    
+    def processAction(self, key, propvalue):
+        if key == i18n("&Copy value to clipboard"):
+            print propvalue

@@ -39,6 +39,7 @@ class ResourceContextMenu(QMenu):
         self.addOpenAction()
         self.addExternalOpenAction()
         self.addSendMailAction()
+        self.addSetAsContextAction()
         self.addDeleteAction()
         
 
@@ -74,3 +75,9 @@ class ResourceContextMenu(QMenu):
                 return
         action = QAction(i18n("&Write e-mail to"), self)
         self.addAction(action)
+        
+    def addSetAsContextAction(self):
+        if len(self.selectedUris) == 1:
+            action = QAction(i18n("Set as &context"), self)
+            self.addAction(action)
+            

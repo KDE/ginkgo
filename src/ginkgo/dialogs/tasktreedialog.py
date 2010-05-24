@@ -39,8 +39,8 @@ class TaskTreeDialogUi(object):
         self.gridlayout.addWidget(self.buttonBox, 1, 0, 1, 1)
 
         self.retranslateUi(dialog)
-        QObject.connect(self.buttonBox, SIGNAL("accepted()"), dialog.accept)
-        QObject.connect(self.buttonBox, SIGNAL("rejected()"), dialog.reject)
+        self.buttonBox.accepted.connect(dialog.accept)
+        self.buttonBox.rejected.connect(dialog.reject)
         QMetaObject.connectSlotsByName(dialog)
         
 
@@ -53,7 +53,7 @@ class TaskTreeDialog(QDialog, TaskTreeDialogUi):
     def __init__(self, parent=None, hiddenTask=None):
         super(TaskTreeDialog, self).__init__(parent)
         self.setupUi(self, hiddenTask)
-        QObject.connect(self.taskTreeWidget.tasktree.selectionModel(), SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.slot) 
+        self.taskTreeWidget.tasktree.selectionModel().selectionChanged.connect(self.slot) 
         self.validate()
 
     def slot(self, selected, deselected):

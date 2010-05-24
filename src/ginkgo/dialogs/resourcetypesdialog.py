@@ -24,11 +24,14 @@ from ginkgo.views.resourcetypestable import ResourceTypesTable
 class ResourceTypesDialog(QDialog):
 
     def __init__(self, parent=None, mainWindow=None, resource=None):
+        
         super(ResourceTypesDialog, self).__init__(parent)
         self.mainWindow = mainWindow
+        self.mainWindow.setCursor(Qt.WaitCursor)
         self.resource = resource
         self.setupUi(self)
         self.validate()
+        self.mainWindow.unsetCursor()
 
     def validate(self):
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(True)
@@ -46,7 +49,7 @@ class ResourceTypesDialog(QDialog):
 
 
     def sizeHint(self):
-        return QSize(450, 300)
+        return QSize(600, 300)
 
     def setupUi(self, dialog):
         dialog.setObjectName("dialog")
@@ -55,7 +58,7 @@ class ResourceTypesDialog(QDialog):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        self.table = ResourceTypesTable(mainWindow=dialog.mainWindow, resource=self.resource, dialogMode=True)
+        self.table = ResourceTypesTable(mainWindow=dialog.mainWindow, resource=self.resource, dialog=self)
             
         self.gridlayout.addWidget(self.table, 0, 0, 1, 1)
             
@@ -68,6 +71,8 @@ class ResourceTypesDialog(QDialog):
         self.buttonBox.accepted.connect(dialog.accept)
         self.buttonBox.rejected.connect(dialog.reject)
         
+        
+        self.setWindowTitle(i18n("Select type(s)"))
         QMetaObject.connectSlotsByName(dialog)
 
 if __name__ == "__main__":

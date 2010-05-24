@@ -30,6 +30,13 @@ from datetime import *
 import os
 import subprocess
    
+def getClass(clazz):
+    parts = clazz.split('.')
+    module = ".".join(parts[:-1])
+    module = __import__(module)
+    for comp in parts[1:]:
+        module = getattr(module, comp)            
+    return module
 
 class ResourcesTableModel(QAbstractTableModel):
     def __init__(self, parent=None):
@@ -93,12 +100,20 @@ class ResourcesTableModel(QAbstractTableModel):
                 if type != Soprano.Vocabulary.RDFS.Resource():
                     label = type.toString()
                     label = str(label)
-                    label = label[label.find("#") + 1:]
-                    if label == "FileDataObject":
-                        label = "File"
-                    elif label == "TextDocument":
-                        label = "File"
-                    #return a QString instead of a str for the proxy model, which handles only QString
+                    if label.find("#") > 0:
+                        label = label[label.find("#") + 1:]
+                        if label == "FileDataObject":
+                            label = "File"
+                        elif label == "TextDocument":
+                            label = "File"
+                        #return a QString instead of a str for the proxy model, which handles only QString
+                        
+                    elif label.find("nepomuk:/") == 0:
+                        #this is a custom type, we need to get the label of the ressource
+                        typeResource = Nepomuk.Resource(label)
+                        label = typeResource.genericLabel()
+                    else:
+                        label = label[label.rfind("/")+1:]
                     return QString(label)
 
     def resourceAt(self, row):
@@ -142,11 +157,12 @@ class ResourcesTableModel(QAbstractTableModel):
         node = query.binding("r");
         resource = Nepomuk.Resource(node.uri())
         self.addResource(resource)
-        if self.resourcestable.searchDialogMode:
+        #TODO: find the proper way
+        if self.resourcestable.dialog and self.resourcestable.dialog.__class__ == getClass("ginkgo.dialogs.livesearchdialog.LiveSearchDialog"):
             self.resourcestable.table.selectionModel().clearSelection()
             self.resourcestable.table.selectRow(0)
 
-    
+          
 
 class ResourcesSortFilterProxyModel(QSortFilterProxyModel):
  
@@ -191,19 +207,15 @@ class ResourcesTable(QWidget):
     - We still need to keep the possibility to pass resources, since some tables don't use the asyncquery mode (relations table for instance)
     - searchDialogMode is used by livesearchdialog.py for live results of matching items below the input line edit
     '''
-    def __init__(self, mainWindow=False, resources=None, dialogMode=False, excludeList=None, searchDialogMode=False):
+    def __init__(self, mainWindow=False, resources=None, excludeList=None, dialog=None, sortColumn=None):
         if mainWindow:
             super(ResourcesTable, self).__init__(mainWindow.workarea)
         else:
             super(ResourcesTable, self).__init__()
 
         self.mainWindow = mainWindow
-        self.dialogMode = dialogMode
+        self.dialog = dialog
         
-        self.searchDialogMode = searchDialogMode
-        if self.searchDialogMode:
-            self.dialogMode = True
-            
         self.excludeList = excludeList
         self.resources = resources
         
@@ -215,7 +227,12 @@ class ResourcesTable(QWidget):
         self.createTable()
         self.installModels(excludeList)
         
-        self.table.sortByColumn(0, Qt.AscendingOrder)
+        if sortColumn == None:
+            sortColumn = 0
+        
+        if sortColumn >= 0:
+            self.table.sortByColumn(sortColumn, Qt.AscendingOrder)
+        
         self.table.horizontalHeader().setResizeMode(0, QHeaderView.Stretch)
         self.table.resizeColumnsToContents()
 
@@ -242,7 +259,11 @@ class ResourcesTable(QWidget):
         #right size for the contents they contain
         self.table.resizeColumnsToContents()
         self.table.horizontalHeader().setResizeMode(0, QHeaderView.Stretch)
+        if self.mainWindow.currentWorkWidget() is self:
+            self.mainWindow.stopQueryAction.setEnabled(False)
         
+        
+        self._query = None
 
 
     def createTable(self):
@@ -267,12 +288,10 @@ class ResourcesTable(QWidget):
         self.table.setSortingEnabled(True)
         self.table.setShowGrid(True)
         self.table.verticalHeader().setVisible(False)
-       
         
-        if not self.dialogMode:
-            QObject.connect(self.table, SIGNAL("activated (const QModelIndex&)"), self.activated)
-
-        QObject.connect(self.table, SIGNAL("customContextMenuRequested (const QPoint&)"), self.showContextMenu)
+        self.table.activated.connect(self.activated)
+        
+        self.table.customContextMenuRequested.connect(self.showContextMenu)
 
 
     def createModel(self):
@@ -328,7 +347,10 @@ class ResourcesTable(QWidget):
         if index.isValid():
             sindex = self.table.model().mapToSource(index)
             resource = self.table.model().sourceModel().resourceAt(sindex.row())
-            self.mainWindow.openResource(uri=resource.resourceUri())
+            if not self.dialog:
+                self.mainWindow.openResource(uri=resource.resourceUri())
+            else:
+                self.dialog.accept()
       
     def createContextMenu(self, selection):
         return ResourceContextMenu(self, selection)
@@ -364,8 +386,11 @@ class ResourcesTable(QWidget):
                 self.mainWindow.openResourceExternally(uri, False)
         elif key == i18n("&Write e-mail to"):
             self.mainWindow.writeEmail(selectedUris)
+        elif key == i18n("Set as &context"):
+            resource = Nepomuk.Resource(selectedUris[0])
+            self.mainWindow.setResourceAsContext(resource)
 
-        
+
         #http://code.google.com/p/ file pydingo/handlers/directory/handler.py
         
         
@@ -422,6 +447,12 @@ class ResourcesTable(QWidget):
 #                    pass
 #
 
+
+    def setQuery(self, query):
+        self._query = query
+
+    def query(self):
+        return self._query
 
 if __name__ == "__main__":
     import sys
