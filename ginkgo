@@ -1,17 +1,21 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
+ 
+import sys
+
+#TODO: find a way not to put any absolute path in there
+sys.path.append("/usr/share/apps/ginkgo/") 
 
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from ginkgo.mainwindow import Ginkgo
-import sys
 
 if __name__ == "__main__":
     appName = "ginkgo"
     catalog = "ginkgo"
     programName = ki18n ("Ginkgo")
     copyright = ki18n("(c) 2010, Mandriva, Stéphane Laurière")
-    version = "1.0"
+    version = "0.2"
     description = ki18n ("Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.")
     license = KAboutData.License_GPL_V2
     text = ki18n ("Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages.")
