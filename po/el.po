@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-24 10:50+0200\n"
-"PO-Revision-Date: 2010-05-24 13:04+0200\n"
+"PO-Revision-Date: 2010-05-25 19:43+0200\n"
 "Last-Translator: Glentadakis Dimitrios <dglent@gmail.com>\n"
 "Language-Team: Greek <translators_team@mandrivalinux.gr>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Άνοιγμα πηγής"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
-msgstr ""
+msgstr "Επιλογή τύπου(ων)"
 
 #: ginkgo/dialogs/tasktreedialog.py:49
 msgid "Task Selection"
@@ -81,14 +81,12 @@ msgid "Properties"
 msgstr "Ιδιότητες"
 
 #: ginkgo/editors/resourceeditor.py:254
-#, fuzzy
 msgid "Type(s): "
-msgstr "Τύποι"
+msgstr "Τύπος(οι):"
 
 #: ginkgo/editors/taskeditor.py:128
-#, fuzzy
 msgid "Parent Task"
-msgstr "Νέα εργασία"
+msgstr "Γονική εργασία"
 
 #: ginkgo/editors/taskeditor.py:129
 msgid "Non&e"
@@ -100,12 +98,11 @@ msgstr "&Άλλο"
 
 #: ginkgo/editors/taskeditor.py:137
 msgid "Select..."
-msgstr ""
+msgstr "Επιλογή..."
 
 #: ginkgo/editors/taskeditor.py:147
-#, fuzzy
 msgid "Priority"
-msgstr "Ιδιοκτησία"
+msgstr "Προτεραιότητα"
 
 #: ginkgo/editors/taskeditor.py:148
 msgid "&Low"
@@ -182,23 +179,23 @@ msgstr "Καθορισμός της τρέχουσας πηγής ως σχετ�
 
 #: ginkgo/mainwindow.py:105
 msgid "Stop query"
-msgstr ""
+msgstr "Σταμάτημα ερώτησης"
 
 #: ginkgo/mainwindow.py:108
 msgid "View data types"
-msgstr ""
+msgstr "Προβολή τύπων δεδομένων"
 
 #: ginkgo/mainwindow.py:108
 msgid "Display the available data types"
-msgstr ""
+msgstr "Εμφάνιση των διαθέσιμων τύπων δεδομένων"
 
 #: ginkgo/mainwindow.py:110
 msgid "Recent"
-msgstr ""
+msgstr "Πρόσφατο"
 
 #: ginkgo/mainwindow.py:110
 msgid "Show recently modified resources"
-msgstr ""
+msgstr "Εμφάνιση πρόσφατων τροποποιημένων πηγών"
 
 #: ginkgo/mainwindow.py:112 ginkgo/mainwindow.py:620
 msgid "&File"
@@ -407,7 +404,7 @@ msgstr "Παρουσιάστηκε σφάλμα κατά την ενημέρωσ
 
 #: ginkgo/mainwindow.py:824
 msgid "What's New"
-msgstr ""
+msgstr "Τι καινούργιο υπάρχει"
 
 #: ginkgo/mainwindow.py:838
 msgid "Search Results"
@@ -481,7 +478,7 @@ msgstr "Τύπος"
 
 #: ginkgo/views/relationstable.py:85 ginkgo/views/relationstable.py:106
 msgid "&Unlink from %1"
-msgstr ""
+msgstr "&Αποσύνδεση από το %1"
 
 #: ginkgo/views/resourcecontextmenu.py:47
 msgid "&Open in new tab"
@@ -504,14 +501,13 @@ msgid "&Write e-mail to"
 msgstr "&Εγγραφή αλληλογραφίας προς"
 
 #: ginkgo/views/resourcecontextmenu.py:81 ginkgo/views/resourcestable.py:389
-#, fuzzy
 msgid "Set as &context"
-msgstr "Καθορισμός πηγής ως σχετικό περιεχόμενο"
+msgstr "Καθορισμός ως σχετικό περιεχόμενο"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 #: ginkgo/views/resourcepropertiestable.py:141
 msgid "&Copy value to clipboard"
-msgstr ""
+msgstr "&Αντιγραφή τιμής στο πρόχειρο"
 
 #: ginkgo/views/resourcepropertiestable.py:117
 msgid "Property"
@@ -530,18 +526,16 @@ msgid "&Add to places"
 msgstr "&Προσθήκη στις τοποθεσίες"
 
 #: ginkgo/views/resourcestree.py:312 ginkgo/views/resourcestree.py:349
-#, fuzzy
 msgid "&New type"
-msgstr "Νέος τύπος"
+msgstr "&Νέος τύπος"
 
 #: ginkgo/views/resourcestree.py:362
 msgid "&New sub-type"
 msgstr "&Νέος υπό-τύπος"
 
 #: ginkgo/views/resourcetypestable.py:55
-#, fuzzy
 msgid "Ontology"
-msgstr "Οντολογίες:"
+msgstr "Οντολογία"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
@@ -552,19 +546,16 @@ msgid "Ontologies:"
 msgstr "Οντολογίες:"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Type"
-msgstr "Τύπος"
+msgstr "&Τύπος"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Types"
-msgstr "Τύποι"
+msgstr "&Τύποι"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "Create new type"
-msgstr "Δημιουργία νέας σημείωσης"
+msgstr "Δημιουργία νέου τύπου"
 
 #~ msgid "Type Name"
 #~ msgstr "Όνομα"
