@@ -21,7 +21,7 @@ from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcecontextmenu import ResourceContextMenu
-
+from ginkgo.actions import *
 
 class ResourceNode(object):
     def __init__(self, data, parent=None):
@@ -292,24 +292,24 @@ class ResourcesTree(QWidget):
                 menu.exec_(pos)
             
     def processAction(self, key, selectedUris):
-        if key == i18n("New &instance"):
+        if key == NEW_INSTANCE:
             self.mainWindow.newResource(selectedUris[0])
             
-        elif key == i18n('&New sub-type'):
+        elif key == NEW_SUBTYPE:
             self.mainWindow.newType(superClassUri=selectedUris[0])
         
-        elif key == i18n('&Open in new tab'):
+        elif key == OPEN_IN_NEW_TAB:
             self.mainWindow.openResource(uri=selectedUris[0], newTab=True)
         
-        elif key == i18n("&Delete"):
+        elif key == DELETE:
             for uri in selectedUris:
                 self.mainWindow.removeResource(uri)
         
-        elif key == i18n("&Add to places"):
+        elif key == ADD_TO_PLACES:
             for uri in selectedUris:
                 self.mainWindow.addToPlaces(uri)
                 
-        elif key == i18n("&New type"):
+        elif key == NEW_TYPE:
             self.mainWindow.newType(superClassUri=selectedUris[0])
 
 class TypesSortFilterProxyModel(QSortFilterProxyModel):
@@ -347,19 +347,23 @@ class TypesContextMenu(ResourceContextMenu):
     def createActions(self):
         if self.selectedUris[0] == PIMO.Thing:
             action = QAction(i18n("&New type"), self)
+            action.setProperty("key", QVariant(NEW_TYPE))
             self.addAction(action)
         else:
             action = QAction(i18n("New &instance"), self)
+            action.setProperty("key",QVariant(NEW_INSTANCE))
             self.addAction(action)
             self.addSeparator()
             self.addOpenAction()
             action = QAction(i18n("&Add to places"), self)
+            action.setProperty("key",QVariant(ADD_TO_PLACES))
             self.addAction(action)
             nodeClass = Nepomuk.Types.Class(self.selectedUris[0])
             pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
             if nodeClass.isSubClassOf(pimoThingClass):
                 self.addSeparator()
                 action = QAction(i18n("&New sub-type"), self)
+                action.setProperty("key", QVariant(NEW_SUB_TYPE))
                 self.addAction(action)
 #        self.addDeleteAction()
         

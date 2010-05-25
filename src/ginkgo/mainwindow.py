@@ -35,9 +35,9 @@ from ginkgo.views.resourcestable import ResourcesTable
 from ginkgo.editors.classeditor import ClassEditor
 from ginkgo.editors.resourceeditor import ResourceEditor
 from ginkgo.editors.taskeditor import TaskEditor
+from ginkgo.actions import *
 
 from ginkgo import resources_rc
-
 
 
 class Ginkgo(KMainWindow):
@@ -995,11 +995,11 @@ class Ginkgo(KMainWindow):
 
 
     def processAction(self, key, nepomukType):
-        if key == i18n("Move &up"):
+        if key == MOVE_PLACE_UP:
             self.movePlaceUp(nepomukType)
-        elif key == i18n("Move &down"):
+        elif key == MOVE_PLACE_DOWN:
             self.movePlaceDown(nepomukType)
-        elif key == i18n("&Remove entry"):
+        elif key == REMOVE_PLACE_ENTRY:
             self.removeFromPlaces(nepomukType)
         
 
@@ -1019,10 +1019,13 @@ class PlacesContextMenu(QMenu):
         
     def createActions(self):
         action = QAction(i18n("Move &up"), self)
+        action.setProperty("key", QVariant(MOVE_PLACE_UP))
         self.addAction(action)
         action = QAction(i18n("Move &down"), self)
+        action.setProperty("key", QVariant(MOVE_PLACE_DOWN))
         self.addAction(action)
         action = QAction(i18n("&Remove entry"), self)
+        action.setProperty("key", QVariant(REMOVE_PLACE_ENTRY))
         self.addAction(action)
 
 

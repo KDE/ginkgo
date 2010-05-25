@@ -1,0 +1,18 @@
+
+
+OPEN_IN_NEW_TAB = "open-in-new-tab"
+DELETE = "delete"
+OPEN_FILE = "open-file"
+OPEN_PAGE = "open-page"
+WRITE_EMAIL = "write-email"
+SET_AS_CONTEXT = "set-as-context"
+UNLINK = "unlink"
+COPY_TO_CLIPBOARD = "copy-to-clipboard"
+NEW_INSTANCE = "new-instance"
+NEW_SUBTYPE = "new-subtype"
+ADD_TO_PLACES = "add-to-places"
+NEW_TYPE = "new-type"
+NEW_SUBTASK="new-subtask"
+MOVE_PLACE_UP="move-place-up"
+MOVE_PLACE_DOWN="move-place-down"
+REMOVE_PLACE_ENTRY="remove-place-entry"

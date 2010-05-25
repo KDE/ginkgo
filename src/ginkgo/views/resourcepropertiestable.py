@@ -25,7 +25,7 @@ from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 import os
 import subprocess
-
+from ginkgo.actions import *
 
 class PropertyContextMenu(QMenu):
     def __init__(self, parent=None, propvalue=False):
@@ -37,11 +37,12 @@ class PropertyContextMenu(QMenu):
         QMetaObject.connectSlotsByName(self)
     
     def actionTriggered(self, action):
-        key = unicode(action.text())
-        self.parent.processAction(key, self.propvalue)
+        key = action.property("key").toString()
+        self.parent.processAction(key, self.selectedUris)
         
     def createActions(self):
         copyAction = QAction(i18n("&Copy value to clipboard"), self)
+        copyAction.setProperty("key", QVariant(COPY_TO_CLIPBOARD))
         #openInNewTabAction.setIcon(KIcon("tab-new-background-small"))
         self.addAction(copyAction)
     
@@ -138,5 +139,5 @@ class ResourcePropertiesTable(ResourcesTable):
         self.installModels()        
     
     def processAction(self, key, propvalue):
-        if key == i18n("&Copy value to clipboard"):
+        if key == COPY_TO_CLIPBOARD:
             print propvalue

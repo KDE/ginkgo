@@ -20,7 +20,7 @@ from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcecontextmenu import ResourceContextMenu
-
+from ginkgo.actions import *
 
 class Node(object):
     def __init__(self, data, parent=None):
@@ -289,11 +289,11 @@ class TaskTree(QWidget):
 
 
     def processAction(self, key, selectedUris):
-        if key == i18n('&New sub-task'):
+        if key == NEW_SUBTASK:
             self.mainWindow.newTask(superTaskUri=selectedUris[0])
-        elif key == i18n('&Open in new tab'):
+        elif key == OPEN_IN_NEW_TAB:
             self.mainWindow.openResource(uri=selectedUris[0], newTab=True)
-        elif key == i18n('&Delete'):
+        elif key == DELETE:
             self.mainWindow.removeResource(selectedUris[0])
 
 #    def resourceCreatedSlot(self, resource):
@@ -324,6 +324,7 @@ class TaskContextMenu(ResourceContextMenu):
     def createActions(self):
         self.addOpenAction()
         action = QAction(i18n("&New sub-task"), self)
+        action.setProperty("key", QVariant(NEW_SUBTASK))
         action.setIcon(KIcon("view-task-add"))
         action.setProperty("nepomukType", PIMO.Task)
         self.addAction(action)

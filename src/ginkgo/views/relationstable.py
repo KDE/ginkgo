@@ -26,7 +26,7 @@ from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 from ginkgo.util import mime
 from ginkgo.views.resourcecontextmenu import ResourceContextMenu
-
+from ginkgo.actions import * 
 
             
 class RelationsTable(ResourcesTable):
@@ -82,7 +82,7 @@ class RelationsTable(ResourcesTable):
     def processAction(self, key, resourceUri):
         if super(RelationsTable, self).processAction(key, resourceUri):
             return True
-        elif self.resource and key == i18n("&Unlink from %1", self.resource.genericLabel()):
+        elif self.resource and key == UNLINK:
             self.mainWindow.unlink(Soprano.Vocabulary.NAO.isRelated(), resourceUri, True)
             self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
         
@@ -104,6 +104,7 @@ class RelationsTableContextMenu(ResourceContextMenu):
             self.addExternalOpenAction()
             
             action = QAction(i18n("&Unlink from %1", self.parent.resource.genericLabel()), self)
+            action.setProperty("key", QVariant(UNLINK))
             action.setIcon(KIcon("nepomuk"))
             self.addAction(action)
             self.addSendMailAction()

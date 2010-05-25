@@ -26,7 +26,9 @@ from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
 from ginkgo.views.resourcecontextmenu import ResourceContextMenu
+from ginkgo import *
 from datetime import *
+from ginkgo.actions import *
 import os
 import subprocess
    
@@ -372,21 +374,21 @@ class ResourcesTable(QWidget):
 #            p1.poll()
 #            #system('%s %s' % ())
 #            return True
-        if key == i18n('&Open in new tab'):
+        if key == OPEN_IN_NEW_TAB:
             for uri in selectedUris:
                 self.mainWindow.openResource(uri, newTab=True)
-        elif key == i18n('&Delete'):
+        elif key == DELETE:
             for uri in selectedUris:
                 self.mainWindow.removeResource(uri)
-        elif key == i18n("Open &file"):
+        elif key == OPEN_FILE:
             for uri in selectedUris:
                 self.mainWindow.openResourceExternally(uri, True)
-        elif key == i18n("Open &page"):
+        elif key == OPEN_PAGE:
             for uri in selectedUris:
                 self.mainWindow.openResourceExternally(uri, False)
-        elif key == i18n("&Write e-mail to"):
+        elif key == WRITE_EMAIL:
             self.mainWindow.writeEmail(selectedUris)
-        elif key == i18n("Set as &context"):
+        elif key == SET_AS_CONTEXT:
             resource = Nepomuk.Resource(selectedUris[0])
             self.mainWindow.setResourceAsContext(resource)
 
