@@ -568,7 +568,10 @@ class Ginkgo(KMainWindow):
         self.workarea.unsetCursor()
         
     def closeEvent(self, event):
-        self.saveSettings()
+        try:
+            self.saveSettings()
+        except Exception, e:
+            print "[Ginkgo] An error occurred while saving the preferences: '%s.'" % str(e)
             
     def createPlacesWidget(self):
         self.placesWidget = QDockWidget(i18n("Places"), self)
@@ -767,28 +770,30 @@ class Ginkgo(KMainWindow):
         for place in self.placesData:
             #place[0] is of type QUrl
             if index == 0:
-                places.append(str(place[index].toString()))
+                places.append(unicode(place[index].toString()))
             else:
-                places.append(str(place[index]))
+                places.append(unicode(str(place[index])))
         ggroup.writeEntry(label, QVariant(places))
         
        
     def restoreSettings(self): 
-                
-        config = KConfig("ginkgo")
-        ggroup = KConfigGroup(config, "general")
-        size = ggroup.readEntry("size", QSize(800, 500)).toSize()
-        self.resize(size)
-        
-        position = ggroup.readEntry("position", QPoint(200, 100)).toPoint()
-        self.move(position)
-        self.restoreState(ggroup.readEntry("state", QByteArray()).toByteArray())
-        
-        self.descriptionSplitterState = ggroup.readEntry("description-splitter-state", QByteArray()).toByteArray()
-        
-        resourcesUris = ggroup.readEntry("active-resources", QStringList()).toStringList()
-        for uri in resourcesUris:
-            self.openResource(uri, True, True)
+        try: 
+            config = KConfig("ginkgo")
+            ggroup = KConfigGroup(config, "general")
+            size = ggroup.readEntry("size", QSize(800, 500)).toSize()
+            self.resize(size)
+            
+            position = ggroup.readEntry("position", QPoint(200, 100)).toPoint()
+            self.move(position)
+            self.restoreState(ggroup.readEntry("state", QByteArray()).toByteArray())
+            
+            self.descriptionSplitterState = ggroup.readEntry("description-splitter-state", QByteArray()).toByteArray()
+            
+            resourcesUris = ggroup.readEntry("active-resources", QStringList()).toStringList()
+            for uri in resourcesUris:
+                self.openResource(uri, True, True)
+        except Exception, e:
+            print "[Ginkgo] An error occurred while restoring the settings: '%s'." % str(e)
             
         
 
