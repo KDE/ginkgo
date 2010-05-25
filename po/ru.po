@@ -88,7 +88,7 @@ msgstr "Родительская задача"
 
 #: ginkgo/editors/taskeditor.py:129
 msgid "Non&e"
-msgstr "Пусто"
+msgstr "Не &задано"
 
 #: ginkgo/editors/taskeditor.py:130
 msgid "&Other"
@@ -164,7 +164,7 @@ msgstr "Закрыть приложение"
 
 #: ginkgo/mainwindow.py:92
 msgid "Link to"
-msgstr "Поставить ссылку на"
+msgstr "Добавить ссылку на"
 
 #: ginkgo/mainwindow.py:103
 msgid "Set resource as context"
@@ -249,7 +249,7 @@ msgstr "Новый тип"
 
 #: ginkgo/mainwindow.py:345
 msgid "New %1"
-msgstr "Новый(-ая) %1"
+msgstr "Новый объект типа '%1'"
 
 #: ginkgo/mainwindow.py:413
 msgid "Warning"
@@ -401,7 +401,7 @@ msgstr "Произошла ошибка при попытке изменить �
 
 #: ginkgo/mainwindow.py:824
 msgid "What's New"
-msgstr "Что нового?"
+msgstr "Последнии изменения"
 
 #: ginkgo/mainwindow.py:838
 msgid "Search Results"
