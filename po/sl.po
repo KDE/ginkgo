@@ -1,0 +1,555 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Jure Repinc <jlp@holodeck1.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-24 10:50+0200\n"
+"PO-Revision-Date: 2010-05-25 13:03+0200\n"
+"Last-Translator: Jure Repinc <jlp@holodeck1.com>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
+
+#: ginkgo/dialogs/livesearchdialog.py:81
+msgid "&Name:"
+msgstr "&Ime:"
+
+#: ginkgo/dialogs/livesearchdialog.py:96
+msgid "Matching items:"
+msgstr "Ujemajoče:"
+
+#: ginkgo/dialogs/livesearchdialog.py:108
+#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:85
+#: ginkgo/mainwindow.py:86
+msgid "Link to..."
+msgstr "Povezava do ..."
+
+#: ginkgo/dialogs/livesearchdialog.py:110
+msgid "Open resource"
+msgstr "Odpri vir"
+
+#: ginkgo/dialogs/resourcetypesdialog.py:75
+msgid "Select type(s)"
+msgstr "Izberite vrste"
+
+#: ginkgo/dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Izbor opravila"
+
+#: ginkgo/editors/contacteditor.py:68
+msgid "First Name"
+msgstr "Ime"
+
+#: ginkgo/editors/contacteditor.py:83
+msgid "Last Name"
+msgstr "Priimek"
+
+#: ginkgo/editors/contacteditor.py:88
+msgid "E-mail"
+msgstr "E-pošta"
+
+#: ginkgo/editors/contacteditor.py:96
+msgid "Phone"
+msgstr "Telefon"
+
+#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
+msgid "Open"
+msgstr "Odpri"
+
+#: ginkgo/editors/resourceeditor.py:61
+msgid "Select Icon - Ginkgo"
+msgstr "Izbor ikone - Ginkgo"
+
+#: ginkgo/editors/resourceeditor.py:61
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Slike (*.png *.jpg *.jpeg *.bmp)"
+
+#: ginkgo/editors/resourceeditor.py:203
+msgid "Relations"
+msgstr "Razmerja"
+
+#: ginkgo/editors/resourceeditor.py:204
+msgid "Properties"
+msgstr "Lastnosti"
+
+#: ginkgo/editors/resourceeditor.py:254
+msgid "Type(s): "
+msgstr "Vrste: "
+
+#: ginkgo/editors/taskeditor.py:128
+msgid "Parent Task"
+msgstr "Matično opravilo"
+
+#: ginkgo/editors/taskeditor.py:129
+msgid "Non&e"
+msgstr "&Brez"
+
+#: ginkgo/editors/taskeditor.py:130
+msgid "&Other"
+msgstr "&Drugo"
+
+#: ginkgo/editors/taskeditor.py:137
+msgid "Select..."
+msgstr "Izbor ..."
+
+#: ginkgo/editors/taskeditor.py:147
+msgid "Priority"
+msgstr "Prednost"
+
+#: ginkgo/editors/taskeditor.py:148
+msgid "&Low"
+msgstr "&Nizka"
+
+#: ginkgo/editors/taskeditor.py:149
+msgid "&Medium"
+msgstr "&Srednja"
+
+#: ginkgo/editors/taskeditor.py:150
+msgid "&High"
+msgstr "&Visoka"
+
+#: ginkgo/editors/taskeditor.py:160
+msgid "Due date"
+msgstr "Do datuma"
+
+#: ginkgo/editors/websiteeditor.py:49
+msgid "URL"
+msgstr "Lokacija"
+
+#: ginkgo/mainwindow.py:77
+msgid "&Save"
+msgstr "&Shrani"
+
+#: ginkgo/mainwindow.py:77
+msgid "Save"
+msgstr "Shrani"
+
+#: ginkgo/mainwindow.py:79
+msgid "&Open"
+msgstr "&Odpri"
+
+#: ginkgo/mainwindow.py:79
+msgid "Open a resource"
+msgstr "Odpri vir"
+
+#: ginkgo/mainwindow.py:80
+msgid "New &Tab"
+msgstr "Nov zavi&hek"
+
+#: ginkgo/mainwindow.py:80
+msgid "Create new tab"
+msgstr "Ustvari nov zavihek"
+
+#: ginkgo/mainwindow.py:81
+msgid "Close Tab"
+msgstr "Zapri zavihek"
+
+#: ginkgo/mainwindow.py:81
+msgid "Close tab"
+msgstr "Zapri zavihek"
+
+#: ginkgo/mainwindow.py:82
+msgid "&Quit"
+msgstr "Konča&j"
+
+#: ginkgo/mainwindow.py:82
+msgid "Close the application"
+msgstr "Zapri program"
+
+#: ginkgo/mainwindow.py:92
+msgid "Link to"
+msgstr "Povezava do"
+
+#: ginkgo/mainwindow.py:103
+msgid "Set resource as context"
+msgstr "Nastavi vir kot kontekst"
+
+#: ginkgo/mainwindow.py:103
+msgid "Set the current resource as context"
+msgstr "Trenutni vir nastavi kot kontekst"
+
+#: ginkgo/mainwindow.py:105
+msgid "Stop query"
+msgstr "Ustavi poizvedbo"
+
+#: ginkgo/mainwindow.py:108
+msgid "View data types"
+msgstr "Prikaži podatkovne vrste"
+
+#: ginkgo/mainwindow.py:108
+msgid "Display the available data types"
+msgstr "Prikaže razpoložljive podatkovne vrste"
+
+#: ginkgo/mainwindow.py:110
+msgid "Recent"
+msgstr "Nedavno"
+
+#: ginkgo/mainwindow.py:110
+msgid "Show recently modified resources"
+msgstr "Prikaže nedavno spremenjene vire"
+
+#: ginkgo/mainwindow.py:112 ginkgo/mainwindow.py:620
+msgid "&File"
+msgstr "&Datoteka"
+
+#: ginkgo/mainwindow.py:115
+msgid "&New"
+msgstr "&Nova"
+
+#: ginkgo/mainwindow.py:129
+msgid "&Edit"
+msgstr "&Urejanje"
+
+#: ginkgo/mainwindow.py:130 ginkgo/views/resourcecontextmenu.py:52
+#: ginkgo/views/resourcestree.py:304
+msgid "&Delete"
+msgstr "&Izbriši"
+
+#: ginkgo/mainwindow.py:130
+msgid "Delete"
+msgstr "Izbriši"
+
+#: ginkgo/mainwindow.py:134
+msgid "&View"
+msgstr "&Videz"
+
+#: ginkgo/mainwindow.py:140
+msgid "Types"
+msgstr "Vrste"
+
+#: ginkgo/mainwindow.py:147
+msgid "Toolbar"
+msgstr "Orodjarna"
+
+#: ginkgo/mainwindow.py:154 ginkgo/mainwindow.py:155
+msgid "New"
+msgstr "Novo"
+
+#: ginkgo/mainwindow.py:196 ginkgo/mainwindow.py:200
+msgid "Search"
+msgstr "Iskanje"
+
+#: ginkgo/mainwindow.py:201
+msgid "Full-text search"
+msgstr "Iskanje po celotnem besedilu"
+
+#: ginkgo/mainwindow.py:286
+msgid "New Task"
+msgstr "Novo opravilo"
+
+#: ginkgo/mainwindow.py:293
+msgid "New Type"
+msgstr "Nova vrsta"
+
+#: ginkgo/mainwindow.py:345
+msgid "New %1"
+msgstr "Novo: %1"
+
+#: ginkgo/mainwindow.py:413
+msgid "Warning"
+msgstr "Opozorilo"
+
+#: ginkgo/mainwindow.py:441
+msgid "Resource removal"
+msgstr "Odstranitev vira"
+
+#: ginkgo/mainwindow.py:442
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "Ali ste prepričani, da želite izbrisati <i>%1</i>?"
+
+#: ginkgo/mainwindow.py:535
+msgid "Select File - Ginkgo"
+msgstr "Izbor datoteke - Ginkgo"
+
+#: ginkgo/mainwindow.py:574
+msgid "Places"
+msgstr "Mesta"
+
+#: ginkgo/mainwindow.py:611
+msgid "&Contact"
+msgstr "&Stik"
+
+#: ginkgo/mainwindow.py:611
+msgid "&Contacts"
+msgstr "&Stiki"
+
+#: ginkgo/mainwindow.py:611
+msgid "Create new contact"
+msgstr "Ustvari nov stik"
+
+#: ginkgo/mainwindow.py:612
+msgid "&Project"
+msgstr "&Projekt"
+
+#: ginkgo/mainwindow.py:612
+msgid "&Projects"
+msgstr "&Projekti"
+
+#: ginkgo/mainwindow.py:612
+msgid "Create new project"
+msgstr "Ustvari nov projekt"
+
+#: ginkgo/mainwindow.py:613
+msgid "&Task"
+msgstr "&Opravilo"
+
+#: ginkgo/mainwindow.py:613
+msgid "&Tasks"
+msgstr "&Opravila"
+
+#: ginkgo/mainwindow.py:613
+msgid "Create new task"
+msgstr "Ustvari novo opravilo"
+
+#: ginkgo/mainwindow.py:614
+msgid "&Organization"
+msgstr "Or&ganizacija"
+
+#: ginkgo/mainwindow.py:614
+msgid "&Organizations"
+msgstr "Or&ganizacije"
+
+#: ginkgo/mainwindow.py:614
+msgid "Create new organization"
+msgstr "Ustvari novo organizacijo"
+
+#: ginkgo/mainwindow.py:615
+msgid "&Topic"
+msgstr "&Tema"
+
+#: ginkgo/mainwindow.py:615
+msgid "&Topics"
+msgstr "&Teme"
+
+#: ginkgo/mainwindow.py:615
+msgid "Create new topic"
+msgstr "Ustvari novo temo"
+
+#: ginkgo/mainwindow.py:616
+msgid "&Event"
+msgstr "&Dogodek"
+
+#: ginkgo/mainwindow.py:616
+msgid "&Events"
+msgstr "&Dogodki"
+
+#: ginkgo/mainwindow.py:616
+msgid "Create new event"
+msgstr "Ustvari nov dogodek"
+
+#: ginkgo/mainwindow.py:617
+msgid "&Location"
+msgstr "&Lokacija"
+
+#: ginkgo/mainwindow.py:617
+msgid "&Locations"
+msgstr "&Lokacije"
+
+#: ginkgo/mainwindow.py:617
+msgid "Create new location"
+msgstr "Ustvari novo lokacijo"
+
+#: ginkgo/mainwindow.py:618
+msgid "&WebPage"
+msgstr "&Spletna stran"
+
+#: ginkgo/mainwindow.py:618
+msgid "&Web Pages"
+msgstr "&Spletne strani"
+
+#: ginkgo/mainwindow.py:618
+msgid "Create new Web page"
+msgstr "Ustvari novo spletno stran"
+
+#: ginkgo/mainwindow.py:619
+msgid "&Note"
+msgstr "&Opomba"
+
+#: ginkgo/mainwindow.py:619
+msgid "&Notes"
+msgstr "&Opombe"
+
+#: ginkgo/mainwindow.py:619
+msgid "Create new note"
+msgstr "Ustvari novo opombo"
+
+#: ginkgo/mainwindow.py:620
+msgid "&Files"
+msgstr "&Datoteke"
+
+#: ginkgo/mainwindow.py:620
+msgid "Create new file"
+msgstr "Ustvari novo datoteko"
+
+#: ginkgo/mainwindow.py:726 ginkgo/mainwindow.py:728
+msgid "Context - Ginkgo"
+msgstr "Kontekst - Ginkgo"
+
+#: ginkgo/mainwindow.py:726
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "Kontekst je bil uspešno spremenjen v <i>%1</i>."
+
+#: ginkgo/mainwindow.py:728
+msgid "An error occurred while updating the context."
+msgstr "Pri posodabljanju konteksta je prišlo do napake."
+
+#: ginkgo/mainwindow.py:824
+msgid "What's New"
+msgstr "Kaj je novega"
+
+#: ginkgo/mainwindow.py:838
+msgid "Search Results"
+msgstr "Rezultati iskanja"
+
+#: ginkgo/mainwindow.py:992 ginkgo/mainwindow.py:1015
+msgid "Move &up"
+msgstr "Premakni &gor"
+
+#: ginkgo/mainwindow.py:994 ginkgo/mainwindow.py:1017
+msgid "Move &down"
+msgstr "Premakni &dol"
+
+#: ginkgo/mainwindow.py:996 ginkgo/mainwindow.py:1019
+msgid "&Remove entry"
+msgstr "&Odstrani vnos"
+
+#: ginkgo.py:16
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:17
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "© 2010, Mandriva, Stéphane Laurière"
+
+#: ginkgo.py:19
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginkgo je brskalnik po KDE-jevih semantičnih podatkih."
+
+#: ginkgo.py:21
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr ""
+"Ginkgo vam omogoča ustvarjati in raziskovati povezave med vašimi osebnimi "
+"podatki kot so e-pošta, stiki, datoteke in spletne strani."
+
+#: ginkgo.py:27
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:27
+msgid "Developer"
+msgstr "Razvijalec"
+
+#: ginkgo.py:30 rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Jure Repinc"
+
+#: ginkgo.py:30 rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "jlp@holodeck1.com"
+
+#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:299 ginkgo/views/resourcetypestable.py:55
+msgid "Name"
+msgstr "Ime"
+
+#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:299
+msgid "Date"
+msgstr "Datum"
+
+#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcestable.py:299
+msgid "Type"
+msgstr "Vrsta"
+
+#: ginkgo/views/relationstable.py:85 ginkgo/views/relationstable.py:106
+msgid "&Unlink from %1"
+msgstr "&Odstrani povezavo do %1"
+
+#: ginkgo/views/resourcecontextmenu.py:47
+msgid "&Open in new tab"
+msgstr "&Odpri v novem zavihku"
+
+#: ginkgo/views/resourcecontextmenu.py:53
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Izbriši ta vir iz Nepomukove semantične podatkovne zbirke"
+
+#: ginkgo/views/resourcecontextmenu.py:61 ginkgo/views/resourcestable.py:381
+msgid "Open &file"
+msgstr "Odpri &datoteko"
+
+#: ginkgo/views/resourcecontextmenu.py:65 ginkgo/views/resourcestable.py:384
+msgid "Open &page"
+msgstr "Odpri &stran"
+
+#: ginkgo/views/resourcecontextmenu.py:76 ginkgo/views/resourcestable.py:387
+msgid "&Write e-mail to"
+msgstr "&Pošlji e-pošto"
+
+#: ginkgo/views/resourcecontextmenu.py:81 ginkgo/views/resourcestable.py:389
+msgid "Set as &context"
+msgstr "Nastavi kot &kontekst"
+
+#: ginkgo/views/resourcepropertiestable.py:44
+#: ginkgo/views/resourcepropertiestable.py:141
+msgid "&Copy value to clipboard"
+msgstr "&Skopiraj vrednost na odložišče"
+
+#: ginkgo/views/resourcepropertiestable.py:117
+msgid "Property"
+msgstr "Lastnost"
+
+#: ginkgo/views/resourcepropertiestable.py:117
+msgid "Value"
+msgstr "Vrednost"
+
+#: ginkgo/views/resourcestree.py:295 ginkgo/views/resourcestree.py:352
+msgid "New &instance"
+msgstr "Nov &izvod"
+
+#: ginkgo/views/resourcestree.py:308 ginkgo/views/resourcestree.py:356
+msgid "&Add to places"
+msgstr "&Dodaj na pult Mesta"
+
+#: ginkgo/views/resourcestree.py:312 ginkgo/views/resourcestree.py:349
+msgid "&New type"
+msgstr "&Nova vrsta"
+
+#: ginkgo/views/resourcestree.py:362
+msgid "&New sub-type"
+msgstr "&Nova podvrsta"
+
+#: ginkgo/views/resourcetypestable.py:55
+msgid "Ontology"
+msgstr "Ontologija"
+
+#: ginkgo/views/tasktree.py:326
+msgid "&New sub-task"
+msgstr "&Novo podopravilo"
+
+#: ginkgo/views/typesview.py:37
+msgid "Ontologies:"
+msgstr "Ontologije:"
+
+#: ginkgo/views/typesview.py:49
+msgid "&Type"
+msgstr "&Vrsta"
+
+#: ginkgo/views/typesview.py:49
+msgid "&Types"
+msgstr "&Vrste"
+
+#: ginkgo/views/typesview.py:49
+msgid "Create new type"
+msgstr "Ustvari novo vrsto"
+
