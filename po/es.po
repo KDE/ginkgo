@@ -16,10 +16,11 @@ msgstr "&Nombre:"
 
 #: ginkgo/dialogs/livesearchdialog.py:96
 msgid "Matching items:"
-msgstr ""
+msgstr "Elementos coincidentes:"
 
 #: ginkgo/dialogs/livesearchdialog.py:108
-#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:85
+#: ginkgo/dialogs/resourcechooserdialog.py:61
+#: ginkgo/mainwindow.py:85
 #: ginkgo/mainwindow.py:86
 msgid "Link to..."
 msgstr "Enlazar a..."
@@ -30,7 +31,7 @@ msgstr "Abrir recurso"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
-msgstr ""
+msgstr "Seleccionar tipo(s)"
 
 #: ginkgo/dialogs/tasktreedialog.py:49
 msgid "Task Selection"
@@ -52,7 +53,8 @@ msgstr "Correo electrónico"
 msgid "Phone"
 msgstr "Teléfono"
 
-#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
+#: ginkgo/editors/fileeditor.py:51
+#: ginkgo/editors/websiteeditor.py:56
 msgid "Open"
 msgstr "Abrir"
 
@@ -73,14 +75,13 @@ msgid "Properties"
 msgstr "Propiedades"
 
 #: ginkgo/editors/resourceeditor.py:254
-#, fuzzy
 msgid "Type(s): "
 msgstr "Tipos"
 
+# Parent es "padre". Asumo que se refiere a jerarquías: Tarea Padre > Tarea hija
 #: ginkgo/editors/taskeditor.py:128
-#, fuzzy
 msgid "Parent Task"
-msgstr "Nueva Tarea"
+msgstr "Tarea Padre"
 
 #: ginkgo/editors/taskeditor.py:129
 msgid "Non&e"
@@ -92,12 +93,11 @@ msgstr "&Otro"
 
 #: ginkgo/editors/taskeditor.py:137
 msgid "Select..."
-msgstr ""
+msgstr "Seleccionar..."
 
 #: ginkgo/editors/taskeditor.py:147
-#, fuzzy
 msgid "Priority"
-msgstr "Propiedad"
+msgstr "Prioridad"
 
 #: ginkgo/editors/taskeditor.py:148
 msgid "&Low"
@@ -111,10 +111,12 @@ msgstr "&Medio"
 msgid "&High"
 msgstr "&Alto"
 
+# Sigo en dudas: http://translate.google.com.ar/?hl=es&tab=wT#en|es|due
+#
+# Jacen: Puede ser fecha de cierre o de cumplimiento. La dejo en Fuzzy
 #: ginkgo/editors/taskeditor.py:160
-#, fuzzy
 msgid "Due date"
-msgstr "Fecha"
+msgstr "Fecha de término"
 
 #: ginkgo/editors/websiteeditor.py:49
 msgid "URL"
@@ -174,25 +176,26 @@ msgstr "Establecer el recurso actual como contexto"
 
 #: ginkgo/mainwindow.py:105
 msgid "Stop query"
-msgstr ""
+msgstr "Detener consulta"
 
 #: ginkgo/mainwindow.py:108
 msgid "View data types"
-msgstr ""
+msgstr "Ver tipos de datos"
 
 #: ginkgo/mainwindow.py:108
 msgid "Display the available data types"
-msgstr ""
+msgstr "Mostrar los tipos de datos disponibles"
 
 #: ginkgo/mainwindow.py:110
 msgid "Recent"
-msgstr ""
+msgstr "Reciente"
 
 #: ginkgo/mainwindow.py:110
 msgid "Show recently modified resources"
-msgstr ""
+msgstr "Mostrar recursos recientemente modificados"
 
-#: ginkgo/mainwindow.py:112 ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:112
+#: ginkgo/mainwindow.py:620
 msgid "&File"
 msgstr "&Archivo"
 
@@ -204,7 +207,8 @@ msgstr "&Nuevo"
 msgid "&Edit"
 msgstr "&Editar"
 
-#: ginkgo/mainwindow.py:130 ginkgo/views/resourcecontextmenu.py:52
+#: ginkgo/mainwindow.py:130
+#: ginkgo/views/resourcecontextmenu.py:52
 #: ginkgo/views/resourcestree.py:304
 msgid "&Delete"
 msgstr "&Borrar"
@@ -225,11 +229,13 @@ msgstr "Tipos"
 msgid "Toolbar"
 msgstr "Barra de herramientas"
 
-#: ginkgo/mainwindow.py:154 ginkgo/mainwindow.py:155
+#: ginkgo/mainwindow.py:154
+#: ginkgo/mainwindow.py:155
 msgid "New"
 msgstr "Nuevo"
 
-#: ginkgo/mainwindow.py:196 ginkgo/mainwindow.py:200
+#: ginkgo/mainwindow.py:196
+#: ginkgo/mainwindow.py:200
 msgid "Search"
 msgstr "Buscar"
 
@@ -251,7 +257,7 @@ msgstr "Nuevo %1"
 
 #: ginkgo/mainwindow.py:413
 msgid "Warning"
-msgstr ""
+msgstr "Advertencia"
 
 #: ginkgo/mainwindow.py:441
 msgid "Resource removal"
@@ -385,7 +391,8 @@ msgstr "&Archivos"
 msgid "Create new file"
 msgstr "Crear un archivo nuevo"
 
-#: ginkgo/mainwindow.py:726 ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:726
+#: ginkgo/mainwindow.py:728
 msgid "Context - Ginkgo"
 msgstr "Contexto - Ginkgo"
 
@@ -399,21 +406,24 @@ msgstr "Ocurrió un error mientras se actualizaba el contexto."
 
 #: ginkgo/mainwindow.py:824
 msgid "What's New"
-msgstr ""
+msgstr "Lo nuevo"
 
 #: ginkgo/mainwindow.py:838
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
 
-#: ginkgo/mainwindow.py:992 ginkgo/mainwindow.py:1015
+#: ginkgo/mainwindow.py:992
+#: ginkgo/mainwindow.py:1015
 msgid "Move &up"
 msgstr "Mover arri&ba"
 
-#: ginkgo/mainwindow.py:994 ginkgo/mainwindow.py:1017
+#: ginkgo/mainwindow.py:994
+#: ginkgo/mainwindow.py:1017
 msgid "Move &down"
 msgstr "Mover aba&jo"
 
-#: ginkgo/mainwindow.py:996 ginkgo/mainwindow.py:1019
+#: ginkgo/mainwindow.py:996
+#: ginkgo/mainwindow.py:1019
 msgid "&Remove entry"
 msgstr "&Eliminar entrada"
 
@@ -427,17 +437,11 @@ msgstr "(c) 2010, Mandriva, Stéphane Laurière"
 
 #: ginkgo.py:19
 msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
-msgstr ""
-"Ginkgo es un navegador para Nepomuk, el conjunto de herramientas semánticas "
-"de KDE."
+msgstr "Ginkgo es un navegador para Nepomuk, el conjunto de herramientas semánticas de KDE."
 
 #: ginkgo.py:21
-msgid ""
-"Ginkgo lets you create and explore links between your personal data such as "
-"e-mails, contacts, files, Web pages."
-msgstr ""
-"Ginkgo le permite crear y explorar enlaces entre sus datos personales tales "
-"como correos electrónicos, contactos, archivos y páginas Web."
+msgid "Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages."
+msgstr "Ginkgo le permite crear y explorar enlaces entre sus datos personales tales como correos electrónicos, contactos, archivos y páginas Web."
 
 #: ginkgo.py:27
 msgid "Stéphane Laurière"
@@ -447,63 +451,76 @@ msgstr "Stéphane Laurière"
 msgid "Developer"
 msgstr "Desarrollador"
 
-#: ginkgo.py:30 rc.cpp:1
+#: ginkgo.py:30
+#: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Diego Bello"
 
-#: ginkgo.py:30 rc.cpp:2
+#: ginkgo.py:30
+#: rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "dbello@gmail.com"
 
-#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299 ginkgo/views/resourcetypestable.py:55
+#: ginkgo/views/relationstable.py:46
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:299
+#: ginkgo/views/resourcetypestable.py:55
 msgid "Name"
 msgstr "Nombre"
 
-#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
+# Sigo en dudas: http://translate.google.com.ar/?hl=es&tab=wT#en|es|due
+#
+# Jacen: Puede ser fecha de cierre o de cumplimiento. La dejo en Fuzzy
+#: ginkgo/views/relationstable.py:46
+#: ginkgo/views/resourcesbytypetable.py:47
 #: ginkgo/views/resourcestable.py:299
 msgid "Date"
 msgstr "Fecha"
 
-#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcestable.py:299
+#: ginkgo/views/relationstable.py:46
+#: ginkgo/views/resourcestable.py:299
 msgid "Type"
 msgstr "Tipo"
 
-#: ginkgo/views/relationstable.py:85 ginkgo/views/relationstable.py:106
+#: ginkgo/views/relationstable.py:85
+#: ginkgo/views/relationstable.py:106
 msgid "&Unlink from %1"
-msgstr ""
+msgstr "&Desenlazar desde %1"
 
 #: ginkgo/views/resourcecontextmenu.py:47
 msgid "&Open in new tab"
-msgstr "Abrir en una nueva &pestaña"
+msgstr "Abrir en una &Nueva pestaña"
 
 #: ginkgo/views/resourcecontextmenu.py:53
 msgid "Delete this resource from the Nepomuk database"
-msgstr "Borrar este recurso de la base de datos de Nepomuk"
+msgstr "Eliminar este recurso de la base de datos Nepomuk"
 
-#: ginkgo/views/resourcecontextmenu.py:61 ginkgo/views/resourcestable.py:381
+#: ginkgo/views/resourcecontextmenu.py:61
+#: ginkgo/views/resourcestable.py:381
 msgid "Open &file"
-msgstr "Abrir a&rchivo"
+msgstr "Abrir &Archivo"
 
-#: ginkgo/views/resourcecontextmenu.py:65 ginkgo/views/resourcestable.py:384
+#: ginkgo/views/resourcecontextmenu.py:65
+#: ginkgo/views/resourcestable.py:384
 msgid "Open &page"
-msgstr "Abrir &página"
+msgstr "Abrir &Página"
 
-#: ginkgo/views/resourcecontextmenu.py:76 ginkgo/views/resourcestable.py:387
+#: ginkgo/views/resourcecontextmenu.py:76
+#: ginkgo/views/resourcestable.py:387
 msgid "&Write e-mail to"
-msgstr ""
+msgstr "&Escribir correo a"
 
-#: ginkgo/views/resourcecontextmenu.py:81 ginkgo/views/resourcestable.py:389
-#, fuzzy
+#: ginkgo/views/resourcecontextmenu.py:81
+#: ginkgo/views/resourcestable.py:389
 msgid "Set as &context"
-msgstr "Establecer recurso como contexto"
+msgstr "Establecer como conte&xto"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 #: ginkgo/views/resourcepropertiestable.py:141
 msgid "&Copy value to clipboard"
-msgstr ""
+msgstr "&Copiar valor al portapapeles"
 
 #: ginkgo/views/resourcepropertiestable.py:117
 msgid "Property"
@@ -513,28 +530,28 @@ msgstr "Propiedad"
 msgid "Value"
 msgstr "Valor"
 
-#: ginkgo/views/resourcestree.py:295 ginkgo/views/resourcestree.py:352
+#: ginkgo/views/resourcestree.py:295
+#: ginkgo/views/resourcestree.py:352
 msgid "New &instance"
-msgstr ""
+msgstr "Nueva &Instancia"
 
-#: ginkgo/views/resourcestree.py:308 ginkgo/views/resourcestree.py:356
+#: ginkgo/views/resourcestree.py:308
+#: ginkgo/views/resourcestree.py:356
 msgid "&Add to places"
-msgstr "&Agregar a lugares"
+msgstr "Agregar a &lugares"
 
-#: ginkgo/views/resourcestree.py:312 ginkgo/views/resourcestree.py:349
-#, fuzzy
+#: ginkgo/views/resourcestree.py:312
+#: ginkgo/views/resourcestree.py:349
 msgid "&New type"
-msgstr "Nuevo Tipo"
+msgstr "&Nuevo tipo"
 
 #: ginkgo/views/resourcestree.py:362
-#, fuzzy
 msgid "&New sub-type"
-msgstr "&Nueva sub-tarea"
+msgstr "&Nuevo sub-tipo"
 
 #: ginkgo/views/resourcetypestable.py:55
-#, fuzzy
 msgid "Ontology"
-msgstr "Ontologías:"
+msgstr "Ontología"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
@@ -545,28 +562,14 @@ msgid "Ontologies:"
 msgstr "Ontologías:"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Type"
-msgstr "Tipo"
+msgstr "&Tipo"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Types"
-msgstr "Tipos"
+msgstr "&Tipos"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "Create new type"
-msgstr "Crear una nueva nota"
+msgstr "Crear un nuevo tipo"
 
-#~ msgid "Type Name"
-#~ msgstr "Ingrese Nombre"
-
-#~ msgid "&Description:"
-#~ msgstr "&Descripción:"
-
-#~ msgid "File"
-#~ msgstr "Archivo"
-
-#~ msgid "Link to file"
-#~ msgstr "Enlazar a archivo"
