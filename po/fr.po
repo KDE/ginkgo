@@ -488,7 +488,7 @@ msgstr "Type"
 #: ginkgo/views/relationstable.py:85
 #: ginkgo/views/relationstable.py:106
 msgid "&Unlink from %1"
-msgstr "&Délier de %&"
+msgstr "&Délier de %1"
 
 #: ginkgo/views/resourcecontextmenu.py:47
 msgid "&Open in new tab"
