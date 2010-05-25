@@ -555,10 +555,3 @@ msgstr ""
 #: ginkgo/views/typesview.py:49
 msgid "&Type"
 msgstr "&Type"
-
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "<odahlum@gmail.com>"
-
-
