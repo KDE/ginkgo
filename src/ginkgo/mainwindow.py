@@ -573,6 +573,7 @@ class Ginkgo(KMainWindow):
         except Exception, e:
             print "[Ginkgo] An error occurred while saving the preferences: '%s.'" % str(e)
             
+            
     def createPlacesWidget(self):
         self.placesWidget = QDockWidget(i18n("Places"), self)
         self.placesWidget.setObjectName("Places")
@@ -772,7 +773,7 @@ class Ginkgo(KMainWindow):
             if index == 0:
                 places.append(unicode(place[index].toString()))
             else:
-                places.append(unicode(str(place[index])))
+                places.append(unicode(place[index]))
         ggroup.writeEntry(label, QVariant(places))
         
        
