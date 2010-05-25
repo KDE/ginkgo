@@ -1,0 +1,562 @@
+# Translation of ginkgo to Norwegian Nynorsk
+#
+# Karl Ove Hufthammer <karl@huftis.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
+"POT-Creation-Date: 2010-05-24 10:50+0200\n"
+"PO-Revision-Date: 2010-05-25 17:55+0200\n"
+"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
+"Language-Team: Norwegian Bokmål <i18n-nn@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ginkgo/dialogs/livesearchdialog.py:81
+msgid "&Name:"
+msgstr "&Namn:"
+
+#: ginkgo/dialogs/livesearchdialog.py:96
+msgid "Matching items:"
+msgstr "Samsvarande element:"
+
+#: ginkgo/dialogs/livesearchdialog.py:108
+#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:85
+#: ginkgo/mainwindow.py:86
+msgid "Link to..."
+msgstr "Lenkja til …"
+
+#: ginkgo/dialogs/livesearchdialog.py:110
+msgid "Open resource"
+msgstr "Opna ressurs"
+
+#: ginkgo/dialogs/resourcetypesdialog.py:75
+msgid "Select type(s)"
+msgstr "Vel type/typar"
+
+#: ginkgo/dialogs/tasktreedialog.py:49
+msgid "Task Selection"
+msgstr "Oppgåveval"
+
+#: ginkgo/editors/contacteditor.py:68
+msgid "First Name"
+msgstr "Fornamn"
+
+#: ginkgo/editors/contacteditor.py:83
+msgid "Last Name"
+msgstr "Etternamn"
+
+#: ginkgo/editors/contacteditor.py:88
+msgid "E-mail"
+msgstr "E-postadresse"
+
+#: ginkgo/editors/contacteditor.py:96
+msgid "Phone"
+msgstr "Telefonnummer"
+
+#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
+msgid "Open"
+msgstr "Opna"
+
+#: ginkgo/editors/resourceeditor.py:61
+msgid "Select Icon - Ginkgo"
+msgstr "Vel ikon – Ginkgo"
+
+#: ginkgo/editors/resourceeditor.py:61
+msgid "Images (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Bilete (*.png *.jpg *.jpeg *.bmp)"
+
+#: ginkgo/editors/resourceeditor.py:203
+msgid "Relations"
+msgstr "Relasjonar"
+
+#: ginkgo/editors/resourceeditor.py:204
+msgid "Properties"
+msgstr "Eigenskapar"
+
+#: ginkgo/editors/resourceeditor.py:254
+msgid "Type(s): "
+msgstr "Type/typar: "
+
+#: ginkgo/editors/taskeditor.py:128
+msgid "Parent Task"
+msgstr "Foreldreoppgåve"
+
+#: ginkgo/editors/taskeditor.py:129
+msgid "Non&e"
+msgstr "&Ingen"
+
+#: ginkgo/editors/taskeditor.py:130
+msgid "&Other"
+msgstr "&Annan"
+
+#: ginkgo/editors/taskeditor.py:137
+msgid "Select..."
+msgstr "Vel …"
+
+#: ginkgo/editors/taskeditor.py:147
+msgid "Priority"
+msgstr "Prioritet"
+
+#: ginkgo/editors/taskeditor.py:148
+msgid "&Low"
+msgstr "&Låg"
+
+#: ginkgo/editors/taskeditor.py:149
+msgid "&Medium"
+msgstr "&Middels"
+
+#: ginkgo/editors/taskeditor.py:150
+msgid "&High"
+msgstr "&Høg"
+
+#: ginkgo/editors/taskeditor.py:160
+msgid "Due date"
+msgstr "Forfallsdato"
+
+#: ginkgo/editors/websiteeditor.py:49
+msgid "URL"
+msgstr "Adresse"
+
+#: ginkgo/mainwindow.py:77
+msgid "&Save"
+msgstr "&Lagra"
+
+#: ginkgo/mainwindow.py:77
+msgid "Save"
+msgstr "Lagra"
+
+#: ginkgo/mainwindow.py:79
+msgid "&Open"
+msgstr "&Opna"
+
+#: ginkgo/mainwindow.py:79
+msgid "Open a resource"
+msgstr "Opna ressurs"
+
+#: ginkgo/mainwindow.py:80
+msgid "New &Tab"
+msgstr "Ny &fane"
+
+#: ginkgo/mainwindow.py:80
+msgid "Create new tab"
+msgstr "Lag ny fane"
+
+#: ginkgo/mainwindow.py:81
+msgid "Close Tab"
+msgstr "Lukk fane"
+
+#: ginkgo/mainwindow.py:81
+msgid "Close tab"
+msgstr "Lukk fane"
+
+#: ginkgo/mainwindow.py:82
+msgid "&Quit"
+msgstr "&Avslutt"
+
+#: ginkgo/mainwindow.py:82
+msgid "Close the application"
+msgstr "Lukk programmet"
+
+#: ginkgo/mainwindow.py:92
+msgid "Link to"
+msgstr "Lenkja til"
+
+#: ginkgo/mainwindow.py:103
+msgid "Set resource as context"
+msgstr "Bruk ressurs som samanheng"
+
+#: ginkgo/mainwindow.py:103
+msgid "Set the current resource as context"
+msgstr "Bruk den gjeldande ressursen som samanheng"
+
+#: ginkgo/mainwindow.py:105
+msgid "Stop query"
+msgstr "Stopp spørjing"
+
+#: ginkgo/mainwindow.py:108
+msgid "View data types"
+msgstr "Vis datatypar"
+
+#: ginkgo/mainwindow.py:108
+msgid "Display the available data types"
+msgstr "Vis tilgjengelege datatypar"
+
+#: ginkgo/mainwindow.py:110
+msgid "Recent"
+msgstr "Nylege"
+
+#: ginkgo/mainwindow.py:110
+msgid "Show recently modified resources"
+msgstr "Vis nyleg endra ressursar"
+
+#: ginkgo/mainwindow.py:112 ginkgo/mainwindow.py:620
+msgid "&File"
+msgstr "&Fil"
+
+#: ginkgo/mainwindow.py:115
+msgid "&New"
+msgstr "&Ny"
+
+#: ginkgo/mainwindow.py:129
+msgid "&Edit"
+msgstr "&Rediger"
+
+#: ginkgo/mainwindow.py:130 ginkgo/views/resourcecontextmenu.py:52
+#: ginkgo/views/resourcestree.py:304
+msgid "&Delete"
+msgstr "&Slett"
+
+#: ginkgo/mainwindow.py:130
+msgid "Delete"
+msgstr "Slett"
+
+#: ginkgo/mainwindow.py:134
+msgid "&View"
+msgstr "&Vis"
+
+#: ginkgo/mainwindow.py:140
+msgid "Types"
+msgstr "Typar"
+
+#: ginkgo/mainwindow.py:147
+msgid "Toolbar"
+msgstr "Verktøylinje"
+
+#: ginkgo/mainwindow.py:154 ginkgo/mainwindow.py:155
+msgid "New"
+msgstr "Ny"
+
+#: ginkgo/mainwindow.py:196 ginkgo/mainwindow.py:200
+msgid "Search"
+msgstr "Søk"
+
+#: ginkgo/mainwindow.py:201
+msgid "Full-text search"
+msgstr "Tekstsøk"
+
+#: ginkgo/mainwindow.py:286
+msgid "New Task"
+msgstr "Ny oppgåve"
+
+#: ginkgo/mainwindow.py:293
+msgid "New Type"
+msgstr "Ny type"
+
+#: ginkgo/mainwindow.py:345
+msgid "New %1"
+msgstr "Ny %1"
+
+#: ginkgo/mainwindow.py:413
+msgid "Warning"
+msgstr "Åtvaring"
+
+#: ginkgo/mainwindow.py:441
+msgid "Resource removal"
+msgstr "Fjerning av ressurs"
+
+#: ginkgo/mainwindow.py:442
+msgid "Are you sure you want to delete <i>%1</i>?"
+msgstr "Er du sikker på at du vil sletta <i>%1</i>?"
+
+#: ginkgo/mainwindow.py:535
+msgid "Select File - Ginkgo"
+msgstr "Vel fil – Ginkgo"
+
+#: ginkgo/mainwindow.py:574
+msgid "Places"
+msgstr "Stader"
+
+#: ginkgo/mainwindow.py:611
+msgid "&Contact"
+msgstr "&Kontakt"
+
+#: ginkgo/mainwindow.py:611
+msgid "&Contacts"
+msgstr "&Kontaktar"
+
+#: ginkgo/mainwindow.py:611
+msgid "Create new contact"
+msgstr "Lag ny kontakt"
+
+#: ginkgo/mainwindow.py:612
+msgid "&Project"
+msgstr "&Prosjekt"
+
+#: ginkgo/mainwindow.py:612
+msgid "&Projects"
+msgstr "&Prosjekt"
+
+#: ginkgo/mainwindow.py:612
+msgid "Create new project"
+msgstr "Lag nytt prosjekt"
+
+#: ginkgo/mainwindow.py:613
+msgid "&Task"
+msgstr "&Oppgåve"
+
+#: ginkgo/mainwindow.py:613
+msgid "&Tasks"
+msgstr "&Oppgåver"
+
+#: ginkgo/mainwindow.py:613
+msgid "Create new task"
+msgstr "Lag ny oppgåve"
+
+#: ginkgo/mainwindow.py:614
+msgid "&Organization"
+msgstr "&Organisasjon"
+
+#: ginkgo/mainwindow.py:614
+msgid "&Organizations"
+msgstr "&Organisasjonar"
+
+#: ginkgo/mainwindow.py:614
+msgid "Create new organization"
+msgstr "Lag ny organisasjon"
+
+#: ginkgo/mainwindow.py:615
+msgid "&Topic"
+msgstr "&Emne"
+
+#: ginkgo/mainwindow.py:615
+msgid "&Topics"
+msgstr "&Emner"
+
+#: ginkgo/mainwindow.py:615
+msgid "Create new topic"
+msgstr "Lag nytt emne"
+
+#: ginkgo/mainwindow.py:616
+msgid "&Event"
+msgstr "&Hending"
+
+#: ginkgo/mainwindow.py:616
+msgid "&Events"
+msgstr "&Hendingar"
+
+#: ginkgo/mainwindow.py:616
+msgid "Create new event"
+msgstr "Lag ny hending"
+
+#: ginkgo/mainwindow.py:617
+msgid "&Location"
+msgstr "&Plassering"
+
+#: ginkgo/mainwindow.py:617
+msgid "&Locations"
+msgstr "&Plasseringar"
+
+#: ginkgo/mainwindow.py:617
+msgid "Create new location"
+msgstr "Lag ny plassering"
+
+#: ginkgo/mainwindow.py:618
+msgid "&WebPage"
+msgstr "&Nettside"
+
+#: ginkgo/mainwindow.py:618
+msgid "&Web Pages"
+msgstr "&Nettsider"
+
+#: ginkgo/mainwindow.py:618
+msgid "Create new Web page"
+msgstr "Lag ny nettside"
+
+#: ginkgo/mainwindow.py:619
+msgid "&Note"
+msgstr "&Merknad"
+
+#: ginkgo/mainwindow.py:619
+msgid "&Notes"
+msgstr "&Merknader"
+
+#: ginkgo/mainwindow.py:619
+msgid "Create new note"
+msgstr "Lag ny merknad"
+
+#: ginkgo/mainwindow.py:620
+msgid "&Files"
+msgstr "&Filer"
+
+#: ginkgo/mainwindow.py:620
+msgid "Create new file"
+msgstr "Lag ny fil"
+
+#: ginkgo/mainwindow.py:726 ginkgo/mainwindow.py:728
+msgid "Context - Ginkgo"
+msgstr "Samanheng – Ginko"
+
+#: ginkgo/mainwindow.py:726
+msgid "The context has been succesfully updated to <i>%1</i>."
+msgstr "Samanhengen vart oppdatert til <i>%1</i>."
+
+#: ginkgo/mainwindow.py:728
+msgid "An error occurred while updating the context."
+msgstr "Det oppstod ein feil under oppdateringa."
+
+#: ginkgo/mainwindow.py:824
+msgid "What's New"
+msgstr "Nytt i denne utgåva"
+
+#: ginkgo/mainwindow.py:838
+msgid "Search Results"
+msgstr "Søkjeresultat"
+
+#: ginkgo/mainwindow.py:992 ginkgo/mainwindow.py:1015
+msgid "Move &up"
+msgstr "Flytt &opp"
+
+#: ginkgo/mainwindow.py:994 ginkgo/mainwindow.py:1017
+msgid "Move &down"
+msgstr "Flytt &ned"
+
+#: ginkgo/mainwindow.py:996 ginkgo/mainwindow.py:1019
+msgid "&Remove entry"
+msgstr "&Fjern oppføring"
+
+#: ginkgo.py:16
+msgid "Ginkgo"
+msgstr "Ginkgo"
+
+#: ginkgo.py:17
+msgid "(c) 2010, Mandriva, Stéphane Laurière"
+msgstr "© 2010 Mandriva – Stéphane Laurière"
+
+#: ginkgo.py:19
+msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+msgstr "Ginko er ein utforskar for Nepomuk, det semantiske rammeverket i KDE."
+
+#: ginkgo.py:21
+msgid ""
+"Ginkgo lets you create and explore links between your personal data such as "
+"e-mails, contacts, files, Web pages."
+msgstr ""
+"Ginko lèt deg laga og utforska koplingar mellom blant anna e-postar, "
+"kontaktar, filer og nettsider."
+
+#: ginkgo.py:27
+msgid "Stéphane Laurière"
+msgstr "Stéphane Laurière"
+
+#: ginkgo.py:27
+msgid "Developer"
+msgstr "Utviklar"
+
+#: ginkgo.py:30 rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Karl Ove Hufthammer"
+
+#: ginkgo.py:30 rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "karl@huftis.org"
+
+#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:299 ginkgo/views/resourcetypestable.py:55
+msgid "Name"
+msgstr "Namn"
+
+#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:299
+msgid "Date"
+msgstr "Dato"
+
+#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcestable.py:299
+msgid "Type"
+msgstr "Type"
+
+#: ginkgo/views/relationstable.py:85 ginkgo/views/relationstable.py:106
+msgid "&Unlink from %1"
+msgstr "&Kopla frå %1"
+
+#: ginkgo/views/resourcecontextmenu.py:47
+msgid "&Open in new tab"
+msgstr "&Opna i ny fane"
+
+#: ginkgo/views/resourcecontextmenu.py:53
+msgid "Delete this resource from the Nepomuk database"
+msgstr "Fjern denne ressursen frå Nepomuk-databasen"
+
+#: ginkgo/views/resourcecontextmenu.py:61 ginkgo/views/resourcestable.py:381
+msgid "Open &file"
+msgstr "Opna &fil"
+
+#: ginkgo/views/resourcecontextmenu.py:65 ginkgo/views/resourcestable.py:384
+msgid "Open &page"
+msgstr "Opna &nettside"
+
+#: ginkgo/views/resourcecontextmenu.py:76 ginkgo/views/resourcestable.py:387
+msgid "&Write e-mail to"
+msgstr "&Skriv e-post til"
+
+#: ginkgo/views/resourcecontextmenu.py:81 ginkgo/views/resourcestable.py:389
+msgid "Set as &context"
+msgstr "Bruk som &samanheng"
+
+#: ginkgo/views/resourcepropertiestable.py:44
+#: ginkgo/views/resourcepropertiestable.py:141
+msgid "&Copy value to clipboard"
+msgstr "&Kopier verdi til utklipptavla"
+
+#: ginkgo/views/resourcepropertiestable.py:117
+msgid "Property"
+msgstr "Eigenskap"
+
+#: ginkgo/views/resourcepropertiestable.py:117
+msgid "Value"
+msgstr "Verdi"
+
+#: ginkgo/views/resourcestree.py:295 ginkgo/views/resourcestree.py:352
+msgid "New &instance"
+msgstr "Ny &instans"
+
+#: ginkgo/views/resourcestree.py:308 ginkgo/views/resourcestree.py:356
+msgid "&Add to places"
+msgstr "&Legg til stader"
+
+#: ginkgo/views/resourcestree.py:312 ginkgo/views/resourcestree.py:349
+msgid "&New type"
+msgstr "&Ny type"
+
+#: ginkgo/views/resourcestree.py:362
+msgid "&New sub-type"
+msgstr "&Ny undertype"
+
+#: ginkgo/views/resourcetypestable.py:55
+msgid "Ontology"
+msgstr "Ontologi"
+
+#: ginkgo/views/tasktree.py:326
+msgid "&New sub-task"
+msgstr "&Ny underoppgåve"
+
+#: ginkgo/views/typesview.py:37
+msgid "Ontologies:"
+msgstr "Ontologiar:"
+
+#: ginkgo/views/typesview.py:49
+msgid "&Type"
+msgstr "&Type"
+
+#: ginkgo/views/typesview.py:49
+#, fuzzy
+#| msgid "Types"
+msgid "&Types"
+msgstr "Typar"
+
+#: ginkgo/views/typesview.py:49
+#, fuzzy
+#| msgid "Create new note"
+msgid "Create new type"
+msgstr "Lag ny merknad"
+
+#~ msgid "File"
+#~ msgstr "Fil"
+
+#~ msgid "Link to file"
+#~ msgstr "Lenkja til fil"
