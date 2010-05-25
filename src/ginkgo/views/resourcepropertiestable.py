@@ -38,7 +38,7 @@ class PropertyContextMenu(QMenu):
     
     def actionTriggered(self, action):
         key = action.property("key").toString()
-        self.parent.processAction(key, self.selectedUris)
+        self.parent.processAction(key, self.propvalue)
         
     def createActions(self):
         copyAction = QAction(i18n("&Copy value to clipboard"), self)
