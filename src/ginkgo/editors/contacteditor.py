@@ -52,7 +52,8 @@ class ContactEditorUi(ResourceEditorUi):
     
     
     def nameTextEditedSlot(self, text):
-        self.label.setText(str(self.firstname.text()).strip()+" "+str(self.lastname.text()).strip())
+        if not self.labelEdited:
+            self.label.setText(str(self.firstname.text()).strip()+" "+str(self.lastname.text()).strip())
     
     def createMainPropertiesWidget(self, parent):
 
@@ -75,7 +76,7 @@ class ContactEditorUi(ResourceEditorUi):
         self.lastname.setObjectName("name")
 
         #update the label field automatically only if it's empty
-        if not self.labelEdited and (self.editor.resource is None or len(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()) == 0):
+        if self.editor.resource is None or len(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()) == 0:
             self.firstname.textEdited.connect(self.nameTextEditedSlot)
             self.lastname.textEdited.connect(self.nameTextEditedSlot)
 
