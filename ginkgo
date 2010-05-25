@@ -15,7 +15,7 @@ if __name__ == "__main__":
     catalog = "ginkgo"
     programName = ki18n ("Ginkgo")
     copyright = ki18n("(c) 2010, Mandriva, Stéphane Laurière")
-    version = "0.2"
+    version = "0.2.1"
     description = ki18n ("Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.")
     license = KAboutData.License_GPL_V2
     text = ki18n ("Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages.")
