@@ -363,7 +363,7 @@ class TypesContextMenu(ResourceContextMenu):
             if nodeClass.isSubClassOf(pimoThingClass):
                 self.addSeparator()
                 action = QAction(i18n("&New sub-type"), self)
-                action.setProperty("key", QVariant(NEW_SUB_TYPE))
+                action.setProperty("key", QVariant(NEW_SUBTYPE))
                 self.addAction(action)
 #        self.addDeleteAction()
         
