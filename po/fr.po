@@ -515,7 +515,6 @@ msgstr "&Ecrire un e-mail"
 
 #: ginkgo/views/resourcecontextmenu.py:81
 #: ginkgo/views/resourcestable.py:389
-#, fuzzy
 msgid "Set as &context"
 msgstr "Positionner la ressource courante comme contexte"
 
