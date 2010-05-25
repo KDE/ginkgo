@@ -9,7 +9,6 @@ sys.path.append("/usr/share/apps/ginkgo/")
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from ginkgo.mainwindow import Ginkgo
-from PyQt4.QtGui import QApplication
 
 if __name__ == "__main__":
     
@@ -18,7 +17,7 @@ if __name__ == "__main__":
     catalog = "ginkgo"
     programName = ki18n ("Ginkgo")
     copyright = ki18n("(c) 2010, Mandriva, Stéphane Laurière")
-    version = "0.2.1"
+    version = "0.2.4"
     description = ki18n ("Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit.")
     license = KAboutData.License_GPL_V2
     text = ki18n ("Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages.")
@@ -39,12 +38,16 @@ if __name__ == "__main__":
     options.add("+uri", ki18n("The URI of the resource annotate"));
     KCmdLineArgs.addCmdLineOptions(options)
 
+
     args = KCmdLineArgs.parsedArgs()
     uris = []
     for index in range(0, args.count()):
         uris.append(args.url(index))
         
+    #KUniqueApplication.addCmdLineOptions()
+    #app = KUniqueApplication(True, True)
     app = KApplication()
+
     app.setApplicationName("Gingko")
     app.setWindowIcon(KIcon("nepomuk"))
     ginkgo = Ginkgo(uris=uris)
