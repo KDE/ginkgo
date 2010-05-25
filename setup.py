@@ -14,7 +14,7 @@
 
 from distutils.core import setup
 setup(name='ginkgo',
-      version='0.2.1',
+      version='0.2.2',
       url = 'http://wiki.mandriva.com/en/Ginkgo',
       download_url = 'http://svn.mandriva.com/svn/packages/cooker/ginkgo/current/SOURCES/',
       package_dir = {"": "src"},
