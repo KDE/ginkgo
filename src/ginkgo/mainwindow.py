@@ -64,6 +64,8 @@ class Ginkgo(KMainWindow):
         status.setSizeGripEnabled(False)
         status.showMessage("Ready", 5000)
         self.currentTabChangedSlot(-1)
+        
+        #self.restoreSettings(uris is None or len(uris)==0)
         self.restoreSettings()
         self.setWindowTitle("Ginkgo")
         
@@ -599,32 +601,38 @@ class Ginkgo(KMainWindow):
 
     def loadPlacesData(self):
         """Try to restore the places from the settings, otherwise set default places."""    
-
-        config = KConfig("ginkgo")
-        ggroup = KConfigGroup(config, "places")
         
+        try:
+        
+            config = KConfig("ginkgo")
+            ggroup = KConfigGroup(config, "places")
+            
+                    
+            placesTypes = ggroup.readEntry("types", QStringList()).toStringList()
+            
+            
+            if placesTypes and len(placesTypes) > 0:
+                self.placesData = []
+                for type in placesTypes:
+                    self.placesData.append([QUrl(type)])
                 
-        placesTypes = ggroup.readEntry("types", QStringList()).toStringList()
-        if placesTypes and len(placesTypes) > 0:
-            self.placesData = []
-            for type in placesTypes:
-                self.placesData.append([QUrl(type)])
-            
-            placesLabels = ggroup.readEntry("labels", QStringList()).toStringList()
-            placesLabelsPlural = ggroup.readEntry("labels-plural", QStringList()).toStringList()
-            placesIcons = ggroup.readEntry("icons", QStringList()).toStringList()
-            placesTips = ggroup.readEntry("tips", QStringList()).toStringList()
-            
-            for index in range(0, len(self.placesData)):
+                placesLabels = ggroup.readEntry("labels", QStringList()).toStringList()
+                placesLabelsPlural = ggroup.readEntry("labels-plural", QStringList()).toStringList()
+                placesIcons = ggroup.readEntry("icons", QStringList()).toStringList()
+                placesTips = ggroup.readEntry("tips", QStringList()).toStringList()
                 
-                self.placesData[index].append(placesLabels[index])
-                self.placesData[index].append(placesLabelsPlural[index])
-                self.placesData[index].append(placesIcons[index])
-                self.placesData[index].append(placesTips[index])
-            
-
-        else:
-            self.placesData = [
+                for index in range(0, len(self.placesData)):
+                    
+                    self.placesData[index].append(placesLabels[index])
+                    self.placesData[index].append(placesLabelsPlural[index])
+                    self.placesData[index].append(placesIcons[index])
+                    self.placesData[index].append(placesTips[index])
+                return
+        except Exception, e:
+            print "[Ginkgo] An error occurred while restoring the places: %s. " % str(e)
+        
+        
+        self.placesData = [
                          [NCO.PersonContact, i18n("&Contact"), i18n("&Contacts"), "contact-new", i18n("Create new contact")],
                          [PIMO.Project, i18n("&Project"), i18n("&Projects"), "nepomuk", i18n("Create new project")],
                          [PIMO.Task, i18n("&Task"), i18n("&Tasks"), "view-task-add", i18n("Create new task")],
@@ -803,6 +811,7 @@ class Ginkgo(KMainWindow):
             
             self.descriptionSplitterState = ggroup.readEntry("description-splitter-state", QByteArray()).toByteArray()
             
+
             resourcesUris = ggroup.readEntry("active-resources", QStringList()).toStringList()
             for uri in resourcesUris:
                 self.openResource(uri, True, True)
