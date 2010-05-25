@@ -1036,7 +1036,7 @@ class PlacesContextMenu(QMenu):
         QMetaObject.connectSlotsByName(self)
     
     def actionTriggered(self, action):
-        key = unicode(action.text())
+        key = action.property("key").toString()
         self.parent.processAction(key, self.nepomukType)
         
     def createActions(self):
