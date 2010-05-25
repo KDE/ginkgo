@@ -120,7 +120,12 @@ class ResourceEditorUi(object):
     
     def __init__(self, editor):
         self.editor = editor
+        self.labelEdited = False
         self.setupUi()
+        
+        
+    def onLabelEdited(self, text):
+        self.labelEdited = True
 
     
     def setupUi(self):
@@ -150,6 +155,7 @@ class ResourceEditorUi(object):
         
         self.label.setMinimumWidth(400)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.label.textEdited.connect(self.onLabelEdited)
         hbox.setContentsMargins(0, 0, 0, 0)
         
         hbox.addWidget(self.label)

@@ -75,7 +75,7 @@ class ContactEditorUi(ResourceEditorUi):
         self.lastname.setObjectName("name")
 
         #update the label field automatically only if it's empty
-        if self.editor.resource is None or len(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()) == 0:
+        if not self.labelEdited and (self.editor.resource is None or len(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()) == 0):
             self.firstname.textEdited.connect(self.nameTextEditedSlot)
             self.lastname.textEdited.connect(self.nameTextEditedSlot)
 
