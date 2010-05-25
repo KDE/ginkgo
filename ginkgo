@@ -9,8 +9,11 @@ sys.path.append("/usr/share/apps/ginkgo/")
 from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from ginkgo.mainwindow import Ginkgo
+from PyQt4.QtGui import QApplication
 
 if __name__ == "__main__":
+    
+    
     appName = "ginkgo"
     catalog = "ginkgo"
     programName = ki18n ("Ginkgo")
@@ -29,15 +32,23 @@ if __name__ == "__main__":
     aboutData.setProgramIconName("nepomuk")
     aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
     
+    
     KCmdLineArgs.init (sys.argv, aboutData)
     
-    app = KApplication()
+    options = KCmdLineOptions()
+    options.add("+uri", ki18n("The URI of the resource annotate"));
+    KCmdLineArgs.addCmdLineOptions(options)
 
-    #app.setOrganizationName("KDE")
-    #app.setOrganizationDomain("kde.org")
+    args = KCmdLineArgs.parsedArgs()
+    uris = []
+    for index in range(0, args.count()):
+        uris.append(args.url(index))
+        
+    app = KApplication()
     app.setApplicationName("Gingko")
     app.setWindowIcon(KIcon("nepomuk"))
-    ginkgo = Ginkgo()
+    ginkgo = Ginkgo(uris=uris)
     ginkgo.show()
 
     sys.exit(app.exec_())
+

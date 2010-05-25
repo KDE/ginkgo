@@ -41,7 +41,7 @@ from ginkgo import resources_rc
 
 
 class Ginkgo(KMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, uris=None):
         super(Ginkgo, self).__init__(parent)
 
         self.workarea = KTabWidget()
@@ -66,6 +66,14 @@ class Ginkgo(KMainWindow):
         self.currentTabChangedSlot(-1)
         self.restoreSettings()
         self.setWindowTitle("Ginkgo")
+        
+        if uris and len(uris) > 0:
+            for uri in uris:
+                try:
+                    self.openResource(uri, True, False)
+                except Exception, e:
+                    print "[Ginkgo] Error while trying to open %s." % uri
+                                      
 
     def createActions(self):
 
@@ -349,9 +357,14 @@ class Ginkgo(KMainWindow):
 
     def openResource(self, uri=False, newTab=False, inBackground=True):
 
+        
+        
         #QApplication.setOverrideCursor(Qt.WaitCursor)
         self.workarea.setCursor(Qt.WaitCursor)
         resource = Nepomuk.Resource(uri)
+        if not resource.exists():
+            self.workarea.unsetCursor()
+            return
         
         editor = self.findResourceEditor(resource)
         
