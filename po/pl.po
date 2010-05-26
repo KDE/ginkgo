@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-24 10:50+0200\n"
-"PO-Revision-Date: 2010-05-25 16:27+0100\n"
+"PO-Revision-Date: 2010-05-26 19:40+0100\n"
 "Last-Translator: Marek Walczak <kubdat@poczta.fm>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -395,15 +395,15 @@ msgstr "Utwórz nowy plik"
 #: ginkgo/mainwindow.py:726
 #: ginkgo/mainwindow.py:728
 msgid "Context - Ginkgo"
-msgstr "Kontekst - Ginkgo"
+msgstr "Powiązanie - Ginkgo"
 
 #: ginkgo/mainwindow.py:726
 msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr "Kontekst został pomyślnie dodany do <i>%1</i>."
+msgstr "Powiązanie zostało pomyślnie dodane do <i>%1</i>."
 
 #: ginkgo/mainwindow.py:728
 msgid "An error occurred while updating the context."
-msgstr "Wystąpił bład podczas dodawania kontekstu."
+msgstr "Wystąpił błąd podczas dodawania powiązania."
 
 #: ginkgo/mainwindow.py:824
 msgid "What's New"
@@ -513,7 +513,7 @@ msgstr "&Napisz e-mail do"
 #: ginkgo/views/resourcecontextmenu.py:81
 #: ginkgo/views/resourcestable.py:389
 msgid "Set as &context"
-msgstr "Ustaw jako &kontekst"
+msgstr "Ustaw jako &powiązanie"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 #: ginkgo/views/resourcepropertiestable.py:141
@@ -531,7 +531,7 @@ msgstr "Wartość"
 #: ginkgo/views/resourcestree.py:295
 #: ginkgo/views/resourcestree.py:352
 msgid "New &instance"
-msgstr "Nowa &instancja"
+msgstr "Nowa &egzemplarz"
 
 #: ginkgo/views/resourcestree.py:308
 #: ginkgo/views/resourcestree.py:356
@@ -557,7 +557,7 @@ msgstr "&Nowe podzadanie"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
-msgstr "Ontologia:"
+msgstr "Ontologie:"
 
 #: ginkgo/views/typesview.py:49
 msgid "&Type"
