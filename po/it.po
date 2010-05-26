@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrea Celli <andrea.celli@libero.it>, 2010.
+# Andrea Celli <andrea.celli@ilibero.it>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-24 10:50+0200\n"
-"PO-Revision-Date: 2010-05-19 23:01+0200\n"
-"Last-Translator: Andrea Celli <andrea.celli@libero.it>\n"
-"Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"PO-Revision-Date: 2010-05-26 10:06+0200\n"
+"Last-Translator: Andrea Celli <andrea.celli@ilibero.it>\n"
+"Language-Team: Italian <timl@freelists.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:81
@@ -23,7 +24,7 @@ msgstr "&Nome:"
 
 #: ginkgo/dialogs/livesearchdialog.py:96
 msgid "Matching items:"
-msgstr ""
+msgstr "Elementi trovati:"
 
 #: ginkgo/dialogs/livesearchdialog.py:108
 #: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:85
@@ -37,7 +38,7 @@ msgstr "Apri risorsa"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
-msgstr ""
+msgstr "Seleziona tipi"
 
 #: ginkgo/dialogs/tasktreedialog.py:49
 msgid "Task Selection"
@@ -80,14 +81,12 @@ msgid "Properties"
 msgstr "Proprietà"
 
 #: ginkgo/editors/resourceeditor.py:254
-#, fuzzy
 msgid "Type(s): "
-msgstr "Tipi"
+msgstr "Tipo(i):"
 
 #: ginkgo/editors/taskeditor.py:128
-#, fuzzy
 msgid "Parent Task"
-msgstr "Nuova attività"
+msgstr "Attività madre"
 
 #: ginkgo/editors/taskeditor.py:129
 msgid "Non&e"
@@ -99,29 +98,27 @@ msgstr "&Altro"
 
 #: ginkgo/editors/taskeditor.py:137
 msgid "Select..."
-msgstr ""
+msgstr "Seleziona..."
 
 #: ginkgo/editors/taskeditor.py:147
-#, fuzzy
 msgid "Priority"
-msgstr "Proprietà"
+msgstr "Priorità"
 
 #: ginkgo/editors/taskeditor.py:148
 msgid "&Low"
-msgstr "&Basso"
+msgstr "&Bassa"
 
 #: ginkgo/editors/taskeditor.py:149
 msgid "&Medium"
-msgstr "&Medio"
+msgstr "&Media"
 
 #: ginkgo/editors/taskeditor.py:150
 msgid "&High"
-msgstr "A&lto"
+msgstr "A&lta"
 
 #: ginkgo/editors/taskeditor.py:160
-#, fuzzy
 msgid "Due date"
-msgstr "Data"
+msgstr "Data fissata"
 
 #: ginkgo/editors/websiteeditor.py:49
 msgid "URL"
@@ -181,23 +178,23 @@ msgstr "Imposta questa risorsa come contesto"
 
 #: ginkgo/mainwindow.py:105
 msgid "Stop query"
-msgstr ""
+msgstr "Ferma ricerca"
 
 #: ginkgo/mainwindow.py:108
 msgid "View data types"
-msgstr ""
+msgstr "Vedi i tipi di dato"
 
 #: ginkgo/mainwindow.py:108
 msgid "Display the available data types"
-msgstr ""
+msgstr "Mostra i tipi di dato disponibili"
 
 #: ginkgo/mainwindow.py:110
 msgid "Recent"
-msgstr ""
+msgstr "Recenti"
 
 #: ginkgo/mainwindow.py:110
 msgid "Show recently modified resources"
-msgstr ""
+msgstr "Mostra le risorse modificate di recente"
 
 #: ginkgo/mainwindow.py:112 ginkgo/mainwindow.py:620
 msgid "&File"
@@ -258,7 +255,7 @@ msgstr "Nuovo %1"
 
 #: ginkgo/mainwindow.py:413
 msgid "Warning"
-msgstr ""
+msgstr "Attenzione"
 
 #: ginkgo/mainwindow.py:441
 msgid "Resource removal"
@@ -406,7 +403,7 @@ msgstr "Si è verificato un errore nell'aggiornare il contesto."
 
 #: ginkgo/mainwindow.py:824
 msgid "What's New"
-msgstr ""
+msgstr "Novità"
 
 #: ginkgo/mainwindow.py:838
 msgid "Search Results"
@@ -478,7 +475,7 @@ msgstr "Tipo"
 
 #: ginkgo/views/relationstable.py:85 ginkgo/views/relationstable.py:106
 msgid "&Unlink from %1"
-msgstr ""
+msgstr "&Scollega da %1"
 
 #: ginkgo/views/resourcecontextmenu.py:47
 msgid "&Open in new tab"
@@ -498,17 +495,16 @@ msgstr "Apri &pagina"
 
 #: ginkgo/views/resourcecontextmenu.py:76 ginkgo/views/resourcestable.py:387
 msgid "&Write e-mail to"
-msgstr ""
+msgstr "&Invia un'e-mail a"
 
 #: ginkgo/views/resourcecontextmenu.py:81 ginkgo/views/resourcestable.py:389
-#, fuzzy
 msgid "Set as &context"
-msgstr "Imposta risorsa come contesto"
+msgstr "Imposta come &contesto"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 #: ginkgo/views/resourcepropertiestable.py:141
 msgid "&Copy value to clipboard"
-msgstr ""
+msgstr "Copia il valore negli appunti"
 
 #: ginkgo/views/resourcepropertiestable.py:117
 msgid "Property"
@@ -520,26 +516,23 @@ msgstr "Valore"
 
 #: ginkgo/views/resourcestree.py:295 ginkgo/views/resourcestree.py:352
 msgid "New &instance"
-msgstr ""
+msgstr "Nuova &istanza"
 
 #: ginkgo/views/resourcestree.py:308 ginkgo/views/resourcestree.py:356
 msgid "&Add to places"
 msgstr "&Aggiungi ai posti"
 
 #: ginkgo/views/resourcestree.py:312 ginkgo/views/resourcestree.py:349
-#, fuzzy
 msgid "&New type"
-msgstr "Nuovo tipo"
+msgstr "&Nuovo tipo"
 
 #: ginkgo/views/resourcestree.py:362
-#, fuzzy
 msgid "&New sub-type"
-msgstr "&Nuova sub-attività"
+msgstr "&Nuovo sotto-tipo"
 
 #: ginkgo/views/resourcetypestable.py:55
-#, fuzzy
 msgid "Ontology"
-msgstr "Ontologie:"
+msgstr "Ontologia"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
@@ -550,19 +543,16 @@ msgid "Ontologies:"
 msgstr "Ontologie:"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Type"
-msgstr "Tipo"
+msgstr "&Tipo"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Types"
-msgstr "Tipi"
+msgstr "&Tipi"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "Create new type"
-msgstr "Crea una nuova nota"
+msgstr "Crea un nuovo tipo"
 
 #~ msgid "Type Name"
 #~ msgstr "Scrivi il nome"
