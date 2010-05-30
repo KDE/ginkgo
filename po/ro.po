@@ -40,7 +40,7 @@ msgstr ""
 "Project-Id-Version: nepomuk-ginkgo\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-05-24 10:50+0200\n"
-"PO-Revision-Date: 2010-05-25 23:19+0100\n"
+"PO-Revision-Date: 2010-05-30 14:03+0100\n"
 "Last-Translator: Florin Cătălin RUSSEN <cfrussen@yahoo.co.uk>\n"
 "Language-Team: Romanian <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "Deschide"
 
 #: ginkgo/editors/resourceeditor.py:61
 msgid "Select Icon - Ginkgo"
-msgstr "Selectare iconiță - Ginkgo"
+msgstr "Selectare pictogramă - Ginkgo"
 
 #: ginkgo/editors/resourceeditor.py:61
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
