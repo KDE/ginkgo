@@ -25,89 +25,257 @@ from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 from ginkgo.util import mime
-from ginkgo.views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.objectcontextmenu import ObjectContextMenu
 from ginkgo.actions import * 
 
+
+class RelationsTableModel(QAbstractTableModel):
+    def __init__(self, parent=None):
+        super(RelationsTableModel, self).__init__(parent)
+        self.relations = []
+        self.editor = parent
+    
+    def rowCount(self, index):
+        return len(self.relations)
+    
+    def columnCount(self, index):
+        return len(self.headers)
+
+    def data(self, index, role):
+        if not index.isValid():
+            return QVariant()
+        if role == Qt.TextAlignmentRole:
+            if index.column() == 0:
+                return Qt.AlignLeft | Qt.AlignVCenter
+            elif index.column() == 1:
+                return Qt.AlignLeft | Qt.AlignVCenter
+            elif index.column() == 2:
+                return Qt.AlignLeft | Qt.AlignVCenter
+            elif index.column() == 3:
+                return Qt.AlignLeft | Qt.AlignVCenter
+
+        elif role == Qt.DisplayRole:
+            return self.itemAt(index)
+        
+        elif role == Qt.DecorationRole:
+            if index.column() == 0:
+                relation = self.relations[index.row()]
+                direct = relation[2]
+                if direct: 
+                    return QIcon("/usr/share/icons/oxygen/16x16/actions/draw-triangle2.png")
+                else:
+                    return QIcon("/usr/share/icons/oxygen/16x16/actions/draw-triangle1.png")
+
+            elif index.column() == 1:
+                relation = self.relations[index.row()]
+                object = relation[1] 
+                return self.editor.mainWindow.resourceQIcon(object)
+
+        return QVariant()
+
+    def headerData(self, section, orientation, role):
+        if role != Qt.DisplayRole:
+            return QVariant()
+        if orientation == Qt.Horizontal:
+            return self.headers[section]
+        else:
+            return None
+
+
+    def itemAt(self, index):
+        relation = self.relations[index.row()]
+        predicate = relation[0]
+        object = relation[1] 
+        direction = relation[2]
+        column = index.column()
+        if column == 0:
+            label = predicate.label("en")
+            return label
+        elif column == 1:
+            return object.genericLabel()
+        elif column == 2:
+            return object.property(Soprano.Vocabulary.NAO.lastModified()).toDateTime()
+        elif column == 3:
+            for type in object.types():
+                if type != Soprano.Vocabulary.RDFS.Resource():
+                    label = type.toString()
+                    label = unicode(label)
+                    if label.find("#") > 0:
+                        label = label[label.find("#") + 1:]
+                        if label == "FileDataObject":
+                            label = "File"
+                        elif label == "TextDocument":
+                            label = "File"
+                        #return a QString instead of a str for the proxy model, which handles only QString
+                        
+                    elif label.find("nepomuk:/") == 0:
+                        #this is a custom type, we need to get the label of the ressource
+                        typeResource = Nepomuk.Resource(label)
+                        label = typeResource.genericLabel()
+                    else:
+                        label = label[label.rfind("/") + 1:]
+                    return QString(label)
+
+    def objectAt(self, row):
+        return self.relations[row]
+
+    def resourceAt(self, row):
+        return self.relations[row][1]
+    
+    def setRelations(self, relations):
+        self.relations = relations
+        
+    def setHeaders(self, headers):
+        self.headers = headers
+        
+    #bool QAbstractItemModel::insertRows ( int row, int count, const QModelIndex & parent = QModelIndex() )
+    def addRelation(self, predicate, target, direct):
+        self.beginInsertRows(QModelIndex(), len(self.relations), len(self.relations))
+        self.relations.append((predicate, target, direct))
+        self.endInsertRows()
+        
+    def removeRelation(self, subject, predicate, target):
+        for row in range(len(self.relations)):
+            relation = self.objectAt(row)
+            if relation and (relation[0] == predicate and relation[1] == target):
+                self.beginRemoveRows(QModelIndex(), row, row)
+                self.relations.pop(row)
+                self.endRemoveRows()
+                break
+            elif relation and (relation[0] == predicate and relation[1] == subject):
+                self.beginRemoveRows(QModelIndex(), row, row)
+                self.relations.pop(row)
+                self.endRemoveRows()
+                break
+                
             
 class RelationsTable(ResourcesTable):
     
     def __init__(self, mainWindow=False, dialog=None, resource=None):
         self.resource = resource
-        super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog)
-        #override the column policy
-#        self.table.horizontalHeader().setResizeMode(0,QHeaderView.Interactive)
-#        self.table.horizontalHeader().setStretchLastSection(True)
-#        self.table.resizeColumnsToContents()
+        super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog, sortColumn=1)
+        self.table.horizontalHeader().setResizeMode(0, QHeaderView.Interactive)
+        self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
+        self.table.resizeColumnsToContents()
 
 
     def createModel(self):
         
-        self.model = ResourcesTableModel(self)
-        self.model.setHeaders([i18n("Name"), i18n("Date"), i18n("Type") ])
+        self.model = RelationsTableModel(self)
+        self.model.setHeaders([i18n("Relation"), i18n("Title"), i18n("Date"), i18n("Type") ])
         
         if self.resource:
-            resources = datamanager.findRelations(self.resource.uri())
-            #TODO: find built-in conversion
-            ressourceArray = []
-            for elt in resources:
-                ressourceArray.append(elt)
-            self.model.setResources(ressourceArray)
+            relations = datamanager.findDirectRelations(self.resource.uri())
+
+            data = []
+            for predicate in relations.keys():
+                for resource in relations[predicate]:
+                    data.append((predicate, resource, True))
+
+            inverseRelations = datamanager.findInverseRelations(self.resource.uri())
+            for predicate in inverseRelations.keys():
+                for resource in inverseRelations[predicate]:
+                    #TODO: see why we get some resources with a void predicate sometimes
+                    if predicate and predicate.uri() and len(str(predicate.uri().toString())) > 0:
+                        data.append((predicate, resource, False))
+            
+            
+            self.model.setRelations(data)
 
   
-    def statementAddedSlot(self, statement):
-        predicate = statement.predicate().uri()
-        if predicate == Soprano.Vocabulary.NAO.isRelated() or predicate == PIMO.isRelated:
-            subject = statement.subject().uri()
-            object = statement.object().uri()
-            if self.resource and subject == self.resource.resourceUri():
-                newrelation = Nepomuk.Resource(object)
-                self.addResource(newrelation)
-            elif object and self.resource and object == self.resource.resourceUri():
-                newrelation = Nepomuk.Resource(subject)
-                self.addResource(newrelation)
-                
-        
-    def statementRemovedSlot(self, statement):
-        subject = statement.subject().uri()
-        predicate = statement.predicate().uri()
-        object = statement.object().uri()
-        
-        if predicate == Soprano.Vocabulary.NAO.isRelated() or predicate == PIMO.isRelated:
-            self.removeResource(subject)
-            self.removeResource(object)
-
-        #if a resource was completely removed, remove it from the relation table as well
-        super(RelationsTable, self).statementRemovedSlot(statement)
-
-    def processAction(self, key, resourceUri):
-        if super(RelationsTable, self).processAction(key, resourceUri):
+    def processAction(self, key, selectedResources, selectedRelations):
+        if super(RelationsTable, self).processAction(key, selectedResources):
             return True
         elif self.resource and key == UNLINK:
-            self.mainWindow.unlink(Soprano.Vocabulary.NAO.isRelated(), resourceUri, True)
-            self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
+            for relation in selectedRelations:
+                direct = relation[2]
+                predicate = relation[0]
+                if direct:
+                    subject = self.resource
+                    object = relation[1]
+                else:
+                    subject = relation[1]
+                    object = self.resource
+                
+                self.mainWindow.removeRelation(subject, predicate, object)
+                
+                
+                #self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
         
     def createContextMenu(self, selection):
-        return RelationsTableContextMenu(self, selection)
+        return RelationContextMenu(self, selection)
     
     def setResource(self, resource):
         self.resource = resource
 
-class RelationsTableContextMenu(ResourceContextMenu):
-    def __init__(self, parent=None, selectedUris=None):
-        super(RelationsTableContextMenu, self).__init__(parent=parent, selectedUris=selectedUris)
-    
+
+    def statementAddedSlot(self, statement):
+        predicateUri = statement.predicate().uri()
+        predicate = Nepomuk.Types.Property(predicateUri)
         
+        #if the range of the predicate is a literal, return 
+        if not predicate.range().isValid():
+            return
+        
+        #the table doesn't display type relations
+        if predicateUri == Soprano.Vocabulary.RDF.type():
+            return
+        
+        subjectUri = statement.subject().uri()
+        objectUri = statement.object().uri()
+        if self.resource and subjectUri == self.resource.resourceUri():
+            object = Nepomuk.Resource(objectUri)
+            self.table.model().sourceModel().addRelation(predicate, object, True)
+        elif self.resource and objectUri == self.resource.resourceUri():
+            subject = Nepomuk.Resource(subjectUri)
+            self.table.model().sourceModel().addRelation(predicate, subject, False)
+                
+        
+    def statementRemovedSlot(self, statement):
+        predicateUri = statement.predicate().uri()
+        predicate = Nepomuk.Types.Property(predicateUri)
+        if not predicate.range().isValid():
+            return
+        subjectUri = statement.subject().uri()
+        objectUri = statement.object().uri()
+        subject = Nepomuk.Resource(subjectUri)
+        object = Nepomuk.Resource(objectUri)
+        
+        if self.resource == subject or self.resource == object:
+            self.table.model().sourceModel().removeRelation(subject, predicate, object)
+        
+
+        #if a resource was completely removed, remove it from the relation table as well
+        #super(RelatedsTable, self).statementRemovedSlot(statement)        
+
+class RelationContextMenu(ObjectContextMenu):
+    def __init__(self, parent=None, selectedRelations=None):
+        #The selection contains tuples: predicate, object, direct/inverse
+        selectedResources = []
+        self.selectedRelations = selectedRelations
+        
+        for relation in selectedRelations:
+            selectedResources.append(relation[1])
+        
+        super(RelationContextMenu, self).__init__(parent, selectedResources)
+
+    def actionTriggered(self, action):        
+        key = action.property("key").toString()
+        self.parent.processAction(key, self.selectedResources, self.selectedRelations)
+                
     def createActions(self):
 
-        if self.selectedUris:
+        if self.selectedResources:
             self.addOpenAction()
             self.addExternalOpenAction()
             
-            action = QAction(i18n("&Unlink from %1", self.parent.resource.genericLabel()), self)
+            self.addSendMailAction()
+
+            #action = QAction(i18n("&Unlink from %1", self.parent.resource.genericLabel()), self)
+            action = QAction(i18n("&Remove relation(s)"), self)
             action.setProperty("key", QVariant(UNLINK))
             action.setIcon(KIcon("nepomuk"))
             self.addAction(action)
-            self.addSendMailAction()
                 
             self.addDeleteAction()
         else:

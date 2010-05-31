@@ -18,11 +18,12 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import i18n
-from ginkgo.views.relationstable import RelationsTable
 from ginkgo.views.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
 from PyKDE4.nepomuk import Nepomuk
 from ginkgo.dialogs.resourcetypesdialog import ResourceTypesDialog
+from ginkgo.util import util
+from ginkgo.views.relationstable import RelationsTable
 import os
 
 def getClass(clazz):
@@ -70,7 +71,6 @@ class ResourceEditor(QWidget):
 
 
     def save(self):
-        #self.mainWindow.workarea.setCursor(Qt.WaitCursor)
         self.setCursor(Qt.WaitCursor)
         if self.resource is None:
             self.resource = self.mainWindow.createResource(self.ui.resourceLabel(), self.nepomukType)
@@ -84,9 +84,15 @@ class ResourceEditor(QWidget):
         self.ui.relationsTable.setResource(self.resource)
         self.ui.propsTable.setResource(self.resource)
 #        #save generic properties
-        self.resource.setLabel(self.ui.resourceLabel())
-        self.resource.setDescription(self.ui.description.toPlainText())
-#        
+        self.resource.setLabel(unicode(self.ui.resourceLabel()))
+        
+        desc = unicode(self.ui.description.toPlainText())
+        
+        self.resource.setDescription(desc)
+        
+        #TODO: catch Except and print warning
+        #reply = QMessageBox.warning(self, i18n("Warning", ), i18n("An error ocurred when saving the resource. You should copy and paste this resource's contents to a distinct editor. Please report a bug."))
+
 #        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
         if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
             self.ui.updateFields()
@@ -104,16 +110,16 @@ class ResourceEditor(QWidget):
         if not self.resource:
             self.save()
                 
-        dialog =  ResourceTypesDialog(mainWindow=self.mainWindow, resource=self.resource)
+        dialog = ResourceTypesDialog(mainWindow=self.mainWindow, resource=self.resource)
         if dialog.exec_():
-            selection =  dialog.selectedResources()
-            types = []
+            selection = dialog.selectedResources()
+            #add the general rdf:Resource type
+            types = [Soprano.Vocabulary.RDFS.Resource()]
             for res in selection:
                 types.append(res.resourceUri())
-                
-            self.resource.setTypes(types)
-            self.ui.updateFields()
             
+            self.resource.setTypes(types)
+            self.ui.updateFields()            
 
 
 class ResourceEditorUi(object):
@@ -123,10 +129,15 @@ class ResourceEditorUi(object):
         self.labelEdited = False
         self.setupUi()
         
-        
     def onLabelEdited(self, text):
         self.labelEdited = True
-
+#        if text and len(text) > 0:
+#            p = QPalette()
+#            p.setColor(QPalette.Text, p.color(QPalette.Normal, QPalette.Text))
+#            self.label.setPalette(p)
+#            f = self.label.font()
+#            f.setItalic(False)
+#            self.label.setFont(f)
     
     def setupUi(self):
         #create the card sheet on the left
@@ -149,12 +160,22 @@ class ResourceEditorUi(object):
         infoWidget = QWidget(descriptionWidget)
 
         hbox = QHBoxLayout(infoWidget)
-        self.label = QLineEdit()
+        self.label = KLineEdit()
         shortcut = QShortcut(QKeySequence("Ctrl+L"), self.label);
         shortcut.activated.connect(self.editor.focusOnLabelField)
         
         self.label.setMinimumWidth(400)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+#        p = QPalette()
+#        p.setColor(QPalette.Text, p.color(QPalette.Disabled, QPalette.Text))
+#        self.label.setPalette(p)
+#        f = self.label.font()
+#        f.setItalic(True)
+#        self.label.setFont(f)
+#        self.label.setText(i18n("Title..."))
+#        self.label.setCursorPosition(0)
+        
+        
         self.label.textEdited.connect(self.onLabelEdited)
         hbox.setContentsMargins(0, 0, 0, 0)
         
@@ -199,22 +220,22 @@ class ResourceEditorUi(object):
 #        vboxlayout.addWidget(descriptionLabel)
         vboxlayout.addWidget(self.description)
         
-        relpropWidget = KTabWidget(self.rightpane)
+        self.relationsWidget = KTabWidget(self.rightpane)
         #vboxlayout = QVBoxLayout(relationsWidget)
         #self.relationsLabel = QLabel(relationsWidget)
         
         self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
         self.propsTable = ResourcePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
         
-        relpropWidget.addTab(self.relationsTable , i18n("Relations"))
-        relpropWidget.addTab(self.propsTable, i18n("Properties"))
+        self.relationsWidget.addTab(self.relationsTable , i18n("Relations"))
+        self.relationsWidget.addTab(self.propsTable, i18n("Properties"))
         
 #        self.relationsLabel.setBuddy(relationsTable)
 #        vboxlayout.addWidget(self.relationsLabel)
 #        vboxlayout.addWidget(relationsTable)
         
         self.rightpane.addWidget(descriptionWidget)
-        self.rightpane.addWidget(relpropWidget)
+        self.rightpane.addWidget(self.relationsWidget)
         self.rightpane.setSizes([100, 300])
         self.rightpane.restoreState(self.editor.mainWindow.descriptionSplitterState)
         
@@ -236,28 +257,39 @@ class ResourceEditorUi(object):
         if self.editor.resource:
             if hasattr(self, "name"):
                 self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
+
             cursor = self.description.textCursor()
             pos = cursor.position()
             self.description.setText(self.editor.resource.description())
             cursor.setPosition(pos)
             self.description.setTextCursor(cursor)
-            self.label.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
+
+
+            prefLabel = self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()
+            p = QPalette()
+            p.setColor(QPalette.Text, p.color(QPalette.Normal, QPalette.Text))
+            self.label.setPalette(p)
+            f = self.label.font()
+            f.setItalic(False)
+            self.label.setFont(f)
+            self.label.setText(prefLabel)
+            
             types = ""
             for type in self.editor.resource.types():
                 if type == Soprano.Vocabulary.RDFS.Resource():
                     continue
                 typestr = str(type.toString())
                 if typestr.find("#") > 0:
-                    typestr = typestr[typestr.find("#")+1:]
+                    typestr = typestr[typestr.find("#") + 1:]
                 elif typestr.find("nepomuk:/") == 0:
                     #this is a custom type, we need to get the label of the ressource
                     typeResource = Nepomuk.Resource(typestr)
                     typestr = typeResource.genericLabel()
                 else:
-                    typestr = typestr[typestr.rfind("/")+1:]
-                types = types  + i18n(typestr) +" "
+                    typestr = typestr[typestr.rfind("/") + 1:]
+                types = types + i18n(typestr) + " "
                 
-            self.typesInfo.setText(i18n("Type(s): ")+types)
+            self.typesInfo.setText(i18n("Type(s): ") + types)
         
 
     def createIconWidget(self, parent):

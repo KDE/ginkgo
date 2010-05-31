@@ -25,12 +25,14 @@ from PyKDE4.kdecore import i18n
 from ginkgo.views.typepropertiestable import TypePropertiesTable
 
 
-class ClassEditor(ResourceEditor):
-    def __init__(self, mainWindow=False, resource=None, superClassUri=None, nepomukType=None):
-        super(ClassEditor, self).__init__(mainWindow=mainWindow, resource=resource, nepomukType=Soprano.Vocabulary.RDFS.Class())
+class PropertyEditor(ResourceEditor):
+    #nepomukType is needed by Ginkgo call: newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
+    #TODO: see how to make this argument optional in editors
+    def __init__(self, mainWindow=False, resource=None, domainUri=None, nepomukType=None):
+        super(PropertyEditor, self).__init__(mainWindow=mainWindow, resource=resource, nepomukType=Soprano.Vocabulary.RDF.Property())
         self.defaultIcon = ""
-        self.superClassUri = superClassUri
-        self.ui = ClassEditorUi(self)
+        self.domainUri = domainUri
+        self.ui = PropertyEditorUi(self)
     
             
     def save(self):
@@ -38,15 +40,13 @@ class ClassEditor(ResourceEditor):
         #don't call the superclass save method this classes or not standard resource types
         self.setCursor(Qt.WaitCursor)
         if self.resource is None:
-            self.resource = datamanager.createPimoClass(self.superClassUri, self.ui.label.text())
+            self.resource = datamanager.createPimoProperty(self.ui.label.text(), self.domainUri)
         self.unsetCursor()
 
     def focus(self):
         self.ui.label.setFocus(Qt.OtherFocusReason)    
 
-class ClassEditorUi(ResourceEditorUi):
+class PropertyEditorUi(ResourceEditorUi):
     
     def setupUi(self):
-        super(ClassEditorUi, self).setupUi()
-        self.typePropertiesTable = TypePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
-        self.relationsWidget.addTab(self.typePropertiesTable , i18n("Type properties"))
+        super(PropertyEditorUi, self).setupUi()

@@ -39,8 +39,8 @@ class ContactEditor(ResourceEditor):
         
         super(ContactEditor, self).save()
         
-        self.resource.setProperty(NCO.nameGiven, Nepomuk.Variant(self.ui.firstname.text()))
-        self.resource.setProperty(NCO.nameFamily, Nepomuk.Variant(self.ui.lastname.text()))
+        self.resource.setProperty(NCO.nameGiven, Nepomuk.Variant(unicode(self.ui.firstname.text())))
+        self.resource.setProperty(NCO.nameFamily, Nepomuk.Variant(unicode(self.ui.lastname.text())))
         self.resource.setProperty(NCO.emailAddress, Nepomuk.Variant(self.ui.email.text()))
         self.resource.setProperty(NCO.phoneNumber, Nepomuk.Variant(self.ui.phone.text()))
     
@@ -53,7 +53,7 @@ class ContactEditorUi(ResourceEditorUi):
     
     def nameTextEditedSlot(self, text):
         if not self.labelEdited:
-            self.label.setText(str(self.firstname.text()).strip()+" "+str(self.lastname.text()).strip())
+            self.label.setText(unicode(self.firstname.text()).strip()+" "+unicode(self.lastname.text()).strip())
     
     def createMainPropertiesWidget(self, parent):
 

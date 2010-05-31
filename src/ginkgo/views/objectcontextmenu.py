@@ -21,20 +21,20 @@ from PyKDE4.kdecore import i18n
 from ginkgo.ontologies import NFO, NCO
 from ginkgo.actions import *
 
-class ResourceContextMenu(QMenu):
-    def __init__(self, parent=None, selectedUris=False):
-        super(ResourceContextMenu, self).__init__(parent)
-        self.selectedUris = selectedUris
+class ObjectContextMenu(QMenu):
+    def __init__(self, parent, selectedResources):
+        super(ObjectContextMenu, self).__init__(parent)
+        #TODO: rename into selectedObjects since selection can contain resources, relations or properties
+        self.selectedResources = selectedResources
         self.parent = parent
         self.createActions()
 
         self.triggered.connect(self.actionTriggered)
         QMetaObject.connectSlotsByName(self)
     
-    def actionTriggered(self, action):
-        
+    def actionTriggered(self, action):        
         key = action.property("key").toString()
-        self.parent.processAction(key, self.selectedUris)
+        self.parent.processAction(key, self.selectedResources)
         
     def createActions(self):
         self.addOpenAction()
@@ -58,8 +58,8 @@ class ResourceContextMenu(QMenu):
         self.addAction(action)
 
     def addExternalOpenAction(self):
-        if len(self.selectedUris) == 1:
-            resource = Nepomuk.Resource(self.selectedUris[0])
+        if len(self.selectedResources) == 1:
+            resource = Nepomuk.Resource(self.selectedResources[0])
             if resource and NFO.FileDataObject in resource.types(): 
                 action = QAction(i18n("Open &file"), self)
                 action.setProperty("key", QVariant(OPEN_FILE))
@@ -73,7 +73,7 @@ class ResourceContextMenu(QMenu):
 
 
     def addSendMailAction(self):
-        for item in self.selectedUris:
+        for item in self.selectedResources:
             res = Nepomuk.Resource(item)
             #TODO: check that the NCO.emailAddress property is not void
             if not NCO.PersonContact in res.types():
@@ -83,7 +83,7 @@ class ResourceContextMenu(QMenu):
         self.addAction(action)
         
     def addSetAsContextAction(self):
-        if len(self.selectedUris) == 1:
+        if len(self.selectedResources) == 1:
             action = QAction(i18n("Set as &context"), self)
             action.setProperty("key", QVariant(SET_AS_CONTEXT))
             self.addAction(action)

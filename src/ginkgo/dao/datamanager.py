@@ -12,12 +12,13 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-from PyQt4.QtCore import QUrl, QFile
+from PyQt4.QtCore import QUrl, QFile, QDateTime
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
+from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
 from sys import exc_info
 from traceback import format_exception
-from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
+
 import os
 
 DC_TERMS = "http://purl.org/dc/terms/"
@@ -54,7 +55,7 @@ def removeResource(uri):
 
 
 def scrap1():
-    url  =QUrl("nepomuk:/res/a8b8ed53-3f5e-4199-b824-f7f0360408c5")
+    url = QUrl("nepomuk:/res/a8b8ed53-3f5e-4199-b824-f7f0360408c5")
     res = Nepomuk.Resource(url)
     print res
     
@@ -76,7 +77,7 @@ def scrap():
     typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)
     query = Nepomuk.Query.Query(typeTerm)
     
-    data =executeQuery(query.toSparqlQuery())
+    data = executeQuery(query.toSparqlQuery())
     for elt in data:
         elt.addProperty(Soprano.Vocabulary.RDF.type(), Nepomuk.Variant(NCO.PersonContact))
         
@@ -93,9 +94,7 @@ def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None,
                 
     nepomukType = Nepomuk.Types.Class(nepomukType)
     term = Nepomuk.Query.ResourceTypeTerm(nepomukType)
-    
-    
-    
+
     query = Nepomuk.Query.Query(term);
     sparql = query.toSparqlQuery();
     
@@ -147,7 +146,122 @@ def executeQuery(sparql):
      
     return data
 
+def findDirectRelations(uri):
+    resource = Nepomuk.Resource(uri)    
+    relations = dict()
+    props = resource.properties()
+    
+    for prop in props:
+        if props[prop].isResourceList():
+            relations[prop.toString()] = set(props[prop].toResourceList())
+        elif props[prop].isResource():
+            relations[prop.toString()] = set([props[prop].toResource()])
+            
+    newrelations = dict()
+    for key in relations.keys():
+        prop = Nepomuk.Types.Property(QUrl(key))
+        newrelations[prop] = relations[key]
+
+    return newrelations
+
+def findInverseRelations(uri):
+    resource = Nepomuk.Resource(uri)    
+    relations = dict()
+    
+    props = resourceTypesProperties(resource)
+    for property in props:
+        #skip the RDF.type() property, otherwise for classes we get all their instances
+        if property.uri() == Soprano.Vocabulary.RDF.type():
+            continue
+        
+        irel = Nepomuk.ResourceManager.instance().allResourcesWithProperty(property.uri(), Nepomuk.Variant(resource))
+        if len(irel) > 0 and relations.has_key(property.uri().toString()):
+            relations[property.uri().toString()] = relations[property.uri().toString()].union(irel)
+        elif len(irel) > 0:
+            relations[property.uri().toString()] = set(irel)
+
+    #TODO: the dict should directly contain property objects, and compare them properly
+    #see how to give the dict a good hash function for properties (based on the comparison of their uri)
+
+    newrelations = dict()
+    for key in relations.keys():
+        prop = Nepomuk.Types.Property(QUrl(key))
+        newrelations[prop] = relations[key]
+    
+    
+    return newrelations
+
+
+
+
 def findRelations(uri):
+     
+    resource = Nepomuk.Resource(uri)    
+    relations = dict()
+    props = resource.properties()
+    
+    for prop in props:
+        if props[prop].isResourceList():
+            relations[prop.toString()] = set(props[prop].toResourceList())
+        elif props[prop].isResource():
+            relations[prop.toString()] = set([props[prop].toResource()])
+            
+
+    props = resourceTypesProperties(resource)
+    for property in props:
+        irel = Nepomuk.ResourceManager.instance().allResourcesWithProperty(property.uri(), Nepomuk.Variant(resource))
+        if len(irel) > 0 and relations.has_key(property.uri().toString()):
+            relations[property.uri().toString()] = relations[property.uri().toString()].union(irel)
+        elif len(irel) > 0:
+            relations[property.uri().toString()] = set(irel)
+
+    #TODO: the dict should directly contain property objects, and compare them properly
+    #see how to give the dict a good hash function for properties (based on the comparison of their uri)
+
+    newrelations = dict()
+    for key in relations.keys():
+        prop = Nepomuk.Types.Property(QUrl(key))
+        newrelations[prop] = relations[key]
+    
+    
+    return newrelations
+
+def resourceTypesProperties(resource, includePropertiesWithLiteralRange=False):
+    """ Returns properties whose domain is one of the types of the resource passed as argument.
+    """
+    
+    props = []
+    for type in resource.types():
+        typeClass = Nepomuk.Types.Class(type)
+        tprops = typeProperties(typeClass, includePropertiesWithLiteralRange)
+        for aprop in tprops:
+            #TODO: do it the proper way
+            try:
+                props.index(aprop)
+            except:
+                props.append(aprop)
+
+        for parentClass in typeClass.allParentClasses():
+            tprops = typeProperties(parentClass, includePropertiesWithLiteralRange)
+            for aprop in tprops:
+                try:
+                    props.index(aprop)
+                except:
+                    props.append(aprop)
+
+    return props
+
+def typeProperties(nepomukTypeClass, includePropertiesWithLiteralRange=False):
+    props = []
+    for property in nepomukTypeClass.domainOf():
+        if property.range().isValid():
+            props.append(property)
+        elif includePropertiesWithLiteralRange:
+            props.append(property)
+            
+    return props
+
+def findRelateds(uri):
      
     resource = Nepomuk.Resource(uri)    
     related = set(resource.isRelateds())
@@ -168,15 +282,38 @@ def findRelations(uri):
     #return data
 
 
-#used by the matchitemdialog, see also the function labelSearch
+
 def findResourcesByLabel(label, queryNextReadySlot, queryFinishedSlot=None, controller=None):
-    #handle regex
+
     label = label.replace("*", ".*")
     label = label.replace("?", ".")
-       
-    sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"^%s\", \"i\")  }" % label
+
+    literalTerm = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(label))
+    prop = Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel())
+    term = Nepomuk.Query.ComparisonTerm(prop, literalTerm, Nepomuk.Query.ComparisonTerm.Regexp)
+    query = Nepomuk.Query.Query(term)
+    sparql = query.toSparqlQuery()
+
     executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
     
+
+def findResourcesByTypeAndLabel(typeUri, label, queryNextReadySlot, queryFinishedSlot=None, controller=None):
+    
+    label = label.replace("*", ".*")
+    label = label.replace("?", ".")
+
+    nepomukType = Nepomuk.Types.Class(typeUri)
+    typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)
+
+    literalTerm = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(label))
+    prop = Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel())
+    labelTerm = Nepomuk.Query.ComparisonTerm(prop, literalTerm, Nepomuk.Query.ComparisonTerm.Regexp)
+    
+    andTerm = Nepomuk.Query.AndTerm(typeTerm, labelTerm)
+    
+    query = Nepomuk.Query.Query(andTerm)
+    sparql = query.toSparqlQuery()
+    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 def findResourcesByLabelSync(label):
     queryString = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"%s\", \"i\")  }" % label 
@@ -233,12 +370,12 @@ def listResourcesOrderedByDate(queryNextReadySlot, queryFinishedSlot, controller
     
 
 #see also findResourcesByLabel
-def labelSearch(label, queryNextReadySlot, queryFinishedSlot, controller):
-    label = label.replace("*", ".*")
-    label = label.replace("?", ".")
-       
-    sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"%s\", \"i\")  }" % label
-    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
+#def labelSearch(label, queryNextReadySlot, queryFinishedSlot, controller):
+#    label = label.replace("*", ".*")
+#    label = label.replace("?", ".")
+#       
+#    sparql = "select distinct ?r, ?label  where { ?r <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label  . FILTER regex(?label,  \"%s\", \"i\")  }" % label
+#    executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 
 def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None, controller=None):
@@ -251,13 +388,15 @@ def fullTextSearch(term, queryNextReadySlot, queryFinishedSlot=None, controller=
     term = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(term))
     query = Nepomuk.Query.Query(term)
     sparql = query.toSparqlQuery()
+    print sparql
     #data = executeQuery(sparql)
     executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 
 #Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
 def createPimoClass(parentClassUri, label, comment=None, icon=None):
-    if label is None or len(str(label).strip()) == 0:
+    
+    if label is None or len(unicode(label).strip()) == 0:
         print "Class label cannot be empty."
         return None
     
@@ -281,22 +420,83 @@ def createPimoClass(parentClassUri, label, comment=None, icon=None):
 #    }
 
     classUri = Nepomuk.ResourceManager.instance().generateUniqueUri()
-
-    ctx = Soprano.Node(pimoContext())
-    model = Nepomuk.ResourceManager.instance().mainModel()
-    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDFS.Class()), ctx)
-    model.addStatement(stmt)
-    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(parentClassUri), ctx)
-    model.addStatement(stmt)
-    
+    stmts = []
+    stmts.append(Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDFS.Class())))
+    stmts.append(Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(QUrl(parentClassUri))))
+    #this is needed until we use an inferencer, otherwise searching for instances of resource won't include the instances of this class
+    stmts.append(Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(Soprano.Vocabulary.RDFS.Resource())))
+    #TODO: check why pimomodel.cpp does not use Soprano.Node wrapping
     #TODO: check why all classes in the db are subclass of themselves
-    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(QUrl(classUri)), ctx)
-    model.addStatement(stmt)
+    stmts.append(Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(QUrl(classUri))))
+    stmts.append(Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.label()), Soprano.Node(Soprano.LiteralValue(label))))
+    stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.NAO.created()), Soprano.Node(Soprano.LiteralValue(QDateTime.currentDateTime()))))
+
+    if addPimoStatements(stmts) == Soprano.Error.ErrorNone: 
+        return Nepomuk.Resource(classUri)
     
-    stmt = Soprano.Statement(Soprano.Node(QUrl(classUri)), Soprano.Node(Soprano.Vocabulary.RDFS.label()), Soprano.Node(Soprano.LiteralValue(label)), ctx)
-    model.addStatement(stmt)
-    return Nepomuk.Resource(classUri)
+    return None
+
+#Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
+def createPimoProperty(label, domainUri, rangeUri=Soprano.Vocabulary.RDFS.Resource(), comment=None, icon=None):
+    if not rangeUri.isValid():
+        print "[Ginkgo] Invalid range"
+        return QUrl()
     
+    if not label or len(label) == 0:
+        print "[Ginkgo] Empty label"
+        return QUrl()
+    
+    domainClass = Nepomuk.Types.Class(domainUri)
+    pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
+
+    if domainUri != PIMO.Thing and not domainClass.isSubClassOf(pimoThingClass):
+        print "[Ginkgo] New PIMO properties need to have a pimo:Thing related domain."
+
+    propertyUri = Nepomuk.ResourceManager.instance().generateUniqueUri()
+    stmts = []
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDF.Property())))
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.subPropertyOf()), Soprano.Node(PIMO.isRelated)))
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.domain()), Soprano.Node(domainUri)))
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.range()), Soprano.Node(rangeUri)))
+    #TODO set the prefLabel of the resource corresponding to this property?
+    #TODO why a property needs to be a subproperty of itself
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.subPropertyOf()), Soprano.Node(propertyUri)))
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.label()), Soprano.Node(Soprano.LiteralValue(label))))
+    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.NAO.created()), Soprano.Node(Soprano.LiteralValue(QDateTime.currentDateTime()))))
+    
+    if addPimoStatements(stmts) == Soprano.Error.ErrorNone: 
+        return Nepomuk.Resource(propertyUri)
+    
+    return None
+    
+#    QUrl propertyUri = newPropertyUri( label );
+#
+#    QList<Soprano::Statement> sl;
+#    sl << Soprano::Statement( propertyUri, Soprano::Vocabulary::RDF::type(), Soprano::Vocabulary::RDF::Property() )
+#       << Soprano::Statement( propertyUri, Soprano::Vocabulary::RDFS::subPropertyOf(), Vocabulary::PIMO::isRelated() )
+#       << Soprano::Statement( propertyUri, Soprano::Vocabulary::RDFS::domain(), domainUri )
+#       << Soprano::Statement( propertyUri, Soprano::Vocabulary::RDFS::range(), range )
+#       << Soprano::Statement( propertyUri, Soprano::Vocabulary::RDFS::label(), Soprano::LiteralValue( label ) )
+#       << Soprano::Statement( propertyUri, Soprano::Vocabulary::NAO::created(), Soprano::LiteralValue( QDateTime::currentDateTime() ) );
+#    if ( !comment.isEmpty() ) {
+#        sl << Soprano::Statement( propertyUri, Soprano::Vocabulary::RDFS::comment(), Soprano::LiteralValue( comment ) );
+#    }
+#    if ( !icon.isEmpty() ) {
+#        // FIXME: create a proper Symbol object, if possible maybe a subclass DesktopIcon if its a standard icon
+#        sl << Soprano::Statement( propertyUri, Soprano::Vocabulary::NAO::hasSymbol(), Soprano::LiteralValue( icon ) );
+#    }
+#
+#    if( addPimoStatements( sl ) == Soprano::Error::ErrorNone ) {
+#        return propertyUri;
+#    }
+#    else {
+#        return QUrl();
+#    }
+#}
+   
+
+
+
 #Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
 def pimoContext():
     sparql = "select ?c ?onto where {?c a <%s> . OPTIONAL {?c a ?onto . FILTER(?onto=<%s>). } } " % (str(PIMO.PersonalInformationModel.toString()), str(Soprano.Vocabulary.NRL.Ontology().toString()))
@@ -305,39 +505,54 @@ def pimoContext():
     if it.next():
         pimoContext = it.binding(0).uri()
         if not it.binding(1).isValid():
-            it.close()
-            model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), Soprano.Vocabulary.NRL.Ontology(), pimoContext)
+            stmt = Soprano.Statement(Soprano.Node(pimoContext), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.NRL.Ontology()), Soprano.Node(pimoContext))
+            model.addStatement(stmt)
 
     else:
-        it.close()
-        pimoContext = Nepomuk.ResourceManager.instance().generateUniqueUri()
-        model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), PIMO.PersonalInformationModel, pimoContext)
-        model.addStatement(pimoContext, Soprano.Vocabulary.RDF.type(), Soprano.Vocabulary.NRL.Ontology(), pimoContext)
+        pimoContext = QUrl(Nepomuk.ResourceManager.instance().generateUniqueUri())
+        stmt = Soprano.Statement(Soprano.Node(pimoContext), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(PIMO.PersonalInformationModel), Soprano.Node(pimoContext))
+        model.addStatement(stmt)
+        stmt = Soprano.Statement(Soprano.Node(pimoContext), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.NRL.Ontology()), Soprano.Node(pimoContext))
+        model.addStatement(stmt)
+    it.close()
     return pimoContext
 
+def addPimoStatements(statements):
+    ctx = pimoContext()
+    model = Nepomuk.ResourceManager.instance().mainModel()
+
+    for statement in statements:
+        statement.setContext(Soprano.Node(ctx))
+        model.addStatement(statement)
+    
+    return Soprano.Error.ErrorNone
 
 
-def uriToOntologyLabel(namespace):
+
+def uriToOntologyLabel(uri):
     """
     Converts an uri to a label.
     Example: http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task -> pimo
     """
     
-    if namespace.find(DC_TERMS) == 0:
+    #convert QUrl to str
+    uri = str(uri.toString())
+    
+    if uri.find(DC_TERMS) == 0:
         return "DCMI terms"
     
-    elif namespace.find(DC_TYPES) == 0:
+    elif uri.find(DC_TYPES) == 0:
         return "DCMI type"
 
-    index1 = namespace.rfind("/")
-    index2 = namespace.find("#")
+    index1 = uri.rfind("/")
+    index2 = uri.find("#")
     if index1 > 0 and index2 > index1:
-        return namespace[index1+1:index2]
+        return uri[index1 + 1:index2]
     #user created type
-    if namespace.find("nepomuk:/") == 0:
+    if uri.find("nepomuk:/") == 0:
         return "pimo extended"
 
-    return namespace
+    return uri
     
 if __name__ == "__main__":
     #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)

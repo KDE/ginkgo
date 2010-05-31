@@ -19,7 +19,7 @@ from PyKDE4.kdeui import *
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
 from PyKDE4.kdecore import i18n
-from ginkgo.views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.objectcontextmenu import ObjectContextMenu
 from ginkgo.actions import *
 
 class Node(object):
@@ -315,10 +315,10 @@ class TaskTree(QWidget):
 #        #self.updateActions()
 
 
-class TaskContextMenu(ResourceContextMenu):
+class TaskContextMenu(ObjectContextMenu):
     def __init__(self, parent=None, resourceUri=False, deleteAction=False):
         self.deleteAction = deleteAction
-        super(TaskContextMenu, self).__init__(parent=parent, selectedUris=[resourceUri])
+        super(TaskContextMenu, self).__init__(parent, [resourceUri])
         
 
     def createActions(self):

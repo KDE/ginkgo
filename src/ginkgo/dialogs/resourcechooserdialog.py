@@ -67,7 +67,7 @@ class ResourceChooserDialog(QDialog, ResourceChooserDialogUi):
         self.setupUi(self, nepomukType, excludeList)
 
     def accept(self):
-        self.selection =  self.table.selectedResources()
+        self.selection =  self.table.selectedObjects()
         QDialog.accept(self)
 
 if __name__ == "__main__":

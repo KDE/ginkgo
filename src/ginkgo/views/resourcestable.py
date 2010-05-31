@@ -25,7 +25,7 @@ from os import system
 from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
-from ginkgo.views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.objectcontextmenu import ObjectContextMenu
 from ginkgo import *
 from datetime import *
 from ginkgo.actions import *
@@ -66,16 +66,10 @@ class ResourcesTableModel(QAbstractTableModel):
                 return Qt.AlignLeft | Qt.AlignVCenter
         elif role == Qt.DecorationRole:
             if index.column() == 0:
-                resource = self.resourceAt(index.row())
+                resource = self.objectAt(index.row())
                 return self.editor.mainWindow.resourceQIcon(resource)
 
         elif role == Qt.DisplayRole:
-            #rowCurrency = currencyAt(index.row());
-            #columnCurrency = currencyAt(index.column());
-            #if (currencyMap.value(rowCurrency) == 0.0)
-            #return "####";
-            #amount = currencyMap.value(columnCurrency) / currencyMap.value(rowCurrency);
-            #return QString("hello %s" % index.row())
             return self.itemAt(index)
             
 
@@ -101,7 +95,7 @@ class ResourcesTableModel(QAbstractTableModel):
             for type in resource.types():
                 if type != Soprano.Vocabulary.RDFS.Resource():
                     label = type.toString()
-                    label = str(label)
+                    label = unicode(label)
                     if label.find("#") > 0:
                         label = label[label.find("#") + 1:]
                         if label == "FileDataObject":
@@ -118,6 +112,9 @@ class ResourcesTableModel(QAbstractTableModel):
                         label = label[label.rfind("/")+1:]
                     return QString(label)
 
+    def objectAt(self, row):
+        return self.resources[row]
+    
     def resourceAt(self, row):
         return self.resources[row]
 
@@ -144,7 +141,7 @@ class ResourcesTableModel(QAbstractTableModel):
     #or whose uri equals the one to be removed from the model (e.g. the resource was unlinked)
     def removeResource(self, resourceUri):
         for row in range(len(self.resources)):
-            resource = self.resourceAt(row)
+            resource = self.objectAt(row)
             if resource and (resource.resourceUri() == resourceUri or len(resource.resourceUri().toString()) == 0):
                 self.beginRemoveRows(QModelIndex(), row, row)
                 self.resources.pop(row)
@@ -184,7 +181,7 @@ class ResourcesSortFilterProxyModel(QSortFilterProxyModel):
         if self.excludeList is None:
             return True
         else:
-            resource = self.sourceModel().resourceAt(sourceRowInt)
+            resource = self.sourceModel().objectAt(sourceRowInt)
             for elt in self.excludeList:
                 if elt.resourceUri() == resource.resourceUri():
                     return False
@@ -280,11 +277,7 @@ class ResourcesTable(QWidget):
         self.table.setAlternatingRowColors(True)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        #if not self.searchDialogMode:
         self.table.setSelectionMode(QTableWidget.ExtendedSelection)
-        #else:
-        #    self.table.setSelectionMode(QTableWidget.SingleSelection)
-            
         
         self.table.setDragDropMode(QAbstractItemView.NoDragDrop)
         self.table.setSortingEnabled(True)
@@ -314,12 +307,12 @@ class ResourcesTable(QWidget):
         
         
     
-    def selectedResources(self):
+    def selectedObjects(self):
         selection = []
         selindexes = self.table.selectionModel().selectedRows()
         for selindex in selindexes:
             sourceIndex = self.table.model().mapToSource(selindex)
-            selitem = self.table.model().sourceModel().resourceAt(sourceIndex.row())
+            selitem = self.table.model().sourceModel().objectAt(sourceIndex.row())
             selection.append(selitem)
         return selection
         
@@ -331,9 +324,9 @@ class ResourcesTable(QWidget):
             #convert the proxy index to the source index
             #see http://doc.trolltech.com/4.6/qsortfilterproxymodel.html
             sourceIndex = self.table.model().mapToSource(index)
-            item = self.table.model().sourceModel().resourceAt(sourceIndex.row())
+            item = self.table.model().sourceModel().objectAt(sourceIndex.row())
             if item:
-                selection = self.selectedResources() 
+                selection = self.selectedObjects() 
                 #make sure the item below the mouse is added to the selection even though
                 #the row is not selected
                 try:
@@ -355,7 +348,7 @@ class ResourcesTable(QWidget):
                 self.dialog.accept()
       
     def createContextMenu(self, selection):
-        return ResourceContextMenu(self, selection)
+        return ObjectContextMenu(self, selection)
     
         
     def addResource(self, resource):
@@ -366,88 +359,24 @@ class ResourcesTable(QWidget):
         #self.table.setItem(self.table.rowCount() - 1, 0, item)
         self.table.model().sourceModel().removeResource(uri)
 
-    #abstract
-    def processAction(self, key, selectedUris):
-#        if hasattr(self, "appDB") and self.appDB.has_key(key):
-#            cmd1 = [self.appDB[key], self.appDB['URL']]
-#            p1 = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
-#            p1.poll()
-#            #system('%s %s' % ())
-#            return True
+    def processAction(self, key, selectedResources):
         if key == OPEN_IN_NEW_TAB:
-            for uri in selectedUris:
+            for uri in selectedResources:
                 self.mainWindow.openResource(uri, newTab=True)
         elif key == DELETE:
-            for uri in selectedUris:
+            for uri in selectedResources:
                 self.mainWindow.removeResource(uri)
         elif key == OPEN_FILE:
-            for uri in selectedUris:
+            for uri in selectedResources:
                 self.mainWindow.openResourceExternally(uri, True)
         elif key == OPEN_PAGE:
-            for uri in selectedUris:
+            for uri in selectedResources:
                 self.mainWindow.openResourceExternally(uri, False)
         elif key == WRITE_EMAIL:
-            self.mainWindow.writeEmail(selectedUris)
+            self.mainWindow.writeEmail(selectedResources)
         elif key == SET_AS_CONTEXT:
-            resource = Nepomuk.Resource(selectedUris[0])
+            resource = Nepomuk.Resource(selectedResources[0])
             self.mainWindow.setResourceAsContext(resource)
-
-
-        #http://code.google.com/p/ file pydingo/handlers/directory/handler.py
-        
-        
-#        self.appDB = {}
-#        
-#        if NFO.FileDataObject in resource.types():
-#            url = str(resource.property(NIE.url).toString())
-#            if url.find("file://") == 0:
-#                url = url[len("file://"):]
-#                if not os.path.exists(url):
-#                    return
-#            if url.find("filex://") == 0:
-#                url = url[len("filex://"):]
-#                if not os.path.exists(url):
-#                    return
-#                
-#            meta = gnome_meta.get_meta_info(url)
-#            
-#            self.appDB = {'URL': url}
-#            
-#            openWithMenu = QMenu(menu)
-#            openWithMenu.setTitle("Open with")
-#        
-#            if meta and len(meta) > 1 and meta['default_app']:
-#                icon = mime.get_icon(meta['default_app'][0])
-#                if icon:
-#                    icon = QIcon(icon)
-#                    openWithMenu.addAction(icon, meta['default_app'][1].decode('utf-8'))
-#                else:
-#                    openWithMenu.addAction(meta['default_app'][1].decode('utf-8'))
-#                
-#                self.appDB[meta['default_app'][1].decode('utf-8')] = meta['default_app'][2]
-#                
-#                if meta['other_apps'] and len(meta['other_apps']) > 1:
-#                    for application in meta['other_apps']:
-#                        icon = mime.get_icon(application[0])
-#                        if icon:
-#                            icon = QIcon(icon)
-#                            openWithMenu.addAction(icon, application[1].decode('utf-8'))
-#                        else:
-#                            openWithMenu.addAction(application[1].decode('utf-8'))
-#                        
-#                        self.appDB[application[1].decode('utf-8')] = application[2]
-#                    menu.addAction(openWithMenu.menuAction())
-#            
-#            else:
-#                meta = gio_meta.get_meta_info(url)
-#                if meta and len(meta) > 0:
-#                    for application in meta:
-#                        openWithMenu.addAction(application['name'].decode('utf-8'))
-#                        self.appDB[application['name'].decode('utf-8')] = application['exec']
-#                        menu.addAction(openWithMenu.menuAction())
-#                else:
-#                    pass
-#
 
 
     def setQuery(self, query):

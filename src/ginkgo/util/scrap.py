@@ -9,7 +9,6 @@ from PyKDE4.kio import KDirModel, KRun
 from PyQt4.QtCore import QUrl, QVariant, QString
 from PyQt4.QtGui import *
 
-from ginkgo.dao import NCO, PIMO
 
 import sys
 from PyKDE4.kdecore import ki18n, KAboutData, KCmdLineArgs
@@ -44,14 +43,14 @@ from PyKDE4.kdecore import KUrl
 ##url = KUrl(QString("http://www.google.com"))
 #run = KRun(url, widget, 0, False)
 
-
-rootClass = Nepomuk.Types.Class(PIMO.Agent)
-for sc in rootClass.subClasses():
-    print sc.name()
-
-model = Nepomuk.ResourceManager.instance().mainModel()
-
-model.createClass("","hello","hello","")
+if False:
+    rootClass = Nepomuk.Types.Class(PIMO.Agent)
+    for sc in rootClass.subClasses():
+        print sc.name()
+    
+    model = Nepomuk.ResourceManager.instance().mainModel()
+    
+    model.createClass("","hello","hello","")
 #file = Nepomuk.Resource("file:///home/arkub/F/2010-04 OSS Industry Savings.pdf")
 #print file.resourceUri()
 #
@@ -62,7 +61,9 @@ model.createClass("","hello","hello","")
 #file = Nepomuk.Resource("<filex://c4fd-7c27/home/arkub/F/RIAO-2010.odt>")
 #print file.resourceUri()
 
-
+if True:
+    nep = Nepomuk.Resource("nepomuk:/res/047d605a-07b3-43a7-93fd-2616ce981e7e")
+    print nep.description()
 
 
 if False:

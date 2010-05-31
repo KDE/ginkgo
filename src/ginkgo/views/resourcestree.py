@@ -20,7 +20,7 @@ from PyKDE4.nepomuk import Nepomuk
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
 from PyKDE4.kdecore import i18n
-from ginkgo.views.resourcecontextmenu import ResourceContextMenu
+from ginkgo.views.objectcontextmenu import ObjectContextMenu
 from ginkgo.actions import *
 
 class ResourceNode(object):
@@ -106,7 +106,7 @@ class ResourcesTreeModel(QAbstractItemModel):
 #                    return item.nodeData.name()
                 return item.nodeData.genericLabel()
             elif index.column() ==1:
-                return datamanager.uriToOntologyLabel(str(item.nodeData.resourceUri().toString()))
+                return datamanager.uriToOntologyLabel(item.nodeData.resourceUri())
                 
             elif index.column() == 2:
                 desc=  item.nodeData.genericDescription()
@@ -189,14 +189,16 @@ class ResourcesTreeModel(QAbstractItemModel):
         #type = Soprano.Vocabulary.RDFS.Resource()
         #rootClass = Nepomuk.Types.Class(rootType)
         
+        Nepomuk.ResourceManager.instance().clearCache()
+        
         rootTypeResource = Nepomuk.Resource(rootType)
         
         self.rootItem = ResourceNode(rootTypeResource)
         self.addChildren(self.rootItem, rootTypeResource)
             
-
-    def addChildren(self, node, typeResource):
         
+    def addChildren(self, node, typeResource):
+
         typeClass = Nepomuk.Types.Class(typeResource.resourceUri())
         
         subClasses = typeClass.subClasses()
@@ -208,9 +210,11 @@ class ResourcesTreeModel(QAbstractItemModel):
             if typeResource.resourceUri() == subClass.uri():
                 continue
             subClassResource = Nepomuk.Resource(subClass.uri())
+            
             tuples.append((subClassResource, subClassResource.genericLabel()))
         
         sortedResources = sorted(tuples, key=lambda tuple: tuple[1])
+
         
         for tuple in sortedResources:
             
@@ -251,6 +255,9 @@ class ResourcesTree(QWidget):
         #self.tree.setSortingEnabled(True) 
         #self.tree.sortByColumn(0, Qt.AscendingOrder) 
 
+        smodel = Nepomuk.ResourceManager.instance().mainModel()
+        smodel.statementAdded.connect(self.statementAddedSlot)
+        smodel.statementRemoved.connect(self.statementRemovedSlot)            
         
         
         if makeActions:
@@ -260,9 +267,6 @@ class ResourcesTree(QWidget):
             #self.connect(mainWindow, SIGNAL('taskHierarchyUpdated'), self.refresh)
 
 #            model = ResourcesTreeModel()
-#            model = Nepomuk.ResourceManager.instance().mainModel()
-#            model.statementAdded.connect(self.statementAddedSlot)
-#            model.statementRemoved.connect(self.statementRemovedSlot)            
 #            QMetaObject.connectSlotsByName(self)
 
 
@@ -270,17 +274,28 @@ class ResourcesTree(QWidget):
 
     def statementAddedSlot(self, statement):
         predicate = statement.predicate().uri()
-        if predicate == soprano.Soprano.Vocabulary.RDF.type():
-            object = statement.object().uri()
-            if object == self.nepomukType:
-                self.refresh()
-
-    def statementRemovedSlot(self, statement):
-        predicate = statement.predicate().uri()
-        #TODO: check
-        if predicate and len(predicate.toString()) == 0:
+        #TODO: the tree get actually refreshed twice due to each newly class being a subclass of itself 
+        if predicate == soprano.Soprano.Vocabulary.RDFS.subClassOf():
             self.refresh()
 
+    def statementRemovedSlot(self, statement):
+        subject = statement.subject().uri()
+        predicate = statement.predicate().uri()
+        #TODO: check
+        if predicate == soprano.Soprano.Vocabulary.RDFS.subClassOf():
+            print "removed a subclass relation..."
+
+    def refresh(self):
+        typeClass = Nepomuk.Types.Class(PIMO.Thing)
+        
+        for sc in typeClass.subClasses():
+            res = Nepomuk.Resource(sc.uri())
+             
+        model = ResourcesTreeModel(mainWindow=self.mainWindow)
+        model.loadData()
+        self.tree.setModel(model)
+
+        
     def showContextMenu(self, points):
         
         index = self.tree.indexAt(points)
@@ -339,13 +354,13 @@ class ResourceNodeDelegate(QItemDelegate):
         return QSize(0, 25);
 
 
-class TypesContextMenu(ResourceContextMenu):
+class TypesContextMenu(ObjectContextMenu):
     def __init__(self, parent=None, resourceUri=False, deleteAction=False):
         self.deleteAction = deleteAction
-        super(TypesContextMenu, self).__init__(parent=parent, selectedUris=[resourceUri])
+        super(TypesContextMenu, self).__init__(parent, [resourceUri])
         
     def createActions(self):
-        if self.selectedUris[0] == PIMO.Thing:
+        if self.selectedResources[0] == PIMO.Thing:
             action = QAction(i18n("&New type"), self)
             action.setProperty("key", QVariant(NEW_TYPE))
             self.addAction(action)
@@ -358,7 +373,7 @@ class TypesContextMenu(ResourceContextMenu):
             action = QAction(i18n("&Add to places"), self)
             action.setProperty("key",QVariant(ADD_TO_PLACES))
             self.addAction(action)
-            nodeClass = Nepomuk.Types.Class(self.selectedUris[0])
+            nodeClass = Nepomuk.Types.Class(self.selectedResources[0])
             pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)
             if nodeClass.isSubClassOf(pimoThingClass):
                 self.addSeparator()

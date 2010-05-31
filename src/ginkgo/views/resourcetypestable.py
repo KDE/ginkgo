@@ -25,7 +25,6 @@ from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 from ginkgo.util import mime
-from ginkgo.views.resourcecontextmenu import ResourceContextMenu
 
 
 class ResourceTypesTableModel(ResourcesTableModel):
@@ -36,7 +35,7 @@ class ResourceTypesTableModel(ResourcesTableModel):
         resource = self.resources[index.row()]
         column = index.column()
         if column == 0:
-            return datamanager.uriToOntologyLabel(str(resource.resourceUri().toString()))
+            return datamanager.uriToOntologyLabel(resource.resourceUri())
         elif column == 1:
             return resource.genericLabel()
             

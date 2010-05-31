@@ -85,6 +85,11 @@ class ResourcePropertiesTableModel(ResourcesTableModel):
 
             return self.itemAt(index)
             
+        elif role == Qt.DecorationRole:
+            if index.column() == 0:
+                propuri = self.data[index.row()][0]
+                propResource = Nepomuk.Resource(propuri)
+                return self.editor.mainWindow.resourceQIcon(propResource)
 
         return QVariant()
 
@@ -96,10 +101,8 @@ class ResourcePropertiesTableModel(ResourcesTableModel):
         else:
             return None
    
-#TODO: inherit from ResourcesTable
+
 class ResourcePropertiesTable(ResourcesTable):
-
-
     
     def __init__(self, mainWindow=False, resource=None, dialog=None):
         self.resource = resource

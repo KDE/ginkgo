@@ -38,8 +38,8 @@ class ResourceTypesDialog(QDialog):
         
 
     def selectedResources(self):
-        if len(self.table.selectedResources()) > 0:
-            return self.table.selectedResources()
+        if len(self.table.selectedObjects()) > 0:
+            return self.table.selectedObjects()
         return None
     
 

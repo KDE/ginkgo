@@ -38,7 +38,6 @@ class AsyncResourceLoadingModel:
     def queryNextReadySlot(self, query):
         query.next()
         node = query.binding( "r" );
-        print node.uri()
         
     def queryFinished(self, query):
         #self.emit(query.finishedLoading())

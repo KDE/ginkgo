@@ -11,6 +11,8 @@
 ##
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
+from ginkgo.editors.propertyeditor import PropertyEditor
+import traceback
 
 
 import mimetypes
@@ -86,7 +88,7 @@ class Ginkgo(KMainWindow):
         
         self.saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
         
-        openResourceAction = self.createAction(i18n("&Open"), self.showOpenResourceDialog, QKeySequence.Open, None, i18n("Open a resource"))
+        openResourceAction = self.createAction(i18n("&Open"), self.showOpenResourcesDialog, QKeySequence.Open, None, i18n("Open a resource"))
         newTabAction = self.createAction(i18n("New &Tab"), self.newTab, QKeySequence.AddTab, "tab-new-background-small", i18n("Create new tab"))
         closeTabAction = self.createAction(i18n("Close Tab"), self.closeCurrentTab, QKeySequence.Close, "tab-close", i18n("Close tab"))
         quitAction = self.createAction(i18n("&Quit"), self.close, "Ctrl+Q", "application-exit", i18n("Close the application"))
@@ -101,11 +103,14 @@ class Ginkgo(KMainWindow):
         self.linkToMenu = QMenu(self)
         self.linkToMenu.setTitle(i18n("Link to"))
         self.linkToMenu.setIcon(KIcon("nepomuk"))
-        for type in self.placesData:
-            if type[0] != NFO.FileDataObject:
-                self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
-            else:
-                self.linkToMenu.addAction(self.createAction(type[1], self.linkToFile, None, type[3], None, type[0]))
+        self.linkToMenu.addAction(self.createAction(i18n("&Resource"), self.linkTo, None, None, None, None))
+        self.linkToMenu.addAction(self.createAction(i18n("&File"), self.linkToFile, None, None, None, NFO.FileDataObject))
+        
+#        for type in self.placesData:
+#            if type[0] != NFO.FileDataObject:
+#                self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
+#            else:
+#                self.linkToMenu.addAction(self.createAction(type[1], self.linkToFile, None, type[3], None, type[0]))
                 
         self.linkToButton.setMenu(self.linkToMenu)
 
@@ -305,6 +310,14 @@ class Ginkgo(KMainWindow):
         return newEditor
 
 
+    def newProperty(self, domainUri=PIMO.Thing):
+
+        newEditor = PropertyEditor(resource=None, domainUri=domainUri, mainWindow=self)
+        self.addTab(newEditor, i18n("New Property"), True, False)
+        newEditor.focus()
+        return newEditor
+
+
     def createResource(self, label, ntype):
         resource = datamanager.createResource(label, ntype)
         #self.emit(SIGNAL('resourceCreated'), resource)
@@ -327,6 +340,7 @@ class Ginkgo(KMainWindow):
             return
         
         else:
+            #nepoomukType is a variant at this stage
             nepomukType = QUrl(nepomukType.toString())
 
         self.newResource(nepomukType)
@@ -339,7 +353,7 @@ class Ginkgo(KMainWindow):
             
             resource = Nepomuk.Resource(classUri.toString())
             #todo: add a property for associating an editor to a nepomukType dynamically
-            label = str(resource.genericLabel()) + "Editor"
+            label = unicode(resource.genericLabel()) + "Editor"
             if resource.genericLabel() == "file":
                 label = "FileEditor"
             elif label == "PersonContactEditor":
@@ -352,16 +366,12 @@ class Ginkgo(KMainWindow):
             except ImportError:
                 newEditor = ResourceEditor(mainWindow=self, resource=None, nepomukType=classUri)
                 
-            self.addTab(newEditor, i18n("New %1", str(resource.genericLabel())), True, False)
+            self.addTab(newEditor, i18n("New %1", unicode(resource.genericLabel())), True, False)
          
         if newEditor:   
             newEditor.focus()        
 
     def openResource(self, uri=False, newTab=False, inBackground=True):
-
-        
-        
-        #QApplication.setOverrideCursor(Qt.WaitCursor)
         self.workarea.setCursor(Qt.WaitCursor)
         resource = Nepomuk.Resource(uri)
         if not resource.exists():
@@ -378,7 +388,7 @@ class Ginkgo(KMainWindow):
             for type in resource.types():
                 if type != Soprano.Vocabulary.RDFS.Resource() and newEditor is None:
                     typeResource = Nepomuk.Resource(type.toString())
-                    label = str(typeResource.genericLabel()) + "Editor"
+                    label = unicode(typeResource.genericLabel()) + "Editor"
                     if label == "fileEditor":
                         label = "FileEditor"
                     elif label == "PersonContactEditor":
@@ -423,7 +433,7 @@ class Ginkgo(KMainWindow):
                 emailAddress = emailAddress.toString()
                 #don't add twice the same address
                 if mailto.find(emailAddress + ",") == -1:
-                    mailto = mailto + str(emailAddress) + ","
+                    mailto = mailto + unicode(emailAddress) + ","
             else:
                 warning = QMessageBox(QMessageBox.Warning, i18n("Warning"), "No e-mail address was found for %s." % res.genericLabel(), QMessageBox.NoButton, self)
                 warning.addButton("&Continue", QMessageBox.AcceptRole)
@@ -477,11 +487,12 @@ class Ginkgo(KMainWindow):
         
         
         
-    def showOpenResourceDialog(self):
+    def showOpenResourcesDialog(self):
         dialog = LiveSearchDialog(mainWindow=self)
         if dialog.exec_():
-            if dialog.selectedResource():
-                self.openResource(dialog.selectedResource().resourceUri(), True, False)
+            if dialog.selectedResources():
+                for resource in dialog.selectedResources():
+                    self.openResource(resource.resourceUri(), True, False)
 
     def currentTabChangedSlot(self, index):
         resource = self.currentResource()
@@ -515,9 +526,6 @@ class Ginkgo(KMainWindow):
         
 
     def linkTo(self):
-        action = self.sender()
-        nepomukType = QUrl(action.property("nepomukType").toString())
-        
         widget = self.workarea.currentWidget()
         
         #if the resource was just created and not yet saved, save it before creating the link,
@@ -528,22 +536,22 @@ class Ginkgo(KMainWindow):
         
         if hasattr(widget, "resource") and widget.resource:
             #exclude items already linked to current resource
-            excludeList = datamanager.findRelations(widget.resource.resourceUri())
+            #excludeList = datamanager.findRelateds(widget.resource.resourceUri())
             #exclude the current resource itself for avoiding creating a link to itself
-            excludeList.add(widget.resource)
-            dialog = ResourceChooserDialog(self, nepomukType, excludeList)
-            #dialog = LabelInputMatchDialog(mainWindow=self, nepomukType=nepomukType, excludeList=excludeList)
+            #excludeList.add(widget.resource)
+            self.setCursor(Qt.WaitCursor)
+            dialog = LiveSearchDialog(mainWindow=self, resource=widget.resource, title=i18n("New Relation"))
+            self.unsetCursor()
             if dialog.exec_():
                 #save the current resource to make sure it exists in the db, then draw the relations
                 self.setCursor(Qt.WaitCursor)
                 widget.save()
+                
+                for resource in dialog.selectedResources():
+                    #Soprano.Vocabulary.NAO.isRelated()
+                    widget.resource.addProperty(dialog.selectedPredicate(), Nepomuk.Variant(resource))
+                
                 self.unsetCursor()
-                #for resource in dialog.selectedResources():
-                
-                for resource in dialog.selection:
-                    #item = QUrl(id)
-                    widget.resource.addProperty(Soprano.Vocabulary.NAO.isRelated(), Nepomuk.Variant(resource))
-                
                 
     def linkToFile(self):
         path = QFileInfo(".").path()
@@ -555,7 +563,7 @@ class Ginkgo(KMainWindow):
             #check if any file exists with the given path
             
             #print type(fname)
-            fname = str(fname)
+            fname = unicode(fname)
             file = datamanager.getFileResource(fname)
             widget.save()
             widget.resource.addProperty(Soprano.Vocabulary.NAO.isRelated(), Nepomuk.Variant(file))
@@ -571,15 +579,9 @@ class Ginkgo(KMainWindow):
     def currentWorkWidget(self):
         return self.workarea.currentWidget()
        
-    def unlink(self, predicateUrl, resourceUris, bidirectional=False):
+    def removeRelation(self, subject, predicate, object):
         self.workarea.setCursor(Qt.WaitCursor)
-        resource = self.currentResource()
-        if resource and resourceUris and len(resourceUris) > 0:
-            for uri in resourceUris:
-                target = Nepomuk.Resource(uri)
-                resource.removeProperty(predicateUrl, Nepomuk.Variant(target.resourceUri()))
-                if bidirectional:
-                    target.removeProperty(predicateUrl, Nepomuk.Variant(resource.resourceUri()))
+        subject.removeProperty(predicate.uri(), Nepomuk.Variant(object.resourceUri()))
         self.workarea.unsetCursor()
         
     def closeEvent(self, event):
@@ -630,7 +632,7 @@ class Ginkgo(KMainWindow):
                 return
         except Exception, e:
             print "[Ginkgo] An error occurred while restoring the places: %s. " % str(e)
-        
+            #traceback.print_exc(file=sys.stdout)
         
         self.placesData = [
                          [NCO.PersonContact, i18n("&Contact"), i18n("&Contacts"), "contact-new", i18n("Create new contact")],
@@ -821,6 +823,7 @@ class Ginkgo(KMainWindow):
         
 
     def save(self):
+        
         currentEditor = self.workarea.currentWidget()
         if (hasattr(currentEditor, "save")):
             self.setCursor(Qt.WaitCursor)
@@ -847,20 +850,20 @@ class Ginkgo(KMainWindow):
         self.unsetCursor()
         
     def showRecentlyModifiedResources(self):
-        recentlyModifiedResourcesView = ResourcesTable(mainWindow=self, sortColumn=-1)
+        recentlyModifiedResourcesView = ResourcesTable(mainWindow=self, sortColumn= -1)
         datamanager.listResourcesOrderedByDate(recentlyModifiedResourcesView.model.queryNextReadySlot, recentlyModifiedResourcesView.queryFinishedSlot, recentlyModifiedResourcesView)
         self.replaceCurrentTab(recentlyModifiedResourcesView, i18n("What's New"))
 
 
     def runSearch(self):
         #str() for converting a QString to str
-        term = str(self.search.text())
+        term = unicode(self.search.text())
         searchView = ResourcesTable(mainWindow=self)
         
         if self.fullTextSearchOption.isChecked():
             datamanager.fullTextSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot, searchView)
         else:
-            datamanager.labelSearch(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot, searchView)
+            datamanager.findResourcesByLabel(term, searchView.model.queryNextReadySlot, searchView.queryFinishedSlot, searchView)
             
         
         self.replaceCurrentTab(searchView, i18n("Search Results"))
@@ -906,6 +909,8 @@ class Ginkgo(KMainWindow):
                 return QIcon("/usr/share/icons/oxygen/48x48/mimetypes/x-office-contact.png")
         elif nepomukType == PIMO.Note:
             return KIcon("text-plain")
+        elif nepomukType ==Soprano.Vocabulary.RDF.Property():
+            return KIcon("code-function")
         else:
             return KIcon("nepomuk")
 
@@ -919,6 +924,9 @@ class Ginkgo(KMainWindow):
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/x-office-contact.png")
         elif nepomukType == PIMO.Note:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-plain.png")
+        
+        elif nepomukType ==Soprano.Vocabulary.RDF.Property():
+            return QIcon("/usr/share/icons/oxygen/16x16/actions/code-function.png")
         else:
             return QIcon(":/nepomuk-small")
 
@@ -928,9 +936,9 @@ class Ginkgo(KMainWindow):
         types = resource.types()
         #custom type instances raise an issue with the call to genericIcon which crashes the application
         #TODO: fix bug in libnepomuk with Nepomuk.Resource.genericIcon()
-        for type in types:
-            if str(type.toString()).find("nepomuk:/") == 0:
-                return QIcon(":/nepomuk-small")
+#        for type in types:
+#            if str(type.toString()).find("nepomuk:/") == 0:
+#                return QIcon(":/nepomuk-small")
         
         iconPath = resource.genericIcon()
         if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
@@ -956,6 +964,8 @@ class Ginkgo(KMainWindow):
                 return QIcon(":/nepomuk-small")
         elif PIMO.Note in types:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-plain.png")
+        elif Soprano.Vocabulary.RDF.Property() in types:
+            return QIcon("/usr/share/icons/oxygen/16x16/actions/code-function.png")        
         else:
             return QIcon(":/nepomuk-small")
     
@@ -977,6 +987,8 @@ class Ginkgo(KMainWindow):
                 return KIcon("nepomuk")
             elif PIMO.Note in types:
                 return KIcon("text-plain")
+            elif Soprano.Vocabulary.RDF.Property() in types:
+                return KIcon("code-function")
             else:
                 return KIcon("nepomuk")
         else:
@@ -997,7 +1009,7 @@ class Ginkgo(KMainWindow):
                 return QIcon("/usr/share/icons/oxygen/48x48/mimetypes/x-office-contact.png")
             
             elif NFO.FileDataObject in types:
-                mimetype = mimetypes.guess_type(str(resource.property(NIE.url).toString()))
+                mimetype = mimetypes.guess_type(unicode(resource.property(NIE.url).toString()))
                 elt = mimetype[0]
                 if elt:
                     elt = elt.replace("/", "-")
@@ -1005,6 +1017,8 @@ class Ginkgo(KMainWindow):
                     #if os.path.exists(icon):
                     return KIcon(elt)
                 return KIcon("nepomuk")
+            elif Soprano.Vocabulary.RDF.Property() in types:
+                return KIcon("code-function")
             else:
                 return KIcon("nepomuk")
 
