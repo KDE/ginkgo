@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-25 17:51+0200\n"
+"PO-Revision-Date: 2010-06-01 22:23+0200\n"
 "Last-Translator: Atilla ÖNTAŞ <atilla_ontas@mandriva.org>\n"
 "Language-Team: Mandriva 18n <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,51 +18,50 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
-msgstr "Kaynağı aç"
+msgstr "Kaynağı Aç"
 
-#: ginkgo/dialogs/livesearchdialog.py:36 ginkgo/views/relatedstable.py:45
-#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/dialogs/livesearchdialog.py:36
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
 #: ginkgo/views/resourcetypestable.py:53
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Name"
 msgstr "İsim"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Proje"
+msgstr "&Nesne"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Tümü"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "İlişkiler"
+msgstr "&İlişki tipi:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Tip"
+msgstr "&Tip:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Tipe göre filtrele"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Tümü"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
 msgstr "Eşleşen ögeler:"
 
-#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
+#: ginkgo/dialogs/resourcechooserdialog.py:61
+#: ginkgo/mainwindow.py:97
 #: ginkgo/mainwindow.py:98
 msgid "Link to..."
 msgstr "Şuna bağlantıla..."
@@ -76,9 +75,8 @@ msgid "Task Selection"
 msgstr "Görev Seçimi"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Özellikler"
+msgstr "Tip özellikleri"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -96,7 +94,8 @@ msgstr "E-posta"
 msgid "Phone"
 msgstr "Telefon"
 
-#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
+#: ginkgo/editors/fileeditor.py:51
+#: ginkgo/editors/websiteeditor.py:56
 msgid "Open"
 msgstr "Aç"
 
@@ -109,9 +108,8 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Resimler (*.png *.jpeg *.jpg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Arama Sonuçları"
+msgstr "Sorgu sonuçları"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
@@ -210,11 +208,12 @@ msgid "Link to"
 msgstr "Şuna bağlantı"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Kaynak kaldırma"
+msgstr "&Kaynak"
 
-#: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
+#: ginkgo/mainwindow.py:107
+#: ginkgo/mainwindow.py:127
+#: ginkgo/mainwindow.py:647
 msgid "&File"
 msgstr "&Dosya"
 
@@ -254,7 +253,8 @@ msgstr "&Yeni"
 msgid "&Edit"
 msgstr "&Düzen"
 
-#: ginkgo/mainwindow.py:145 ginkgo/views/objectcontextmenu.py:54
+#: ginkgo/mainwindow.py:145
+#: ginkgo/views/objectcontextmenu.py:54
 msgid "&Delete"
 msgstr "&Sil"
 
@@ -274,11 +274,13 @@ msgstr "Tipler"
 msgid "Toolbar"
 msgstr "Araç çubuğu"
 
-#: ginkgo/mainwindow.py:169 ginkgo/mainwindow.py:170
+#: ginkgo/mainwindow.py:169
+#: ginkgo/mainwindow.py:170
 msgid "New"
 msgstr "Yeni"
 
-#: ginkgo/mainwindow.py:211 ginkgo/mainwindow.py:215
+#: ginkgo/mainwindow.py:211
+#: ginkgo/mainwindow.py:215
 msgid "Search"
 msgstr "Ara"
 
@@ -295,9 +297,8 @@ msgid "New Type"
 msgstr "Yeni Tip"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Özellik"
+msgstr "Yeni Özellik"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -316,9 +317,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Şunu silmek istediğinizden emin misiniz: <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "İlişkiler"
+msgstr "Yeni İlişki"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -444,7 +444,8 @@ msgstr "&Dosyalar"
 msgid "Create new file"
 msgstr "Yeni bir dosya oluştur"
 
-#: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
+#: ginkgo/mainwindow.py:753
+#: ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
 msgstr "Bağlam - Ginko"
 
@@ -500,12 +501,15 @@ msgstr "Şuna e-posta &yolla"
 msgid "Set as &context"
 msgstr "&Bağlam olarak ayarla"
 
-#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
-#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
 msgid "Date"
 msgstr "Tarih"
 
-#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
 #: ginkgo/views/resourcestable.py:296
 msgid "Type"
 msgstr "Türü"
@@ -515,19 +519,16 @@ msgid "&Unlink from %1"
 msgstr "%1 üzerinden bağlantıyı &kaldır"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "İlişkiler"
+msgstr "İlişki"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "&Dosya"
+msgstr "Başlık"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "İlişkiler"
+msgstr "İlişkilendirmeleri &kaldır"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -566,17 +567,16 @@ msgid "&New sub-task"
 msgstr "&Yeni alt görev"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Özellik"
+msgstr "&Yeni özellik"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Şu kaynaktan geldi:"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Aralık"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
