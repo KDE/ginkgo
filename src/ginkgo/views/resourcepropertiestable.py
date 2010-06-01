@@ -110,6 +110,7 @@ class ResourcePropertiesTable(ResourcesTable):
         self.resource = resource
         self.table.horizontalHeader().setResizeMode(0, QHeaderView.Interactive)
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
+        self.table.setSelectionMode(QTableWidget.SingleSelection)
 
     def createModel(self):
         data = datamanager.findResourceLiteralProperties(self.resource)
@@ -143,4 +144,5 @@ class ResourcePropertiesTable(ResourcesTable):
     
     def processAction(self, key, propvalue):
         if key == COPY_TO_CLIPBOARD:
-            print propvalue
+            clipboard = QApplication.clipboard()
+            clipboard.setText(propvalue[1].toString())

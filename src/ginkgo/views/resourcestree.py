@@ -72,7 +72,7 @@ class ResourceNode(object):
 class ResourcesTreeModel(QAbstractItemModel):
     def __init__(self, parent=None, mainWindow=None):
         super(ResourcesTreeModel, self).__init__(parent)
-        self.headerData = ["Name","Ontology", "Description"]
+        self.headerData = ["Name", "Ontology", "Description"]
         self.mainWindow = mainWindow
         
 
@@ -105,12 +105,12 @@ class ResourcesTreeModel(QAbstractItemModel):
 #                else:
 #                    return item.nodeData.name()
                 return item.nodeData.genericLabel()
-            elif index.column() ==1:
+            elif index.column() == 1:
                 return datamanager.uriToOntologyLabel(item.nodeData.resourceUri())
                 
             elif index.column() == 2:
-                desc=  item.nodeData.genericDescription()
-                desc = desc.replace("\n","")
+                desc = item.nodeData.genericDescription()
+                desc = desc.replace("\n", "")
                 return desc
 
         else:
@@ -184,21 +184,19 @@ class ResourcesTreeModel(QAbstractItemModel):
 
         return success
 
-    def loadData(self, rootType = PIMO.Thing):
+    def loadData(self, rootType=PIMO.Thing):
 
         #type = Soprano.Vocabulary.RDFS.Resource()
         #rootClass = Nepomuk.Types.Class(rootType)
         
-        Nepomuk.ResourceManager.instance().clearCache()
-        
         rootTypeResource = Nepomuk.Resource(rootType)
         
         self.rootItem = ResourceNode(rootTypeResource)
+        
         self.addChildren(self.rootItem, rootTypeResource)
             
         
     def addChildren(self, node, typeResource):
-
         typeClass = Nepomuk.Types.Class(typeResource.resourceUri())
         
         subClasses = typeClass.subClasses()
@@ -210,18 +208,14 @@ class ResourcesTreeModel(QAbstractItemModel):
             if typeResource.resourceUri() == subClass.uri():
                 continue
             subClassResource = Nepomuk.Resource(subClass.uri())
-            
             tuples.append((subClassResource, subClassResource.genericLabel()))
         
         sortedResources = sorted(tuples, key=lambda tuple: tuple[1])
-
         
         for tuple in sortedResources:
-            
             child = ResourceNode(tuple[0], node)
             node.addChild(child)
             self.addChildren(child, tuple[0])
-
 
 
 class ResourcesTree(QWidget):
@@ -287,14 +281,10 @@ class ResourcesTree(QWidget):
 
     def refresh(self):
         typeClass = Nepomuk.Types.Class(PIMO.Thing)
-        
-        for sc in typeClass.subClasses():
-            res = Nepomuk.Resource(sc.uri())
-             
+        typeClass.reset()
         model = ResourcesTreeModel(mainWindow=self.mainWindow)
         model.loadData()
         self.tree.setModel(model)
-
         
     def showContextMenu(self, points):
         
@@ -366,12 +356,12 @@ class TypesContextMenu(ObjectContextMenu):
             self.addAction(action)
         else:
             action = QAction(i18n("New &instance"), self)
-            action.setProperty("key",QVariant(NEW_INSTANCE))
+            action.setProperty("key", QVariant(NEW_INSTANCE))
             self.addAction(action)
             self.addSeparator()
             self.addOpenAction()
             action = QAction(i18n("&Add to places"), self)
-            action.setProperty("key",QVariant(ADD_TO_PLACES))
+            action.setProperty("key", QVariant(ADD_TO_PLACES))
             self.addAction(action)
             nodeClass = Nepomuk.Types.Class(self.selectedResources[0])
             pimoThingClass = Nepomuk.Types.Class(PIMO.Thing)

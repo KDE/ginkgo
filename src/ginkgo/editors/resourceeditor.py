@@ -24,6 +24,7 @@ from PyKDE4.nepomuk import Nepomuk
 from ginkgo.dialogs.resourcetypesdialog import ResourceTypesDialog
 from ginkgo.util import util
 from ginkgo.views.relationstable import RelationsTable
+from ginkgo.views.sparqlview import SparqlResultsTable
 import os
 
 def getClass(clazz):
@@ -119,7 +120,31 @@ class ResourceEditor(QWidget):
                 types.append(res.resourceUri())
             
             self.resource.setTypes(types)
-            self.ui.updateFields()            
+            self.ui.updateFields()
+    
+    def executeInlineQuery(self):
+        cursor = self.ui.description.textCursor()
+        selection = cursor.selectedText()
+
+        #Note: If the selection obtained from an editor spans a line break, the text will contain a 
+        #Unicode U+2029 paragraph separator character instead of a newline \n character. 
+        #Use QString::replace() to replace these characters with newlines. 
+        
+        sparqlViewTabIndex = -1
+        for index in range(self.ui.relationsWidget.count()):
+            tab = self.ui.relationsWidget.widget(index)
+            if tab.__class__ == getClass("ginkgo.views.sparqlview.SparqlResultsTable"):
+                sparqlViewTabIndex = index
+                break
+        
+        if sparqlViewTabIndex < 0:
+            self.sparqlView = SparqlResultsTable(mainWindow=self.mainWindow, sparql=selection)
+            self.ui.relationsWidget.addTab(self.sparqlView , i18n("Query results"))
+            self.ui.relationsWidget.setCurrentWidget(self.sparqlView)
+        else:
+            self.sparqlView.setSparql(selection)
+            self.sparqlView.installModels()
+            self.ui.relationsWidget.setCurrentIndex(sparqlViewTabIndex)
 
 
 class ResourceEditorUi(object):
@@ -164,6 +189,9 @@ class ResourceEditorUi(object):
         shortcut = QShortcut(QKeySequence("Ctrl+L"), self.label);
         shortcut.activated.connect(self.editor.focusOnLabelField)
         
+        
+
+        
         self.label.setMinimumWidth(400)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 #        p = QPalette()
@@ -197,13 +225,18 @@ class ResourceEditorUi(object):
         
 #        descriptionLabel = QLabel(descriptionWidget)
 #        descriptionLabel.setText(i18n("&Description:")) 
-        self.description = QTextEdit(self.editor)
-        self.description.setTabChangesFocus(True)
+        self.description = KTextEdit(self.editor)
+        self.description.setTabChangesFocus(False)
+        self.description.setCheckSpellingEnabled(False)
         #self.description.setLineWrapMode(QTextEdit.NoWrap)
         self.description.setAcceptRichText(False)
         self.description.setObjectName("Notes")
         self.description.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 #        descriptionLabel.setBuddy(self.description)
+
+        shortcut = QShortcut(QKeySequence("Ctrl+Alt+X"), self.description);
+        shortcut.activated.connect(self.editor.executeInlineQuery)
+
         
         #hline = QFrame(descriptionWidget)
         #hline.setGeometry(QRect(150, 190, 118, 3))
@@ -253,16 +286,21 @@ class ResourceEditorUi(object):
 
         self.updateFields()
 
-    def updateFields(self):
+        #update the description field only here since we actually don't want it to be updated
+        #on save, unless we carefully make sure that all the ui is kept unchanged after resetting
+        #the text: scrollbar position, caret position, selected text.
         if self.editor.resource:
-            if hasattr(self, "name"):
-                self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
-
             cursor = self.description.textCursor()
             pos = cursor.position()
             self.description.setText(self.editor.resource.description())
             cursor.setPosition(pos)
             self.description.setTextCursor(cursor)
+
+
+    def updateFields(self):
+        if self.editor.resource:
+            if hasattr(self, "name"):
+                self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
 
 
             prefLabel = self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()

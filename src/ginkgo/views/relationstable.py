@@ -24,7 +24,6 @@ from PyKDE4.soprano import Soprano
 from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
-from ginkgo.util import mime
 from ginkgo.views.objectcontextmenu import ObjectContextMenu
 from ginkgo.actions import * 
 

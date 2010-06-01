@@ -139,21 +139,20 @@ class TypePropertiesTable(ResourcesTable):
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
 
     def createModel(self):
-        clazz = Nepomuk.Types.Class(self.resource.resourceUri())
-        
         data = []
         
-        props = datamanager.typeProperties(clazz, True)
-        for prop in props:
-            data.append((clazz, prop))
-        
-        for parentClass in clazz.allParentClasses():
-            props = datamanager.typeProperties(parentClass, True)
+        if self.resource:
+            clazz = Nepomuk.Types.Class(self.resource.resourceUri())
+            props = datamanager.typeProperties(clazz, True)
             for prop in props:
-                data.append((parentClass, prop))
-                
-        self.model = TypePropertiesTableModel(self, data=data)
+                data.append((clazz, prop))
             
+            for parentClass in clazz.allParentClasses():
+                props = datamanager.typeProperties(parentClass, True)
+                for prop in props:
+                    data.append((parentClass, prop))
+                    
+        self.model = TypePropertiesTableModel(self, data=data)
         self.model.setHeaders([i18n("Inherited from"), i18n("Name"), i18n("Range")])
 
 

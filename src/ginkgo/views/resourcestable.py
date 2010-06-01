@@ -152,7 +152,7 @@ class ResourcesTableModel(QAbstractTableModel):
     #this slot has to be in the model, not in the table, otherwise when we change the model table
     #(e.g in the labelinputdialog), the slot can possibly be called by other queries which are still running 
     def queryNextReadySlot(self, query):
-        query.next()
+        
         node = query.binding("r");
         resource = Nepomuk.Resource(node.uri())
         self.addResource(resource)
@@ -161,6 +161,7 @@ class ResourcesTableModel(QAbstractTableModel):
             self.resourcestable.table.selectionModel().clearSelection()
             self.resourcestable.table.selectRow(0)
 
+        query.next()
           
 
 class ResourcesSortFilterProxyModel(QSortFilterProxyModel):
@@ -243,7 +244,8 @@ class ResourcesTable(QWidget):
 
     #abstract
     def statementAddedSlot(self, statement):
-        predicate = statement.predicate().uri()
+        #predicate = statement.predicate().uri()
+        pass
 
     def statementRemovedSlot(self, statement):
         subject = statement.subject().uri()
@@ -377,6 +379,13 @@ class ResourcesTable(QWidget):
         elif key == SET_AS_CONTEXT:
             resource = Nepomuk.Resource(selectedResources[0])
             self.mainWindow.setResourceAsContext(resource)
+
+
+#    def closeEvent(self, event):
+#        try:
+#            
+#        except Exception, e:
+#            print "An error occurred: '%s.'" % str(e)
 
 
     def setQuery(self, query):
