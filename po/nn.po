@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-25 22:01+0200\n"
+"POT-Creation-Date: 2010-06-01 16:25+0200\n"
+"PO-Revision-Date: 2010-06-01 18:55+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
 msgstr "Opna ressurs"
 
@@ -28,33 +27,30 @@ msgid "Name"
 msgstr "Namn"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Prosjekt"
+msgstr "&Objekt"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Relasjonar"
+msgstr "&Tilknytingstype:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Type"
+msgstr "&Type:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtrer etter type"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Alle"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
@@ -74,9 +70,8 @@ msgid "Task Selection"
 msgstr "Oppgåveval"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Eigenskapar"
+msgstr "Typeeigenskapar"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -107,13 +102,12 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Bilete (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
 msgstr "Søkjeresultat"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
-msgstr "Relasjonar"
+msgstr "Tilknytingar"
 
 #: ginkgo/editors/resourceeditor.py:264
 msgid "Properties"
@@ -208,9 +202,8 @@ msgid "Link to"
 msgstr "Lenkja til"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Fjerning av ressurs"
+msgstr "&Ressurs"
 
 #: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
@@ -293,9 +286,8 @@ msgid "New Type"
 msgstr "Ny type"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Eigenskap"
+msgstr "Ny eigenskap"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -314,9 +306,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Er du sikker på at du vil sletta <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Relasjonar"
+msgstr "Ny tilknyting"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -513,19 +504,16 @@ msgid "&Unlink from %1"
 msgstr "&Kopla frå %1"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "Relasjonar"
+msgstr "Tilknytingar"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "Fil"
+msgstr "Tittel"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Relasjonar"
+msgstr "&Fjern tilknyting(ar)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -564,17 +552,16 @@ msgid "&New sub-task"
 msgstr "&Ny underoppgåve"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Eigenskap"
+msgstr "&Ny eigenskap"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Arva frå"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Verdiområde"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
