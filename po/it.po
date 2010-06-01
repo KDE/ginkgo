@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-26 10:06+0200\n"
-"Last-Translator: Andrea Celli <andrea.celli@ilibero.it>\n"
-"Language-Team: Italian <timl@freelists.org>\n"
+"PO-Revision-Date: 2010-06-01 17:24+0200\n"
+"Last-Translator: Andrea Celli <andrea.celli@libero.it>\n"
+"Language-Team: Italian <timl@frelists.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,6 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
 msgstr "Apri risorsa"
 
@@ -31,33 +30,30 @@ msgid "Name"
 msgstr "Nome"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Progetto"
+msgstr "&Oggetto"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Tutto"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Relazioni"
+msgstr "Tipo di relazione:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Tipo"
+msgstr "&Tipo:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtra per tipo"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Tutti"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
@@ -66,7 +62,7 @@ msgstr "Elementi trovati:"
 #: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
 #: ginkgo/mainwindow.py:98
 msgid "Link to..."
-msgstr "Collega a ...:"
+msgstr "Collega a ..."
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
@@ -77,9 +73,8 @@ msgid "Task Selection"
 msgstr "Scelta attività"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Proprietà"
+msgstr "Proprietà del tipo"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -110,9 +105,8 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Immagini (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Risultati della ricerca"
+msgstr "Risultati  ricerca"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
@@ -211,9 +205,8 @@ msgid "Link to"
 msgstr "Collega a"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Rimozione risorsa"
+msgstr "&Risorsa"
 
 #: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
@@ -296,9 +289,8 @@ msgid "New Type"
 msgstr "Nuovo tipo"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Proprietà"
+msgstr "Nuova proprietà"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -317,9 +309,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Sei sicuro di voler eliminare <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Relazioni"
+msgstr "Nuova relazione"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -516,23 +507,20 @@ msgid "&Unlink from %1"
 msgstr "&Scollega da %1"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "Relazioni"
+msgstr "Relazione"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "File"
+msgstr "Titolo"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Relazioni"
+msgstr "&Rimuovi relazioni"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
-msgstr "Copia il valore negli appunti"
+msgstr "&Copia il valore negli appunti"
 
 #: ginkgo/views/resourcepropertiestable.py:122
 msgid "Property"
@@ -567,17 +555,16 @@ msgid "&New sub-task"
 msgstr "&Nuova sub-attività"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Proprietà"
+msgstr "&Nuova proprietà"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Ereditato da"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Intervallo"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
