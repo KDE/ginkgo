@@ -11,51 +11,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
-msgstr "Abrir recurso"
+msgstr "Abrir Recurso"
 
-#: ginkgo/dialogs/livesearchdialog.py:36 ginkgo/views/relatedstable.py:45
-#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/dialogs/livesearchdialog.py:36
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
 #: ginkgo/views/resourcetypestable.py:53
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Name"
 msgstr "Nombre"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Proyecto"
+msgstr "&Objeto"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Relaciones"
+msgstr "Tipo de &Relación"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Tipo"
+msgstr "&Tipo:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtrar por tipo"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Todo"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
 msgstr "Elementos coincidentes:"
 
-#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
+#: ginkgo/dialogs/resourcechooserdialog.py:61
+#: ginkgo/mainwindow.py:97
 #: ginkgo/mainwindow.py:98
 msgid "Link to..."
 msgstr "Enlazar a..."
@@ -69,9 +68,8 @@ msgid "Task Selection"
 msgstr "Selección de tarea"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Propiedades"
+msgstr "Propiedades de tipo"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -89,7 +87,8 @@ msgstr "Correo electrónico"
 msgid "Phone"
 msgstr "Teléfono"
 
-#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
+#: ginkgo/editors/fileeditor.py:51
+#: ginkgo/editors/websiteeditor.py:56
 msgid "Open"
 msgstr "Abrir"
 
@@ -102,7 +101,6 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Imágenes (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
 msgstr "Resultados de la búsqueda"
 
@@ -207,11 +205,12 @@ msgid "Link to"
 msgstr "Enlazar a"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Eliminar recurso"
+msgstr "&Recurso"
 
-#: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
+#: ginkgo/mainwindow.py:107
+#: ginkgo/mainwindow.py:127
+#: ginkgo/mainwindow.py:647
 msgid "&File"
 msgstr "&Archivo"
 
@@ -251,7 +250,8 @@ msgstr "&Nuevo"
 msgid "&Edit"
 msgstr "&Editar"
 
-#: ginkgo/mainwindow.py:145 ginkgo/views/objectcontextmenu.py:54
+#: ginkgo/mainwindow.py:145
+#: ginkgo/views/objectcontextmenu.py:54
 msgid "&Delete"
 msgstr "&Borrar"
 
@@ -271,11 +271,13 @@ msgstr "Tipos"
 msgid "Toolbar"
 msgstr "Barra de herramientas"
 
-#: ginkgo/mainwindow.py:169 ginkgo/mainwindow.py:170
+#: ginkgo/mainwindow.py:169
+#: ginkgo/mainwindow.py:170
 msgid "New"
 msgstr "Nuevo"
 
-#: ginkgo/mainwindow.py:211 ginkgo/mainwindow.py:215
+#: ginkgo/mainwindow.py:211
+#: ginkgo/mainwindow.py:215
 msgid "Search"
 msgstr "Buscar"
 
@@ -292,9 +294,8 @@ msgid "New Type"
 msgstr "Nuevo Tipo"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Propiedad"
+msgstr "Nueva propiedad"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -313,9 +314,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "¿Está seguro de que desea eliminar <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Relaciones"
+msgstr "Nueva relación"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -441,7 +441,8 @@ msgstr "&Archivos"
 msgid "Create new file"
 msgstr "Crear un archivo nuevo"
 
-#: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
+#: ginkgo/mainwindow.py:753
+#: ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
 msgstr "Contexto - Ginkgo"
 
@@ -500,12 +501,15 @@ msgstr "Establecer como conte&xto"
 # Sigo en dudas: http://translate.google.com.ar/?hl=es&tab=wT#en|es|due
 #
 # Jacen: Puede ser fecha de cierre o de cumplimiento. La dejo en Fuzzy
-#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
-#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
 msgid "Date"
 msgstr "Fecha"
 
-#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
 #: ginkgo/views/resourcestable.py:296
 msgid "Type"
 msgstr "Tipo"
@@ -515,19 +519,16 @@ msgid "&Unlink from %1"
 msgstr "&Desenlazar desde %1"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "Relaciones"
+msgstr "Relación"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "&Archivo"
+msgstr "Título"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Relaciones"
+msgstr "&Remover relación(es)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -566,17 +567,16 @@ msgid "&New sub-task"
 msgstr "&Nueva sub-tarea"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Propiedad"
+msgstr "&Nueva propiedad"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Heredado desde"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Rango"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
@@ -606,27 +606,22 @@ msgstr "dbello@gmail.com"
 
 #~ msgid "&Name:"
 #~ msgstr "&Nombre:"
-
 #~ msgid "Ginkgo"
 #~ msgstr "Ginkgo"
-
 #~ msgid "(c) 2010, Mandriva, Stéphane Laurière"
 #~ msgstr "(c) 2010, Mandriva, Stéphane Laurière"
-
 #~ msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
 #~ msgstr ""
 #~ "Ginkgo es un navegador para Nepomuk, el conjunto de herramientas "
 #~ "semánticas de KDE."
-
 #~ msgid ""
 #~ "Ginkgo lets you create and explore links between your personal data such "
 #~ "as e-mails, contacts, files, Web pages."
 #~ msgstr ""
 #~ "Ginkgo le permite crear y explorar enlaces entre sus datos personales "
 #~ "tales como correos electrónicos, contactos, archivos y páginas Web."
-
 #~ msgid "Stéphane Laurière"
 #~ msgstr "Stéphane Laurière"
-
 #~ msgid "Developer"
 #~ msgstr "Desarrollador"
+
