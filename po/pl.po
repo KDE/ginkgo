@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-26 19:40+0100\n"
+"PO-Revision-Date: 2010-06-01 17:52+0100\n"
 "Last-Translator: Marek Walczak <kubdat@poczta.fm>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,51 +16,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
-msgstr "Otwórz zasoby"
+msgstr "Otwórz zasób"
 
-#: ginkgo/dialogs/livesearchdialog.py:36 ginkgo/views/relatedstable.py:45
-#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/dialogs/livesearchdialog.py:36
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
 #: ginkgo/views/resourcetypestable.py:53
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Name"
 msgstr "Nazwa"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Projekt"
+msgstr "&Obiekt"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Wszystko"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Relacje"
+msgstr "&Typ relacji:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Typ"
+msgstr "&Typ:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtruj wg typu"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Wszystko"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
 msgstr "Dopasowane pozycje:"
 
-#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
+#: ginkgo/dialogs/resourcechooserdialog.py:61
+#: ginkgo/mainwindow.py:97
 #: ginkgo/mainwindow.py:98
 msgid "Link to..."
 msgstr "Link do..."
@@ -74,9 +73,8 @@ msgid "Task Selection"
 msgstr "Wybór zadania"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Właściwości"
+msgstr "Typ właściwości"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -94,7 +92,8 @@ msgstr "E-mail"
 msgid "Phone"
 msgstr "Telefon"
 
-#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
+#: ginkgo/editors/fileeditor.py:51
+#: ginkgo/editors/websiteeditor.py:56
 msgid "Open"
 msgstr "Otwórz"
 
@@ -107,9 +106,8 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Zdjęcia (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Wyniki wyszukiwania"
+msgstr "Wyniki zapytania"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
@@ -189,7 +187,7 @@ msgstr "Utwórz nową kartę"
 
 #: ginkgo/mainwindow.py:93
 msgid "Close Tab"
-msgstr "Zamknij Kartę"
+msgstr "Zamknij kartę"
 
 #: ginkgo/mainwindow.py:93
 msgid "Close tab"
@@ -208,11 +206,12 @@ msgid "Link to"
 msgstr "Link do"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Usuwanie źródła"
+msgstr "&Zasób"
 
-#: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
+#: ginkgo/mainwindow.py:107
+#: ginkgo/mainwindow.py:127
+#: ginkgo/mainwindow.py:647
 msgid "&File"
 msgstr "&Plik"
 
@@ -252,7 +251,8 @@ msgstr "&Nowy"
 msgid "&Edit"
 msgstr "&Edycja"
 
-#: ginkgo/mainwindow.py:145 ginkgo/views/objectcontextmenu.py:54
+#: ginkgo/mainwindow.py:145
+#: ginkgo/views/objectcontextmenu.py:54
 msgid "&Delete"
 msgstr "&Usuń"
 
@@ -272,11 +272,13 @@ msgstr "Rodzaje"
 msgid "Toolbar"
 msgstr "Pasek narzędzi"
 
-#: ginkgo/mainwindow.py:169 ginkgo/mainwindow.py:170
+#: ginkgo/mainwindow.py:169
+#: ginkgo/mainwindow.py:170
 msgid "New"
 msgstr "Nowy"
 
-#: ginkgo/mainwindow.py:211 ginkgo/mainwindow.py:215
+#: ginkgo/mainwindow.py:211
+#: ginkgo/mainwindow.py:215
 msgid "Search"
 msgstr "Szukaj"
 
@@ -293,9 +295,8 @@ msgid "New Type"
 msgstr "Nowy rodzaj"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Własność"
+msgstr "Nowa właściwość"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -314,9 +315,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Jesteś pewien, że chcesz usunąć <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Relacje"
+msgstr "Nowa relacja"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -442,7 +442,8 @@ msgstr "&Pliki"
 msgid "Create new file"
 msgstr "Utwórz nowy plik"
 
-#: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
+#: ginkgo/mainwindow.py:753
+#: ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
 msgstr "Powiązanie - Ginkgo"
 
@@ -498,12 +499,15 @@ msgstr "&Napisz e-mail do"
 msgid "Set as &context"
 msgstr "Ustaw jako &powiązanie"
 
-#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
-#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
 msgid "Date"
 msgstr "Data"
 
-#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
 #: ginkgo/views/resourcestable.py:296
 msgid "Type"
 msgstr "Typ"
@@ -513,19 +517,16 @@ msgid "&Unlink from %1"
 msgstr "&Odłącz od %1"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
 msgstr "Relacje"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "Plik"
+msgstr "Tytuł"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Relacje"
+msgstr "&Usuń relacje"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -545,7 +546,7 @@ msgstr "&Nowy typ"
 
 #: ginkgo/views/resourcestree.py:358
 msgid "New &instance"
-msgstr "Nowa &egzemplarz"
+msgstr "Nowy &egzemplarz"
 
 #: ginkgo/views/resourcestree.py:363
 msgid "&Add to places"
@@ -564,17 +565,16 @@ msgid "&New sub-task"
 msgstr "&Nowe podzadanie"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Własność"
+msgstr "&Nowa właściwość"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Odziedziczony z"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Zakres"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
