@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nepomuk-ginkgo\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-24 10:50+0200\n"
+"POT-Creation-Date: 2010-06-01 16:20+0200\n"
 "PO-Revision-Date: 2010-05-30 14:03+0100\n"
 "Last-Translator: Florin Cătălin RUSSEN <cfrussen@yahoo.co.uk>\n"
 "Language-Team: Romanian <cooker-i18n@mandrivalinux.org>\n"
@@ -49,23 +49,55 @@ msgstr ""
 "Plural-Forms: nplurals=3;plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1))\n"
 
-#: ginkgo/dialogs/livesearchdialog.py:81
-msgid "&Name:"
-msgstr "&Nume:"
+#: ginkgo/dialogs/livesearchdialog.py:35
+#, fuzzy
+msgid "Open Resource"
+msgstr "Deschide resursa"
 
-#: ginkgo/dialogs/livesearchdialog.py:96
+#: ginkgo/dialogs/livesearchdialog.py:36 ginkgo/views/relatedstable.py:45
+#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/views/resourcetypestable.py:53
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Name"
+msgstr "Nume"
+
+#: ginkgo/dialogs/livesearchdialog.py:39
+#, fuzzy
+msgid "&Object"
+msgstr "&Proiect"
+
+#: ginkgo/dialogs/livesearchdialog.py:63
+#: ginkgo/dialogs/livesearchdialog.py:186
+msgid "All"
+msgstr ""
+
+#: ginkgo/dialogs/livesearchdialog.py:146
+#, fuzzy
+msgid "&Relation type:"
+msgstr "Relații"
+
+#: ginkgo/dialogs/livesearchdialog.py:181
+#, fuzzy
+msgid "&Type:"
+msgstr "&Tip"
+
+#: ginkgo/dialogs/livesearchdialog.py:188
+#: ginkgo/dialogs/livesearchdialog.py:192
+msgid "Filter by type"
+msgstr ""
+
+#: ginkgo/dialogs/livesearchdialog.py:196
+msgid "&All"
+msgstr ""
+
+#: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
 msgstr "Elemente potrivite:"
 
-#: ginkgo/dialogs/livesearchdialog.py:108
-#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:85
-#: ginkgo/mainwindow.py:86
+#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
+#: ginkgo/mainwindow.py:98
 msgid "Link to..."
 msgstr "Leagă la..."
-
-#: ginkgo/dialogs/livesearchdialog.py:110
-msgid "Open resource"
-msgstr "Deschide resursa"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
@@ -75,19 +107,24 @@ msgstr "Selectează tipurile"
 msgid "Task Selection"
 msgstr "Selecție sarcină"
 
-#: ginkgo/editors/contacteditor.py:68
+#: ginkgo/editors/classeditor.py:52
+#, fuzzy
+msgid "Type properties"
+msgstr "Proprietăți"
+
+#: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
 msgstr "Prenume"
 
-#: ginkgo/editors/contacteditor.py:83
+#: ginkgo/editors/contacteditor.py:84
 msgid "Last Name"
 msgstr "Nume"
 
-#: ginkgo/editors/contacteditor.py:88
+#: ginkgo/editors/contacteditor.py:89
 msgid "E-mail"
 msgstr "Poștă electronică"
 
-#: ginkgo/editors/contacteditor.py:96
+#: ginkgo/editors/contacteditor.py:97
 msgid "Phone"
 msgstr "Telefon"
 
@@ -95,23 +132,28 @@ msgstr "Telefon"
 msgid "Open"
 msgstr "Deschide"
 
-#: ginkgo/editors/resourceeditor.py:61
+#: ginkgo/editors/resourceeditor.py:63
 msgid "Select Icon - Ginkgo"
 msgstr "Selectare pictogramă - Ginkgo"
 
-#: ginkgo/editors/resourceeditor.py:61
+#: ginkgo/editors/resourceeditor.py:63
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Imagini (*.png *.jpg *.jpeg *.bmp)"
 
-#: ginkgo/editors/resourceeditor.py:203
+#: ginkgo/editors/resourceeditor.py:142
+#, fuzzy
+msgid "Query results"
+msgstr "Rezultatele căutării"
+
+#: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
 msgstr "Relații"
 
-#: ginkgo/editors/resourceeditor.py:204
+#: ginkgo/editors/resourceeditor.py:264
 msgid "Properties"
 msgstr "Proprietăți"
 
-#: ginkgo/editors/resourceeditor.py:254
+#: ginkgo/editors/resourceeditor.py:330
 msgid "Type(s): "
 msgstr "Tipuri:"
 
@@ -155,420 +197,418 @@ msgstr "Data scadentă"
 msgid "URL"
 msgstr "URL"
 
-#: ginkgo/mainwindow.py:77
+#: ginkgo/mainwindow.py:89
 msgid "&Save"
 msgstr "&Salvează"
 
-#: ginkgo/mainwindow.py:77
+#: ginkgo/mainwindow.py:89
 msgid "Save"
 msgstr "Salvează"
 
-#: ginkgo/mainwindow.py:79
+#: ginkgo/mainwindow.py:91
 msgid "&Open"
 msgstr "&Deschide"
 
-#: ginkgo/mainwindow.py:79
+#: ginkgo/mainwindow.py:91
 msgid "Open a resource"
 msgstr "Deschide o resursă"
 
-#: ginkgo/mainwindow.py:80
+#: ginkgo/mainwindow.py:92
 msgid "New &Tab"
 msgstr "&Tab nou"
 
-#: ginkgo/mainwindow.py:80
+#: ginkgo/mainwindow.py:92
 msgid "Create new tab"
 msgstr "Creează un tab nou"
 
-#: ginkgo/mainwindow.py:81
+#: ginkgo/mainwindow.py:93
 msgid "Close Tab"
 msgstr "Închide tabul"
 
-#: ginkgo/mainwindow.py:81
+#: ginkgo/mainwindow.py:93
 msgid "Close tab"
 msgstr "Închide tabul"
 
-#: ginkgo/mainwindow.py:82
+#: ginkgo/mainwindow.py:94
 msgid "&Quit"
 msgstr "&Terminare"
 
-#: ginkgo/mainwindow.py:82
+#: ginkgo/mainwindow.py:94
 msgid "Close the application"
 msgstr "Închide aplicația"
 
-#: ginkgo/mainwindow.py:92
+#: ginkgo/mainwindow.py:104
 msgid "Link to"
 msgstr "Leagă la"
 
-#: ginkgo/mainwindow.py:103
-msgid "Set resource as context"
-msgstr "Definește resursa drept context"
+#: ginkgo/mainwindow.py:106
+#, fuzzy
+msgid "&Resource"
+msgstr "Înlăturare resursă"
 
-#: ginkgo/mainwindow.py:103
-msgid "Set the current resource as context"
-msgstr "Definește resursa curentă drept context"
-
-#: ginkgo/mainwindow.py:105
-msgid "Stop query"
-msgstr "Oprește cererea"
-
-#: ginkgo/mainwindow.py:108
-msgid "View data types"
-msgstr "Vizualizează tipurile de date"
-
-#: ginkgo/mainwindow.py:108
-msgid "Display the available data types"
-msgstr "Afișează tipurile de date disponibile"
-
-#: ginkgo/mainwindow.py:110
-msgid "Recent"
-msgstr "Recent"
-
-#: ginkgo/mainwindow.py:110
-msgid "Show recently modified resources"
-msgstr "Arată resursele modificate recent"
-
-#: ginkgo/mainwindow.py:112 ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
 msgstr "&Fișier"
 
-#: ginkgo/mainwindow.py:115
+#: ginkgo/mainwindow.py:118
+msgid "Set resource as context"
+msgstr "Definește resursa drept context"
+
+#: ginkgo/mainwindow.py:118
+msgid "Set the current resource as context"
+msgstr "Definește resursa curentă drept context"
+
+#: ginkgo/mainwindow.py:120
+msgid "Stop query"
+msgstr "Oprește cererea"
+
+#: ginkgo/mainwindow.py:123
+msgid "View data types"
+msgstr "Vizualizează tipurile de date"
+
+#: ginkgo/mainwindow.py:123
+msgid "Display the available data types"
+msgstr "Afișează tipurile de date disponibile"
+
+#: ginkgo/mainwindow.py:125
+msgid "Recent"
+msgstr "Recent"
+
+#: ginkgo/mainwindow.py:125
+msgid "Show recently modified resources"
+msgstr "Arată resursele modificate recent"
+
+#: ginkgo/mainwindow.py:130
 msgid "&New"
 msgstr "&Nou"
 
-#: ginkgo/mainwindow.py:129
+#: ginkgo/mainwindow.py:144
 msgid "&Edit"
 msgstr "&Editează"
 
-#: ginkgo/mainwindow.py:130 ginkgo/views/resourcecontextmenu.py:52
-#: ginkgo/views/resourcestree.py:304
+#: ginkgo/mainwindow.py:145 ginkgo/views/objectcontextmenu.py:54
 msgid "&Delete"
 msgstr "&Șterge"
 
-#: ginkgo/mainwindow.py:130
+#: ginkgo/mainwindow.py:145
 msgid "Delete"
 msgstr "Șterge"
 
-#: ginkgo/mainwindow.py:134
+#: ginkgo/mainwindow.py:149
 msgid "&View"
 msgstr "&Vizualizează"
 
-#: ginkgo/mainwindow.py:140
+#: ginkgo/mainwindow.py:155
 msgid "Types"
 msgstr "Tipuri"
 
-#: ginkgo/mainwindow.py:147
+#: ginkgo/mainwindow.py:162
 msgid "Toolbar"
 msgstr "Bara de unelte"
 
-#: ginkgo/mainwindow.py:154 ginkgo/mainwindow.py:155
+#: ginkgo/mainwindow.py:169 ginkgo/mainwindow.py:170
 msgid "New"
 msgstr "Nou"
 
-#: ginkgo/mainwindow.py:196 ginkgo/mainwindow.py:200
+#: ginkgo/mainwindow.py:211 ginkgo/mainwindow.py:215
 msgid "Search"
 msgstr "Caută"
 
-#: ginkgo/mainwindow.py:201
+#: ginkgo/mainwindow.py:216
 msgid "Full-text search"
 msgstr "Căutare de text complet"
 
-#: ginkgo/mainwindow.py:286
+#: ginkgo/mainwindow.py:301
 msgid "New Task"
 msgstr "Sarcină nouă"
 
-#: ginkgo/mainwindow.py:293
+#: ginkgo/mainwindow.py:308
 msgid "New Type"
 msgstr "Tip nou"
 
-#: ginkgo/mainwindow.py:345
+#: ginkgo/mainwindow.py:316
+#, fuzzy
+msgid "New Property"
+msgstr "Proprietate"
+
+#: ginkgo/mainwindow.py:369
 msgid "New %1"
 msgstr "Nou %1"
 
-#: ginkgo/mainwindow.py:413
+#: ginkgo/mainwindow.py:438
 msgid "Warning"
 msgstr "Avertisment"
 
-#: ginkgo/mainwindow.py:441
+#: ginkgo/mainwindow.py:466
 msgid "Resource removal"
 msgstr "Înlăturare resursă"
 
-#: ginkgo/mainwindow.py:442
+#: ginkgo/mainwindow.py:467
 msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Sigur doriți să ștergeți <i>%1</i>?"
 
-#: ginkgo/mainwindow.py:535
+#: ginkgo/mainwindow.py:543
+#, fuzzy
+msgid "New Relation"
+msgstr "Relații"
+
+#: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
 msgstr "Selectare fișier - Ginkgo"
 
-#: ginkgo/mainwindow.py:574
+#: ginkgo/mainwindow.py:595
 msgid "Places"
 msgstr "Locuri"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "&Contact"
 msgstr "&Contact"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "&Contacts"
 msgstr "&Contacte"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "Create new contact"
 msgstr "Creează un contact nou"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "&Project"
 msgstr "&Proiect"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "&Projects"
 msgstr "&Proiecte"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "Create new project"
 msgstr "Creează un proiect nou"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "&Task"
 msgstr "&Sarcină"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "&Tasks"
 msgstr "&Sarcini"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "Create new task"
 msgstr "Creează o sarcină nouă"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "&Organization"
 msgstr "&Organizație"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "&Organizations"
 msgstr "&Organizații"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "Create new organization"
 msgstr "Creează o organizație nouă"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "&Topic"
 msgstr "&Topică"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "&Topics"
 msgstr "&Topici"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "Create new topic"
 msgstr "Creează o topică nouă"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "&Event"
 msgstr "&Eveniment"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "&Events"
 msgstr "&Evenimente"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "Create new event"
 msgstr "Creează un eveniment nou"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "&Location"
 msgstr "&Locație"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "&Locations"
 msgstr "&Locații"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "Create new location"
 msgstr "Creează o nouă locație"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "&WebPage"
 msgstr "Pagină &web"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "&Web Pages"
 msgstr "Pagini &web"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "Create new Web page"
 msgstr "Creează o nouă pagină web"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "&Note"
 msgstr "&Notiță"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "&Notes"
 msgstr "&Notițe"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "Create new note"
 msgstr "Creează o notiță nouă"
 
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:647
 msgid "&Files"
 msgstr "&Fișiere"
 
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:647
 msgid "Create new file"
 msgstr "Creează un fișier nou"
 
-#: ginkgo/mainwindow.py:726 ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
 msgstr "Context - Ginkgo"
 
-#: ginkgo/mainwindow.py:726
+#: ginkgo/mainwindow.py:753
 msgid "The context has been succesfully updated to <i>%1</i>."
 msgstr "Contextul a fost actualizat cu succes la <i>%1</i>."
 
-#: ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:755
 msgid "An error occurred while updating the context."
 msgstr "S-a produs o eroare la actualizarea contextului."
 
-#: ginkgo/mainwindow.py:824
+#: ginkgo/mainwindow.py:855
 msgid "What's New"
 msgstr "Ce este nou"
 
-#: ginkgo/mainwindow.py:838
+#: ginkgo/mainwindow.py:869
 msgid "Search Results"
 msgstr "Rezultatele căutării"
 
-#: ginkgo/mainwindow.py:992 ginkgo/mainwindow.py:1015
+#: ginkgo/mainwindow.py:1057
 msgid "Move &up"
 msgstr "Mută s&us"
 
-#: ginkgo/mainwindow.py:994 ginkgo/mainwindow.py:1017
+#: ginkgo/mainwindow.py:1060
 msgid "Move &down"
 msgstr "Mută j&os"
 
-#: ginkgo/mainwindow.py:996 ginkgo/mainwindow.py:1019
+#: ginkgo/mainwindow.py:1063
 msgid "&Remove entry"
 msgstr "Înlătu&ră intrarea"
 
-#: ginkgo.py:16
-msgid "Ginkgo"
-msgstr "Ginkgo"
-
-#: ginkgo.py:17
-msgid "(c) 2010, Mandriva, Stéphane Laurière"
-msgstr "(c) 2010, Mandriva, Stéphane Laurière"
-
-#: ginkgo.py:19
-msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
-msgstr ""
-"Ginkgo este un navigator pentru Nepomuk, trusa de unelte semantice KDE."
-
-#: ginkgo.py:21
-msgid ""
-"Ginkgo lets you create and explore links between your personal data such as "
-"e-mails, contacts, files, Web pages."
-msgstr ""
-"Ginkgo vă permite să creați și să explorați legăturile dintre datele voastre "
-"personale precum mesaje, contacte, fișiere, pagini de Internet."
-
-#: ginkgo.py:27
-msgid "Stéphane Laurière"
-msgstr "Stéphane Laurière"
-
-#: ginkgo.py:27
-msgid "Developer"
-msgstr "Dezvoltator"
-
-#: ginkgo.py:30 rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Florin Cătălin RUSSEN"
-
-#: ginkgo.py:30 rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "cfrussen@yahoo.co.uk"
-
-#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299 ginkgo/views/resourcetypestable.py:55
-msgid "Name"
-msgstr "Nume"
-
-#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299
-msgid "Date"
-msgstr "Dată"
-
-#: ginkgo/views/relationstable.py:46 ginkgo/views/resourcestable.py:299
-msgid "Type"
-msgstr "Tip"
-
-#: ginkgo/views/relationstable.py:85 ginkgo/views/relationstable.py:106
-msgid "&Unlink from %1"
-msgstr "&Dezleagă de la %1"
-
-#: ginkgo/views/resourcecontextmenu.py:47
+#: ginkgo/views/objectcontextmenu.py:48
 msgid "&Open in new tab"
 msgstr "&Deschide într-un tab nou"
 
-#: ginkgo/views/resourcecontextmenu.py:53
+#: ginkgo/views/objectcontextmenu.py:56
 msgid "Delete this resource from the Nepomuk database"
 msgstr "Șterge această resursă din baza de date Nepomuk"
 
-#: ginkgo/views/resourcecontextmenu.py:61 ginkgo/views/resourcestable.py:381
+#: ginkgo/views/objectcontextmenu.py:64
 msgid "Open &file"
 msgstr "Deschide &fișierul"
 
-#: ginkgo/views/resourcecontextmenu.py:65 ginkgo/views/resourcestable.py:384
+#: ginkgo/views/objectcontextmenu.py:69
 msgid "Open &page"
 msgstr "Deschide &pagina"
 
-#: ginkgo/views/resourcecontextmenu.py:76 ginkgo/views/resourcestable.py:387
+#: ginkgo/views/objectcontextmenu.py:81
 msgid "&Write e-mail to"
 msgstr "&Scrie un e-mail lui"
 
-#: ginkgo/views/resourcecontextmenu.py:81 ginkgo/views/resourcestable.py:389
+#: ginkgo/views/objectcontextmenu.py:87
 msgid "Set as &context"
 msgstr "Definește drept &context"
 
+#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+msgid "Date"
+msgstr "Dată"
+
+#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcestable.py:296
+msgid "Type"
+msgstr "Tip"
+
+#: ginkgo/views/relatedstable.py:105
+msgid "&Unlink from %1"
+msgstr "&Dezleagă de la %1"
+
+#: ginkgo/views/relationstable.py:164
+#, fuzzy
+msgid "Relation"
+msgstr "Relații"
+
+#: ginkgo/views/relationstable.py:164
+#, fuzzy
+msgid "Title"
+msgstr "&Fișier"
+
+#: ginkgo/views/relationstable.py:274
+#, fuzzy
+msgid "&Remove relation(s)"
+msgstr "Relații"
+
 #: ginkgo/views/resourcepropertiestable.py:44
-#: ginkgo/views/resourcepropertiestable.py:141
 msgid "&Copy value to clipboard"
 msgstr "&Copiază valoarea în cliplanșetă"
 
-#: ginkgo/views/resourcepropertiestable.py:117
+#: ginkgo/views/resourcepropertiestable.py:122
 msgid "Property"
 msgstr "Proprietate"
 
-#: ginkgo/views/resourcepropertiestable.py:117
+#: ginkgo/views/resourcepropertiestable.py:122
 msgid "Value"
 msgstr "Valoare"
 
-#: ginkgo/views/resourcestree.py:295 ginkgo/views/resourcestree.py:352
-msgid "New &instance"
-msgstr "&Instanță nouă"
-
-#: ginkgo/views/resourcestree.py:308 ginkgo/views/resourcestree.py:356
-msgid "&Add to places"
-msgstr "&Adaugă la locuri"
-
-#: ginkgo/views/resourcestree.py:312 ginkgo/views/resourcestree.py:349
+#: ginkgo/views/resourcestree.py:354
 msgid "&New type"
 msgstr "Tip &nou"
 
-#: ginkgo/views/resourcestree.py:362
+#: ginkgo/views/resourcestree.py:358
+msgid "New &instance"
+msgstr "&Instanță nouă"
+
+#: ginkgo/views/resourcestree.py:363
+msgid "&Add to places"
+msgstr "&Adaugă la locuri"
+
+#: ginkgo/views/resourcestree.py:370
 msgid "&New sub-type"
 msgstr "Subtip &nou"
 
-#: ginkgo/views/resourcetypestable.py:55
+#: ginkgo/views/resourcetypestable.py:53
 msgid "Ontology"
 msgstr "Ontologie"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
 msgstr "Subsarcină &nouă"
+
+#: ginkgo/views/typepropertiestable.py:47
+#, fuzzy
+msgid "&New property"
+msgstr "Proprietate"
+
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Inherited from"
+msgstr ""
+
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Range"
+msgstr ""
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
@@ -585,6 +625,42 @@ msgstr "&Tipuri"
 #: ginkgo/views/typesview.py:49
 msgid "Create new type"
 msgstr "Creează un tip nou"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Florin Cătălin RUSSEN"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "cfrussen@yahoo.co.uk"
+
+#~ msgid "&Name:"
+#~ msgstr "&Nume:"
+
+#~ msgid "Ginkgo"
+#~ msgstr "Ginkgo"
+
+#~ msgid "(c) 2010, Mandriva, Stéphane Laurière"
+#~ msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#~ msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+#~ msgstr ""
+#~ "Ginkgo este un navigator pentru Nepomuk, trusa de unelte semantice KDE."
+
+#~ msgid ""
+#~ "Ginkgo lets you create and explore links between your personal data such "
+#~ "as e-mails, contacts, files, Web pages."
+#~ msgstr ""
+#~ "Ginkgo vă permite să creați și să explorați legăturile dintre datele "
+#~ "voastre personale precum mesaje, contacte, fișiere, pagini de Internet."
+
+#~ msgid "Stéphane Laurière"
+#~ msgstr "Stéphane Laurière"
+
+#~ msgid "Developer"
+#~ msgstr "Dezvoltator"
 
 #~ msgid "Type Name"
 #~ msgstr "Tastați numele"

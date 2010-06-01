@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-24 10:50+0200\n"
+"POT-Creation-Date: 2010-06-01 16:20+0200\n"
 "PO-Revision-Date: 2010-05-25 17:51+0200\n"
 "Last-Translator: Atilla ÖNTAŞ <atilla_ontas@mandriva.org>\n"
 "Language-Team: Mandriva 18n <cooker-i18n@mandrivalinux.org>\n"
@@ -17,24 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ginkgo/dialogs/livesearchdialog.py:81
-msgid "&Name:"
-msgstr "İ&sim:"
+#: ginkgo/dialogs/livesearchdialog.py:35
+#, fuzzy
+msgid "Open Resource"
+msgstr "Kaynağı aç"
 
-#: ginkgo/dialogs/livesearchdialog.py:96
+#: ginkgo/dialogs/livesearchdialog.py:36 ginkgo/views/relatedstable.py:45
+#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+#: ginkgo/views/resourcetypestable.py:53
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Name"
+msgstr "İsim"
+
+#: ginkgo/dialogs/livesearchdialog.py:39
+#, fuzzy
+msgid "&Object"
+msgstr "&Proje"
+
+#: ginkgo/dialogs/livesearchdialog.py:63
+#: ginkgo/dialogs/livesearchdialog.py:186
+msgid "All"
+msgstr ""
+
+#: ginkgo/dialogs/livesearchdialog.py:146
+#, fuzzy
+msgid "&Relation type:"
+msgstr "İlişkiler"
+
+#: ginkgo/dialogs/livesearchdialog.py:181
+#, fuzzy
+msgid "&Type:"
+msgstr "&Tip"
+
+#: ginkgo/dialogs/livesearchdialog.py:188
+#: ginkgo/dialogs/livesearchdialog.py:192
+msgid "Filter by type"
+msgstr ""
+
+#: ginkgo/dialogs/livesearchdialog.py:196
+msgid "&All"
+msgstr ""
+
+#: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
 msgstr "Eşleşen ögeler:"
 
-#: ginkgo/dialogs/livesearchdialog.py:108
-#: ginkgo/dialogs/resourcechooserdialog.py:61
-#: ginkgo/mainwindow.py:85
-#: ginkgo/mainwindow.py:86
+#: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
+#: ginkgo/mainwindow.py:98
 msgid "Link to..."
 msgstr "Şuna bağlantıla..."
-
-#: ginkgo/dialogs/livesearchdialog.py:110
-msgid "Open resource"
-msgstr "Kaynağı aç"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
@@ -44,44 +75,53 @@ msgstr "Tip(ler)i Seç"
 msgid "Task Selection"
 msgstr "Görev Seçimi"
 
-#: ginkgo/editors/contacteditor.py:68
+#: ginkgo/editors/classeditor.py:52
+#, fuzzy
+msgid "Type properties"
+msgstr "Özellikler"
+
+#: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
 msgstr "İsim"
 
-#: ginkgo/editors/contacteditor.py:83
+#: ginkgo/editors/contacteditor.py:84
 msgid "Last Name"
 msgstr "Soyad"
 
-#: ginkgo/editors/contacteditor.py:88
+#: ginkgo/editors/contacteditor.py:89
 msgid "E-mail"
 msgstr "E-posta"
 
-#: ginkgo/editors/contacteditor.py:96
+#: ginkgo/editors/contacteditor.py:97
 msgid "Phone"
 msgstr "Telefon"
 
-#: ginkgo/editors/fileeditor.py:51
-#: ginkgo/editors/websiteeditor.py:56
+#: ginkgo/editors/fileeditor.py:51 ginkgo/editors/websiteeditor.py:56
 msgid "Open"
 msgstr "Aç"
 
-#: ginkgo/editors/resourceeditor.py:61
+#: ginkgo/editors/resourceeditor.py:63
 msgid "Select Icon - Ginkgo"
 msgstr "Simge Seç - Ginko"
 
-#: ginkgo/editors/resourceeditor.py:61
+#: ginkgo/editors/resourceeditor.py:63
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Resimler (*.png *.jpeg *.jpg *.bmp)"
 
-#: ginkgo/editors/resourceeditor.py:203
+#: ginkgo/editors/resourceeditor.py:142
+#, fuzzy
+msgid "Query results"
+msgstr "Arama Sonuçları"
+
+#: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
 msgstr "İlişkiler"
 
-#: ginkgo/editors/resourceeditor.py:204
+#: ginkgo/editors/resourceeditor.py:264
 msgid "Properties"
 msgstr "Özellikler"
 
-#: ginkgo/editors/resourceeditor.py:254
+#: ginkgo/editors/resourceeditor.py:330
 msgid "Type(s): "
 msgstr "Tip(ler):"
 
@@ -125,437 +165,418 @@ msgstr "Bitiş tarihi"
 msgid "URL"
 msgstr "URL"
 
-#: ginkgo/mainwindow.py:77
+#: ginkgo/mainwindow.py:89
 msgid "&Save"
 msgstr "Kayde&t"
 
-#: ginkgo/mainwindow.py:77
+#: ginkgo/mainwindow.py:89
 msgid "Save"
 msgstr "Kaydet"
 
-#: ginkgo/mainwindow.py:79
+#: ginkgo/mainwindow.py:91
 msgid "&Open"
 msgstr "Aç"
 
-#: ginkgo/mainwindow.py:79
+#: ginkgo/mainwindow.py:91
 msgid "Open a resource"
 msgstr "Bir kaynak aç"
 
-#: ginkgo/mainwindow.py:80
+#: ginkgo/mainwindow.py:92
 msgid "New &Tab"
 msgstr "Yeni &Sekme"
 
-#: ginkgo/mainwindow.py:80
+#: ginkgo/mainwindow.py:92
 msgid "Create new tab"
 msgstr "Yeni bir sekme oluştur"
 
-#: ginkgo/mainwindow.py:81
+#: ginkgo/mainwindow.py:93
 msgid "Close Tab"
 msgstr "Sekmeyi Kapat"
 
-#: ginkgo/mainwindow.py:81
+#: ginkgo/mainwindow.py:93
 msgid "Close tab"
 msgstr "Sekmeyi kapat"
 
-#: ginkgo/mainwindow.py:82
+#: ginkgo/mainwindow.py:94
 msgid "&Quit"
 msgstr "&Çık"
 
-#: ginkgo/mainwindow.py:82
+#: ginkgo/mainwindow.py:94
 msgid "Close the application"
 msgstr "Uygulamayı kapat"
 
-#: ginkgo/mainwindow.py:92
+#: ginkgo/mainwindow.py:104
 msgid "Link to"
 msgstr "Şuna bağlantı"
 
-#: ginkgo/mainwindow.py:103
-msgid "Set resource as context"
-msgstr "Kaynağı bağlam olarak ayarla"
+#: ginkgo/mainwindow.py:106
+#, fuzzy
+msgid "&Resource"
+msgstr "Kaynak kaldırma"
 
-#: ginkgo/mainwindow.py:103
-msgid "Set the current resource as context"
-msgstr "Şu anki kaynağı bağlam olarak ayarla"
-
-#: ginkgo/mainwindow.py:105
-msgid "Stop query"
-msgstr "Sorguyu durdur"
-
-#: ginkgo/mainwindow.py:108
-msgid "View data types"
-msgstr "Veri tiplerini görüntüle"
-
-#: ginkgo/mainwindow.py:108
-msgid "Display the available data types"
-msgstr "Kullanılabilir veri  tiplerini göster"
-
-#: ginkgo/mainwindow.py:110
-msgid "Recent"
-msgstr "Son Kullanılan"
-
-#: ginkgo/mainwindow.py:110
-msgid "Show recently modified resources"
-msgstr "En son düzenlenen kaynakları göster"
-
-#: ginkgo/mainwindow.py:112
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
 msgstr "&Dosya"
 
-#: ginkgo/mainwindow.py:115
+#: ginkgo/mainwindow.py:118
+msgid "Set resource as context"
+msgstr "Kaynağı bağlam olarak ayarla"
+
+#: ginkgo/mainwindow.py:118
+msgid "Set the current resource as context"
+msgstr "Şu anki kaynağı bağlam olarak ayarla"
+
+#: ginkgo/mainwindow.py:120
+msgid "Stop query"
+msgstr "Sorguyu durdur"
+
+#: ginkgo/mainwindow.py:123
+msgid "View data types"
+msgstr "Veri tiplerini görüntüle"
+
+#: ginkgo/mainwindow.py:123
+msgid "Display the available data types"
+msgstr "Kullanılabilir veri  tiplerini göster"
+
+#: ginkgo/mainwindow.py:125
+msgid "Recent"
+msgstr "Son Kullanılan"
+
+#: ginkgo/mainwindow.py:125
+msgid "Show recently modified resources"
+msgstr "En son düzenlenen kaynakları göster"
+
+#: ginkgo/mainwindow.py:130
 msgid "&New"
 msgstr "&Yeni"
 
-#: ginkgo/mainwindow.py:129
+#: ginkgo/mainwindow.py:144
 msgid "&Edit"
 msgstr "&Düzen"
 
-#: ginkgo/mainwindow.py:130
-#: ginkgo/views/resourcecontextmenu.py:52
-#: ginkgo/views/resourcestree.py:304
+#: ginkgo/mainwindow.py:145 ginkgo/views/objectcontextmenu.py:54
 msgid "&Delete"
 msgstr "&Sil"
 
-#: ginkgo/mainwindow.py:130
+#: ginkgo/mainwindow.py:145
 msgid "Delete"
 msgstr "Sil"
 
-#: ginkgo/mainwindow.py:134
+#: ginkgo/mainwindow.py:149
 msgid "&View"
 msgstr "&Görünüm"
 
-#: ginkgo/mainwindow.py:140
+#: ginkgo/mainwindow.py:155
 msgid "Types"
 msgstr "Tipler"
 
-#: ginkgo/mainwindow.py:147
+#: ginkgo/mainwindow.py:162
 msgid "Toolbar"
 msgstr "Araç çubuğu"
 
-#: ginkgo/mainwindow.py:154
-#: ginkgo/mainwindow.py:155
+#: ginkgo/mainwindow.py:169 ginkgo/mainwindow.py:170
 msgid "New"
 msgstr "Yeni"
 
-#: ginkgo/mainwindow.py:196
-#: ginkgo/mainwindow.py:200
+#: ginkgo/mainwindow.py:211 ginkgo/mainwindow.py:215
 msgid "Search"
 msgstr "Ara"
 
-#: ginkgo/mainwindow.py:201
+#: ginkgo/mainwindow.py:216
 msgid "Full-text search"
 msgstr "Tam-metin arama"
 
-#: ginkgo/mainwindow.py:286
+#: ginkgo/mainwindow.py:301
 msgid "New Task"
 msgstr "Yeni Görev"
 
-#: ginkgo/mainwindow.py:293
+#: ginkgo/mainwindow.py:308
 msgid "New Type"
 msgstr "Yeni Tip"
 
-#: ginkgo/mainwindow.py:345
+#: ginkgo/mainwindow.py:316
+#, fuzzy
+msgid "New Property"
+msgstr "Özellik"
+
+#: ginkgo/mainwindow.py:369
 msgid "New %1"
 msgstr "Yeni %1"
 
-#: ginkgo/mainwindow.py:413
+#: ginkgo/mainwindow.py:438
 msgid "Warning"
 msgstr "Uyarı"
 
-#: ginkgo/mainwindow.py:441
+#: ginkgo/mainwindow.py:466
 msgid "Resource removal"
 msgstr "Kaynak kaldırma"
 
-#: ginkgo/mainwindow.py:442
+#: ginkgo/mainwindow.py:467
 msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Şunu silmek istediğinizden emin misiniz: <i>%1</i>?"
 
-#: ginkgo/mainwindow.py:535
+#: ginkgo/mainwindow.py:543
+#, fuzzy
+msgid "New Relation"
+msgstr "İlişkiler"
+
+#: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
 msgstr "Dosya Seç - Ginko"
 
-#: ginkgo/mainwindow.py:574
+#: ginkgo/mainwindow.py:595
 msgid "Places"
 msgstr "Konumlar"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "&Contact"
 msgstr "&İrtibat"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "&Contacts"
 msgstr "&Kişiler"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "Create new contact"
 msgstr "Yeni kişi oluştur"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "&Project"
 msgstr "&Proje"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "&Projects"
 msgstr "&Projeler"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "Create new project"
 msgstr "Yeni proje oluştur"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "&Task"
 msgstr "&Görev"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "&Tasks"
 msgstr "&Görevler"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "Create new task"
 msgstr "Yeni bir görev oluştur"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "&Organization"
 msgstr "&Düzen"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "&Organizations"
 msgstr "&Düzenler"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "Create new organization"
 msgstr "Yeni düzen oluştur"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "&Topic"
 msgstr "&Başlık"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "&Topics"
 msgstr "&Başlıklar"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "Create new topic"
 msgstr "Yeni başlık oluştur"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "&Event"
 msgstr "&Olay"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "&Events"
 msgstr "&Olaylar"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "Create new event"
 msgstr "Yeni bir Olay oluştur"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "&Location"
 msgstr "&Konum"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "&Locations"
 msgstr "&Konumlar"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "Create new location"
 msgstr "Yeni Konum Oluştur"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "&WebPage"
 msgstr "&Web Sayfası"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "&Web Pages"
 msgstr "&Web Sayfaları"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "Create new Web page"
 msgstr "Yeni web sayfası oluştur"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "&Note"
 msgstr "&Not"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "&Notes"
 msgstr "&Notlar"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "Create new note"
 msgstr "Yeni not oluştur"
 
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:647
 msgid "&Files"
 msgstr "&Dosyalar"
 
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:647
 msgid "Create new file"
 msgstr "Yeni bir dosya oluştur"
 
-#: ginkgo/mainwindow.py:726
-#: ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
 msgstr "Bağlam - Ginko"
 
-#: ginkgo/mainwindow.py:726
+#: ginkgo/mainwindow.py:753
 msgid "The context has been succesfully updated to <i>%1</i>."
 msgstr "Bağlam şuna güncellendi: <i>%1</i>."
 
-#: ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:755
 msgid "An error occurred while updating the context."
 msgstr "Bağlam güncellenirken bir hata oluştu."
 
-#: ginkgo/mainwindow.py:824
+#: ginkgo/mainwindow.py:855
 msgid "What's New"
 msgstr " Ne Yeni?"
 
-#: ginkgo/mainwindow.py:838
+#: ginkgo/mainwindow.py:869
 msgid "Search Results"
 msgstr "Arama Sonuçları"
 
-#: ginkgo/mainwindow.py:992
-#: ginkgo/mainwindow.py:1015
+#: ginkgo/mainwindow.py:1057
 msgid "Move &up"
 msgstr "&Yukarı taşı"
 
-#: ginkgo/mainwindow.py:994
-#: ginkgo/mainwindow.py:1017
+#: ginkgo/mainwindow.py:1060
 msgid "Move &down"
 msgstr "&Aşağı taşı"
 
-#: ginkgo/mainwindow.py:996
-#: ginkgo/mainwindow.py:1019
+#: ginkgo/mainwindow.py:1063
 msgid "&Remove entry"
 msgstr "&Girdiyi Sil"
 
-#: ginkgo.py:16
-msgid "Ginkgo"
-msgstr "Ginkgo"
-
-#: ginkgo.py:17
-msgid "(c) 2010, Mandriva, Stéphane Laurière"
-msgstr "(c) 2010, Mandriva, Stéphane Laurière"
-
-#: ginkgo.py:19
-msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
-msgstr "Gingko; KDE anlambilimsel araç takımı Nepomuk için bir tarayıcıdır."
-
-#: ginkgo.py:21
-msgid "Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages."
-msgstr "Ginkgo; e-mektuplarınız, bağlantılarınız, dosyalarınız, web sayfalarınız gibi kişisel verileriniz arasında bağlantı oluşturmanızı ve keşfetmenizi sağlar."
-
-#: ginkgo.py:27
-msgid "Stéphane Laurière"
-msgstr "Stéphane Laurière"
-
-#: ginkgo.py:27
-msgid "Developer"
-msgstr "Geliştirici"
-
-#: ginkgo.py:30
-#: rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Atilla ÖNTAŞ"
-
-#: ginkgo.py:30
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "<atilla_ontas@mandriva.org> 2010"
-
-#: ginkgo/views/relationstable.py:46
-#: ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299
-#: ginkgo/views/resourcetypestable.py:55
-msgid "Name"
-msgstr "İsim"
-
-#: ginkgo/views/relationstable.py:46
-#: ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299
-msgid "Date"
-msgstr "Tarih"
-
-#: ginkgo/views/relationstable.py:46
-#: ginkgo/views/resourcestable.py:299
-msgid "Type"
-msgstr "Türü"
-
-#: ginkgo/views/relationstable.py:85
-#: ginkgo/views/relationstable.py:106
-msgid "&Unlink from %1"
-msgstr "%1 üzerinden bağlantıyı &kaldır"
-
-#: ginkgo/views/resourcecontextmenu.py:47
+#: ginkgo/views/objectcontextmenu.py:48
 msgid "&Open in new tab"
 msgstr "&Yeni sekmede aç"
 
-#: ginkgo/views/resourcecontextmenu.py:53
+#: ginkgo/views/objectcontextmenu.py:56
 msgid "Delete this resource from the Nepomuk database"
 msgstr "Bu kaynağı Nepomuk veri tabanından sil"
 
-#: ginkgo/views/resourcecontextmenu.py:61
-#: ginkgo/views/resourcestable.py:381
+#: ginkgo/views/objectcontextmenu.py:64
 msgid "Open &file"
 msgstr "&Dosya aç"
 
-#: ginkgo/views/resourcecontextmenu.py:65
-#: ginkgo/views/resourcestable.py:384
+#: ginkgo/views/objectcontextmenu.py:69
 msgid "Open &page"
 msgstr "&Sayfa aç"
 
-#: ginkgo/views/resourcecontextmenu.py:76
-#: ginkgo/views/resourcestable.py:387
+#: ginkgo/views/objectcontextmenu.py:81
 msgid "&Write e-mail to"
 msgstr "Şuna e-posta &yolla"
 
-#: ginkgo/views/resourcecontextmenu.py:81
-#: ginkgo/views/resourcestable.py:389
+#: ginkgo/views/objectcontextmenu.py:87
 msgid "Set as &context"
 msgstr "&Bağlam olarak ayarla"
 
+#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
+msgid "Date"
+msgstr "Tarih"
+
+#: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcestable.py:296
+msgid "Type"
+msgstr "Türü"
+
+#: ginkgo/views/relatedstable.py:105
+msgid "&Unlink from %1"
+msgstr "%1 üzerinden bağlantıyı &kaldır"
+
+#: ginkgo/views/relationstable.py:164
+#, fuzzy
+msgid "Relation"
+msgstr "İlişkiler"
+
+#: ginkgo/views/relationstable.py:164
+#, fuzzy
+msgid "Title"
+msgstr "&Dosya"
+
+#: ginkgo/views/relationstable.py:274
+#, fuzzy
+msgid "&Remove relation(s)"
+msgstr "İlişkiler"
+
 #: ginkgo/views/resourcepropertiestable.py:44
-#: ginkgo/views/resourcepropertiestable.py:141
 msgid "&Copy value to clipboard"
 msgstr "Değeri panoya &kopyala."
 
-#: ginkgo/views/resourcepropertiestable.py:117
+#: ginkgo/views/resourcepropertiestable.py:122
 msgid "Property"
 msgstr "Özellik"
 
-#: ginkgo/views/resourcepropertiestable.py:117
+#: ginkgo/views/resourcepropertiestable.py:122
 msgid "Value"
 msgstr "Değer"
 
-#: ginkgo/views/resourcestree.py:295
-#: ginkgo/views/resourcestree.py:352
-msgid "New &instance"
-msgstr "Yeni &süreç"
-
-#: ginkgo/views/resourcestree.py:308
-#: ginkgo/views/resourcestree.py:356
-msgid "&Add to places"
-msgstr "&Konumlara ekle"
-
-#: ginkgo/views/resourcestree.py:312
-#: ginkgo/views/resourcestree.py:349
+#: ginkgo/views/resourcestree.py:354
 msgid "&New type"
 msgstr "&Yeni Tip"
 
-#: ginkgo/views/resourcestree.py:362
+#: ginkgo/views/resourcestree.py:358
+msgid "New &instance"
+msgstr "Yeni &süreç"
+
+#: ginkgo/views/resourcestree.py:363
+msgid "&Add to places"
+msgstr "&Konumlara ekle"
+
+#: ginkgo/views/resourcestree.py:370
 msgid "&New sub-type"
 msgstr "&Yeni alt tür"
 
-#: ginkgo/views/resourcetypestable.py:55
+#: ginkgo/views/resourcetypestable.py:53
 msgid "Ontology"
 msgstr "Ontoloji"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
 msgstr "&Yeni alt görev"
+
+#: ginkgo/views/typepropertiestable.py:47
+#, fuzzy
+msgid "&New property"
+msgstr "Özellik"
+
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Inherited from"
+msgstr ""
+
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Range"
+msgstr ""
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
@@ -572,6 +593,42 @@ msgstr "&Tipler"
 #: ginkgo/views/typesview.py:49
 msgid "Create new type"
 msgstr "Yeni tip oluştur"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Atilla ÖNTAŞ"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "<atilla_ontas@mandriva.org> 2010"
+
+#~ msgid "&Name:"
+#~ msgstr "İ&sim:"
+
+#~ msgid "Ginkgo"
+#~ msgstr "Ginkgo"
+
+#~ msgid "(c) 2010, Mandriva, Stéphane Laurière"
+#~ msgstr "(c) 2010, Mandriva, Stéphane Laurière"
+
+#~ msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
+#~ msgstr "Gingko; KDE anlambilimsel araç takımı Nepomuk için bir tarayıcıdır."
+
+#~ msgid ""
+#~ "Ginkgo lets you create and explore links between your personal data such "
+#~ "as e-mails, contacts, files, Web pages."
+#~ msgstr ""
+#~ "Ginkgo; e-mektuplarınız, bağlantılarınız, dosyalarınız, web sayfalarınız "
+#~ "gibi kişisel verileriniz arasında bağlantı oluşturmanızı ve keşfetmenizi "
+#~ "sağlar."
+
+#~ msgid "Stéphane Laurière"
+#~ msgstr "Stéphane Laurière"
+
+#~ msgid "Developer"
+#~ msgstr "Geliştirici"
 
 #~ msgid "Type Name"
 #~ msgstr "Tip Adı"
