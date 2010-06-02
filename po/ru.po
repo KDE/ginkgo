@@ -1,515 +1,68 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# This file is distributed under the same license as the nepomuk-ginkgo package.
+# Alexander Kazancev <kazancas@mandriva.ru>, 2010.
+# Pavel Maryanov <acid@jack.kiev.ua>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: nepomuk-ginkgo\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
-"POT-Creation-Date: 2010-05-24 10:50+0200\n"
-"PO-Revision-Date: 2010-05-26 12:51+0300\n"
-"Last-Translator: Alexander Kazancev <kazancas@mandriva.ru>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2009-02-05 15:45+0200\n"
+"PO-Revision-Date: 2010-06-02 23:00+0200\n"
+"Last-Translator: Pavel Maryanov <acid@jack.kiev.ua>\n"
+"Language-Team: Russian <gnu@mx.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: dialogs/labelinputmatchdialog.py:116
-#: dialogs/resourcechooserdialog.py:61
-#: ginkgo.py:85
-#: ginkgo.py:86
-msgid "Link to..."
-msgstr "Cсылка на:"
-
-#: dialogs/labelinputmatchdialog.py:118
-msgid "Open resource"
+#: ginkgo/dialogs/livesearchdialog.py:35
+msgid "Open Resource"
 msgstr "Открыть ресурс"
 
-#: dialogs/labelinputmatchdialog.py:120
-msgid "&Name:"
-msgstr "&Имя:"
-
-#: dialogs/labelinputmatchdialog.py:121
-msgid "Matching items:"
-msgstr "Соответствующие элементы:"
-
-#: dialogs/tasktreedialog.py:49
-msgid "Task Selection"
-msgstr "Выбор задачи"
-
-#: editors/classeditor.py:74
-msgid "Type Name"
-msgstr "Имя типа"
-
-#: editors/contacteditor.py:75
-msgid "First Name"
-msgstr "Имя"
-
-#: editors/contacteditor.py:92
-msgid "Last Name"
-msgstr "Фамилия"
-
-#: editors/contacteditor.py:100
-msgid "E-mail"
-msgstr "Эл. почта"
-
-#: editors/contacteditor.py:124
-msgid "Phone"
-msgstr "Тел."
-
-#: editors/fileeditor.py:49
-#: editors/resourceeditor.py:188
-#: editors/websiteeditor.py:55
-#: views/relationstable.py:46
-#: views/resourcesbytypetable.py:46
-#: views/resourcestable.py:277
+#: ginkgo/dialogs/livesearchdialog.py:36
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
+#: ginkgo/views/resourcetypestable.py:53
+#: ginkgo/views/typepropertiestable.py:156
 msgid "Name"
 msgstr "Название"
 
-#: editors/fileeditor.py:59
-#: editors/websiteeditor.py:67
-msgid "Open"
-msgstr "Открыть"
-
-#: editors/resourceeditor.py:57
-msgid "Select Icon - Ginkgo"
-msgstr "Выберите значок - Ginkgo"
-
-#: editors/resourceeditor.py:57
-msgid "Images (*.png *.jpg *.jpeg *.bmp)"
-msgstr "Изображения (*.png *.jpeg *.jpg *.bmp)"
-
-#: editors/resourceeditor.py:126
-msgid "Relations"
-msgstr "Связи"
-
-#: editors/resourceeditor.py:127
-msgid "Properties"
-msgstr "Свойства"
-
-#: editors/resourceeditor.py:160
-msgid "&Description:"
-msgstr "&Описание:"
-
-#: editors/taskeditor.py:122
-msgid "Non&e"
-msgstr "&Нет"
-
-#: editors/taskeditor.py:123
-msgid "&Other"
-msgstr "&Другая"
-
-#: editors/taskeditor.py:124
-msgid "&Low"
-msgstr "&Низкий"
-
-#: editors/taskeditor.py:125
-msgid "&Medium"
-msgstr "&Средний"
-
-#: editors/taskeditor.py:126
-msgid "&High"
-msgstr "&Высокий"
-
-#: editors/websiteeditor.py:60
-msgid "URL"
-msgstr "URL"
-
-#: ginkgo.py:77
-msgid "&Save"
-msgstr "&Сохранить"
-
-#: ginkgo.py:77
-msgid "Save"
-msgstr "Сохранить"
-
-#: ginkgo.py:79
-msgid "&Open"
-msgstr "&Открыть"
-
-#: ginkgo.py:79
-msgid "Open a resource"
-msgstr "Открыть ресурс"
-
-#: ginkgo.py:80
-msgid "New &Tab"
-msgstr "&Новая вкладка"
-
-#: ginkgo.py:80
-msgid "Create new tab"
-msgstr "Создать новую вкладку"
-
-#: ginkgo.py:81
-msgid "Close Tab"
-msgstr "Закрыть вкладку"
-
-#: ginkgo.py:81
-msgid "Close tab"
-msgstr "Закрыть вкладку"
-
-#: ginkgo.py:82
-msgid "&Quit"
-msgstr "В&ыход"
-
-#: ginkgo.py:82
-msgid "Close the application"
-msgstr "Закрыть приложение "
-
-#: ginkgo.py:92
-msgid "Link to"
-msgstr "Ссылка на"
-
-#: ginkgo.py:99
-msgid "Set resource as context"
-msgstr "Задать ресурс как контекст"
-
-#: ginkgo.py:99
-msgid "Set the current resource as context"
-msgstr "Задать текущий ресурс как контекст"
-
-#: ginkgo.py:101
-#: ginkgo.py:570
-msgid "&File"
-msgstr "&Файл"
-
-#: ginkgo.py:104
-msgid "&New"
-msgstr "&Новый"
-
-#: ginkgo.py:118
-msgid "&Edit"
-msgstr "&Правка"
-
-#: ginkgo.py:119
-#: views/resourcecontextmenu.py:52
-#: views/resourcestree.py:287
-msgid "&Delete"
-msgstr "&Удалить"
-
-#: ginkgo.py:119
-msgid "Delete"
-msgstr "Удалить"
-
-#: ginkgo.py:123
-msgid "&View"
-msgstr "&Просмотр"
-
-#: ginkgo.py:129
-msgid "Types"
-msgstr "Типы"
-
-#: ginkgo.py:136
-msgid "Toolbar"
-msgstr "Панель инструментов"
-
-#: ginkgo.py:143
-#: ginkgo.py:144
-msgid "New"
-msgstr "Новая"
-
-#: ginkgo.py:181
-#: ginkgo.py:185
-msgid "Search"
-msgstr "Поиск"
-
-#: ginkgo.py:186
-msgid "Full-text search"
-msgstr "Полнотекстовый поиск"
-
-#: ginkgo.py:268
-msgid "New Task"
-msgstr "Новая задача"
-
-#: ginkgo.py:279
-msgid "New Type"
-msgstr "Новый тип"
-
-#: ginkgo.py:323
-msgid "New %1"
-msgstr "Новый %1"
-
-#: ginkgo.py:387
-msgid "Warning"
-msgstr "Внимание"
-
-#: ginkgo.py:415
-msgid "Resource removal"
-msgstr "Удаление ресурса"
-
-#: ginkgo.py:416
-msgid "Are you sure you want to delete <i>%1</i>?"
-msgstr "Вы уверены, что хотите удалить <i>%1</i>?"
-
-#: ginkgo.py:497
-msgid "Select File - Ginkgo"
-msgstr "Выберите файл - Ginkgo"
-
-#: ginkgo.py:534
-msgid "Places"
-msgstr "Точки входа"
-
-#: ginkgo.py:561
-msgid "&Contact"
-msgstr "Контакты"
-
-#: ginkgo.py:561
-msgid "&Contacts"
-msgstr "Контакты"
-
-#: ginkgo.py:561
-msgid "Create new contact"
-msgstr "Создать новый контакт"
-
-#: ginkgo.py:562
-msgid "&Project"
-msgstr "&Проект"
-
-#: ginkgo.py:562
-msgid "&Projects"
-msgstr "&Проекты"
-
-#: ginkgo.py:562
-msgid "Create new project"
-msgstr "Создать новый проект"
-
-#: ginkgo.py:563
-msgid "&Task"
-msgstr "&Задача"
-
-#: ginkgo.py:563
-msgid "&Tasks"
-msgstr "Задачи"
-
-#: ginkgo.py:563
-msgid "Create new task"
-msgstr "Создать новую задачу"
-
-#: ginkgo.py:564
-msgid "&Organization"
-msgstr "Организация"
-
-#: ginkgo.py:564
-msgid "&Organizations"
-msgstr "&Организация"
-
-#: ginkgo.py:564
-msgid "Create new organization"
-msgstr "Создать новую организацию"
-
-#: ginkgo.py:565
-msgid "&Topic"
-msgstr "&Тема"
-
-#: ginkgo.py:565
-msgid "&Topics"
-msgstr "&Темы"
-
-#: ginkgo.py:565
-msgid "Create new topic"
-msgstr "Создать новую тему"
-
-#: ginkgo.py:566
-msgid "&Event"
-msgstr "&Событие"
-
-#: ginkgo.py:566
-msgid "&Events"
-msgstr "&События"
-
-#: ginkgo.py:566
-msgid "Create new event"
-msgstr "Создать новое событие"
-
-#: ginkgo.py:567
-msgid "&Location"
-msgstr "Место"
-
-#: ginkgo.py:567
-msgid "&Locations"
-msgstr "Места"
-
-#: ginkgo.py:567
-msgid "Create new location"
-msgstr "Создать новое место"
-
-#: ginkgo.py:568
-msgid "&WebPage"
-msgstr "&Веб-страница"
-
-#: ginkgo.py:568
-msgid "&Web Pages"
-msgstr "&Веб-страницы"
-
-#: ginkgo.py:568
-msgid "Create new Web page"
-msgstr "Создать новую веб-страницу"
-
-#: ginkgo.py:569
-msgid "&Note"
-msgstr "&Заметка"
-
-#: ginkgo.py:569
-msgid "&Notes"
-msgstr "&Заметки"
-
-#: ginkgo.py:569
-msgid "Create new note"
-msgstr "Создать новую заметку"
-
-#: ginkgo.py:570
-msgid "&Files"
-msgstr "&Файлы"
-
-#: ginkgo.py:570
-msgid "Create new file"
-msgstr "Создать новый файл"
-
-#: ginkgo.py:672
-#: ginkgo.py:674
-msgid "Context - Ginkgo"
-msgstr "Контекст - Ginkgo"
-
-#: ginkgo.py:672
-msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr "Контекст был успешно обновлен для <i>%1</i>."
-
-#: ginkgo.py:674
-msgid "An error occurred while updating the context."
-msgstr "Ошибка обновления контекста."
-
-#: ginkgo.py:746
-msgid "Search Results"
-msgstr "Результаты поиска"
-
-#: ginkgo.py:861
-#: ginkgo.py:884
-msgid "Move &up"
-msgstr "Переместить &вверх"
-
-#: ginkgo.py:863
-#: ginkgo.py:886
-msgid "Move &down"
-msgstr "Переместить &вниз"
-
-#: ginkgo.py:865
-#: ginkgo.py:888
-msgid "&Remove entry"
-msgstr "&Удалить запись"
-
-#: ginkgo.py:906
-msgid "Ginkgo"
-msgstr "Ginkgo"
-
-#: ginkgo.py:907
-msgid "(c) 2010, Mandriva, Stéphane Laurière"
-msgstr "(c) 2010, Mandriva, Stéphane Laurière"
-
-#: ginkgo.py:909
-msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
-msgstr "Ginkgo это навигатор для Nepomuk - семантического инструмента KDE."
-
-#: ginkgo.py:911
-msgid "Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages."
-msgstr "Ginkgo позволяет вам создавать и просматривать ссылки между вашими персональными данными, такими как e-mail, контакты, файлы, веб-страницы."
-
-#: ginkgo.py:917
-msgid "Stéphane Laurière"
-msgstr "Stéphane Laurière"
-
-#: ginkgo.py:917
-msgid "Developer"
-msgstr "Разработчик"
-
-#: ginkgo.py:920
-#: rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Ваше имя"
-
-#: ginkgo.py:920
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "Ваш e-mail"
-
-#: views/relationstable.py:46
-#: views/resourcesbytypetable.py:46
-#: views/resourcestable.py:277
-msgid "Date"
-msgstr "Дата"
-
-#: views/relationstable.py:46
-#: views/resourcestable.py:277
-msgid "Type"
-msgstr "Тип"
-
-#: views/resourcecontextmenu.py:47
-msgid "&Open in new tab"
-msgstr "Открыть в новой &вкладке"
-
-#: views/resourcecontextmenu.py:53
-msgid "Delete this resource from the Nepomuk database"
-msgstr "Удалить этот ресурс из базы Nepomuk"
-
-#: views/resourcecontextmenu.py:61
-#: views/resourcestable.py:356
-msgid "Open &file"
-msgstr "Открыть &файл"
-
-#: views/resourcecontextmenu.py:65
-#: views/resourcestable.py:359
-msgid "Open &page"
-msgstr "Открыть &страницу"
-
-#: views/resourcecontextmenu.py:76
-#: views/resourcestable.py:362
-msgid "&Write e-mail to"
-msgstr "&Написать письмо"
-
-#: views/resourcepropertiestable.py:134
-msgid "Property"
-msgstr "Свойство"
-
-#: views/resourcepropertiestable.py:134
-msgid "Value"
-msgstr "Значение"
-
-#: views/resourcestree.py:290
-#: views/resourcestree.py:328
-msgid "&Add to places"
-msgstr "&Добавить в «Точки входа»"
-
-#: views/resourcestree.py:333
-msgid "&New sub-type"
-msgstr "&Новый подтип"
-
-#: views/tasktree.py:326
-msgid "&New sub-task"
-msgstr "&Новая подзадача"
-
-#: views/typesview.py:37
-msgid "Ontologies:"
-msgstr "Онтологии:"
-
-#: ginkgo/dialogs/livesearchdialog.py:81
-msgid "&Name:"
-msgstr "&Имя:"
-
-#: ginkgo/dialogs/livesearchdialog.py:96
+#: ginkgo/dialogs/livesearchdialog.py:39
+msgid "&Object"
+msgstr "&Объект"
+
+#: ginkgo/dialogs/livesearchdialog.py:63
+#: ginkgo/dialogs/livesearchdialog.py:186
+msgid "All"
+msgstr "Все"
+
+#: ginkgo/dialogs/livesearchdialog.py:146
+msgid "&Relation type:"
+msgstr "&Тип связи:"
+
+#: ginkgo/dialogs/livesearchdialog.py:181
+msgid "&Type:"
+msgstr "&Тип:"
+
+#: ginkgo/dialogs/livesearchdialog.py:188
+#: ginkgo/dialogs/livesearchdialog.py:192
+msgid "Filter by type"
+msgstr "Фильтр по типу"
+
+#: ginkgo/dialogs/livesearchdialog.py:196
+msgid "&All"
+msgstr "&Все"
+
+#: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
-msgstr "Результаты:"
+msgstr "Соответствующие элементы:"
 
-#: ginkgo/dialogs/livesearchdialog.py:108
 #: ginkgo/dialogs/resourcechooserdialog.py:61
-#: ginkgo/mainwindow.py:85
-#: ginkgo/mainwindow.py:86
+#: ginkgo/mainwindow.py:97
+#: ginkgo/mainwindow.py:98
 msgid "Link to..."
-msgstr "Поставить ссылку..."
-
-#: ginkgo/dialogs/livesearchdialog.py:110
-msgid "Open resource"
-msgstr "Открыть ресурс"
+msgstr "Cсылка на:"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
@@ -519,19 +72,23 @@ msgstr "Выбрать тип(ы)"
 msgid "Task Selection"
 msgstr "Выбор задачи"
 
-#: ginkgo/editors/contacteditor.py:68
+#: ginkgo/editors/classeditor.py:52
+msgid "Type properties"
+msgstr "Введите свойства"
+
+#: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
 msgstr "Имя"
 
-#: ginkgo/editors/contacteditor.py:83
+#: ginkgo/editors/contacteditor.py:84
 msgid "Last Name"
 msgstr "Фамилия"
 
-#: ginkgo/editors/contacteditor.py:88
+#: ginkgo/editors/contacteditor.py:89
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "Почтовый ящик"
 
-#: ginkgo/editors/contacteditor.py:96
+#: ginkgo/editors/contacteditor.py:97
 msgid "Phone"
 msgstr "Телефон"
 
@@ -540,25 +97,29 @@ msgstr "Телефон"
 msgid "Open"
 msgstr "Открыть"
 
-#: ginkgo/editors/resourceeditor.py:61
+#: ginkgo/editors/resourceeditor.py:63
 msgid "Select Icon - Ginkgo"
-msgstr "Выбрать иконку - Ginkgo"
+msgstr "Выберите значок - Ginkgo"
 
-#: ginkgo/editors/resourceeditor.py:61
+#: ginkgo/editors/resourceeditor.py:63
 msgid "Images (*.png *.jpg *.jpeg *.bmp)"
-msgstr "Изображения (*.png *.jpg *.jpeg *.bmp)"
+msgstr "Изображения (*.png *.jpeg *.jpg *.bmp)"
 
-#: ginkgo/editors/resourceeditor.py:203
+#: ginkgo/editors/resourceeditor.py:142
+msgid "Query results"
+msgstr "Результаты запроса"
+
+#: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
 msgstr "Связи"
 
-#: ginkgo/editors/resourceeditor.py:204
+#: ginkgo/editors/resourceeditor.py:264
 msgid "Properties"
 msgstr "Свойства"
 
-#: ginkgo/editors/resourceeditor.py:254
+#: ginkgo/editors/resourceeditor.py:330
 msgid "Type(s): "
-msgstr "Тип(ы): "
+msgstr "Тип(ы):  "
 
 #: ginkgo/editors/taskeditor.py:128
 msgid "Parent Task"
@@ -566,11 +127,11 @@ msgstr "Родительская задача"
 
 #: ginkgo/editors/taskeditor.py:129
 msgid "Non&e"
-msgstr "Не &задано"
+msgstr "&Нет"
 
 #: ginkgo/editors/taskeditor.py:130
 msgid "&Other"
-msgstr "&Другое"
+msgstr "&Другая"
 
 #: ginkgo/editors/taskeditor.py:137
 msgid "Select..."
@@ -600,437 +161,420 @@ msgstr "Дата окончания"
 msgid "URL"
 msgstr "URL"
 
-#: ginkgo/mainwindow.py:77
+#: ginkgo/mainwindow.py:89
 msgid "&Save"
 msgstr "&Сохранить"
 
-#: ginkgo/mainwindow.py:77
+#: ginkgo/mainwindow.py:89
 msgid "Save"
 msgstr "Сохранить"
 
-#: ginkgo/mainwindow.py:79
+#: ginkgo/mainwindow.py:91
 msgid "&Open"
 msgstr "&Открыть"
 
-#: ginkgo/mainwindow.py:79
+#: ginkgo/mainwindow.py:91
 msgid "Open a resource"
 msgstr "Открыть ресурс"
 
-#: ginkgo/mainwindow.py:80
+#: ginkgo/mainwindow.py:92
 msgid "New &Tab"
-msgstr "Новая &закладка"
+msgstr "&Новая вкладка"
 
-#: ginkgo/mainwindow.py:80
+#: ginkgo/mainwindow.py:92
 msgid "Create new tab"
-msgstr "Создать новую закладку"
+msgstr "Создать новую вкладку"
 
-#: ginkgo/mainwindow.py:81
+#: ginkgo/mainwindow.py:93
 msgid "Close Tab"
-msgstr "Закрыть закладку"
+msgstr "Закрыть вкладку"
 
-#: ginkgo/mainwindow.py:81
+#: ginkgo/mainwindow.py:93
 msgid "Close tab"
-msgstr "Закрыть закладку"
+msgstr "Закрыть вкладку"
 
-#: ginkgo/mainwindow.py:82
+#: ginkgo/mainwindow.py:94
 msgid "&Quit"
-msgstr "&Выйти"
+msgstr "В&ыход"
 
-#: ginkgo/mainwindow.py:82
+#: ginkgo/mainwindow.py:94
 msgid "Close the application"
 msgstr "Закрыть приложение"
 
-#: ginkgo/mainwindow.py:92
+#: ginkgo/mainwindow.py:104
 msgid "Link to"
-msgstr "Добавить ссылку на"
+msgstr "Ссылка на"
 
-#: ginkgo/mainwindow.py:103
-msgid "Set resource as context"
-msgstr "Использовать ресурс в качестве контекста"
+#: ginkgo/mainwindow.py:106
+msgid "&Resource"
+msgstr "&Ресурс"
 
-#: ginkgo/mainwindow.py:103
-msgid "Set the current resource as context"
-msgstr "Использовать текущий ресурс в качестве контекста"
-
-#: ginkgo/mainwindow.py:105
-msgid "Stop query"
-msgstr "Остановить запрос"
-
-#: ginkgo/mainwindow.py:108
-msgid "View data types"
-msgstr "Просмотр типов данных"
-
-#: ginkgo/mainwindow.py:108
-msgid "Display the available data types"
-msgstr "Показать доступные типы данных"
-
-#: ginkgo/mainwindow.py:110
-msgid "Recent"
-msgstr "Недавнее"
-
-#: ginkgo/mainwindow.py:110
-msgid "Show recently modified resources"
-msgstr "Показать последние модификации"
-
-#: ginkgo/mainwindow.py:112
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:107
+#: ginkgo/mainwindow.py:127
+#: ginkgo/mainwindow.py:647
 msgid "&File"
 msgstr "&Файл"
 
-#: ginkgo/mainwindow.py:115
+#: ginkgo/mainwindow.py:118
+msgid "Set resource as context"
+msgstr "Задать ресурс как контекст"
+
+#: ginkgo/mainwindow.py:118
+msgid "Set the current resource as context"
+msgstr "Задать текущий ресурс как контекст"
+
+#: ginkgo/mainwindow.py:120
+msgid "Stop query"
+msgstr "Остановить запрос"
+
+#: ginkgo/mainwindow.py:123
+msgid "View data types"
+msgstr "Просмотр типов данных"
+
+#: ginkgo/mainwindow.py:123
+msgid "Display the available data types"
+msgstr "Показать доступные типы данных"
+
+#: ginkgo/mainwindow.py:125
+msgid "Recent"
+msgstr "Недавнее"
+
+#: ginkgo/mainwindow.py:125
+msgid "Show recently modified resources"
+msgstr "Показать последние изменённые ресурсы"
+
+#: ginkgo/mainwindow.py:130
 msgid "&New"
 msgstr "&Создать"
 
-#: ginkgo/mainwindow.py:129
+#: ginkgo/mainwindow.py:144
 msgid "&Edit"
-msgstr "&Редактировать"
+msgstr "&Правка"
 
-#: ginkgo/mainwindow.py:130
-#: ginkgo/views/resourcecontextmenu.py:52
-#: ginkgo/views/resourcestree.py:304
+#: ginkgo/mainwindow.py:145
+#: ginkgo/views/objectcontextmenu.py:54
 msgid "&Delete"
 msgstr "&Удалить"
 
-#: ginkgo/mainwindow.py:130
+#: ginkgo/mainwindow.py:145
 msgid "Delete"
 msgstr "Удалить"
 
-#: ginkgo/mainwindow.py:134
+#: ginkgo/mainwindow.py:149
 msgid "&View"
-msgstr "&Показать"
+msgstr "&Просмотр"
 
-#: ginkgo/mainwindow.py:140
+#: ginkgo/mainwindow.py:155
 msgid "Types"
 msgstr "Типы"
 
-#: ginkgo/mainwindow.py:147
+#: ginkgo/mainwindow.py:162
 msgid "Toolbar"
-msgstr "Инструменты"
+msgstr "Панель инструментов"
 
-#: ginkgo/mainwindow.py:154
-#: ginkgo/mainwindow.py:155
+#: ginkgo/mainwindow.py:169
+#: ginkgo/mainwindow.py:170
 msgid "New"
 msgstr "Создать"
 
-#: ginkgo/mainwindow.py:196
-#: ginkgo/mainwindow.py:200
+#: ginkgo/mainwindow.py:211
+#: ginkgo/mainwindow.py:215
 msgid "Search"
 msgstr "Поиск"
 
-#: ginkgo/mainwindow.py:201
+#: ginkgo/mainwindow.py:216
 msgid "Full-text search"
 msgstr "Полнотекстовый поиск"
 
-#: ginkgo/mainwindow.py:286
+#: ginkgo/mainwindow.py:301
 msgid "New Task"
 msgstr "Новая задача"
 
-#: ginkgo/mainwindow.py:293
+#: ginkgo/mainwindow.py:308
 msgid "New Type"
 msgstr "Новый тип"
 
-#: ginkgo/mainwindow.py:345
+#: ginkgo/mainwindow.py:316
+msgid "New Property"
+msgstr "Новый приоритет"
+
+#: ginkgo/mainwindow.py:369
 msgid "New %1"
-msgstr "Новый объект типа '%1'"
+msgstr "Новый %1"
 
-#: ginkgo/mainwindow.py:413
+#: ginkgo/mainwindow.py:438
 msgid "Warning"
-msgstr "Предупреждение"
+msgstr "Внимание!"
 
-#: ginkgo/mainwindow.py:441
+#: ginkgo/mainwindow.py:466
 msgid "Resource removal"
 msgstr "Удаление ресурса"
 
-#: ginkgo/mainwindow.py:442
+#: ginkgo/mainwindow.py:467
 msgid "Are you sure you want to delete <i>%1</i>?"
-msgstr "Вы уверены что хотите удалить <i>%1</i>?"
+msgstr "Удалить <i>%1</i>?"
 
-#: ginkgo/mainwindow.py:535
+#: ginkgo/mainwindow.py:543
+msgid "New Relation"
+msgstr "Новая связь"
+
+#: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
-msgstr "Выбрать файл - Ginkgo"
+msgstr "Выберите файл - Ginkgo"
 
-#: ginkgo/mainwindow.py:574
+#: ginkgo/mainwindow.py:595
 msgid "Places"
-msgstr "Место"
+msgstr "Папки"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "&Contact"
-msgstr "&Контакт"
+msgstr "&Контакты"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "&Contacts"
 msgstr "&Контакты"
 
-#: ginkgo/mainwindow.py:611
+#: ginkgo/mainwindow.py:638
 msgid "Create new contact"
-msgstr "Создать контакт"
+msgstr "Создать новый контакт"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "&Project"
 msgstr "&Проект"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "&Projects"
 msgstr "&Проекты"
 
-#: ginkgo/mainwindow.py:612
+#: ginkgo/mainwindow.py:639
 msgid "Create new project"
 msgstr "Создать новый проект"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "&Task"
 msgstr "&Задача"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "&Tasks"
 msgstr "&Задачи"
 
-#: ginkgo/mainwindow.py:613
+#: ginkgo/mainwindow.py:640
 msgid "Create new task"
 msgstr "Создать новую задачу"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "&Organization"
 msgstr "&Организация"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "&Organizations"
 msgstr "&Организации"
 
-#: ginkgo/mainwindow.py:614
+#: ginkgo/mainwindow.py:641
 msgid "Create new organization"
 msgstr "Создать новую организацию"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "&Topic"
-msgstr "&Топик"
+msgstr "&Тема"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "&Topics"
-msgstr "&Топики"
+msgstr "&Темы"
 
-#: ginkgo/mainwindow.py:615
+#: ginkgo/mainwindow.py:642
 msgid "Create new topic"
-msgstr "Создать новый топик"
+msgstr "Создать новую тему"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "&Event"
 msgstr "&Событие"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "&Events"
 msgstr "&События"
 
-#: ginkgo/mainwindow.py:616
+#: ginkgo/mainwindow.py:643
 msgid "Create new event"
 msgstr "Создать новое событие"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "&Location"
 msgstr "&Место"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "&Locations"
-msgstr "&Список мест"
+msgstr "&Места"
 
-#: ginkgo/mainwindow.py:617
+#: ginkgo/mainwindow.py:644
 msgid "Create new location"
 msgstr "Создать новое место"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "&WebPage"
-msgstr "&Web страница"
+msgstr "&Веб-страница"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "&Web Pages"
-msgstr "&Web страницы"
+msgstr "&Веб-страницы"
 
-#: ginkgo/mainwindow.py:618
+#: ginkgo/mainwindow.py:645
 msgid "Create new Web page"
-msgstr "Создать новую Web страницу"
+msgstr "Создать новую веб-страницу"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "&Note"
-msgstr "&Запись"
+msgstr "&Заметка"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "&Notes"
-msgstr "&Записи"
+msgstr "&Заметки"
 
-#: ginkgo/mainwindow.py:619
+#: ginkgo/mainwindow.py:646
 msgid "Create new note"
-msgstr "Создать запись"
+msgstr "Создать новую заметку"
 
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:647
 msgid "&Files"
 msgstr "&Файлы"
 
-#: ginkgo/mainwindow.py:620
+#: ginkgo/mainwindow.py:647
 msgid "Create new file"
-msgstr "Создать файл"
+msgstr "Создать новый файл"
 
-#: ginkgo/mainwindow.py:726
-#: ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:753
+#: ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
 msgstr "Контекст - Ginkgo"
 
-#: ginkgo/mainwindow.py:726
+#: ginkgo/mainwindow.py:753
 msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr "Контекст был благополучно изменен на <i>%1</i>."
+msgstr "Контекст был успешно обновлен для <i>%1</i>."
 
-#: ginkgo/mainwindow.py:728
+#: ginkgo/mainwindow.py:755
 msgid "An error occurred while updating the context."
-msgstr "Произошла ошибка при попытке изменить контекст."
+msgstr "Ошибка обновления контекста."
 
-#: ginkgo/mainwindow.py:824
+#: ginkgo/mainwindow.py:855
 msgid "What's New"
-msgstr "Последнии изменения"
+msgstr "Последние изменения"
 
-#: ginkgo/mainwindow.py:838
+#: ginkgo/mainwindow.py:869
 msgid "Search Results"
 msgstr "Результаты поиска"
 
-#: ginkgo/mainwindow.py:992
-#: ginkgo/mainwindow.py:1015
+#: ginkgo/mainwindow.py:1057
 msgid "Move &up"
-msgstr "&Наверх"
+msgstr "Переместить &вверх"
 
-#: ginkgo/mainwindow.py:994
-#: ginkgo/mainwindow.py:1017
+#: ginkgo/mainwindow.py:1060
 msgid "Move &down"
-msgstr "&Вниз"
+msgstr "Переместить &вниз"
 
-#: ginkgo/mainwindow.py:996
-#: ginkgo/mainwindow.py:1019
+#: ginkgo/mainwindow.py:1063
 msgid "&Remove entry"
-msgstr "&Удалить"
+msgstr "&Удалить запись"
 
-#: ginkgo.py:16
-msgid "Ginkgo"
-msgstr "Ginkgo"
-
-#: ginkgo.py:17
-msgid "(c) 2010, Mandriva, Stéphane Laurière"
-msgstr "(c) 2010, Mandriva, Stéphane Laurière"
-
-#: ginkgo.py:19
-msgid "Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit."
-msgstr "Навигатор Ginkgo для системы Nepomuk, the KDE semantic toolkit."
-
-#: ginkgo.py:21
-msgid "Ginkgo lets you create and explore links between your personal data such as e-mails, contacts, files, Web pages."
-msgstr "Ginkgo дает возможность создавать и использовать семантические связи между персональными ресурсами, такими как почтовые сообщения (e-mails), контакты, файлы и Web страницы."
-
-#: ginkgo.py:27
-msgid "Stéphane Laurière"
-msgstr "Stéphane Laurière"
-
-#: ginkgo.py:27
-msgid "Developer"
-msgstr "Разработчик"
-
-#: ginkgo.py:30
-#: rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Ваше имя"
-
-#: ginkgo.py:30
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "Ваш e-mail"
-
-#: ginkgo/views/relationstable.py:46
-#: ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299
-#: ginkgo/views/resourcetypestable.py:55
-msgid "Name"
-msgstr "Имя"
-
-#: ginkgo/views/relationstable.py:46
-#: ginkgo/views/resourcesbytypetable.py:47
-#: ginkgo/views/resourcestable.py:299
-msgid "Date"
-msgstr "Дата"
-
-#: ginkgo/views/relationstable.py:46
-#: ginkgo/views/resourcestable.py:299
-msgid "Type"
-msgstr "Тип"
-
-#: ginkgo/views/relationstable.py:85
-#: ginkgo/views/relationstable.py:106
-msgid "&Unlink from %1"
-msgstr "&Отсоединить от %1"
-
-#: ginkgo/views/resourcecontextmenu.py:47
+#: ginkgo/views/objectcontextmenu.py:48
 msgid "&Open in new tab"
-msgstr "&Открыть в новой закладке"
+msgstr "Открыть в новой &вкладке"
 
-#: ginkgo/views/resourcecontextmenu.py:53
+#: ginkgo/views/objectcontextmenu.py:56
 msgid "Delete this resource from the Nepomuk database"
-msgstr "Удалить этот ресурс из базы данных."
+msgstr "Удалить этот ресурс из базы Nepomuk"
 
-#: ginkgo/views/resourcecontextmenu.py:61
-#: ginkgo/views/resourcestable.py:381
+#: ginkgo/views/objectcontextmenu.py:64
 msgid "Open &file"
 msgstr "Открыть &файл"
 
-#: ginkgo/views/resourcecontextmenu.py:65
-#: ginkgo/views/resourcestable.py:384
+#: ginkgo/views/objectcontextmenu.py:69
 msgid "Open &page"
 msgstr "Открыть &страницу"
 
-#: ginkgo/views/resourcecontextmenu.py:76
-#: ginkgo/views/resourcestable.py:387
+#: ginkgo/views/objectcontextmenu.py:81
 msgid "&Write e-mail to"
-msgstr "&Написать письмо "
+msgstr "&Написать письмо"
 
-#: ginkgo/views/resourcecontextmenu.py:81
-#: ginkgo/views/resourcestable.py:389
+#: ginkgo/views/objectcontextmenu.py:87
 msgid "Set as &context"
 msgstr "Установить в качестве контекста"
 
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcesbytypetable.py:47
+#: ginkgo/views/resourcestable.py:296
+msgid "Date"
+msgstr "Дата"
+
+#: ginkgo/views/relatedstable.py:45
+#: ginkgo/views/relationstable.py:164
+#: ginkgo/views/resourcestable.py:296
+msgid "Type"
+msgstr "Тип"
+
+#: ginkgo/views/relatedstable.py:105
+msgid "&Unlink from %1"
+msgstr "&Отсоединить от %1"
+
+#: ginkgo/views/relationstable.py:164
+msgid "Relation"
+msgstr "Связь"
+
+#: ginkgo/views/relationstable.py:164
+msgid "Title"
+msgstr "Заголовок"
+
+#: ginkgo/views/relationstable.py:274
+msgid "&Remove relation(s)"
+msgstr "&Удалить связи"
+
 #: ginkgo/views/resourcepropertiestable.py:44
-#: ginkgo/views/resourcepropertiestable.py:141
 msgid "&Copy value to clipboard"
 msgstr "&Скопировать значение в буфер"
 
-#: ginkgo/views/resourcepropertiestable.py:117
+#: ginkgo/views/resourcepropertiestable.py:122
 msgid "Property"
 msgstr "Свойство"
 
-#: ginkgo/views/resourcepropertiestable.py:117
+#: ginkgo/views/resourcepropertiestable.py:122
 msgid "Value"
 msgstr "Значение"
 
-#: ginkgo/views/resourcestree.py:295
-#: ginkgo/views/resourcestree.py:352
-msgid "New &instance"
-msgstr "Новый объект"
-
-#: ginkgo/views/resourcestree.py:308
-#: ginkgo/views/resourcestree.py:356
-msgid "&Add to places"
-msgstr "&Добавить к месту"
-
-#: ginkgo/views/resourcestree.py:312
-#: ginkgo/views/resourcestree.py:349
+#: ginkgo/views/resourcestree.py:354
 msgid "&New type"
 msgstr "Новый &тип"
 
-#: ginkgo/views/resourcestree.py:362
-msgid "&New sub-type"
-msgstr "Новый &под-тип"
+#: ginkgo/views/resourcestree.py:358
+msgid "New &instance"
+msgstr "Новый &экземпляр"
 
-#: ginkgo/views/resourcetypestable.py:55
+#: ginkgo/views/resourcestree.py:363
+msgid "&Add to places"
+msgstr "&Добавить в «Точки входа»"
+
+#: ginkgo/views/resourcestree.py:370
+msgid "&New sub-type"
+msgstr "Новый п&одтип"
+
+#: ginkgo/views/resourcetypestable.py:53
 msgid "Ontology"
 msgstr "Онтология"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
-msgstr "&Новая подзадача"
+msgstr "Новая по&дзадача"
+
+#: ginkgo/views/typepropertiestable.py:47
+msgid "&New property"
+msgstr "Новый &приоритет"
+
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Inherited from"
+msgstr "Наследует из"
+
+#: ginkgo/views/typepropertiestable.py:156
+msgid "Range"
+msgstr "Диапазон"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
@@ -1047,4 +591,14 @@ msgstr "&Типы"
 #: ginkgo/views/typesview.py:49
 msgid "Create new type"
 msgstr "Создать новый тип"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Александр Казанцев, Павел Марьянов"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kazancas@mandriva.ru, acid@jack.kiev.ua"
 
