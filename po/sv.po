@@ -1,23 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Thomas Backlund <tmb@mandriva.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-06-02 22:31+0300\n"
+"Last-Translator: Thomas Backlund <tmb@mandriva.org>\n"
+"Language-Team: Swedish <cooker-i18n@mandrivalinux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
 msgstr "Öppna resurs"
 
@@ -29,37 +28,34 @@ msgid "Name"
 msgstr "Namn"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Projekt"
+msgstr "&Objekt"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Skapa ny notering"
+msgstr "&Relationstyp:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "Typ"
+msgstr "&Typ:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtrera enligt typ"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Alla"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
-msgstr ""
+msgstr "Matchande objekt:"
 
 #: ginkgo/dialogs/resourcechooserdialog.py:61 ginkgo/mainwindow.py:97
 #: ginkgo/mainwindow.py:98
@@ -68,16 +64,15 @@ msgstr "Länka till"
 
 #: ginkgo/dialogs/resourcetypesdialog.py:75
 msgid "Select type(s)"
-msgstr ""
+msgstr "Välj typ(er)"
 
 #: ginkgo/dialogs/tasktreedialog.py:49
 msgid "Task Selection"
-msgstr ""
+msgstr "Val av uppgift"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Inställningar"
+msgstr "Inställningar för typ"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -108,27 +103,24 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Bilder (*.png *.jpg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Sök-resultat"
+msgstr "Sökresultat"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
-msgstr ""
+msgstr "Relationer"
 
 #: ginkgo/editors/resourceeditor.py:264
 msgid "Properties"
 msgstr "Inställningar"
 
 #: ginkgo/editors/resourceeditor.py:330
-#, fuzzy
 msgid "Type(s): "
-msgstr "Typ"
+msgstr "Typ(er): "
 
 #: ginkgo/editors/taskeditor.py:128
-#, fuzzy
 msgid "Parent Task"
-msgstr "Ny uppgift"
+msgstr "Föregående uppgift"
 
 #: ginkgo/editors/taskeditor.py:129
 msgid "Non&e"
@@ -140,12 +132,11 @@ msgstr "&Andra"
 
 #: ginkgo/editors/taskeditor.py:137
 msgid "Select..."
-msgstr ""
+msgstr "Välj..."
 
 #: ginkgo/editors/taskeditor.py:147
-#, fuzzy
 msgid "Priority"
-msgstr "Inställning"
+msgstr "Prioritet"
 
 #: ginkgo/editors/taskeditor.py:148
 msgid "&Low"
@@ -160,9 +151,8 @@ msgid "&High"
 msgstr "&Hög"
 
 #: ginkgo/editors/taskeditor.py:160
-#, fuzzy
 msgid "Due date"
-msgstr "Datum"
+msgstr "Måldatum"
 
 #: ginkgo/editors/websiteeditor.py:49
 msgid "URL"
@@ -213,9 +203,8 @@ msgid "Link to"
 msgstr "Länka till"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Avlägsning av resurs"
+msgstr "&Resurs"
 
 #: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
@@ -223,31 +212,31 @@ msgstr "&Fil"
 
 #: ginkgo/mainwindow.py:118
 msgid "Set resource as context"
-msgstr ""
+msgstr "Sätt resurs som sammanhang"
 
 #: ginkgo/mainwindow.py:118
 msgid "Set the current resource as context"
-msgstr ""
+msgstr "Sätt nuvarande resurs som sammanhang"
 
 #: ginkgo/mainwindow.py:120
 msgid "Stop query"
-msgstr ""
+msgstr "Stoppa förfrågan"
 
 #: ginkgo/mainwindow.py:123
 msgid "View data types"
-msgstr ""
+msgstr "Visa datatyper"
 
 #: ginkgo/mainwindow.py:123
 msgid "Display the available data types"
-msgstr ""
+msgstr "Visa tillgängliga datatyper"
 
 #: ginkgo/mainwindow.py:125
 msgid "Recent"
-msgstr ""
+msgstr "Senaste"
 
 #: ginkgo/mainwindow.py:125
 msgid "Show recently modified resources"
-msgstr ""
+msgstr "Visa senast ändrade resurser"
 
 #: ginkgo/mainwindow.py:130
 msgid "&New"
@@ -267,11 +256,11 @@ msgstr "Radera"
 
 #: ginkgo/mainwindow.py:149
 msgid "&View"
-msgstr ""
+msgstr "&Visa"
 
 #: ginkgo/mainwindow.py:155
 msgid "Types"
-msgstr ""
+msgstr "Typer"
 
 #: ginkgo/mainwindow.py:162
 msgid "Toolbar"
@@ -287,7 +276,7 @@ msgstr "Sök"
 
 #: ginkgo/mainwindow.py:216
 msgid "Full-text search"
-msgstr ""
+msgstr "Fulltext sökning"
 
 #: ginkgo/mainwindow.py:301
 msgid "New Task"
@@ -295,12 +284,11 @@ msgstr "Ny uppgift"
 
 #: ginkgo/mainwindow.py:308
 msgid "New Type"
-msgstr ""
+msgstr "Ny typ"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Inställning"
+msgstr "Ny Inställning"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -308,7 +296,7 @@ msgstr "Ny %1"
 
 #: ginkgo/mainwindow.py:438
 msgid "Warning"
-msgstr ""
+msgstr "Varning"
 
 #: ginkgo/mainwindow.py:466
 msgid "Resource removal"
@@ -320,7 +308,7 @@ msgstr "Är du säker att du vill radera <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
 msgid "New Relation"
-msgstr ""
+msgstr "Ny relation"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -348,7 +336,7 @@ msgstr "&Projekt"
 
 #: ginkgo/mainwindow.py:639
 msgid "&Projects"
-msgstr ""
+msgstr "&Projekt"
 
 #: ginkgo/mainwindow.py:639
 msgid "Create new project"
@@ -404,15 +392,15 @@ msgstr "Skapa ny händelse"
 
 #: ginkgo/mainwindow.py:644
 msgid "&Location"
-msgstr ""
+msgstr "&Plats"
 
 #: ginkgo/mainwindow.py:644
 msgid "&Locations"
-msgstr ""
+msgstr "&Platser"
 
 #: ginkgo/mainwindow.py:644
 msgid "Create new location"
-msgstr ""
+msgstr "Skapa en ny plats"
 
 #: ginkgo/mainwindow.py:645
 msgid "&WebPage"
@@ -448,19 +436,19 @@ msgstr "Skapa ny fil"
 
 #: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
-msgstr ""
+msgstr "Sammanhang - Ginkgo"
 
 #: ginkgo/mainwindow.py:753
 msgid "The context has been succesfully updated to <i>%1</i>."
-msgstr ""
+msgstr "Sammanhanget har uppdaterats till <i>%1</i>."
 
 #: ginkgo/mainwindow.py:755
 msgid "An error occurred while updating the context."
-msgstr ""
+msgstr "Ett fel uppstod vid uppdatering av sammanhanget."
 
 #: ginkgo/mainwindow.py:855
 msgid "What's New"
-msgstr ""
+msgstr "Vad nytt"
 
 #: ginkgo/mainwindow.py:869
 msgid "Search Results"
@@ -476,7 +464,7 @@ msgstr "Flytta &ner"
 
 #: ginkgo/mainwindow.py:1063
 msgid "&Remove entry"
-msgstr ""
+msgstr "&Ta bort post"
 
 #: ginkgo/views/objectcontextmenu.py:48
 msgid "&Open in new tab"
@@ -496,11 +484,11 @@ msgstr "Öppna &sida"
 
 #: ginkgo/views/objectcontextmenu.py:81
 msgid "&Write e-mail to"
-msgstr ""
+msgstr "&Skriv e-post till"
 
 #: ginkgo/views/objectcontextmenu.py:87
 msgid "Set as &context"
-msgstr ""
+msgstr "Sätt som &sammanhang"
 
 #: ginkgo/views/relatedstable.py:45 ginkgo/views/relationstable.py:164
 #: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
@@ -514,24 +502,23 @@ msgstr "Typ"
 
 #: ginkgo/views/relatedstable.py:105
 msgid "&Unlink from %1"
-msgstr ""
+msgstr "&Ta bort länk från %1"
 
 #: ginkgo/views/relationstable.py:164
 msgid "Relation"
-msgstr ""
+msgstr "Relation"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "Fil"
+msgstr "Titel"
 
 #: ginkgo/views/relationstable.py:274
 msgid "&Remove relation(s)"
-msgstr ""
+msgstr "&Ta bort relation(er)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
-msgstr ""
+msgstr "&Kopiera till urklipp"
 
 #: ginkgo/views/resourcepropertiestable.py:122
 msgid "Property"
@@ -542,13 +529,12 @@ msgid "Value"
 msgstr "Värde"
 
 #: ginkgo/views/resourcestree.py:354
-#, fuzzy
 msgid "&New type"
-msgstr "&Ny"
+msgstr "&Ny typ"
 
 #: ginkgo/views/resourcestree.py:358
 msgid "New &instance"
-msgstr ""
+msgstr "Ny &instans"
 
 #: ginkgo/views/resourcestree.py:363
 msgid "&Add to places"
@@ -556,47 +542,43 @@ msgstr "&Lägg till i platser"
 
 #: ginkgo/views/resourcestree.py:370
 msgid "&New sub-type"
-msgstr ""
+msgstr "&Ny undertyp"
 
 #: ginkgo/views/resourcetypestable.py:53
 msgid "Ontology"
-msgstr ""
+msgstr "Ontologi"
 
 #: ginkgo/views/tasktree.py:326
 msgid "&New sub-task"
-msgstr ""
+msgstr "&Ny underuppgift"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Inställning"
+msgstr "&Ny Inställning"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Ärvd från"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Område"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
-msgstr ""
+msgstr "Ontologier:"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Type"
-msgstr "Typ"
+msgstr "&Typ"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "&Types"
-msgstr "Typ"
+msgstr "&Typer"
 
 #: ginkgo/views/typesview.py:49
-#, fuzzy
 msgid "Create new type"
-msgstr "Skapa ny notering"
+msgstr "Skapa ny typ"
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
