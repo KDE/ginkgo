@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-26 15:52+0300\n"
+"PO-Revision-Date: 2010-06-02 07:21+0300\n"
 "Last-Translator: Marek Laane <bald@smail.ee>\n"
 "Language-Team: Estonian <kde-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,6 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
 msgstr "Ressursi avamine"
 
@@ -31,33 +30,30 @@ msgid "Name"
 msgstr "Nimi"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Projekt"
+msgstr "&Objekt"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Kõik"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Seosed"
+msgstr "Seose tüü&p:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Tüüp"
+msgstr "&Tüüp:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtreeri tüübi järgi"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Kõik"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
@@ -77,9 +73,8 @@ msgid "Task Selection"
 msgstr "Ülesande valimine"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Omadused"
+msgstr "Tüübi omadused"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -110,9 +105,8 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Pildid (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Otsingutulemused"
+msgstr "Päringutulemused"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
@@ -211,9 +205,8 @@ msgid "Link to"
 msgstr "Linkimine"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Ressursi eemaldamine"
+msgstr "&Ressurss"
 
 #: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
@@ -296,9 +289,8 @@ msgid "New Type"
 msgstr "Uus tüüp"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Omadus"
+msgstr "Uus omadus"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -317,9 +309,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Kas tõesti kustutada <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Seosed"
+msgstr "Uus seos"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -516,19 +507,16 @@ msgid "&Unlink from %1"
 msgstr "L&ingi %1 küljest lahti"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "Seosed"
+msgstr "Seos"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "&Fail"
+msgstr "Nimi"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Seosed"
+msgstr "&Eemalda seosed"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -567,17 +555,16 @@ msgid "&New sub-task"
 msgstr "&Uus alamülesanne"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Omadus"
+msgstr "&Uus omadus"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Eellane"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Vahemik"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
