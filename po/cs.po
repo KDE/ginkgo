@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-26 23:02+0200\n"
+"PO-Revision-Date: 2010-06-02 21:23+0200\n"
 "Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
 msgstr "Otevřít zdroj"
 
@@ -29,33 +28,30 @@ msgid "Name"
 msgstr "Název"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Projekt"
+msgstr "&Objekt"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Vše"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Vztahy"
+msgstr "Typ &vztahu:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Typ"
+msgstr "&Typ:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtr podle typu"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "Vš&e"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
@@ -75,9 +71,8 @@ msgid "Task Selection"
 msgstr "Výběr úlohy"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Vlastnosti"
+msgstr "Vlastnosti typu"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -108,9 +103,8 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Obrázky (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Výsledky hledání"
+msgstr "Výsledky dotazu"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
@@ -209,9 +203,8 @@ msgid "Link to"
 msgstr "Propojit"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Odstranění zdroje"
+msgstr "Zd&roj"
 
 #: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
@@ -294,9 +287,8 @@ msgid "New Type"
 msgstr "Nový typ"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Vlastnost"
+msgstr "Nová vlastnost"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -315,9 +307,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Jste si jisti, že chcete smazat <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Vztahy"
+msgstr "Nový vztah"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -514,19 +505,16 @@ msgid "&Unlink from %1"
 msgstr "Odpoj&it od %1"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "Vztahy"
+msgstr "Vztah"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "Sou&bor"
+msgstr "Titulek"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Vztahy"
+msgstr "Odst&ranit vztah(y)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -565,17 +553,16 @@ msgid "&New sub-task"
 msgstr "&Nová dílčí úloha"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Vlastnost"
+msgstr "&Nová vlastnost"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Zděděno z"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Rozsah"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
