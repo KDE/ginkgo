@@ -183,6 +183,25 @@ def findDirectRelations(uri):
     return newrelations
 
 def findInverseRelations(uri):
+    
+    sparql = "select * where {?s ?p <%s>}" % uri
+    #TODO: use the query API
+    model = Nepomuk.ResourceManager.instance().mainModel()
+    iter = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
+    
+    
+    data = []
+    while iter.next() :
+        bindingSet = iter.current()
+        subject = Nepomuk.Resource(bindingSet.value("s").uri())
+        predicate = Nepomuk.Types.Property(bindingSet.value("p").uri())
+            
+        data.append((subject, predicate))
+        
+    return data
+
+
+def findInverseRelationsTemp(uri):
     resource = Nepomuk.Resource(uri)    
     relations = dict()
     
@@ -312,6 +331,7 @@ def findResourcesByTypeAndLabel(typeUri, label, queryNextReadySlot, queryFinishe
     
     label = label.replace("*", ".*")
     label = label.replace("?", ".")
+    label = label.replace("'","\\'")
 
     nepomukType = Nepomuk.Types.Class(typeUri)
     typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)

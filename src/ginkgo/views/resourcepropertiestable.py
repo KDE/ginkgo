@@ -130,12 +130,12 @@ class ResourcePropertiesTable(ResourcesTable):
             sourceIndex = self.table.model().mapToSource(index)
             propvalue = self.table.model().sourceModel().data[sourceIndex.row()]
             if propvalue:
-                menu = self.createContextMenu(propvalue)
+                menu = self.createContextMenu(index, propvalue)
                 pos = self.table.mapToGlobal(points)
                 menu.exec_(pos)
                 
                 
-    def createContextMenu(self, propvalue):
+    def createContextMenu(self, index, propvalue):
         return PropertyContextMenu(self, propvalue)
 
     def setResource(self, resource):

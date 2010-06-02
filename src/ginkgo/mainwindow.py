@@ -47,7 +47,8 @@ class Ginkgo(KMainWindow):
         super(Ginkgo, self).__init__(parent)
 
         self.workarea = KTabWidget()
-        #we cannot connect the signal using self.workarea.currentChanged.connect since currentChanged is a method of KTabWidget
+        #we cannot connect the signal using self.workarea.currentChanged.connect since currentChanged 
+        #is also the name of a method of KTabWidget
         QObject.connect(self.workarea, SIGNAL("currentChanged(int) "), self.currentTabChangedSlot)
         self.workarea.setMovable(True)
         #self.workarea.setCloseButtonEnabled(True)

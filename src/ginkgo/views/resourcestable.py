@@ -109,7 +109,7 @@ class ResourcesTableModel(QAbstractTableModel):
                         typeResource = Nepomuk.Resource(label)
                         label = typeResource.genericLabel()
                     else:
-                        label = label[label.rfind("/")+1:]
+                        label = label[label.rfind("/") + 1:]
                     return QString(label)
 
     def objectAt(self, row):
@@ -124,6 +124,7 @@ class ResourcesTableModel(QAbstractTableModel):
     def setHeaders(self, headers):
         self.headers = headers
         
+ 
     
     #bool QAbstractItemModel::insertRows ( int row, int count, const QModelIndex & parent = QModelIndex() )
     def addResource(self, resource):
@@ -336,20 +337,24 @@ class ResourcesTable(QWidget):
                 except:
                     selection.append(item)
                     
-        menu = self.createContextMenu(selection)
-        pos = self.table.mapToGlobal(points)
-        menu.exec_(pos)
+        menu = self.createContextMenu(index, selection)
+        if menu:
+            pos = self.table.mapToGlobal(points)
+            menu.exec_(pos)
 
     def activated(self, index):
-        if index.isValid():
+        if index.isValid() and self.isActivableColumn(index.column()):
             sindex = self.table.model().mapToSource(index)
             resource = self.table.model().sourceModel().resourceAt(sindex.row())
             if not self.dialog:
                 self.mainWindow.openResource(uri=resource.resourceUri())
             else:
                 self.dialog.accept()
+                
+    def isActivableColumn(self, column):
+        return True
       
-    def createContextMenu(self, selection):
+    def createContextMenu(self, index, selection):
         return ObjectContextMenu(self, selection)
     
         
@@ -381,11 +386,12 @@ class ResourcesTable(QWidget):
             self.mainWindow.setResourceAsContext(resource)
 
 
-#    def closeEvent(self, event):
-#        try:
-#            
-#        except Exception, e:
-#            print "An error occurred: '%s.'" % str(e)
+    def closeEvent(self, event):
+        print "closing..."
+        try:
+            print event
+        except Exception, e:
+            print "An error occurred: '%s.'" % str(e)
 
 
     def setQuery(self, query):

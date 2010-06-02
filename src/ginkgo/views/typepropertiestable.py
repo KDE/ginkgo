@@ -157,7 +157,7 @@ class TypePropertiesTable(ResourcesTable):
 
 
                 
-    def createContextMenu(self, selection):
+    def createContextMenu(self, index, selection):
         return PropertyContextMenu(self, selection)
 
     def setResource(self, resource):

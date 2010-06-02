@@ -127,6 +127,13 @@ class RelationsTableModel(QAbstractTableModel):
     def setHeaders(self, headers):
         self.headers = headers
         
+    def flags(self, index):
+        if not index.isValid():
+            return Qt.ItemIsEnabled
+        if index.column() == 0:
+            return Qt.ItemFlags(QAbstractTableModel.flags(self, index) | Qt.ItemIsEditable)
+        return Qt.ItemFlags(QAbstractTableModel.flags(self, index))
+        
     #bool QAbstractItemModel::insertRows ( int row, int count, const QModelIndex & parent = QModelIndex() )
     def addRelation(self, predicate, target, direct):
         self.beginInsertRows(QModelIndex(), len(self.relations), len(self.relations))
@@ -153,8 +160,16 @@ class RelationsTable(ResourcesTable):
     def __init__(self, mainWindow=False, dialog=None, resource=None):
         self.resource = resource
         super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog, sortColumn=1)
+        
+        #make it editable
+        self.table.setEditTriggers(QTableWidget.SelectedClicked | QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.table.setSelectionBehavior(QTableWidget.SelectItems)
+        #self.table.setSelectionMode(QTableWidget.ExtendedSelection)
+
+        
         self.table.horizontalHeader().setResizeMode(0, QHeaderView.Interactive)
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
+        self.table.setItemDelegate(RelationDelegate(self))
         self.table.resizeColumnsToContents()
 
 
@@ -172,11 +187,13 @@ class RelationsTable(ResourcesTable):
                     data.append((predicate, resource, True))
 
             inverseRelations = datamanager.findInverseRelations(self.resource.uri())
-            for predicate in inverseRelations.keys():
-                for resource in inverseRelations[predicate]:
-                    #TODO: see why we get some resources with a void predicate sometimes
-                    if predicate and predicate.uri() and len(str(predicate.uri().toString())) > 0:
-                        data.append((predicate, resource, False))
+            for tuple in inverseRelations:
+                resource = tuple[0]
+                predicate = tuple[1]
+                #for resource in inverseRelations[predicate]:
+                #TODO: see why we get some resources with a void predicate sometimes
+                if predicate and predicate.uri() and len(str(predicate.uri().toString())) > 0:
+                    data.append((predicate, resource, False))
             
             
             self.model.setRelations(data)
@@ -200,13 +217,24 @@ class RelationsTable(ResourcesTable):
                 
                 
                 #self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
-        
-    def createContextMenu(self, selection):
-        return RelationContextMenu(self, selection)
+
+#    def showContextMenu(self, index, points):
+#        index = self.table.indexAt(points)
+#        if index.isValid() and index.column() == 1:
+#            super(RelationsTable, self).showContextMenu(points)
+
+    def createContextMenu(self, index, selection):
+        if not index.isValid() or index.column() == 1:
+            return RelationContextMenu(self, selection)
     
     def setResource(self, resource):
         self.resource = resource
 
+    def isActivableColumn(self, column):
+        if column ==1 or column == 3:
+            return True
+        return False
+        
 
     def statementAddedSlot(self, statement):
         predicateUri = statement.predicate().uri()
@@ -282,3 +310,105 @@ class RelationContextMenu(ObjectContextMenu):
             
             self.addMenu(self.parent.mainWindow.linkToMenu)
             
+class RelationDelegate(QItemDelegate):
+
+    def __init__(self, parent=None):
+        super(RelationDelegate, self).__init__(parent)
+        self.table = parent
+        
+
+    def paint(self, painter, option, index):
+        QItemDelegate.paint(self, painter, option, index)
+
+
+    def sizeHint(self, option, index):
+        fm = option.fontMetrics
+        if index.column() == 0:
+            return QSize(fm.width("is organization member"), fm.height())
+        return QItemDelegate.sizeHint(self, option, index)
+
+
+    def createEditor(self, parent, option, index):
+        if index.column() == 0:
+            combobox = QComboBox(parent)
+            combobox.setEditable(False)
+            props = []
+            sindex = self.table.table.model().mapToSource(index)
+            
+            #we list the properties that are compatible with the subject type
+            #the subject type depends on the direction of the relation: current resource 
+            #is subject or is object of the relation?
+            
+            currentRelation = index.model().sourceModel().relations[sindex.row()]
+            direct = currentRelation[2]
+            if direct:
+                subject =  self.table.resource
+            else:
+                subject =  currentRelation[1]
+
+            for property in datamanager.resourceTypesProperties(subject, False):
+                item = property.label("en") +" ["+datamanager.uriToOntologyLabel(property.uri(), False)+"]"
+                props.append((property, item))
+                 
+            self.sortedProps = sorted(props, key=lambda tuple: tuple[1])            
+            
+            
+            for tuple in self.sortedProps: 
+                combobox.addItem(tuple[1], QVariant(str(tuple[0].uri().toString())))
+            
+            
+            return combobox
+        else:
+            return QItemDelegate.createEditor(self, parent, option,index)
+
+
+    def commitAndCloseEditor(self):
+        editor = self.sender()
+#        if isinstance(editor, (QTextEdit, QLineEdit)):
+#            self.emit(SIGNAL("commitData(QWidget*)"), editor)
+#            self.emit(SIGNAL("closeEditor(QWidget*)"), editor)
+
+
+    def setEditorData(self, editor, index):
+
+        if index.column() == 0:
+            sindex = self.table.table.model().mapToSource(index)
+            currentRelation = index.model().sourceModel().relations[sindex.row()]
+            predicate = currentRelation[0]
+            i = 0
+            for relation in self.sortedProps:
+                if relation[0].uri().toString() == predicate.uri().toString():
+                    editor.setCurrentIndex(i)
+                    break
+                i = i +1
+           
+        else:
+            QItemDelegate.setEditorData(self, editor, index)
+
+
+    def setModelData(self, editor, model, index):
+        if index.column() == 0:
+            sindex = self.table.table.model().mapToSource(index)
+            cindex = editor.currentIndex()
+            relation = index.model().sourceModel().relations[sindex.row()]
+            predicate = relation[0]
+            direct = relation[2]
+            if direct:
+                subject = self.table.resource
+                object = relation[1]
+            else:
+                subject = relation[1]
+                object = self.table.resource
+            
+            newPredicate = self.sortedProps[cindex][0]
+            if newPredicate.uri().toString() != predicate.uri().toString():
+                self.table.setCursor(Qt.WaitCursor)
+                subject.addProperty(newPredicate.uri(), Nepomuk.Variant(object.resourceUri()))
+                subject.removeProperty(predicate.uri(), Nepomuk.Variant(object.resourceUri()))
+                self.table.unsetCursor()
+            #don't do that since the model gets already updated through signal calls
+            #index.model().sourceModel().relations[index.row()] = (newPredicate, object, direct)
+        else:
+            QItemDelegate.setModelData(self, editor, model, index)
+            
+
