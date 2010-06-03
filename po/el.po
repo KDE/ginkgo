@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-06-02 07:23+0200\n"
+"PO-Revision-Date: 2010-06-03 20:51+0200\n"
 "Last-Translator: Dimitrios Glentadakis\n"
 "Language-Team: Greek <translators_team@mandrivalinux.gr>\n"
 "MIME-Version: 1.0\n"
@@ -154,9 +154,8 @@ msgid "&High"
 msgstr "&Υψηλή"
 
 #: ginkgo/editors/taskeditor.py:160
-#, fuzzy
 msgid "Due date"
-msgstr "Ημερομηνία"
+msgstr "Ημερομηνία λήξης"
 
 #: ginkgo/editors/websiteeditor.py:49
 msgid "URL"
@@ -538,7 +537,7 @@ msgstr "&Νέος τύπος"
 
 #: ginkgo/views/resourcestree.py:358
 msgid "New &instance"
-msgstr ""
+msgstr "Νέα &διαδικασία"
 
 #: ginkgo/views/resourcestree.py:363
 msgid "&Add to places"
@@ -562,11 +561,11 @@ msgstr "&Νέα ιδιότητα"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Κληρονομημένο από"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Διάστημα"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
