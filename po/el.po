@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-06-03 20:51+0200\n"
+"PO-Revision-Date: 2010-06-04 19:12+0200\n"
 "Last-Translator: Dimitrios Glentadakis\n"
 "Language-Team: Greek <translators_team@mandrivalinux.gr>\n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgstr "&Υψηλή"
 
 #: ginkgo/editors/taskeditor.py:160
 msgid "Due date"
-msgstr "Ημερομηνία λήξης"
+msgstr "Λήξη προθεσμίας"
 
 #: ginkgo/editors/websiteeditor.py:49
 msgid "URL"
