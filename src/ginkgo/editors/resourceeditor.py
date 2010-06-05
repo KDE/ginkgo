@@ -21,10 +21,10 @@ from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcepropertiestable import ResourcePropertiesTable
 from PyKDE4.soprano import Soprano 
 from PyKDE4.nepomuk import Nepomuk
-from ginkgo.dialogs.resourcetypesdialog import ResourceTypesDialog
 from ginkgo.util import util
 from ginkgo.views.relationstable import RelationsTable
 from ginkgo.views.sparqlview import SparqlResultsTable
+from ginkgo.dialogs.typechooserdialog import TypeChooserDialog
 import os
 
 def getClass(clazz):
@@ -94,9 +94,11 @@ class ResourceEditor(QWidget):
         #TODO: catch Except and print warning
         #reply = QMessageBox.warning(self, i18n("Warning", ), i18n("An error ocurred when saving the resource. You should copy and paste this resource's contents to a distinct editor. Please report a bug."))
 
-#        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
-        if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
-            self.ui.updateFields()
+        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
+        #TODO: check why there was this restriction
+        #if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
+        self.ui.updateFields()
+        
         self.unsetCursor()
                             
     def focus(self):
@@ -111,7 +113,7 @@ class ResourceEditor(QWidget):
         if not self.resource:
             self.save()
                 
-        dialog = ResourceTypesDialog(mainWindow=self.mainWindow, resource=self.resource)
+        dialog = TypeChooserDialog(mainWindow=self.mainWindow, typesUris=self.resource.types())
         if dialog.exec_():
             selection = dialog.selectedResources()
             #add the general rdf:Resource type
@@ -189,9 +191,6 @@ class ResourceEditorUi(object):
         shortcut = QShortcut(QKeySequence("Ctrl+L"), self.label);
         shortcut.activated.connect(self.editor.focusOnLabelField)
         
-        
-
-        
         self.label.setMinimumWidth(400)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 #        p = QPalette()
@@ -257,8 +256,8 @@ class ResourceEditorUi(object):
         #vboxlayout = QVBoxLayout(relationsWidget)
         #self.relationsLabel = QLabel(relationsWidget)
         
-        self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
-        self.propsTable = ResourcePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
+        self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow)
+        self.propsTable = ResourcePropertiesTable(mainWindow=self.editor.mainWindow)
         
         self.relationsWidget.addTab(self.relationsTable , i18n("Relations"))
         self.relationsWidget.addTab(self.propsTable, i18n("Properties"))
@@ -328,6 +327,9 @@ class ResourceEditorUi(object):
                 types = types + i18n(typestr) + " "
                 
             self.typesInfo.setText(i18n("Type(s): ") + types)
+            
+            self.relationsTable.setResource(self.editor.resource)
+            self.propsTable.setResource(self.editor.resource)
         
 
     def createIconWidget(self, parent):

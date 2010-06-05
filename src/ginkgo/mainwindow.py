@@ -58,10 +58,7 @@ class Ginkgo(KMainWindow):
         
         self.createActions()
         
-        
         self.createPlacesWidget()
-        
-        
         
         status = self.statusBar()
         status.setSizeGripEnabled(False)

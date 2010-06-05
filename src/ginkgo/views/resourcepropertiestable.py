@@ -14,6 +14,7 @@
 
 
 from PyKDE4.nepomuk import Nepomuk
+from PyKDE4.soprano import Soprano
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ginkgo.dao import datamanager
@@ -41,11 +42,15 @@ class PropertyContextMenu(QMenu):
         self.parent.processAction(key, self.propvalue)
         
     def createActions(self):
-        copyAction = QAction(i18n("&Copy value to clipboard"), self)
-        copyAction.setProperty("key", QVariant(COPY_TO_CLIPBOARD))
-        #openInNewTabAction.setIcon(KIcon("tab-new-background-small"))
-        self.addAction(copyAction)
-    
+        if self.propvalue:
+            copyAction = QAction(i18n("&Copy value to clipboard"), self)
+            copyAction.setProperty("key", QVariant(COPY_TO_CLIPBOARD))
+            #openInNewTabAction.setIcon(KIcon("tab-new-background-small"))
+            self.addAction(copyAction)
+        else:
+            newPropertyAction = QAction(i18n("&Add property"), self)
+            newPropertyAction.setProperty("key", QVariant(ADD_PROPERTY))
+            self.addAction(newPropertyAction)
 
 class ResourcePropertiesTableModel(ResourcesTableModel):
     def __init__(self, parent=None, data=None):
@@ -56,9 +61,11 @@ class ResourcePropertiesTableModel(ResourcesTableModel):
         column = index.column()
         if column == 0:
             propname = self.data[index.row()][0]
-            if propname.find("#") > 0:
-                propname = propname[propname.find("#")+1:]
-            return propname
+            propertyResource = Nepomuk.Resource(QUrl(propname))
+            return propertyResource.genericLabel()
+            #if propname.find("#") > 0:
+            #    propname = propname[propname.find("#") + 1:]
+            #return propname
         elif column == 1:
             value = self.data[index.row()][1]
             if value:
@@ -100,7 +107,26 @@ class ResourcePropertiesTableModel(ResourcesTableModel):
             return self.headers[section]
         else:
             return None
-   
+
+    #bool QAbstractItemModel::insertRows ( int row, int count, const QModelIndex & parent = QModelIndex() )
+    def addProperty(self, property):
+        self.beginInsertRows(QModelIndex(), len(self.data), len(self.data))
+        self.data.append(property)
+        self.endInsertRows() 
+
+        
+    def flags(self, index):
+        if not index.isValid():
+            return Qt.ItemIsEnabled
+        if index.column() == 0 or index.column() == 1: 
+            predicateStr = self.data[index.row()][0]
+            if predicateStr in (str(Soprano.Vocabulary.NAO.identifier().toString()), str(Soprano.Vocabulary.NAO.prefLabel().toString()), str(Soprano.Vocabulary.NAO.description().toString()), str(Soprano.Vocabulary.NAO.lastModified().toString()), str(Soprano.Vocabulary.NAO.created().toString())):
+                return Qt.ItemFlags(QAbstractTableModel.flags(self, index))
+            
+            return Qt.ItemFlags(QAbstractTableModel.flags(self, index) | Qt.ItemIsEditable)
+            
+        return Qt.ItemFlags(QAbstractTableModel.flags(self, index))
+    
 
 class ResourcePropertiesTable(ResourcesTable):
     
@@ -110,12 +136,16 @@ class ResourcePropertiesTable(ResourcesTable):
         self.resource = resource
         self.table.horizontalHeader().setResizeMode(0, QHeaderView.Interactive)
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
-        self.table.setSelectionMode(QTableWidget.SingleSelection)
+        #self.table.setSelectionMode(QTableWidget.SingleSelection)
+        self.table.setEditTriggers(QTableWidget.SelectedClicked | QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.table.setSelectionBehavior(QTableWidget.SelectItems)
+        self.table.setItemDelegate(PropertyDelegate(self))
+
 
     def createModel(self):
         data = datamanager.findResourceLiteralProperties(self.resource)
         if self.resource:
-            uriprop = ["uri", self.resource.resourceUri()]
+            uriprop = [str(Soprano.Vocabulary.NAO.identifier().toString()), self.resource.resourceUri()]
             data.append(uriprop)
         self.model = ResourcePropertiesTableModel(self, data=data)
         
@@ -131,8 +161,11 @@ class ResourcePropertiesTable(ResourcesTable):
             propvalue = self.table.model().sourceModel().data[sourceIndex.row()]
             if propvalue:
                 menu = self.createContextMenu(index, propvalue)
-                pos = self.table.mapToGlobal(points)
-                menu.exec_(pos)
+        else:
+            menu = self.createContextMenu(index, None)
+        
+        pos = self.table.mapToGlobal(points)
+        menu.exec_(pos)
                 
                 
     def createContextMenu(self, index, propvalue):
@@ -140,9 +173,186 @@ class ResourcePropertiesTable(ResourcesTable):
 
     def setResource(self, resource):
         self.resource = resource
-        self.installModels()        
+        self.installModels()
+            
+    def isActivableColumn(self, column):
+        return False
     
     def processAction(self, key, propvalue):
         if key == COPY_TO_CLIPBOARD:
             clipboard = QApplication.clipboard()
             clipboard.setText(propvalue[1].toString())
+        elif key == ADD_PROPERTY:
+            elt = (str(Soprano.Vocabulary.RDFS.comment().toString()), Nepomuk.Variant(""))
+            self.table.model().sourceModel().addProperty(elt)
+            
+
+            
+class PropertyDelegate(QItemDelegate):
+
+    def __init__(self, parent=None):
+        super(PropertyDelegate, self).__init__(parent)
+        self.table = parent
+        
+
+    def paint(self, painter, option, index):
+        QItemDelegate.paint(self, painter, option, index)
+
+
+    def sizeHint(self, option, index):
+        fm = option.fontMetrics
+        if index.column() == 0:
+            return QSize(fm.width("is organization member"), fm.height())
+        return QItemDelegate.sizeHint(self, option, index)
+
+
+    def createEditor(self, parent, option, index):
+        if index.column() == 0:
+            combobox = QComboBox(parent)
+            combobox.setEditable(False)
+            props = []
+            
+            #we list the properties that are compatible with the subject type
+            #the subject type depends on the direction of the relation: current resource 
+            #is subject or is object of the relation?
+            
+
+            for property in datamanager.resourceTypesProperties(self.table.resource, False, True):
+                item = property.label("en") + " [" + datamanager.uriToOntologyLabel(property.uri(), False) + "]"
+                props.append((property, item))
+                 
+            self.sortedProps = sorted(props, key=lambda tuple: tuple[1])            
+            
+            
+            for tuple in self.sortedProps: 
+                combobox.addItem(tuple[1], QVariant(str(tuple[0].uri().toString())))
+            
+            return combobox
+        elif index.column() == 1:
+            #edition of a property value
+            #identify the range of the property
+            sindex = self.table.table.model().mapToSource(index)
+            propertyStr = index.model().sourceModel().data[sindex.row()][0]
+            
+            #TODO: see why property.range() won't return the expected range URI.
+            #Until then,  we use a the property as a resource
+            #property = Nepomuk.Types.Property(QUrl(propertyStr))
+            
+            propertyResource = Nepomuk.Resource(QUrl(propertyStr))
+            range = str(propertyResource.property(Soprano.Vocabulary.RDFS.range()).toString())
+            
+            #"boolean", "integer", "dateTime", "date", "duration", "float",  "int", "nonNegativeInteger", "string"]:
+            #"http://www.w3.org/2000/01/rdf-schema#Literal"
+
+            if range in ("http://www.w3.org/2001/XMLSchema#duration", "http://www.w3.org/2001/XMLSchema#integer", "http://www.w3.org/2001/XMLSchema#int", "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"):
+                spinbox = QSpinBox(parent)
+                spinbox.setRange(0, 100)
+                spinbox.setSingleStep(1)
+                spinbox.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+                spinbox.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+                return spinbox
+            
+            elif range in ("http://www.w3.org/2001/XMLSchema#float"):
+                dspinbox = QDoubleSpinBox(parent)
+                return dspinbox
+            
+            elif range == "http://www.w3.org/2001/XMLSchema#date":
+                dateEdit = QDateEdit(parent)
+                return dateEdit
+            
+            elif range == "http://www.w3.org/2001/XMLSchema#dateTime":
+                dateEdit = QDateTimeEdit(parent)
+                return dateEdit
+            else:
+                editor = QLineEdit(parent)
+                editor.returnPressed.connect(self.commitAndCloseEditor)
+                return editor
+            
+                
+                 
+            
+        else:
+            return None
+
+
+    def commitAndCloseEditor(self):
+        editor = self.sender()
+#        if isinstance(editor, (QTextEdit, QLineEdit)):
+#            self.emit(SIGNAL("commitData(QWidget*)"), editor)
+#            self.emit(SIGNAL("closeEditor(QWidget*)"), editor)
+
+
+    def setEditorData(self, editor, index):
+
+        if index.column() == 0:
+            sindex = self.table.table.model().mapToSource(index)
+            propName = index.model().sourceModel().data[sindex.row()][0]
+
+            i = 0
+            for propElt in self.sortedProps:
+                if propName == str(propElt[0].uri().toString()):
+                    editor.setCurrentIndex(i)
+                    break
+                i = i + 1
+           
+        elif index.column() == 1:
+            sindex = self.table.table.model().mapToSource(index)
+            value = index.model().sourceModel().data[sindex.row()][1]
+            #TODO: fix that (class comparison won't work since QSpinBox.__class__ is a pyqtWrapperType
+            if str(editor.__class__) == "<class 'PyQt4.QtGui.QSpinBox'>":
+                editor.setValue(value.toInt())
+            
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QDoubleSpinBox'>":    
+                editor.setValue(value.toDouble()) 
+                
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QDateEdit'>":
+                editor.setDate(value.toDate())
+            
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QDateTimeEdit'>":
+                editor.setDateTime(value.toDateTime())
+            
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QLineEdit'>":
+                editor.setText(value.toString())
+
+    def setModelData(self, editor, model, index):
+        if index.column() == 0:
+            sindex = self.table.table.model().mapToSource(index)
+            cindex = editor.currentIndex()
+            predicateStr = index.model().sourceModel().data[sindex.row()][0]
+            value = index.model().sourceModel().data[sindex.row()][1]
+            
+            newPredicate = self.sortedProps[cindex][0]
+            if newPredicate.uri().toString() != predicateStr:
+                self.table.setCursor(Qt.WaitCursor)
+                self.table.resource.addProperty(newPredicate.uri(), Nepomuk.Variant(value))
+                self.table.resource.removeProperty(QUrl(predicateStr), Nepomuk.Variant(value))
+                self.table.unsetCursor()
+            #here we need to update the model since it won't get updated by signal emission
+            index.model().sourceModel().data[sindex.row()] = (str(newPredicate.uri().toString()), value)
+            
+        elif index.column() == 1:
+            sindex = self.table.table.model().mapToSource(index)
+            predicateStr = index.model().sourceModel().data[sindex.row()][0]
+            value = index.model().sourceModel().data[sindex.row()][1]
+
+            #TODO: fix that (class comparison won't work since QSpinBox.__class__ is a pyqtWrapperType
+            if str(editor.__class__) in ("<class 'PyQt4.QtGui.QSpinBox'>", "<class 'PyQt4.QtGui.QDoubleSpinBox'>"):
+                newValue = editor.value()
+                
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QDateEdit'>":
+                newValue = editor.date()
+            
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QDateTimeEdit'>":
+                newValue = editor.dateTime()
+            
+            elif str(editor.__class__) == "<class 'PyQt4.QtGui.QLineEdit'>":
+                newValue = editor.text()
+
+            
+            self.table.setCursor(Qt.WaitCursor)
+            self.table.resource.addProperty(QUrl(predicateStr), Nepomuk.Variant(newValue))
+            self.table.resource.removeProperty(QUrl(predicateStr), Nepomuk.Variant(value))
+            self.table.unsetCursor()
+            #here we need to update the model since it won't get updated by signal emission
+            index.model().sourceModel().data[sindex.row()] = (predicateStr, Nepomuk.Variant(newValue))
+            

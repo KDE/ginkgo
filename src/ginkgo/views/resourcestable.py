@@ -307,8 +307,6 @@ class ResourcesTable(QWidget):
         self.proxyModel.setSourceModel(self.model)
         self.proxyModel.setDynamicSortFilter(True)
         self.table.setModel(self.proxyModel)
-        
-        
     
     def selectedObjects(self):
         selection = []
@@ -384,7 +382,6 @@ class ResourcesTable(QWidget):
         elif key == SET_AS_CONTEXT:
             resource = Nepomuk.Resource(selectedResources[0])
             self.mainWindow.setResourceAsContext(resource)
-
 
     def closeEvent(self, event):
         print "closing..."

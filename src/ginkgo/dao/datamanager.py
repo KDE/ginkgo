@@ -173,7 +173,11 @@ def findDirectRelations(uri):
         if props[prop].isResourceList():
             relations[prop.toString()] = set(props[prop].toResourceList())
         elif props[prop].isResource():
-            relations[prop.toString()] = set([props[prop].toResource()])
+            #TODO: it seems there's a Nepomuk bug with property rdfs:range when its value is not a Resource type
+            #see range.py
+            checkuri = str(props[prop].toResource().resourceUri().toString())
+            if len(checkuri.strip()) > 0:
+                relations[prop.toString()] = set([props[prop].toResource()])
             
     newrelations = dict()
     for key in relations.keys():
@@ -259,14 +263,14 @@ def findRelations(uri):
     
     return newrelations
 
-def resourceTypesProperties(resource, includePropertiesWithLiteralRange=False):
+def resourceTypesProperties(resource, includePropertiesWithNonLiteralRange=True, includePropertiesWithLiteralRange=False):
     """ Returns properties whose domain is one of the types of the resource passed as argument.
     """
     
     props = []
     for type in resource.types():
         typeClass = Nepomuk.Types.Class(type)
-        tprops = typeProperties(typeClass, includePropertiesWithLiteralRange)
+        tprops = typeProperties(typeClass, includePropertiesWithNonLiteralRange, includePropertiesWithLiteralRange)
         for aprop in tprops:
             #TODO: do it the proper way
             try:
@@ -275,7 +279,7 @@ def resourceTypesProperties(resource, includePropertiesWithLiteralRange=False):
                 props.append(aprop)
 
         for parentClass in typeClass.allParentClasses():
-            tprops = typeProperties(parentClass, includePropertiesWithLiteralRange)
+            tprops = typeProperties(parentClass, includePropertiesWithNonLiteralRange, includePropertiesWithLiteralRange)
             for aprop in tprops:
                 try:
                     props.index(aprop)
@@ -284,11 +288,23 @@ def resourceTypesProperties(resource, includePropertiesWithLiteralRange=False):
 
     return props
 
-def typeProperties(nepomukTypeClass, includePropertiesWithLiteralRange=False):
+def typeProperties(nepomukTypeClass, includePropertiesWithNonLiteralRange=True, includePropertiesWithLiteralRange=False):
     props = []
     for property in nepomukTypeClass.domainOf():
-        if property.range().isValid():
-            props.append(property)
+        #TODO: it seems class.isValid() always return True even for Literals
+        #TODO: see range.py -> we need to use the Nepomuk.Resource object 
+        #instead of dealing with Nepomuk.Types.Property, whose range method
+        #returns something that does not match the actual range property 
+        #rangeuri = str(property.range().uri().toString())
+        #print str(property.uri().toString())
+        #print "rangeuri: %s " % rangeuri
+        #if property.range().isValid():
+        resourceProp = Nepomuk.Resource(property.uri())
+        rangeValue = str(resourceProp.property(Soprano.Vocabulary.RDFS.range()).toString())
+        #TODO: we should check that the range is not either any Literal subclass
+        if rangeValue.find("http://www.w3.org/2001/XMLSchema#") < 0 and rangeValue.find("http://www.w3.org/2000/01/rdf-schema#Literal") < 0:
+            if includePropertiesWithNonLiteralRange: 
+                props.append(property)
         elif includePropertiesWithLiteralRange:
             props.append(property)
             
@@ -331,7 +347,7 @@ def findResourcesByTypeAndLabel(typeUri, label, queryNextReadySlot, queryFinishe
     
     label = label.replace("*", ".*")
     label = label.replace("?", ".")
-    label = label.replace("'","\\'")
+    label = label.replace("'", "\\'")
 
     nepomukType = Nepomuk.Types.Class(typeUri)
     typeTerm = Nepomuk.Query.ResourceTypeTerm(nepomukType)
@@ -388,9 +404,9 @@ def findResourceLiteralProperties(resource):
     data = []
     if resource is None:
         return data
-    for key, value in resource.allProperties().iteritems():
+    for key, value in resource.properties().iteritems():
         #if not value.isResource():
-        data.append([str(key), value])
+        data.append((str(key.toString()), value))
     
     return data
 
@@ -453,6 +469,9 @@ def createPimoClass(parentClassUri, label, comment=None, icon=None):
     stmts = []
     stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDFS.Class())))
     stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(QUrl(parentClassUri))))
+    #this is needed for the class to show up as a child of the PIMO class chosen
+    if parentClassUri != PIMO.Thing:
+        stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(PIMO.Thing)))
     #this is needed until we use an inferencer, otherwise searching for instances of resource won't include the instances of this class
     stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(Soprano.Vocabulary.RDFS.Resource())))
     #TODO: check why pimomodel.cpp does not use Soprano.Node wrapping
@@ -462,6 +481,8 @@ def createPimoClass(parentClassUri, label, comment=None, icon=None):
     stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.NAO.created()), Soprano.Node(Soprano.LiteralValue(QDateTime.currentDateTime()))))
 
     if addPimoStatements(stmts) == Soprano.Error.ErrorNone: 
+        #the parent's class needs a rerset for reloading its children classes
+        parentClass.reset()
         return Nepomuk.Resource(classUri)
     
     return None
@@ -485,7 +506,7 @@ def createPimoProperty(label, domainUri, rangeUri=Soprano.Vocabulary.RDFS.Resour
     propertyUri = Nepomuk.ResourceManager.instance().generateUniqueUri(label)
     stmts = []
     stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDF.Property())))
-    stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.subPropertyOf()), Soprano.Node(PIMO.isRelated)))
+    #stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.subPropertyOf()), Soprano.Node(PIMO.isRelated)))
     stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.domain()), Soprano.Node(domainUri)))
     stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.range()), Soprano.Node(rangeUri)))
     #TODO set the prefLabel of the resource corresponding to this property?
@@ -495,7 +516,11 @@ def createPimoProperty(label, domainUri, rangeUri=Soprano.Vocabulary.RDFS.Resour
     stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.NAO.created()), Soprano.Node(Soprano.LiteralValue(QDateTime.currentDateTime()))))
     
     if addPimoStatements(stmts) == Soprano.Error.ErrorNone: 
+        #we reset the entity so that its properties will get refreshed
+        domainClass.reset()
         return Nepomuk.Resource(propertyUri)
+    
+    
     
     return None
     

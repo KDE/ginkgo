@@ -271,7 +271,7 @@ class ResourcesTree(QWidget):
         #TODO: the tree get actually refreshed twice due to each newly class being a subclass of itself 
         if predicate == soprano.Soprano.Vocabulary.RDFS.subClassOf():
             self.refresh()
-
+        
     def statementRemovedSlot(self, statement):
         subject = statement.subject().uri()
         predicate = statement.predicate().uri()
@@ -280,8 +280,6 @@ class ResourcesTree(QWidget):
             print "removed a subclass relation..."
 
     def refresh(self):
-        typeClass = Nepomuk.Types.Class(PIMO.Thing)
-        typeClass.reset()
         model = ResourcesTreeModel(mainWindow=self.mainWindow)
         model.loadData()
         self.tree.setModel(model)

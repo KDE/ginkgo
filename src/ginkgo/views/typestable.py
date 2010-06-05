@@ -12,7 +12,6 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-
 from PyKDE4.nepomuk import Nepomuk
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -25,10 +24,9 @@ from PyKDE4.kdeui import KIcon
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 
-
-class ResourceTypesTableModel(ResourcesTableModel):
+class TypesTableModel(ResourcesTableModel):
     def __init__(self, parent=None):
-        super(ResourceTypesTableModel, self).__init__(parent)
+        super(TypesTableModel, self).__init__(parent)
         
     def itemAt(self, index):
         resource = self.resources[index.row()]
@@ -38,39 +36,38 @@ class ResourceTypesTableModel(ResourcesTableModel):
         elif column == 1:
             return resource.genericLabel()
             
-class ResourceTypesTable(ResourcesTable):
+class TypesTable(ResourcesTable):
     
-    def __init__(self, mainWindow=False, resource=None, dialog=None):
-        self.resource = resource
-        super(ResourceTypesTable, self).__init__(mainWindow=mainWindow, dialog=dialog)
+    def __init__(self, mainWindow=False, typesUris=None, dialog=None):
+        """ typesUris stands for the types to be selected"""
+        
+        self.typesUris = typesUris
+        super(TypesTable, self).__init__(mainWindow=mainWindow, dialog=dialog)
 
         self.table.sortByColumn(1, Qt.AscendingOrder)
         self.updateSelection()
         
     def createModel(self):
         
-        self.model = ResourceTypesTableModel(self)
+        self.model = TypesTableModel(self)
         self.model.setHeaders([i18n("Ontology"), i18n("Name")])
         
-        if self.resource:
-            #TODO: find built-in conversion
-            resourceSet = []
-            array = []
+
+        #TODO: find built-in conversion
+        resourceSet = []
+        array = []
 #            for elt in resourceTypes:
 #                typeResource = Nepomuk.Resource(elt)
 #                ressourceArray.append(typeResource)
-            
-            rootClass = Nepomuk.Types.Class(Soprano.Vocabulary.RDFS.Resource())
-            #rootClass = Nepomuk.Types.Class(PIMO.Thing)
-            #rootItem = Nepomuk.Resource()
-            self.addChildren(rootClass.uri(), array)
-                    
-            
-            for elt in array:
-                resourceSet.append(Nepomuk.Resource(elt))
-            self.model.setResources(resourceSet)
-            
-            
+        
+        rootClass = Nepomuk.Types.Class(Soprano.Vocabulary.RDFS.Resource())
+        #rootClass = Nepomuk.Types.Class(PIMO.Thing)
+        #rootItem = Nepomuk.Resource()
+        self.addChildren(rootClass.uri(), array)
+        
+        for elt in array:
+            resourceSet.append(Nepomuk.Resource(elt))
+        self.model.setResources(resourceSet)
 
     def addChildren(self, resourceUri, set):
         
@@ -84,12 +81,10 @@ class ResourceTypesTable(ResourcesTable):
                 set.append(subClass.uri())
                 self.addChildren(subClass.uri(), set)
 
-
     def updateSelection(self):
-        
         index = 0
         for item in self.model.resources:
-            for resourceType  in self.resource.types():
+            for resourceType  in self.typesUris:
                 if item.resourceUri() == resourceType:
                     mindex = self.model.index(index, 0, QModelIndex())
                     pindex = self.table.model().mapFromSource(mindex)
@@ -100,9 +95,7 @@ class ResourceTypesTable(ResourcesTable):
                     break
                     
             index = index +1    
-        
         #selection = QItemSelection(selection1, selection2)
-        
         
  
 if __name__ == "__main__":
@@ -110,7 +103,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     resource = Nepomuk.Resource("nepomuk:/res/ad17c07d-332f-4fc1-9363-476e0a951b43")
-    table = ResourceTypesTable(resource=resource)
+    table = TypesTable(typesUris=resource.types())
     table.show()
     
     app.exec_()

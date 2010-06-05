@@ -51,10 +51,6 @@ class PropertyContextMenu(ObjectContextMenu):
         if self.selectedResources:
             self.addDeleteAction()
 
-        
-        
-
-
 class TypePropertiesTableModel(ResourcesTableModel):
     def __init__(self, parent=None, data=None):
         super(TypePropertiesTableModel, self).__init__(parent)
@@ -162,11 +158,18 @@ class TypePropertiesTable(ResourcesTable):
 
     def setResource(self, resource):
         self.resource = resource
-        self.installModels()        
-    
+        self.installModels()
+        
+    def statementAddedSlot(self, statement):
+        predicate = statement.predicate().uri()
+        #refresh the property table when new properties get created 
+        if predicate == soprano.Soprano.Vocabulary.RDFS.subPropertyOf():
+            self.installModels()
+            
     def processAction(self, key, selectedResources):
         if super(TypePropertiesTable, self).processAction(key, selectedResources):
             return True
         elif key == NEW_PROPERTY:
-            self.mainWindow.newProperty()
+            clazz = Nepomuk.Types.Class(self.resource.resourceUri())
+            self.mainWindow.newProperty(domainUri = clazz.uri())
 

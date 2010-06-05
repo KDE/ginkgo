@@ -91,7 +91,11 @@ class RelationsTableModel(QAbstractTableModel):
             label = predicate.label("en")
             return label
         elif column == 1:
-            return object.genericLabel()
+            label = unicode(object.genericLabel())
+            if len(label) == 0:
+                return object.resourceUri().toString()
+            return label
+            
         elif column == 2:
             return object.property(Soprano.Vocabulary.NAO.lastModified()).toDateTime()
         elif column == 3:
@@ -195,7 +199,6 @@ class RelationsTable(ResourcesTable):
                 if predicate and predicate.uri() and len(str(predicate.uri().toString())) > 0:
                     data.append((predicate, resource, False))
             
-            
             self.model.setRelations(data)
 
   
@@ -215,7 +218,6 @@ class RelationsTable(ResourcesTable):
                 
                 self.mainWindow.removeRelation(subject, predicate, object)
                 
-                
                 #self.mainWindow.unlink(PIMO.isRelated, resourceUri, True) 
 
 #    def showContextMenu(self, index, points):
@@ -229,6 +231,7 @@ class RelationsTable(ResourcesTable):
     
     def setResource(self, resource):
         self.resource = resource
+        self.installModels()
 
     def isActivableColumn(self, column):
         if column ==1 or column == 3:
@@ -251,8 +254,11 @@ class RelationsTable(ResourcesTable):
         subjectUri = statement.subject().uri()
         objectUri = statement.object().uri()
         if self.resource and subjectUri == self.resource.resourceUri():
-            object = Nepomuk.Resource(objectUri)
-            self.table.model().sourceModel().addRelation(predicate, object, True)
+            #check that the object is a resource, not a literal
+            #TODO: improve this check
+            if str(objectUri.toString()).find("http://www.w3.org/2001/XMLSchema#") < 0:
+                object = Nepomuk.Resource(objectUri)
+                self.table.model().sourceModel().addRelation(predicate, object, True)
         elif self.resource and objectUri == self.resource.resourceUri():
             subject = Nepomuk.Resource(subjectUri)
             self.table.model().sourceModel().addRelation(predicate, subject, False)
@@ -346,7 +352,7 @@ class RelationDelegate(QItemDelegate):
             else:
                 subject =  currentRelation[1]
 
-            for property in datamanager.resourceTypesProperties(subject, False):
+            for property in datamanager.resourceTypesProperties(subject, True, False):
                 item = property.label("en") +" ["+datamanager.uriToOntologyLabel(property.uri(), False)+"]"
                 props.append((property, item))
                  
@@ -406,7 +412,7 @@ class RelationDelegate(QItemDelegate):
                 subject.addProperty(newPredicate.uri(), Nepomuk.Variant(object.resourceUri()))
                 subject.removeProperty(predicate.uri(), Nepomuk.Variant(object.resourceUri()))
                 self.table.unsetCursor()
-            #don't do that since the model gets already updated through signal calls
+            #don't do that since the model gets already updated through signal emission
             #index.model().sourceModel().relations[index.row()] = (newPredicate, object, direct)
         else:
             QItemDelegate.setModelData(self, editor, model, index)

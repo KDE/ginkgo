@@ -18,20 +18,22 @@ from PyKDE4.kdecore import i18n
 from PyKDE4.nepomuk import Nepomuk
 from ginkgo.views.resourcestable import ResourcesTable
 from ginkgo.dao import datamanager
-from ginkgo.views.resourcetypestable import ResourceTypesTable
+from ginkgo.views.typestable import TypesTable
 
 
-class ResourceTypesDialog(QDialog):
+class TypeChooserDialog(QDialog):
 
-    def __init__(self, parent=None, mainWindow=None, resource=None):
+    def __init__(self, parent=None, mainWindow=None, typesUris=None):
         
-        super(ResourceTypesDialog, self).__init__(parent)
+        super(TypeChooserDialog, self).__init__(parent)
         self.mainWindow = mainWindow
-        self.mainWindow.setCursor(Qt.WaitCursor)
-        self.resource = resource
+        if self.mainWindow:
+            self.mainWindow.setCursor(Qt.WaitCursor)
+        self.typesUris = typesUris
         self.setupUi(self)
         self.validate()
-        self.mainWindow.unsetCursor()
+        if self.mainWindow:
+            self.mainWindow.unsetCursor()
 
     def validate(self):
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(True)
@@ -58,7 +60,7 @@ class ResourceTypesDialog(QDialog):
         self.gridlayout.setSpacing(6)
         self.gridlayout.setObjectName("gridlayout")
         
-        self.table = ResourceTypesTable(mainWindow=dialog.mainWindow, resource=self.resource, dialog=self)
+        self.table = TypesTable(mainWindow=dialog.mainWindow, typesUris=self.typesUris, dialog=self)
             
         self.gridlayout.addWidget(self.table, 0, 0, 1, 1)
             
@@ -80,7 +82,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     resource = Nepomuk.Resource("nepomuk:/res/ad17c07d-332f-4fc1-9363-476e0a951b43")
 
-    form = ResourceTypesDialog(resource=resource)
+    form = TypeChooserDialog(typesUris=resource.types())
     form.setSizePolicy(QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum))
     form.show()
     

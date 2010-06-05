@@ -113,17 +113,12 @@ class TaskEditorUi(ResourceEditorUi):
         if self.editor.superTask is not None:
             self.superTaskRadio.setChecked(True)
             self.superTaskRadio.setText(self.editor.superTask.genericLabel())
-            
-
         
 
     def createMainPropertiesWidget(self, parent):
         propertiesWidget = QWidget(parent)
 
-        self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setMargin(9)
-        self.gridlayout.setSpacing(6)
-        self.gridlayout.setObjectName("gridlayout")
+        self.vboxl = QVBoxLayout(propertiesWidget)
         
         parentBox = QGroupBox(i18n("Parent Task"))
         self.noSuperTaskRadio = QRadioButton(i18n("Non&e"))
@@ -138,11 +133,10 @@ class TaskEditorUi(ResourceEditorUi):
         button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         vbox.addWidget(button)
         parentBox.setLayout(vbox)
-        self.gridlayout.addWidget(parentBox, 2, 0, 1, 2)
+        self.vboxl.addWidget(parentBox)
         parentBox.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.noSuperTaskRadio.toggled.connect(self.editor.superTaskToggled)
         self.editor.connect(button, SIGNAL("clicked()"), self.editor.selectSuperTask)
-        
 
         priorityBox = QGroupBox(i18n("Priority"))
         self.lowPriority = QRadioButton(i18n("&Low"))
@@ -153,9 +147,8 @@ class TaskEditorUi(ResourceEditorUi):
         vbox.addWidget(self.mediumPriority)
         vbox.addWidget(self.highPriority)
         priorityBox.setLayout(vbox)
-        self.gridlayout.addWidget(priorityBox, 3, 0, 1, 2)
+        self.vboxl.addWidget(priorityBox)
         priorityBox.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-
 
         self.dateBox = QGroupBox(i18n("Due date"))
         self.dateBox.setCheckable(True)
@@ -163,13 +156,12 @@ class TaskEditorUi(ResourceEditorUi):
         self.dueDate = QDateEdit()
         hbox.addWidget(self.dueDate)
         self.dateBox.setLayout(hbox)
-        self.gridlayout.addWidget(self.dateBox, 4, 0, 1, 2)
+        self.vboxl.addWidget(self.dateBox)
         self.dateBox.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.dateBox.setChecked(False)
         self.dueDate.setDate(QDate.currentDate())
-        
 
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 5, 0, 1, 1)
+        self.vboxl.addItem(spacerItem)
         
         return propertiesWidget

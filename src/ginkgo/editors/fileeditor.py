@@ -42,24 +42,20 @@ class FileEditorUi(ResourceEditorUi):
     def createMainPropertiesWidget(self, parent):
         propertiesWidget = QWidget(parent)
 
-        self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setMargin(9)
-        self.gridlayout.setSpacing(6)
-        self.gridlayout.setObjectName("gridlayout")
-        
+        self.vboxl = QVBoxLayout(propertiesWidget)
+#        self.gridlayout.setMargin(9)
+#        self.gridlayout.setSpacing(6)
+
         button = QPushButton(propertiesWidget)
         button.setText(i18n("Open"))
         button.clicked.connect(self.editor.openFile)
 
-        self.gridlayout.addWidget(button, 0, 0, 1, 1)
-        #self.name_label.setBuddy(self.name)
-  
+        self.vboxl.addWidget(button)
         
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 1, 0, 1, 1)
+        self.vboxl.addItem(spacerItem)
         
         return propertiesWidget
-
     
     def updateFields(self):
         super(FileEditorUi, self).updateFields()

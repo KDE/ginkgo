@@ -37,12 +37,13 @@ class ContactEditor(ResourceEditor):
             
     def save(self):
         
-        super(ContactEditor, self).save()
-        
         self.resource.setProperty(NCO.nameGiven, Nepomuk.Variant(unicode(self.ui.firstname.text())))
         self.resource.setProperty(NCO.nameFamily, Nepomuk.Variant(unicode(self.ui.lastname.text())))
         self.resource.setProperty(NCO.emailAddress, Nepomuk.Variant(self.ui.email.text()))
         self.resource.setProperty(NCO.phoneNumber, Nepomuk.Variant(self.ui.phone.text()))
+    
+        super(ContactEditor, self).save()
+        
     
     def focus(self):
         self.ui.firstname.setFocus(Qt.OtherFocusReason)    
@@ -59,8 +60,8 @@ class ContactEditorUi(ResourceEditorUi):
 
         propertiesWidget = QWidget(parent)
 
-        self.gridlayout = QGridLayout(propertiesWidget)
-        self.gridlayout.setObjectName("gridlayout")
+        self.vboxl = QVBoxLayout(propertiesWidget)
+        
         
         self.firstname = QLineEdit(propertiesWidget)
         self.firstname.setObjectName("name")
@@ -69,7 +70,7 @@ class ContactEditorUi(ResourceEditorUi):
         fnameBox = QGroupBox(i18n("First Name"))
         vbox = QVBoxLayout(fnameBox)
         vbox.addWidget(self.firstname)
-        self.gridlayout.addWidget(fnameBox, 0, 0, 1, 1)
+        self.vboxl.addWidget(fnameBox)
        
         
         self.lastname = QLineEdit(propertiesWidget)
@@ -84,14 +85,14 @@ class ContactEditorUi(ResourceEditorUi):
         lnameBox = QGroupBox(i18n("Last Name"))
         vbox = QVBoxLayout(lnameBox)
         vbox.addWidget(self.lastname)
-        self.gridlayout.addWidget(lnameBox, 1, 0, 1, 1)
+        self.vboxl.addWidget(lnameBox)
         
         box = QGroupBox(i18n("E-mail"))
         vbox = QVBoxLayout(box)
         self.email = QLineEdit(propertiesWidget)
         self.email.setObjectName("email")
         vbox.addWidget(self.email)
-        self.gridlayout.addWidget(box, 2, 0, 1, 1)
+        self.vboxl.addWidget(box)
 
 
         box = QGroupBox(i18n("Phone"))
@@ -99,10 +100,10 @@ class ContactEditorUi(ResourceEditorUi):
         self.phone = QLineEdit(propertiesWidget)
         self.phone.setObjectName("phone")
         vbox.addWidget(self.phone)
-        self.gridlayout.addWidget(box, 3, 0, 1, 1)
+        self.vboxl.addWidget(box)
 
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem, 4, 0, 1, 1)
+        self.vboxl.addItem(spacerItem)
 
 
         return propertiesWidget

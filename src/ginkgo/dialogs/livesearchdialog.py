@@ -149,7 +149,7 @@ class LiveSearchDialog(QDialog):
             label.setBuddy(self.properties)
             props = []
             
-            for property in datamanager.resourceTypesProperties(self.resource, False):
+            for property in datamanager.resourceTypesProperties(self.resource, True, False):
                 ontology = datamanager.uriToOntologyLabel(property.uri())
                 item = property.label("en") + " [" + ontology + "]"
                 props.append((property, item))
