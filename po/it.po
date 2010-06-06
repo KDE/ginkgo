@@ -4,18 +4,19 @@
 #
 # Andrea Celli <andrea.celli@libero.it>, 2010.
 # Andrea Celli <andrea.celli@ilibero.it>, 2010.
+# Marcello Anni <marcello.anni@alice.it>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-06-01 17:24+0200\n"
-"Last-Translator: Andrea Celli <andrea.celli@libero.it>\n"
-"Language-Team: Italian <timl@frelists.org>\n"
+"PO-Revision-Date: 2010-06-06 15:26+0200\n"
+"Last-Translator: Marcello Anni <marcello.anni@alice.it>\n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
@@ -70,7 +71,7 @@ msgstr "Seleziona tipi"
 
 #: ginkgo/dialogs/tasktreedialog.py:49
 msgid "Task Selection"
-msgstr "Scelta attività"
+msgstr "Selezione attività"
 
 #: ginkgo/editors/classeditor.py:52
 msgid "Type properties"
@@ -78,7 +79,7 @@ msgstr "Proprietà del tipo"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
-msgstr "Nome proprio"
+msgstr "Nome"
 
 #: ginkgo/editors/contacteditor.py:84
 msgid "Last Name"
@@ -154,7 +155,7 @@ msgstr "A&lta"
 
 #: ginkgo/editors/taskeditor.py:160
 msgid "Due date"
-msgstr "Data fissata"
+msgstr "Data di scadenza"
 
 #: ginkgo/editors/websiteeditor.py:49
 msgid "URL"
@@ -198,7 +199,7 @@ msgstr "&Esci"
 
 #: ginkgo/mainwindow.py:94
 msgid "Close the application"
-msgstr "Chiude l'applicazione"
+msgstr "Chiudi l'applicazione"
 
 #: ginkgo/mainwindow.py:104
 msgid "Link to"
@@ -254,7 +255,7 @@ msgstr "&Rimuovi"
 
 #: ginkgo/mainwindow.py:145
 msgid "Delete"
-msgstr "Rimuove"
+msgstr "Rimuovi"
 
 #: ginkgo/mainwindow.py:149
 msgid "&View"
@@ -314,11 +315,11 @@ msgstr "Nuova relazione"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
-msgstr "Scelta file - Ginkgo"
+msgstr "Seleziona file - Ginkgo"
 
 #: ginkgo/mainwindow.py:595
 msgid "Places"
-msgstr "Posti"
+msgstr "Risorse"
 
 #: ginkgo/mainwindow.py:638
 msgid "&Contact"
@@ -342,7 +343,7 @@ msgstr "&Progetti"
 
 #: ginkgo/mainwindow.py:639
 msgid "Create new project"
-msgstr "Crea nuovi progetti"
+msgstr "Crea nuovo progetto"
 
 #: ginkgo/mainwindow.py:640
 msgid "&Task"
@@ -354,7 +355,7 @@ msgstr "A&ttività"
 
 #: ginkgo/mainwindow.py:640
 msgid "Create new task"
-msgstr "Crea nuove attività"
+msgstr "Crea nuova attività"
 
 #: ginkgo/mainwindow.py:641
 msgid "&Organization"
@@ -394,15 +395,15 @@ msgstr "Crea un nuovo evento"
 
 #: ginkgo/mainwindow.py:644
 msgid "&Location"
-msgstr "&Collocazione"
+msgstr "&Posizione"
 
 #: ginkgo/mainwindow.py:644
 msgid "&Locations"
-msgstr "&Collocazioni"
+msgstr "&Posizioni"
 
 #: ginkgo/mainwindow.py:644
 msgid "Create new location"
-msgstr "Crea una nuova collocazione"
+msgstr "Crea una nuova posizione"
 
 #: ginkgo/mainwindow.py:645
 msgid "&WebPage"
@@ -434,7 +435,7 @@ msgstr "&File"
 
 #: ginkgo/mainwindow.py:647
 msgid "Create new file"
-msgstr "Crea un nuovo file"
+msgstr "Crea nuovo file"
 
 #: ginkgo/mainwindow.py:753 ginkgo/mainwindow.py:755
 msgid "Context - Ginkgo"
@@ -516,7 +517,7 @@ msgstr "Titolo"
 
 #: ginkgo/views/relationstable.py:274
 msgid "&Remove relation(s)"
-msgstr "&Rimuovi relazioni"
+msgstr "&Rimuovi relazione(i)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -540,7 +541,7 @@ msgstr "Nuova &istanza"
 
 #: ginkgo/views/resourcestree.py:363
 msgid "&Add to places"
-msgstr "&Aggiungi ai posti"
+msgstr "&Aggiungi a risorse"
 
 #: ginkgo/views/resourcestree.py:370
 msgid "&New sub-type"
