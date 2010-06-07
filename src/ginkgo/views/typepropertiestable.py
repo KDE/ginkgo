@@ -64,7 +64,7 @@ class TypePropertiesTableModel(ResourcesTableModel):
         elif column == 1:
             property = self.data[index.row()][1]
             uri = property.uri()
-            ontologyLabel = datamanager.uriToOntologyLabel(uri)
+            ontologyLabel = datamanager.ontologyAbbreviationForUri(uri)
             return property.label("en") + " [" + ontologyLabel + "]"
         elif column == 2:
             property = self.data[index.row()][1]
@@ -139,12 +139,12 @@ class TypePropertiesTable(ResourcesTable):
         
         if self.resource:
             clazz = Nepomuk.Types.Class(self.resource.resourceUri())
-            props = datamanager.typeProperties(clazz, True)
+            props = datamanager.typeProperties(clazz, True, True)
             for prop in props:
                 data.append((clazz, prop))
             
             for parentClass in clazz.allParentClasses():
-                props = datamanager.typeProperties(parentClass, True)
+                props = datamanager.typeProperties(parentClass, True, True)
                 for prop in props:
                     data.append((parentClass, prop))
                     
@@ -159,6 +159,7 @@ class TypePropertiesTable(ResourcesTable):
     def setResource(self, resource):
         self.resource = resource
         self.installModels()
+        self.table.resizeColumnsToContents()
         
     def statementAddedSlot(self, statement):
         predicate = statement.predicate().uri()

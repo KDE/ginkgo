@@ -26,7 +26,6 @@ from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcestable import ResourcesTable, ResourcesTableModel
 from ginkgo.views.objectcontextmenu import ObjectContextMenu
 from ginkgo.actions import * 
-from ginkgo.dao.datamanager import uriToOntologyLabel
 
 
 class SparqlResultsTableModel(ResourcesTableModel):
@@ -94,7 +93,7 @@ class SparqlResultsTableModel(ResourcesTableModel):
             label = unicode(valueQstr)
             if label.find("#") > 0:
                 label = label[label.find("#") + 1:]
-            ontologyLabel = uriToOntologyLabel(valueQstr, False)
+            ontologyLabel = datamanager.ontologyAbbreviationForUri(QUrl(valueQstr), False)
             if ontologyLabel != label:
                 return label+" ["+ontologyLabel+"]"
             return label

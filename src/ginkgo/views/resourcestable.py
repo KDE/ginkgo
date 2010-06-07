@@ -307,6 +307,7 @@ class ResourcesTable(QWidget):
         self.proxyModel.setSourceModel(self.model)
         self.proxyModel.setDynamicSortFilter(True)
         self.table.setModel(self.proxyModel)
+        
     
     def selectedObjects(self):
         selection = []

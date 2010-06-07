@@ -35,7 +35,8 @@ class WebsiteEditor(ResourceEditor):
         super(WebsiteEditor, self).save()
         
         self.resource.setProperty(NIE.url, Nepomuk.Variant(unicode(self.ui.url.text())))
-            
+        
+        self.ui.updateFields()
 
 class WebsiteEditorUi(ResourceEditorUi):
     

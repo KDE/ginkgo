@@ -95,8 +95,8 @@ def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None,
     nepomukType = Nepomuk.Types.Class(nepomukType)
     term = Nepomuk.Query.ResourceTypeTerm(nepomukType)
 
-    query = Nepomuk.Query.Query(term);
-    sparql = query.toSparqlQuery();
+    query = Nepomuk.Query.Query(term)
+    sparql = query.toSparqlQuery()
     
     
     #dirModel =  KDirModel()
@@ -107,7 +107,6 @@ def findResourcesByType(nepomukType, queryNextReadySlot, queryFinishedSlot=None,
     #typeUri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#Resource" 
     
     #queryString = "select distinct ?r  where { ?r a ?v1 . ?v1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> <%s> .   }" % typeUri
-    
     executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller)
 
 
@@ -126,7 +125,7 @@ def executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller=
         query.finished.connect(queryFinishedSlot)
 
 
-def executeSparqlQuery(sparql):
+def sparqlToResources(sparql):
         
     model = Nepomuk.ResourceManager.instance().mainModel()
     iter = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
@@ -291,18 +290,8 @@ def resourceTypesProperties(resource, includePropertiesWithNonLiteralRange=True,
 def typeProperties(nepomukTypeClass, includePropertiesWithNonLiteralRange=True, includePropertiesWithLiteralRange=False):
     props = []
     for property in nepomukTypeClass.domainOf():
-        #TODO: it seems class.isValid() always return True even for Literals
-        #TODO: see range.py -> we need to use the Nepomuk.Resource object 
-        #instead of dealing with Nepomuk.Types.Property, whose range method
-        #returns something that does not match the actual range property 
-        #rangeuri = str(property.range().uri().toString())
-        #print str(property.uri().toString())
-        #print "rangeuri: %s " % rangeuri
-        #if property.range().isValid():
-        resourceProp = Nepomuk.Resource(property.uri())
-        rangeValue = str(resourceProp.property(Soprano.Vocabulary.RDFS.range()).toString())
-        #TODO: we should check that the range is not either any Literal subclass
-        if rangeValue.find("http://www.w3.org/2001/XMLSchema#") < 0 and rangeValue.find("http://www.w3.org/2000/01/rdf-schema#Literal") < 0:
+        
+        if not hasLiteralRange(property.uri()):
             if includePropertiesWithNonLiteralRange: 
                 props.append(property)
         elif includePropertiesWithLiteralRange:
@@ -400,16 +389,86 @@ def findResourcesByProperty(propertyUri, value):
 def findResourceProperties(resource):
     pass
 
-def findResourceLiteralProperties(resource):
+def findResourceLiteralProperties(resource, propertyUrisExclude=[]):
     data = []
     if resource is None:
         return data
-    for key, value in resource.properties().iteritems():
-        #if not value.isResource():
-        data.append((str(key.toString()), value))
+    for pptyUrl, pptyValue in resource.properties().iteritems():
+        
+        if hasLiteralRange(pptyUrl) and pptyUrl not in propertyUrisExclude:
+            data.append((pptyUrl, pptyValue))
     
     return data
 
+
+def findOntologies():
+    
+    ontologyType = Nepomuk.Types.Class(Soprano.Vocabulary.NRL.Ontology())
+    term1 = Nepomuk.Query.ResourceTypeTerm(ontologyType)
+
+    kbType = Nepomuk.Types.Class(Soprano.Vocabulary.NRL.KnowledgeBase()) 
+    term2 = Nepomuk.Query.ResourceTypeTerm(kbType)
+    
+    orTerm = Nepomuk.Query.OrTerm(term1, term2)
+    
+    query = Nepomuk.Query.Query(orTerm)
+    sparql = query.toSparqlQuery()
+    
+    ontologies = sparqlToResources(sparql)
+
+    tmparray = []
+    for ontology in ontologies:
+        abbrev = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()).toString()
+        if len(abbrev) ==0:
+            abbrev = ontology.resourceUri().toString()
+        tmparray.append((ontology, abbrev))
+             
+    sortedOntologies = sorted(tmparray, key=lambda tuple: tuple[1])
+    
+    ontologies = []
+    for elt in sortedOntologies:
+        ontologies.append(elt[0])
+        
+    return ontologies
+    
+def labelExists(label):
+    """Returns True if a ressource nao:prefLabel matches the argument."""
+    literalTerm = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(label))
+    prop = Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel())
+    term = Nepomuk.Query.ComparisonTerm(prop, literalTerm, Nepomuk.Query.ComparisonTerm.Equal)
+    query = Nepomuk.Query.Query(term)
+    sparql = query.toSparqlQuery()
+    data = sparqlToResources(sparql)
+    if len(data) > 0:
+        return True
+    
+    return False
+
+#TODO: this function is needed because it seems that property.range().isValid() returns True even when 
+#the range is a literal
+#TODO: it seems class.isValid() always return True even for Literals
+#TODO: see range.py -> we need to use the Nepomuk.Resource object 
+#instead of dealing with Nepomuk.Types.Property, whose range method
+#returns something that does not match the actual range property 
+#rangeuri = str(property.range().uri().toString())
+#print str(property.uri().toString())
+#print "rangeuri: %s " % rangeuri
+#if property.range().isValid():
+
+#TODO: we should check that the range is not either any Literal subclass
+        
+def hasLiteralRange(pptyUrl):
+    
+    propResource = Nepomuk.Resource(pptyUrl)
+    rangeValue = str(propResource.property(Soprano.Vocabulary.RDFS.range()).toString())
+        
+    if rangeValue.find("http://www.w3.org/2001/XMLSchema#") == 0:
+        return True
+    if rangeValue.find("http://www.w3.org/2000/01/rdf-schema#Literal") == 0:
+        return True
+    
+    return False
+        
 
 def listResourcesOrderedByDate(queryNextReadySlot, queryFinishedSlot, controller):
     sparql = "select distinct ?r, ?label  where { ?r nao:prefLabel ?label  .  ?r nao:lastModified ?lastModified } order by desc(?lastModified) limit 100" 
@@ -553,6 +612,8 @@ def createPimoProperty(label, domainUri, rangeUri=Soprano.Vocabulary.RDFS.Resour
 
 
 #Ported from C++ from svn://anonsvn.kde.org/home/kde/trunk/playground/base/nepomuk-kde/nepomukutils/pimomodel.cpp
+#TODO: see why the pimocontext would not exist in the db already
+#TODO: we need to set Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation() to the new context if any
 def pimoContext():
     sparql = "select ?c ?onto where {?c a <%s> . OPTIONAL {?c a ?onto . FILTER(?onto=<%s>). } } " % (str(PIMO.PersonalInformationModel.toString()), str(Soprano.Vocabulary.NRL.Ontology().toString()))
     model = Nepomuk.ResourceManager.instance().mainModel()
@@ -582,13 +643,60 @@ def addPimoStatements(statements):
     
     return Soprano.Error.ErrorNone
 
+def findOntologyClasses(ontologyUri):
+    """Find all classes in the given ontology, and return them as Resources"""
+    
+    sparql = "select distinct ?subject where { graph <%s> { ?subject a rdfs:Class . } }" % ontologyUri.toString()
+    classes = sparqlToResources(sparql)
+    tmparray = []
+    for clazz in classes:
+        label = clazz.genericLabel()
+        tmparray.append((clazz, label))
+             
+    sortedclasses = sorted(tmparray, key=lambda tuple: tuple[1])
+    
+    classes = []
+    for elt in sortedclasses:
+        classes.append(elt[0])
+
+    return classes
+
+def ontologyAbbreviationForUri(uri, flag=True):
+    """
+    Converts an uri to a label.
+    Example: QUrl(http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task) -> pimo
+    """
+
+    
+    ontologyResource = ontologyForUri(uri)
+    if ontologyResource:
+        abbrev = unicode(ontologyResource.property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()).toString())
+    else:
+        abbrev = uri
+        
+    return abbrev
+
+    
+def ontologyForUri(uri):
+
+    uristr = unicode(uri.toString())
+    #TODO: introduce some cache
+    #find the graph of the class or of the property, then the defaultAbbreviation of the ontology corresponding 
+    #to that graph URI
+    sparql = "select distinct(?c) where {graph ?c {<%s> <http://www.w3.org/2000/01/rdf-schema#label> ?label}}" % uristr
+    data = sparqlToResources(sparql)
+    
+    if len(data) > 0:
+        return data[0]
+    return None
 
 #uri can be QUrl or QString
-def uriToOntologyLabel(uri, forTypes=True):
+def uriToOntologyLabel(uri, flag=True):
     """
     Converts an uri to a label.
     Example: http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task -> pimo
     """
+    
     
     #convert QUrl to str only if uri is not a String already
     tmp = QString("")
@@ -608,7 +716,7 @@ def uriToOntologyLabel(uri, forTypes=True):
     if index1 > 0 and index2 > index1:
         return uri[index1 + 1:index2]
     #user created type
-    if forTypes and uri.find("nepomuk:/") == 0:
+    if flag and uri.find("nepomuk:/") == 0:
         return "pimo extended"
 
     return uri
@@ -628,6 +736,8 @@ if __name__ == "__main__":
 #        print res.property(prop).toString()
     
 #    createPimoClass(PIMO.Thing, "Song")
-    scrap1()
-    
+    #data = findOntologies()
+    ab = ontologyAbbreviationForUri(QString("http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task"))
+    print ab
+
 

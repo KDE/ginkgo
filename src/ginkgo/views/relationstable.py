@@ -175,7 +175,7 @@ class RelationsTable(ResourcesTable):
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
         self.table.setItemDelegate(RelationDelegate(self))
         self.table.resizeColumnsToContents()
-
+        
 
     def createModel(self):
         
@@ -232,6 +232,11 @@ class RelationsTable(ResourcesTable):
     def setResource(self, resource):
         self.resource = resource
         self.installModels()
+        #we don't want the resize method to be moved to installModels, 'cause it causes display problem
+        #in the livesearchdialog when results appear progressively
+        self.table.resizeColumnsToContents()
+        #without the line below, the table does not use the space available
+        self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
 
     def isActivableColumn(self, column):
         if column ==1 or column == 3:
@@ -353,7 +358,7 @@ class RelationDelegate(QItemDelegate):
                 subject =  currentRelation[1]
 
             for property in datamanager.resourceTypesProperties(subject, True, False):
-                item = property.label("en") +" ["+datamanager.uriToOntologyLabel(property.uri(), False)+"]"
+                item = property.label("en") +" ["+datamanager.ontologyAbbreviationForUri(property.uri(), False)+"]"
                 props.append((property, item))
                  
             self.sortedProps = sorted(props, key=lambda tuple: tuple[1])            

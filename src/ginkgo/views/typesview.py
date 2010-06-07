@@ -21,6 +21,7 @@ from PyKDE4.kdecore import i18n
 from PyKDE4.soprano import Soprano 
 from ginkgo.views.resourcestree import ResourcesTree, ResourcesTreeModel
 from ginkgo.ontologies import PIMO
+from ginkgo.dao import datamanager
 
 
 class TypesView(QWidget):
@@ -36,17 +37,28 @@ class TypesView(QWidget):
         
         name = QLabel(i18n("Ontologies:"))
         hbox.addWidget(name)
-        self.ontologies = QComboBox()
-        self.ontologies.addItem("All")
-        self.ontologies.addItem("PIMO")
-        self.ontologies.setCurrentIndex(1)
-        self.ontology = "PIMO"
-        self.ontologies.activated.connect(self.update)
+        self.ontologyBox = QComboBox()
+        ontologies = datamanager.findOntologies()
+        tmparray = []
+        for ontology in ontologies:
+            abbrev = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()).toString()
+            if len(abbrev) ==0:
+                abbrev = ontology.resourceUri().toString()
+            tmparray.append((ontology, abbrev))
+                 
+        sortedOntologies = sorted(tmparray, key=lambda tuple: tuple[1])
         
-        hbox.addWidget(self.ontologies)
+        for ontology in sortedOntologies:
+            self.ontologyBox.addItem(ontology[1], QVariant(ontology[0].resourceUri()))
         
         
-        actionData = [Soprano.Vocabulary.RDFS.Class(), i18n("&Type"), i18n("&Types"), "document-new", i18n("Create new type")]
+        self.ontology = None
+        self.ontologyBox.activated.connect(self.update)
+        
+        hbox.addWidget(self.ontologyBox)
+        
+        
+        #actionData = [Soprano.Vocabulary.RDFS.Class(), i18n("&Type"), i18n("&Types"), "document-new", i18n("Create new type")]
         #self.createAction(type[1], getattr(self, "newResource"), None, type[3], type[4], type[0]))
         #action = self.mainWindow.createAction(actionData[1], self.mainWindow.newResource, None, actionData[3], actionData[4], actionData[0])
 #        button = KPushButton()
@@ -64,24 +76,22 @@ class TypesView(QWidget):
         layout.addWidget(configWidget, 0, 0, 1, 1)
         self.setCursor(Qt.WaitCursor)
         self.typesTree = ResourcesTree(mainWindow=self.mainWindow, makeActions=True)
+        self.update()
         self.unsetCursor()
         
         layout.addWidget(self.typesTree, 1, 0, 30, 1)
 
 
     def update(self):
-        key = self.ontologies.currentText()
-        if key != self.ontology:
+        idx = self.ontologyBox.currentIndex()
+        newOntology = self.ontologyBox.itemData(idx)
+        if newOntology != self.ontology:
             self.mainWindow.setCursor(Qt.WaitCursor)
             model = ResourcesTreeModel(mainWindow=self.mainWindow)
-            if key == "All":
-                model.loadData(Soprano.Vocabulary.RDFS.Resource())
-            else:
-                model.loadData(PIMO.Thing)
+            model.loadOntologyClasses(newOntology)
             
             self.typesTree.tree.setModel(model)
-            self.ontology = key
             self.mainWindow.unsetCursor()
-        self.ontology = key
+        self.ontology = newOntology
         
         

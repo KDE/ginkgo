@@ -94,10 +94,10 @@ class ResourceEditor(QWidget):
         #TODO: catch Except and print warning
         #reply = QMessageBox.warning(self, i18n("Warning", ), i18n("An error ocurred when saving the resource. You should copy and paste this resource's contents to a distinct editor. Please report a bug."))
 
-        #update the fields only if we are in a resourceeditor, otherwise, update the fields only in the sublcass
-        #TODO: check why there was this restriction
-        #if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
-        self.ui.updateFields()
+        #update the fields only if we are not in a sbuclass, otherwise, the fields get updated
+        #before their actual value are saved (see the contacteditor for instance)
+        if self.__class__ == getClass("ginkgo.editors.resourceeditor.ResourceEditor"):
+            self.ui.updateFields()
         
         self.unsetCursor()
                             
@@ -115,11 +115,10 @@ class ResourceEditor(QWidget):
                 
         dialog = TypeChooserDialog(mainWindow=self.mainWindow, typesUris=self.resource.types())
         if dialog.exec_():
-            selection = dialog.selectedResources()
-            #add the general rdf:Resource type
-            types = [Soprano.Vocabulary.RDFS.Resource()]
-            for res in selection:
-                types.append(res.resourceUri())
+            chosenTypes = dialog.chosenTypes()
+            types = []
+            for type in chosenTypes:
+                types.append(type.resourceUri())
             
             self.resource.setTypes(types)
             self.ui.updateFields()
@@ -214,8 +213,6 @@ class ResourceEditorUi(object):
         #typesInfo = QLabel(i18n("Type(s): "))
         self.typesInfo = KPushButton() 
         self.typesInfo.clicked.connect(self.editor.showResourceTypesDialog)
-        
-        
         
         hbox.addWidget(self.typesInfo)
         
@@ -324,8 +321,10 @@ class ResourceEditorUi(object):
                     typestr = typeResource.genericLabel()
                 else:
                     typestr = typestr[typestr.rfind("/") + 1:]
-                types = types + i18n(typestr) + " "
-                
+                types = types + i18n(typestr) + ", "
+            
+            if len(types) > 0:
+                types = types[0:len(types)-2]
             self.typesInfo.setText(i18n("Type(s): ") + types)
             
             self.relationsTable.setResource(self.editor.resource)

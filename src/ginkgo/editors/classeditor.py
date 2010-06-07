@@ -35,12 +35,13 @@ class ClassEditor(ResourceEditor):
             
     def save(self):
         
-        #don't call the superclass save method this classes or not standard resource types
+        #don't call the superclass save method since classes are not standard resource types
         self.setCursor(Qt.WaitCursor)
         if self.resource is None:
             self.resource = datamanager.createPimoClass(self.superClassUri, self.ui.label.text())
+        self.ui.updateFields()
         self.unsetCursor()
-
+        
     def focus(self):
         self.ui.label.setFocus(Qt.OtherFocusReason)    
 

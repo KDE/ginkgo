@@ -44,6 +44,10 @@ class TypeChooserDialog(QDialog):
             return self.table.selectedObjects()
         return None
     
+    def chosenTypes(self):
+        return self.table.model.resources
+        
+    
 
     def accept(self):
         

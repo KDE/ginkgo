@@ -106,7 +106,7 @@ class ResourcesTreeModel(QAbstractItemModel):
 #                    return item.nodeData.name()
                 return item.nodeData.genericLabel()
             elif index.column() == 1:
-                return datamanager.uriToOntologyLabel(item.nodeData.resourceUri())
+                return datamanager.ontologyAbbreviationForUri(item.nodeData.resourceUri())
                 
             elif index.column() == 2:
                 desc = item.nodeData.genericDescription()
@@ -184,16 +184,27 @@ class ResourcesTreeModel(QAbstractItemModel):
 
         return success
 
-    def loadData(self, rootType=PIMO.Thing):
+    def loadOntologyClasses(self, ontologyUri):
 
         #type = Soprano.Vocabulary.RDFS.Resource()
         #rootClass = Nepomuk.Types.Class(rootType)
         
-        rootTypeResource = Nepomuk.Resource(rootType)
+        sparql = "select distinct ?subject where { graph <%s> { ?subject a rdfs:Class . } }" % ontologyUri.toString()
+        classes = datamanager.sparqlToResources(sparql)
         
+        rootTypeResource = Nepomuk.Resource(Soprano.Vocabulary.RDFS.Resource())
         self.rootItem = ResourceNode(rootTypeResource)
         
-        self.addChildren(self.rootItem, rootTypeResource)
+        #first we add all children to the root
+        #then we load the children of the root children, and we remove the root children which have ancestors
+        for clazz in classes:
+            clazzResource = Nepomuk.Resource(clazz.uri())
+            child = ResourceNode(clazzResource, self.rootItem)
+            self.rootItem.addChild(child)
+        
+        for child in self.rootItem.children:
+            clazzResource = child.nodeData
+            self.addChildren(child, clazzResource)
             
         
     def addChildren(self, node, typeResource):
@@ -215,6 +226,21 @@ class ResourcesTreeModel(QAbstractItemModel):
         for tuple in sortedResources:
             child = ResourceNode(tuple[0], node)
             node.addChild(child)
+            #if there's a node for the same resource in the root children, remove that node
+            toRemove = []
+            index = 0
+            for rootChild in self.rootItem.children:
+                rootChildResource = rootChild.nodeData
+                
+                if rootChildResource.resourceUri() == tuple[0].resourceUri():
+                    toRemove.append(index)
+                index = index + 1 
+
+            delta = 0
+            for idx in toRemove:
+                self.rootItem.children.pop(idx - delta)
+                delta = delta + 1
+
             self.addChildren(child, tuple[0])
 
 
@@ -238,7 +264,7 @@ class ResourcesTree(QWidget):
         self.tree.setItemDelegate(ResourceNodeDelegate())
 
         model = ResourcesTreeModel(mainWindow=self.mainWindow)
-        model.loadData()
+        
         self.tree.setModel(model)
         self.tree.setColumnWidth(0, 300)
 
@@ -281,7 +307,7 @@ class ResourcesTree(QWidget):
 
     def refresh(self):
         model = ResourcesTreeModel(mainWindow=self.mainWindow)
-        model.loadData()
+        
         self.tree.setModel(model)
         
     def showContextMenu(self, points):

@@ -75,15 +75,30 @@ class Ginkgo(KMainWindow):
                     self.openResource(uri, True, False)
                 except Exception, e:
                     print "[Ginkgo] Error while trying to open %s." % uri
-                                      
+
+    def installNewResourceMenu(self):
+        for action in self.newResourceMenu.actions():
+            self.newResourceMenu.removeAction(action)
+        newResourceActions = []
+        for type in self.placesData:
+            newResourceActions.append(self.createAction(type[1], getattr(self, "newResourceSlot"), None, type[3], type[4], type[0]))
+        for action in newResourceActions:
+            self.newResourceMenu.addAction(action)
+            
+    def installViewMenu(self):
+        for action in self.viewMenu.actions():
+            self.viewMenu.removeAction(action)
+        
+        for type in self.placesData:
+            self.viewMenu.addAction(self.createAction(type[2], self.showResourcesByType, None, type[3], None, type[0]))
+        
+        #viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
+        self.viewMenu.addSeparator()
+        self.viewMenu.addAction(self.createAction(i18n("Types"), self.showTypes, None, "nepomuk", None, None))
+        
 
     def createActions(self):
 
-        newResourceActions = []
-
-        for type in self.placesData:
-            newResourceActions.append(self.createAction(type[1], getattr(self, "newResourceSlot"), None, type[3], type[4], type[0]))
-        
         self.saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
         
         openResourceAction = self.createAction(i18n("&Open"), self.showOpenResourcesDialog, QKeySequence.Open, None, i18n("Open a resource"))
@@ -104,33 +119,22 @@ class Ginkgo(KMainWindow):
         self.linkToMenu.addAction(self.createAction(i18n("&Resource"), self.linkTo, None, None, None, None))
         self.linkToMenu.addAction(self.createAction(i18n("&File"), self.linkToFile, None, None, None, NFO.FileDataObject))
         
-#        for type in self.placesData:
-#            if type[0] != NFO.FileDataObject:
-#                self.linkToMenu.addAction(self.createAction(type[1], self.linkTo, None, type[3], None, type[0]))
-#            else:
-#                self.linkToMenu.addAction(self.createAction(type[1], self.linkToFile, None, type[3], None, type[0]))
-                
         self.linkToButton.setMenu(self.linkToMenu)
 
         #icon: code-context possibly
         self.setContextAction = self.createAction(i18n("Set resource as context"), self.setCurrentResourceAsContext, None, "code-context", i18n("Set the current resource as context"))
 
         self.stopQueryAction = self.createAction(i18n("Stop query"), self.closeCurrentQuery, None, "process-stop", i18n("Stop query"))
-        
 
         showTypesAction = self.createAction(i18n("View data types"), self.showTypes, None, "code-class", i18n("Display the available data types"))
 
         showRecentlyModifiedResourceAction = self.createAction(i18n("Recent"), self.showRecentlyModifiedResources, None, "document-open-recent", i18n("Show recently modified resources"))
 
         mainMenu = self.menuBar().addMenu(i18n("&File"))
-        newResourceMenu = QMenu(mainMenu)
-        newResourceMenu.setObjectName("menuNewResource")
-        newResourceMenu.setTitle(i18n("&New"))
+        self.newResourceMenu = QMenu(mainMenu)
+        self.newResourceMenu.setTitle(i18n("&New"))
         
-        for action in newResourceActions:
-            newResourceMenu.addAction(action)
-        
-        mainMenu.addAction(newResourceMenu.menuAction())
+        mainMenu.addAction(self.newResourceMenu.menuAction())
         mainMenu.addAction(openResourceAction)
         mainMenu.addSeparator()
         mainMenu.addAction(self.saveAction)
@@ -144,18 +148,8 @@ class Ginkgo(KMainWindow):
         editMenu.addMenu(self.linkToMenu)
         editMenu.addAction(self.deleteAction)
         
-        viewMenu = self.menuBar().addMenu(i18n("&View"))
-        for type in self.placesData:
-            viewMenu.addAction(self.createAction(type[2], self.showResourcesByType, None, type[3], None, type[0]))
-        
-        #viewMenu.addAction(self.createAction("Files", self.showResourcesByType, None, None, None, NFO.FileDataObject))
-        viewMenu.addSeparator()
-        viewMenu.addAction(self.createAction(i18n("Types"), self.showTypes, None, "nepomuk", None, None))
-        
-
+        self.viewMenu = self.menuBar().addMenu(i18n("&View"))
         self.menuBar().addMenu(self.helpMenu())
-        
-
         
         mainToolbar = self.addToolBar(i18n("Toolbar"))
         mainToolbar.setIconSize(QSize(18, 18))
@@ -168,16 +162,9 @@ class Ginkgo(KMainWindow):
         newResourceButton.setStatusTip(i18n("New"))
         newResourceButton.setIcon(KIcon("document-new"))
         newResourceButton.setPopupMode(QToolButton.InstantPopup)
-        newResourceButton.setMenu(newResourceMenu)
-        
-#        toolbarWidget = QWidget()
-#        hbox = QHBoxLayout(toolbarWidget)
-#        hbox.addWidget(newResourceButton)
+        newResourceButton.setMenu(self.newResourceMenu)
         
         mainToolbar.addWidget(newResourceButton)
-        
-
-        #mainToolbar.addAction(action)
         
         mainToolbar.addAction(self.saveAction)
         mainToolbar.addAction(newTabAction)
@@ -196,10 +183,9 @@ class Ginkgo(KMainWindow):
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         hbox.addItem(spacerItem)
         
-        self.search = QLineEdit("")
+        self.search = QLineEdit()
         shortcut = QShortcut(QKeySequence("Ctrl+K"), self.search);
         shortcut.activated.connect(self.focusOnSearchField)
-        
         
         self.search.returnPressed.connect(self.runSearch)
         self.search.setMaximumWidth(150)
@@ -596,6 +582,7 @@ class Ginkgo(KMainWindow):
         
         self.installPlaces()
         
+        
         self.addDockWidget(Qt.LeftDockWidgetArea, self.placesWidget)
 
 
@@ -662,6 +649,10 @@ class Ginkgo(KMainWindow):
         return button
     
     def installPlaces(self):
+        #the places command the types that are made available in the newResource and the view menus
+        self.installNewResourceMenu()
+        self.installViewMenu()
+        
         placesInternalWidget = QWidget()
         placesInternalWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         
@@ -932,11 +923,6 @@ class Ginkgo(KMainWindow):
     #TODO: for table icons, for which KIcon won't work..
     def resourceQIcon(self, resource):
         types = resource.types()
-        #custom type instances raise an issue with the call to genericIcon which crashes the application
-        #TODO: fix bug in libnepomuk with Nepomuk.Resource.genericIcon()
-#        for type in types:
-#            if str(type.toString()).find("nepomuk:/") == 0:
-#                return QIcon(":/nepomuk-small")
         
         iconPath = resource.genericIcon()
         if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
@@ -990,13 +976,7 @@ class Ginkgo(KMainWindow):
             else:
                 return KIcon("nepomuk")
         else:
-            #custom type instances raise an issue with the call to genericIcon which crashes the application
-            #TODO: fix bug in libnepomuk with Nepomuk.Resource.genericIcon()
 
-            for type in types:
-                if str(type.toString()).find("nepomuk:/") == 0:
-                    return KIcon("nepomuk")
-            
             iconPath = resource.genericIcon()
             if iconPath and len(iconPath) > 0 and os.path.exists(iconPath):
                 return QIcon(iconPath)

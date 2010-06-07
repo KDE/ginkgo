@@ -37,12 +37,14 @@ class ContactEditor(ResourceEditor):
             
     def save(self):
         
+        super(ContactEditor, self).save()
+        
         self.resource.setProperty(NCO.nameGiven, Nepomuk.Variant(unicode(self.ui.firstname.text())))
         self.resource.setProperty(NCO.nameFamily, Nepomuk.Variant(unicode(self.ui.lastname.text())))
         self.resource.setProperty(NCO.emailAddress, Nepomuk.Variant(self.ui.email.text()))
         self.resource.setProperty(NCO.phoneNumber, Nepomuk.Variant(self.ui.phone.text()))
     
-        super(ContactEditor, self).save()
+        self.ui.updateFields()
         
     
     def focus(self):

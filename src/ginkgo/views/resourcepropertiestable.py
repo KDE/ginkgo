@@ -119,8 +119,8 @@ class ResourcePropertiesTableModel(ResourcesTableModel):
         if not index.isValid():
             return Qt.ItemIsEnabled
         if index.column() == 0 or index.column() == 1: 
-            predicateStr = self.data[index.row()][0]
-            if predicateStr in (str(Soprano.Vocabulary.NAO.identifier().toString()), str(Soprano.Vocabulary.NAO.prefLabel().toString()), str(Soprano.Vocabulary.NAO.description().toString()), str(Soprano.Vocabulary.NAO.lastModified().toString()), str(Soprano.Vocabulary.NAO.created().toString())):
+            predicateUrl = self.data[index.row()][0]
+            if predicateUrl in (Soprano.Vocabulary.NAO.identifier(), Soprano.Vocabulary.NAO.prefLabel(), Soprano.Vocabulary.NAO.description(), Soprano.Vocabulary.NAO.lastModified(), Soprano.Vocabulary.NAO.created(), Soprano.Vocabulary.RDFS.range(), Soprano.Vocabulary.RDFS.domain()):
                 return Qt.ItemFlags(QAbstractTableModel.flags(self, index))
             
             return Qt.ItemFlags(QAbstractTableModel.flags(self, index) | Qt.ItemIsEditable)
@@ -143,9 +143,11 @@ class ResourcePropertiesTable(ResourcesTable):
 
 
     def createModel(self):
-        data = datamanager.findResourceLiteralProperties(self.resource)
+        urisExclude = [Soprano.Vocabulary.NAO.prefLabel(), Soprano.Vocabulary.NAO.description()]
+        
+        data = datamanager.findResourceLiteralProperties(self.resource, urisExclude)
         if self.resource:
-            uriprop = [str(Soprano.Vocabulary.NAO.identifier().toString()), self.resource.resourceUri()]
+            uriprop = (Soprano.Vocabulary.NAO.identifier(), self.resource.resourceUri())
             data.append(uriprop)
         self.model = ResourcePropertiesTableModel(self, data=data)
         
@@ -159,8 +161,10 @@ class ResourcePropertiesTable(ResourcesTable):
             #see http://doc.trolltech.com/4.6/qsortfilterproxymodel.html
             sourceIndex = self.table.model().mapToSource(index)
             propvalue = self.table.model().sourceModel().data[sourceIndex.row()]
-            if propvalue:
+            if index.column() == 1 and propvalue:
                 menu = self.createContextMenu(index, propvalue)
+            else:
+                return
         else:
             menu = self.createContextMenu(index, None)
         
@@ -174,6 +178,10 @@ class ResourcePropertiesTable(ResourcesTable):
     def setResource(self, resource):
         self.resource = resource
         self.installModels()
+        self.table.resizeColumnsToContents()
+        #without the line below, the table does not use the space available
+        self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
+
             
     def isActivableColumn(self, column):
         return False
@@ -183,7 +191,7 @@ class ResourcePropertiesTable(ResourcesTable):
             clipboard = QApplication.clipboard()
             clipboard.setText(propvalue[1].toString())
         elif key == ADD_PROPERTY:
-            elt = (str(Soprano.Vocabulary.RDFS.comment().toString()), Nepomuk.Variant(""))
+            elt = (Soprano.Vocabulary.RDFS.comment(), Nepomuk.Variant(""))
             self.table.model().sourceModel().addProperty(elt)
             
 
@@ -218,7 +226,7 @@ class PropertyDelegate(QItemDelegate):
             
 
             for property in datamanager.resourceTypesProperties(self.table.resource, False, True):
-                item = property.label("en") + " [" + datamanager.uriToOntologyLabel(property.uri(), False) + "]"
+                item = property.label("en") + " [" + datamanager.ontologyAbbreviationForUri(property.uri(), True) + "]"
                 props.append((property, item))
                  
             self.sortedProps = sorted(props, key=lambda tuple: tuple[1])            
@@ -232,13 +240,13 @@ class PropertyDelegate(QItemDelegate):
             #edition of a property value
             #identify the range of the property
             sindex = self.table.table.model().mapToSource(index)
-            propertyStr = index.model().sourceModel().data[sindex.row()][0]
+            propertyUrl = index.model().sourceModel().data[sindex.row()][0]
             
             #TODO: see why property.range() won't return the expected range URI.
             #Until then,  we use a the property as a resource
             #property = Nepomuk.Types.Property(QUrl(propertyStr))
             
-            propertyResource = Nepomuk.Resource(QUrl(propertyStr))
+            propertyResource = Nepomuk.Resource(propertyUrl)
             range = str(propertyResource.property(Soprano.Vocabulary.RDFS.range()).toString())
             
             #"boolean", "integer", "dateTime", "date", "duration", "float",  "int", "nonNegativeInteger", "string"]:
@@ -246,7 +254,7 @@ class PropertyDelegate(QItemDelegate):
 
             if range in ("http://www.w3.org/2001/XMLSchema#duration", "http://www.w3.org/2001/XMLSchema#integer", "http://www.w3.org/2001/XMLSchema#int", "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"):
                 spinbox = QSpinBox(parent)
-                spinbox.setRange(0, 100)
+                spinbox.setRange(0, 100000000)
                 spinbox.setSingleStep(1)
                 spinbox.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
                 spinbox.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
@@ -286,11 +294,11 @@ class PropertyDelegate(QItemDelegate):
 
         if index.column() == 0:
             sindex = self.table.table.model().mapToSource(index)
-            propName = index.model().sourceModel().data[sindex.row()][0]
+            propUrl = index.model().sourceModel().data[sindex.row()][0]
 
             i = 0
             for propElt in self.sortedProps:
-                if propName == str(propElt[0].uri().toString()):
+                if propUrl == propElt[0].uri():
                     editor.setCurrentIndex(i)
                     break
                 i = i + 1
@@ -318,21 +326,21 @@ class PropertyDelegate(QItemDelegate):
         if index.column() == 0:
             sindex = self.table.table.model().mapToSource(index)
             cindex = editor.currentIndex()
-            predicateStr = index.model().sourceModel().data[sindex.row()][0]
+            predicateUrl = index.model().sourceModel().data[sindex.row()][0]
             value = index.model().sourceModel().data[sindex.row()][1]
             
             newPredicate = self.sortedProps[cindex][0]
-            if newPredicate.uri().toString() != predicateStr:
+            if newPredicate.uri() != predicateUrl:
                 self.table.setCursor(Qt.WaitCursor)
                 self.table.resource.addProperty(newPredicate.uri(), Nepomuk.Variant(value))
-                self.table.resource.removeProperty(QUrl(predicateStr), Nepomuk.Variant(value))
+                self.table.resource.removeProperty(predicateUrl, Nepomuk.Variant(value))
                 self.table.unsetCursor()
             #here we need to update the model since it won't get updated by signal emission
-            index.model().sourceModel().data[sindex.row()] = (str(newPredicate.uri().toString()), value)
+            index.model().sourceModel().data[sindex.row()] = (newPredicate.uri(), value)
             
         elif index.column() == 1:
             sindex = self.table.table.model().mapToSource(index)
-            predicateStr = index.model().sourceModel().data[sindex.row()][0]
+            predicateUrl = index.model().sourceModel().data[sindex.row()][0]
             value = index.model().sourceModel().data[sindex.row()][1]
 
             #TODO: fix that (class comparison won't work since QSpinBox.__class__ is a pyqtWrapperType
@@ -350,9 +358,9 @@ class PropertyDelegate(QItemDelegate):
 
             
             self.table.setCursor(Qt.WaitCursor)
-            self.table.resource.addProperty(QUrl(predicateStr), Nepomuk.Variant(newValue))
-            self.table.resource.removeProperty(QUrl(predicateStr), Nepomuk.Variant(value))
+            self.table.resource.addProperty(predicateUrl, Nepomuk.Variant(newValue))
+            self.table.resource.removeProperty(predicateUrl, Nepomuk.Variant(value))
             self.table.unsetCursor()
             #here we need to update the model since it won't get updated by signal emission
-            index.model().sourceModel().data[sindex.row()] = (predicateStr, Nepomuk.Variant(newValue))
+            index.model().sourceModel().data[sindex.row()] = (predicateUrl, Nepomuk.Variant(newValue))
             

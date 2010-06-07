@@ -42,6 +42,8 @@ class PropertyEditor(ResourceEditor):
             self.resource = datamanager.createPimoProperty(self.ui.label.text(), self.domainUri)
         
         super(PropertyEditor, self).save()
+        
+        self.ui.updateFields()
         self.unsetCursor()
         
     def updateDomain(self):
@@ -72,9 +74,29 @@ class PropertyEditor(ResourceEditor):
             self.ui.stack.setCurrentWidget(self.ui.rangeClassWidget)
 
     def updateRangeType(self):
-        pass    
+        #save the resource to create it if it doesn't exist yet
+        if not self.resource:
+            self.save()
+
+        rangeUrl = QUrl(self.resource.property(Soprano.Vocabulary.RDFS.range()).toString())
+        
+        dialog = TypeChooserDialog(mainWindow=self.mainWindow, typesUris=[rangeUrl])
+        if dialog.exec_():
+            selection = dialog.selectedResources()
+            #add the general rdf:Resource type
+            if len(selection) == 1:
+                self.setCursor(Qt.WaitCursor)
+                res = selection[0]
+                self.resource.setProperty(Soprano.Vocabulary.RDFS.range(), Nepomuk.Variant(res.resourceUri()))
+                self.ui.updateFields()
+                self.unsetCursor()
+  
             
     def updateRangeLiteral(self):
+        #save the resource to create it if it doesn't exist yet
+        if not self.resource:
+            self.save()
+            
         idx = self.ui.literalBox.currentIndex()
         data = self.ui.literalBox.itemData(idx)
         literalTypeUri = QUrl(data.toString())
@@ -178,5 +200,8 @@ class PropertyEditorUi(ResourceEditorUi):
                 rangeResource = Nepomuk.Resource(rangeUri)
                 self.range.setText(rangeResource.genericLabel())
                 self.stack.setCurrentWidget(self.rangeClassWidget)
-                
+        else:
+            domainResource = Nepomuk.Resource(self.editor.domainUri)
+            self.domain.setText(domainResource.genericLabel())
+
                 
