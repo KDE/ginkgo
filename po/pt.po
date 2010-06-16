@@ -2,15 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Zé <ze@mandriva.org>, 2010.
-# Zé <mmodem00@gmal.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-05-27 04:17+0100\n"
-"Last-Translator: Zé <mmodem00@gmal.com>\n"
-"Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2010-06-16 17:22+0100\n"
+"Last-Translator: Zé <ze@mandriva.org>\n"
+"Language-Team: Portuguese <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,9 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ginkgo/dialogs/livesearchdialog.py:35
-#, fuzzy
 msgid "Open Resource"
-msgstr "Abrir recurso"
+msgstr "Recurso Aberto"
 
 #: ginkgo/dialogs/livesearchdialog.py:36 ginkgo/views/relatedstable.py:45
 #: ginkgo/views/resourcesbytypetable.py:47 ginkgo/views/resourcestable.py:296
@@ -30,33 +28,30 @@ msgid "Name"
 msgstr "Nome"
 
 #: ginkgo/dialogs/livesearchdialog.py:39
-#, fuzzy
 msgid "&Object"
-msgstr "&Projecto"
+msgstr "&Objecto"
 
 #: ginkgo/dialogs/livesearchdialog.py:63
 #: ginkgo/dialogs/livesearchdialog.py:186
 msgid "All"
-msgstr ""
+msgstr "Tudo"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
-#, fuzzy
 msgid "&Relation type:"
-msgstr "Relações"
+msgstr "Tipo de Relação:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
-#, fuzzy
 msgid "&Type:"
-msgstr "&Tipo"
+msgstr "&Tipo:"
 
 #: ginkgo/dialogs/livesearchdialog.py:188
 #: ginkgo/dialogs/livesearchdialog.py:192
 msgid "Filter by type"
-msgstr ""
+msgstr "Filtro por tipo"
 
 #: ginkgo/dialogs/livesearchdialog.py:196
 msgid "&All"
-msgstr ""
+msgstr "&Tudo"
 
 #: ginkgo/dialogs/livesearchdialog.py:212
 msgid "Matching items:"
@@ -76,9 +71,8 @@ msgid "Task Selection"
 msgstr "Selecção de Tarefa"
 
 #: ginkgo/editors/classeditor.py:52
-#, fuzzy
 msgid "Type properties"
-msgstr "Propriedades"
+msgstr "Propriedades do Tipo"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -109,9 +103,8 @@ msgid "Images (*.png *.jpg *.jpeg *.bmp)"
 msgstr "Imagens (*.png *.jpg *.jpeg *.bmp)"
 
 #: ginkgo/editors/resourceeditor.py:142
-#, fuzzy
 msgid "Query results"
-msgstr "Resultados da Procura"
+msgstr "Resultados da pesquisa"
 
 #: ginkgo/editors/resourceeditor.py:263
 msgid "Relations"
@@ -210,9 +203,8 @@ msgid "Link to"
 msgstr "Ligar a"
 
 #: ginkgo/mainwindow.py:106
-#, fuzzy
 msgid "&Resource"
-msgstr "Remoção de recurso"
+msgstr "&Recurso"
 
 #: ginkgo/mainwindow.py:107 ginkgo/mainwindow.py:127 ginkgo/mainwindow.py:647
 msgid "&File"
@@ -295,9 +287,8 @@ msgid "New Type"
 msgstr "Novo Tipo"
 
 #: ginkgo/mainwindow.py:316
-#, fuzzy
 msgid "New Property"
-msgstr "Propriedade"
+msgstr "Nova Propriedade"
 
 #: ginkgo/mainwindow.py:369
 msgid "New %1"
@@ -316,9 +307,8 @@ msgid "Are you sure you want to delete <i>%1</i>?"
 msgstr "Tem certeza que deseja apagar <i>%1</i>?"
 
 #: ginkgo/mainwindow.py:543
-#, fuzzy
 msgid "New Relation"
-msgstr "Relações"
+msgstr "Nova Relação"
 
 #: ginkgo/mainwindow.py:558
 msgid "Select File - Ginkgo"
@@ -515,19 +505,16 @@ msgid "&Unlink from %1"
 msgstr "&Desligar de %1"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Relation"
-msgstr "Relações"
+msgstr "Relação"
 
 #: ginkgo/views/relationstable.py:164
-#, fuzzy
 msgid "Title"
-msgstr "&Ficheiro"
+msgstr "Título"
 
 #: ginkgo/views/relationstable.py:274
-#, fuzzy
 msgid "&Remove relation(s)"
-msgstr "Relações"
+msgstr "&remover relação(ões)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
@@ -566,17 +553,16 @@ msgid "&New sub-task"
 msgstr "&Nova sub-tarefa"
 
 #: ginkgo/views/typepropertiestable.py:47
-#, fuzzy
 msgid "&New property"
-msgstr "Propriedade"
+msgstr "&Nova Propriedade"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Inherited from"
-msgstr ""
+msgstr "Herdado de"
 
 #: ginkgo/views/typepropertiestable.py:156
 msgid "Range"
-msgstr ""
+msgstr "Alcance"
 
 #: ginkgo/views/typesview.py:37
 msgid "Ontologies:"
