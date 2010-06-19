@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://qa.mandriva.com/\n"
 "POT-Creation-Date: 2010-06-01 16:20+0200\n"
-"PO-Revision-Date: 2010-06-16 17:22+0100\n"
+"PO-Revision-Date: 2010-06-19 05:46+0100\n"
 "Last-Translator: Zé <ze@mandriva.org>\n"
 "Language-Team: Portuguese <>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Tudo"
 
 #: ginkgo/dialogs/livesearchdialog.py:146
 msgid "&Relation type:"
-msgstr "Tipo de Relação:"
+msgstr "Tipo de &relação:"
 
 #: ginkgo/dialogs/livesearchdialog.py:181
 msgid "&Type:"
@@ -72,7 +72,7 @@ msgstr "Selecção de Tarefa"
 
 #: ginkgo/editors/classeditor.py:52
 msgid "Type properties"
-msgstr "Propriedades do Tipo"
+msgstr "Propriedades do tipo"
 
 #: ginkgo/editors/contacteditor.py:69
 msgid "First Name"
@@ -448,7 +448,7 @@ msgstr "Ocorreu um erro ao actualizar o contexto."
 
 #: ginkgo/mainwindow.py:855
 msgid "What's New"
-msgstr "O Que É Novo"
+msgstr "O Que é Novo"
 
 #: ginkgo/mainwindow.py:869
 msgid "Search Results"
@@ -514,7 +514,7 @@ msgstr "Título"
 
 #: ginkgo/views/relationstable.py:274
 msgid "&Remove relation(s)"
-msgstr "&remover relação(ões)"
+msgstr "&Remover relação(ões)"
 
 #: ginkgo/views/resourcepropertiestable.py:44
 msgid "&Copy value to clipboard"
