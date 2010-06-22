@@ -53,6 +53,7 @@ class TypesView(QWidget):
         
         
         self.ontology = None
+        self.ontologyBox.setCurrentIndex(1)
         self.ontologyBox.activated.connect(self.update)
         
         hbox.addWidget(self.ontologyBox)

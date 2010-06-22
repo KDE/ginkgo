@@ -189,22 +189,21 @@ class ResourcesTreeModel(QAbstractItemModel):
         #type = Soprano.Vocabulary.RDFS.Resource()
         #rootClass = Nepomuk.Types.Class(rootType)
         
-        sparql = "select distinct ?subject where { graph <%s> { ?subject a rdfs:Class . } }" % ontologyUri.toString()
-        classes = datamanager.sparqlToResources(sparql)
+        #sparql = "select distinct ?subject where { graph <%s> { ?subject a rdfs:Class . } }" % ontologyUri.toString()
+        classes = datamanager.findOntologyClasses(ontologyUri)
         
         rootTypeResource = Nepomuk.Resource(Soprano.Vocabulary.RDFS.Resource())
         self.rootItem = ResourceNode(rootTypeResource)
         
         #first we add all children to the root
         #then we load the children of the root children, and we remove the root children which have ancestors
-        for clazz in classes:
-            clazzResource = Nepomuk.Resource(clazz.uri())
-            child = ResourceNode(clazzResource, self.rootItem)
+        for classResource in classes:
+            child = ResourceNode(classResource, self.rootItem)
             self.rootItem.addChild(child)
         
         for child in self.rootItem.children:
-            clazzResource = child.nodeData
-            self.addChildren(child, clazzResource)
+            classResource = child.nodeData
+            self.addChildren(child, classResource)
             
         
     def addChildren(self, node, typeResource):
@@ -218,8 +217,18 @@ class ResourcesTreeModel(QAbstractItemModel):
             #don't add to the children list a class that subclasses itself
             if typeResource.resourceUri() == subClass.uri():
                 continue
+            
             subClassResource = Nepomuk.Resource(subClass.uri())
-            tuples.append((subClassResource, subClassResource.genericLabel()))
+            #check that the subClassResource was not added yet
+            #TODO: make sure the subClass method returns each class only once even if
+            #the subclass is returned several times
+            flag = False
+            for item in tuples:
+                if item[0].resourceUri() == subClassResource.resourceUri():
+                    flag = True
+                    break
+            if not flag:
+                tuples.append((subClassResource, subClassResource.genericLabel()))
         
         sortedResources = sorted(tuples, key=lambda tuple: tuple[1])
         

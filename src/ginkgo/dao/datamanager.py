@@ -12,12 +12,16 @@
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
 
-from PyQt4.QtCore import QUrl, QFile, QDateTime, QString
+from PyQt4.QtCore import QUrl, QFile, QDateTime, QString, SIGNAL, QObject, SLOT
+from PyQt4.QtGui import *
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
 from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
 from sys import exc_info
 from traceback import format_exception
+from mako.template import Template
+import sys
+import dbus
 
 import os
 
@@ -120,6 +124,7 @@ def executeAsyncQuery(sparql, queryNextReadySlot, queryFinishedSlot, controller=
     
     if controller:
         controller.setQuery(query)
+
     query.nextReady.connect(queryNextReadySlot)
     if queryFinishedSlot:
         query.finished.connect(queryFinishedSlot)
@@ -144,6 +149,7 @@ def sparqlToResources(sparql):
      
     return data
 
+#TODO: rename this function and make it clear that it is sync
 def findResources(sparql):
         
     model = Nepomuk.ResourceManager.instance().mainModel()
@@ -318,6 +324,19 @@ def findRelateds(uri):
     #sparql = "select ?o  where  { <%s> <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#isRelated> ?o . OPTIONAL {?o <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#prefLabel> ?label } } order by ?label" % uri        
     #data = executeQuery(sparql)
     #return data
+    
+def findResourceByLabel(label, match=Nepomuk.Query.ComparisonTerm.Regexp):
+    literalTerm = Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(label))
+    prop = Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel())
+    term = Nepomuk.Query.ComparisonTerm(prop, literalTerm, match)
+    query = Nepomuk.Query.Query(term)
+    sparql = query.toSparqlQuery()
+    data = findResources(sparql)
+    if len(data) > 0:
+        return data[0]
+    else:
+        return None
+    
 
 def findResourcesByLabel(label, queryNextReadySlot, queryFinishedSlot=None, controller=None):
 
@@ -419,7 +438,7 @@ def findOntologies():
     tmparray = []
     for ontology in ontologies:
         abbrev = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()).toString()
-        if len(abbrev) ==0:
+        if len(abbrev) == 0:
             abbrev = ontology.resourceUri().toString()
         tmparray.append((ontology, abbrev))
              
@@ -523,8 +542,11 @@ def createPimoClass(parentClassUri, label, comment=None, icon=None):
 #            s = "nepomuk:/" + normalizedName + '_' +  KRandom::randomString( 20 );
 #        }
 #    }
-
-    classUri = Nepomuk.ResourceManager.instance().generateUniqueUri(label)
+    #TODO: create a dedicated NS
+    pimoxNs = "http://www.semanticdesktop.org/ontologies/pimox#"
+    classId = label.replace(" ", "")
+    classUri = QUrl(pimoxNs + classId)
+    #classUri = Nepomuk.ResourceManager.instance().generateUniqueUri(label)
     stmts = []
     stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDFS.Class())))
     stmts.append(Soprano.Statement(Soprano.Node(classUri), Soprano.Node(Soprano.Vocabulary.RDFS.subClassOf()), Soprano.Node(QUrl(parentClassUri))))
@@ -562,7 +584,11 @@ def createPimoProperty(label, domainUri, rangeUri=Soprano.Vocabulary.RDFS.Resour
     if domainUri != PIMO.Thing and not domainClass.isSubClassOf(pimoThingClass):
         print "[Ginkgo] New PIMO properties need to have a pimo:Thing related domain."
 
-    propertyUri = Nepomuk.ResourceManager.instance().generateUniqueUri(label)
+    #propertyUri = Nepomuk.ResourceManager.instance().generateUniqueUri(label)
+    pimoxNs = "http://www.semanticdesktop.org/ontologies/pimox#"
+    propertyId = label.replace(" ", "")
+    propertyUri = QUrl(pimoxNs + propertyId)
+    
     stmts = []
     stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDF.type()), Soprano.Node(Soprano.Vocabulary.RDF.Property())))
     #stmts.append(Soprano.Statement(Soprano.Node(propertyUri), Soprano.Node(Soprano.Vocabulary.RDFS.subPropertyOf()), Soprano.Node(PIMO.isRelated)))
@@ -646,7 +672,11 @@ def addPimoStatements(statements):
 def findOntologyClasses(ontologyUri):
     """Find all classes in the given ontology, and return them as Resources"""
     
-    sparql = "select distinct ?subject where { graph <%s> { ?subject a rdfs:Class . } }" % ontologyUri.toString()
+    sparql = """select distinct ?subject where {
+                         graph <%s> {
+                              { ?subject a <%s> . }  UNION { ?subject a <%s> . }
+                          } }""" % (ontologyUri.toString(), Soprano.Vocabulary.RDFS.Class().toString(), Soprano.Vocabulary.OWL.Class().toString())
+
     classes = sparqlToResources(sparql)
     tmparray = []
     for clazz in classes:
@@ -667,22 +697,34 @@ def ontologyAbbreviationForUri(uri, flag=True):
     Example: QUrl(http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task) -> pimo
     """
 
-    
     ontologyResource = ontologyForUri(uri)
     if ontologyResource:
         abbrev = unicode(ontologyResource.property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()).toString())
     else:
-        abbrev = uri
+        abbrev = uri.toString()
         
     return abbrev
 
+def abbrevToOntology(abbrev):
+    abbrevTerm = Nepomuk.Query.ComparisonTerm(Nepomuk.Types.Property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()), Nepomuk.Query.LiteralTerm(Soprano.LiteralValue(abbrev)), Nepomuk.Query.ComparisonTerm.Equal)
+    ontoType = Nepomuk.Types.Class(Soprano.Vocabulary.NRL.Ontology())
+    typeTerm = Nepomuk.Query.ResourceTypeTerm(ontoType)
+    andTerm = Nepomuk.Query.AndTerm(abbrevTerm, typeTerm)
+    query = Nepomuk.Query.Query(andTerm)
+    
+    ontologies = findResources(query.toSparqlQuery())
+    print query.toSparqlQuery()
+    
+    if len(ontologies) > 0:
+        ontology = ontologies[0]
+        return ontology
+    return None
     
 def ontologyForUri(uri):
 
     uristr = unicode(uri.toString())
     #TODO: introduce some cache
-    #find the graph of the class or of the property, then the defaultAbbreviation of the ontology corresponding 
-    #to that graph URI
+    #find the graph of the class or of the property, 
     sparql = "select distinct(?c) where {graph ?c {<%s> <http://www.w3.org/2000/01/rdf-schema#label> ?label}}" % uristr
     data = sparqlToResources(sparql)
     
@@ -720,7 +762,75 @@ def uriToOntologyLabel(uri, flag=True):
         return "pimo extended"
 
     return uri
+
+def setResourceAsContext(resource):
+    sbus = dbus.SessionBus()
+    dobject = sbus.get_object("org.kde.nepomuk.services.nepomukusercontextservice", '/nepomukusercontextservice')
     
+    if resource:
+        dobject.setCurrentUserContext(str(resource.resourceUri().toString()))
+        if dobject.currentUserContext() == str(resource.resourceUri().toString()):
+            return True
+            
+        else:
+            return False
+    #self.iface = dbus.Interface(self.dobject, "org.kde.nepomuk.Strigi")
+    
+
+#from ontologyimportclient.cpp by trueg
+def importOntology(url):
+    sbus = dbus.SessionBus()
+    dobject = sbus.get_object("org.kde.nepomuk.services.nepomukontologyloader", '/nepomukontologyloader')
+    iface = dbus.Interface(dobject, "org.kde.nepomuk.OntologyManager")
+    encodedUrl = QString(url.toEncoded())
+    
+#        if ( !m_ontologyManagerInterface->isValid() ) {
+#        KMessageBox::sorry( 0, i18nc( "@info error message", "Failed to contact Nepomuk ontology service. Is the Nepomuk Server running?" ) );
+#        qApp->quit();
+#    }
+    print "importing"
+    print unicode(encodedUrl)
+    iface.importOntology(str(encodedUrl))
+    #QObject.connect(dobject,SIGNAL("ontologyUpdated(QString)"), SLOT(slotOntologyUpdated))
+    
+    #dobject.ontologyUpdateFailed.connect(slotOntologyUpdateFailed)
+#    connect(m_ontologyManagerInterface, SIGNAL(ontologyUpdated(QString)),
+#             this, SLOT(slotOntologyUpdated(QString)));
+#    connect(m_ontologyManagerInterface, SIGNAL(ontologyUpdateFailed(QString, QString)),
+#             this, SLOT(slotOntologyUpdateFailed(QString, QString)));
+
+
+def getResourceTemplate(resource, templateType):
+    typeUris = resource.types()
+    tmpl = None
+    for typeUri in typeUris:
+        clazz = Nepomuk.Types.Class(typeUri)
+        parents = clazz.parentClasses()
+        for parent in parents:
+            print parent.uri().toString()
+            if parent.uri().toString() == "file:///home/arkub/tmp/bibtex.owl#Entry":
+                    tmpl = findResourceByLabel("BibtexTemplate")
+                    break
+    
+    if tmpl is None:
+        tmpl = findResourceByLabel("DefaultExportTemplate")
+    
+    if tmpl:
+        tmplcontent = unicode(tmpl.description())
+        mtmpl = Template(tmplcontent)
+        return mtmpl
+    else:
+        return None 
+
+        
+
+def slotOntologyUpdated(message):
+    print "updated"
+    pass
+
+def slotOntologyUpdateFailed(message, messa):
+    print "failed"
+
 if __name__ == "__main__":
     #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)
 #    data = findResourcesByProperty(NIE.url.toString(),"file:///home/arkub/F/CMakecccccc_Tutorial.pdf")
@@ -737,7 +847,18 @@ if __name__ == "__main__":
     
 #    createPimoClass(PIMO.Thing, "Song")
     #data = findOntologies()
-    ab = ontologyAbbreviationForUri(QString("http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task"))
-    print ab
+    #ab = ontologyAbbreviationForUri(QString("http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task"))
+    #print ab
+    app = QApplication(sys.argv)
+    
+    #url = QUrl("http://zeitkunst.org/bibtex/0.1/bibtex.owl")
+    #importOntology(url)
+
+    ontology = abbrevToOntology("bibtex")
+    namespace = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespace()).toString()
+    print namespace
+    sys.exit(app.exec_())
+
+
 
 

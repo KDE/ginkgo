@@ -84,6 +84,11 @@ class ResourceEditor(QWidget):
 
         self.ui.relationsTable.setResource(self.resource)
         self.ui.propsTable.setResource(self.resource)
+        
+        if hasattr(self.ui, "typePropertiesTable"):
+            self.ui.typePropertiesTable.setResource(self.resource)
+        
+        
 #        #save generic properties
         self.resource.setLabel(unicode(self.ui.resourceLabel()))
         

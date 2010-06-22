@@ -262,6 +262,7 @@ class PropertyDelegate(QItemDelegate):
             
             elif range in ("http://www.w3.org/2001/XMLSchema#float"):
                 dspinbox = QDoubleSpinBox(parent)
+                dspinbox.setRange(0, 100000000)
                 return dspinbox
             
             elif range == "http://www.w3.org/2001/XMLSchema#date":

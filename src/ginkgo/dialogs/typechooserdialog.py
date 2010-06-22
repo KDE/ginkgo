@@ -78,7 +78,7 @@ class TypeChooserDialog(QDialog):
         self.buttonBox.rejected.connect(dialog.reject)
         
         
-        self.setWindowTitle(i18n("Select type(s)"))
+        self.setWindowTitle(i18n("Types"))
         QMetaObject.connectSlotsByName(dialog)
 
 if __name__ == "__main__":

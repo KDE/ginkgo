@@ -11,7 +11,9 @@
 ##
 ## See the NOTICE file distributed with this work for additional
 ## information regarding copyright ownership.
-from ginkgo.editors.propertyeditor import PropertyEditor
+from ginkgo.dialogs.exportdialog import ExportDialog
+
+
 import traceback
 
 
@@ -27,6 +29,8 @@ from PyKDE4.kdeui import *
 from PyKDE4.kdecore import *
 from ginkgo.dao import datamanager
 from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
+from ginkgo.editors.propertyeditor import PropertyEditor
+from ginkgo.serializer import Serializer, BIBTEX, RDF_N3, RDF_XML
 from ginkgo.util.krun import krun
 from ginkgo.dialogs.livesearchdialog import LiveSearchDialog
 from ginkgo.dialogs.resourcechooserdialog import ResourceChooserDialog
@@ -45,6 +49,7 @@ from ginkgo import resources_rc
 class Ginkgo(KMainWindow):
     def __init__(self, parent=None, uris=None):
         super(Ginkgo, self).__init__(parent)
+        self.clipboard = []
 
         self.workarea = KTabWidget()
         #we cannot connect the signal using self.workarea.currentChanged.connect since currentChanged 
@@ -100,11 +105,17 @@ class Ginkgo(KMainWindow):
     def createActions(self):
 
         self.saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
+        self.exportAction = self.createAction(i18n("&Export"), self.showExportDialog, None, "document-export", i18n("Export"))
         
         openResourceAction = self.createAction(i18n("&Open"), self.showOpenResourcesDialog, QKeySequence.Open, None, i18n("Open a resource"))
         newTabAction = self.createAction(i18n("New &Tab"), self.newTab, QKeySequence.AddTab, "tab-new-background-small", i18n("Create new tab"))
         closeTabAction = self.createAction(i18n("Close Tab"), self.closeCurrentTab, QKeySequence.Close, "tab-close", i18n("Close tab"))
         quitAction = self.createAction(i18n("&Quit"), self.close, "Ctrl+Q", "application-exit", i18n("Close the application"))
+
+
+        self.duplicateAction = self.createAction(i18n("&Duplicate"), self.duplicateResource, None, "edit-copy", i18n("Duplicate the current resource"))
+        #self.copyAction = self.createAction(i18n("&Add to clipboard"), self.addToClipboard, "Ctrl+C", "document-copy", i18n("Copy the selected resource"))
+        #self.pasteAction = self.createAction(i18n("&Paste"), self.pasteClipboard, "Ctrl+V", "document-paste", i18n("Paste"))
 
         self.linkToButton = QToolButton()
         self.linkToButton.setToolTip(i18n("Link to..."))
@@ -139,13 +150,19 @@ class Ginkgo(KMainWindow):
         mainMenu.addSeparator()
         mainMenu.addAction(self.saveAction)
         mainMenu.addSeparator()
+        mainMenu.addAction(self.exportAction)
+        mainMenu.addSeparator()
         mainMenu.addAction(newTabAction)
         mainMenu.addAction(closeTabAction)
         mainMenu.addAction(quitAction)
         
-        editMenu = self.menuBar().addMenu(i18n("&Edit"))
         self.deleteAction = self.createAction(i18n("&Delete"), self.delete, None, None, i18n("Delete"))
+        
+        editMenu = self.menuBar().addMenu(i18n("&Edit"))
         editMenu.addMenu(self.linkToMenu)
+        editMenu.addSeparator()
+        editMenu.addAction(self.duplicateAction)
+        editMenu.addSeparator()
         editMenu.addAction(self.deleteAction)
         
         self.viewMenu = self.menuBar().addMenu(i18n("&View"))
@@ -177,6 +194,8 @@ class Ginkgo(KMainWindow):
         mainToolbar.addAction(showRecentlyModifiedResourceAction)
         mainToolbar.addSeparator()
         mainToolbar.addAction(showTypesAction)
+        mainToolbar.addSeparator()
+        mainToolbar.addAction(self.exportAction)
         
         searchWidget = QWidget()
         hbox = QHBoxLayout(searchWidget)
@@ -447,6 +466,7 @@ class Ginkgo(KMainWindow):
     def removeResource(self, uri):
         
         resource = Nepomuk.Resource(uri)
+        #reply = QMessageBox.Yes
         reply = QMessageBox.question(self, i18n("Resource removal"),
                 i18n("Are you sure you want to delete <i>%1</i>?", resource.genericLabel()),
                 QMessageBox.Yes | QMessageBox.Cancel)
@@ -485,10 +505,15 @@ class Ginkgo(KMainWindow):
         else:
             flag = False
             
+        self.duplicateAction.setEnabled(flag)
+#        self.pasteAction.setEnabled(len(self.clipboard) > 0)
+        
         self.linkToButton.setEnabled(flag)
         self.linkToMenu.setEnabled(flag)
         self.setContextAction.setEnabled(flag)
         self.deleteAction.setEnabled(flag)
+        
+        
             
         currentWorkWidget = self.workarea.currentWidget()
         #test on save, not on resource since the resource can be new
@@ -733,17 +758,13 @@ class Ginkgo(KMainWindow):
         self.setResourceAsContext(resource)
         
     def setResourceAsContext(self, resource):
-        sbus = dbus.SessionBus()
-        self.dobject = sbus.get_object("org.kde.nepomuk.services.nepomukusercontextservice", '/nepomukusercontextservice')
+        result = datamanager.setResourceAsContext(resource)
+        if result:
+            reply = QMessageBox.information(self, i18n("Context - Ginkgo"), i18n("The context has been succesfully updated to <i>%1</i>.", resource.genericLabel()))
+        else:
+            reply = QMessageBox.information(self, i18n("Context - Ginkgo"), i18n("An error occurred while updating the context."))
         
-        if resource:
-            self.dobject.setCurrentUserContext(str(resource.resourceUri().toString()))
-            if self.dobject.currentUserContext() == str(resource.resourceUri().toString()):
-                reply = QMessageBox.information(self, i18n("Context - Ginkgo"), i18n("The context has been succesfully updated to <i>%1</i>.", resource.genericLabel()))
-            else:
-                reply = QMessageBox.information(self, i18n("Context - Ginkgo"), i18n("An error occurred while updating the context."))
-        #self.iface = dbus.Interface(self.dobject, "org.kde.nepomuk.Strigi")
-
+        
     def saveSettings(self):
         config = KConfig("ginkgo")
         ggroup = KConfigGroup(config, "general")
@@ -825,6 +846,25 @@ class Ginkgo(KMainWindow):
                 self.workarea.setTabText(index, label)
                 self.currentTabChangedSlot(index)
             self.unsetCursor()
+
+
+    def export(self, outputPath, templateName):
+        
+        currentWidget = self.workarea.currentWidget()
+        #determine whether we are exporting a resource, a list of types, or the result of a research
+        if hasattr(currentWidget, "resource"):
+            resource = currentWidget.resource
+            serializerManager = Serializer(outputPath, templateName)
+            serializerManager.serialize(resource)
+        
+        elif hasattr(currentWidget, "nepomukType"):
+            type = currentWidget.nepomukType
+            #we need to have the serializerManager be an instance variable,
+            #otherwise it gets garbage collected before the query finishes
+            self.serializerManager = Serializer(outputPath, templateName)
+            datamanager.findResourcesByType(type, self.serializerManager.queryNextReadySlot, self.serializerManager.queryFinishedSlot, self.serializerManager)
+            
+            
 
     def delete(self):
         resource = self.currentResource()
@@ -1016,7 +1056,41 @@ class Ginkgo(KMainWindow):
         elif key == REMOVE_PLACE_ENTRY:
             self.removeFromPlaces(nepomukType)
         
+    def showExportDialog(self):
+        dialog = ExportDialog(mainWindow=self)
+        if dialog.exec_():
+            outputPath = dialog.getDestinationFilePath()
+            templateName = dialog.getExportTemplateName()
+            if len(outputPath) > 0:
+                try:
+                    self.export(outputPath, templateName)
+                except Exception, e:
+                    reply = QMessageBox.warning(self, i18n("Error"), i18n("An error occurred during the export, please consider filing a bug. Error description: %1 \n", str(e)))
 
+    def duplicateResource(self):
+        
+        resource = self.currentResource()
+        label = resource.genericLabel()
+        if resource:
+            self.setCursor(Qt.WaitCursor)
+            cloneUri = Nepomuk.ResourceManager.instance().generateUniqueUri(label)
+            cloneResource = Nepomuk.Resource(cloneUri)
+            
+            cloneResource.setTypes(resource.types())
+            
+            for pptyUrl, pptyValue in resource.properties().iteritems():
+                #TODO: except for the property "created at"
+                if pptyUrl != Soprano.Vocabulary.NAO.created():
+                    cloneResource.addProperty(pptyUrl, pptyValue)
+            
+            cloneResource.setLabel(label+" copy")
+            
+            self.openResource(cloneResource.resourceUri(), True, False)
+            self.unsetCursor()
+            
+    def addToClipboard(self):
+        self.clipboard.append(self.currentResource())
+    
 
 class PlacesContextMenu(QMenu):
     def __init__(self, parent=None, nepomukType=None):
@@ -1041,6 +1115,8 @@ class PlacesContextMenu(QMenu):
         action = QAction(i18n("&Remove entry"), self)
         action.setProperty("key", QVariant(REMOVE_PLACE_ENTRY))
         self.addAction(action)
+
+
 
 
 

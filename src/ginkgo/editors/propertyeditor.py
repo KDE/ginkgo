@@ -55,12 +55,13 @@ class PropertyEditor(ResourceEditor):
         
         dialog = TypeChooserDialog(mainWindow=self.mainWindow, typesUris=[domainUrl])
         if dialog.exec_():
-            selection = dialog.selectedResources()
-            #add the general rdf:Resource type
-            if len(selection) == 1:
+            chosenTypes = dialog.chosenTypes()
+            
+            if len(chosenTypes) == 1:
+
                 self.setCursor(Qt.WaitCursor)
-                res = selection[0]
-                self.resource.setProperty(Soprano.Vocabulary.RDFS.domain(), Nepomuk.Variant(res.resourceUri()))
+                domain = chosenTypes[0]
+                self.resource.setProperty(Soprano.Vocabulary.RDFS.domain(), Nepomuk.Variant(domain.resourceUri()))
                 self.ui.updateFields()
                 self.unsetCursor()
 
@@ -80,14 +81,15 @@ class PropertyEditor(ResourceEditor):
 
         rangeUrl = QUrl(self.resource.property(Soprano.Vocabulary.RDFS.range()).toString())
         
+        #TODO: only one type should be possible (check)
         dialog = TypeChooserDialog(mainWindow=self.mainWindow, typesUris=[rangeUrl])
         if dialog.exec_():
-            selection = dialog.selectedResources()
-            #add the general rdf:Resource type
-            if len(selection) == 1:
+            chosenTypes = dialog.chosenTypes()
+            
+            if len(chosenTypes) == 1:
                 self.setCursor(Qt.WaitCursor)
-                res = selection[0]
-                self.resource.setProperty(Soprano.Vocabulary.RDFS.range(), Nepomuk.Variant(res.resourceUri()))
+                range = chosenTypes[0]
+                self.resource.setProperty(Soprano.Vocabulary.RDFS.range(), Nepomuk.Variant(range.resourceUri()))
                 self.ui.updateFields()
                 self.unsetCursor()
   
