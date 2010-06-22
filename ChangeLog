@@ -1,6 +1,14 @@
+
+Ginkgo 0.3
+  - view properties of classes
+  - add new properties
+  - fixed bug of duplicate items related to a misuse of Soprano asyncquery 
+  - run sparql queries via Ctrl+Alt+X in the description field
+  - simplified open/linking dialogs
+  
 Ginkgo 0.2
   - custom types
-  - diversity of relations
+  - choose the nature of the relation when linking two resources
   - full text search 
 
 Ginkgo 0.1 (11 May 2010)

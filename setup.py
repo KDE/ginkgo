@@ -14,12 +14,12 @@
 
 from distutils.core import setup
 setup(name='ginkgo',
-      version='0.3',
+      version='0.31',
       url = 'http://wiki.mandriva.com/en/Ginkgo',
       download_url = 'http://svn.mandriva.com/svn/packages/cooker/ginkgo/current/SOURCES/',
       package_dir = {"": "src"},
       py_modules = ["ginkgo"],
-      packages=["ginkgo", "ginkgo.dao", "ginkgo.dialogs", "ginkgo.editors", "ginkgo.ontologies", "ginkgo.util", "ginkgo.views"],
+      packages=["ginkgo", "ginkgo.dao", "ginkgo.dialogs", "ginkgo.editors", "ginkgo.model", "ginkgo.ontologies", "ginkgo.util", "ginkgo.views"],
       description='Ginkgo is a navigator for Nepomuk, the KDE semantic toolkit',
       scripts=["ginkgo"],
       author='Stéphane Laurière',
