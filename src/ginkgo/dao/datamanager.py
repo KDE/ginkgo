@@ -430,11 +430,16 @@ def findOntologies():
     
     orTerm = Nepomuk.Query.OrTerm(term1, term2)
     
-    query = Nepomuk.Query.Query(orTerm)
+    #query = Nepomuk.Query.Query(orTerm)
+    ttype = Nepomuk.Types.Class(Soprano.Vocabulary.NRL.Ontology())
+    tterm = Nepomuk.Query.ResourceTypeTerm(ttype)
+    query = Nepomuk.Query.Query(tterm)
     sparql = query.toSparqlQuery()
     
+    sparql = "select distinct ?r where {{?r a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#Ontology>} UNION {?r a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#KnowledgeBase>}}"
+    
     ontologies = sparqlToResources(sparql)
-
+    
     tmparray = []
     for ontology in ontologies:
         abbrev = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespaceAbbreviation()).toString()
@@ -854,11 +859,16 @@ if __name__ == "__main__":
     #url = QUrl("http://zeitkunst.org/bibtex/0.1/bibtex.owl")
     #importOntology(url)
 
-    ontology = abbrevToOntology("bibtex")
-    namespace = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespace()).toString()
-    print namespace
+    #ontology = abbrevToOntology("bibtex")
+    #namespace = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespace()).toString()
+    #print namespace
+    
+    ontologies = findOntologies()
+        
+    
     sys.exit(app.exec_())
 
 
+#select distinct ?r where { ?r a ?v1 . ?v1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#Ontology> . graph ?v3 { ?r a ?v2 . } . { ?v3 a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#InstanceBase> . } UNION { ?v3 a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#DiscardableInstanceBase> . } . }
 
-
+#select distinct ?r where { ?r a ?v1 . ?v1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#Tag> . graph ?v3 { ?r a ?v2 . } . { ?v3 a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#InstanceBase> . } UNION { ?v3 a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#DiscardableInstanceBase> . } . }
