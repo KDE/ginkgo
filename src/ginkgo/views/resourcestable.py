@@ -26,6 +26,7 @@ from os.path import join
 from PyKDE4 import soprano
 from PyKDE4.soprano import Soprano
 from ginkgo.views.objectcontextmenu import ObjectContextMenu
+from ginkgo.mainwindow import *
 from ginkgo import *
 from datetime import *
 from ginkgo.actions import *
@@ -158,12 +159,15 @@ class ResourcesTableModel(QAbstractTableModel):
         resource = Nepomuk.Resource(node.uri())
         self.addResource(resource)
         #TODO: find the proper way
-        if self.resourcestable.dialog and self.resourcestable.dialog.__class__ == getClass("ginkgo.dialogs.livesearchdialog.LiveSearchDialog"):
-            self.resourcestable.table.selectionModel().clearSelection()
-            self.resourcestable.table.selectRow(0)
+        if self.resourcestable and self.resourcestable.dialog and self.resourcestable.dialog.__class__ == getClass("ginkgo.dialogs.livesearchdialog.LiveSearchDialog"):
+            if not self.resourcestable.table.selectionModel().hasSelection():
+                self.resourcestable.table.selectionModel().clearSelection()
+                self.resourcestable.table.selectRow(0)
 
         query.next()
-          
+
+    def queryFinishedSlot(self, query):
+        print "finished"          
 
 class ResourcesSortFilterProxyModel(QSortFilterProxyModel):
  
@@ -192,12 +196,13 @@ class ResourcesSortFilterProxyModel(QSortFilterProxyModel):
     def lessThan(self, index1, index2):
         data1 = self.sourceModel().itemAt(index1)
         data2 = self.sourceModel().itemAt(index2)
+        
         if (type(data1) == QDateTime):
             return data1 < data2
         elif (type(data1) == QString): 
             return QString.localeAwareCompare(data1, data2) < 0
         else:
-            return True
+            return data1 < data2
      
 
 
@@ -312,6 +317,8 @@ class ResourcesTable(QWidget):
     def selectedObjects(self):
         selection = []
         selindexes = self.table.selectionModel().selectedRows()
+        #print "indexes: %s" % selindexes
+        
         for selindex in selindexes:
             sourceIndex = self.table.model().mapToSource(selindex)
             selitem = self.table.model().sourceModel().objectAt(sourceIndex.row())
@@ -401,39 +408,13 @@ class ResourcesTable(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    contacts = datamanager.findResourcesByType(NCO.Contact)
-    
     
     
     model = ResourcesTableModel()
-    model.setHeaders(["Full Name", "Creation Date", "Last Update"])
 
-    proxyModel = ResourcesSortFilterProxyModel(app)
-    proxyModel.setSourceModel(model)
-    proxyModel.setDynamicSortFilter(True)
+    contacts = datamanager.findResourcesByType(NFO.Website, model.queryNextReadySlot, model.queryFinishedSlot, None)
+
+   
     
-    
-    model.setResources(contacts)
-    view = QTableView()
-    view.setSortingEnabled(True)
-    view.sortByColumn(0, Qt.AscendingOrder)
-    
-    view.setModel(proxyModel)
-    view.resizeColumnsToContents()
-    view.setWordWrap(True)
-    view.setDragEnabled(False)
-    view.setAcceptDrops(False)
-    view.setDropIndicatorShown(False)
-    view.setContextMenuPolicy(Qt.CustomContextMenu)
-    view.setAlternatingRowColors(True)
-    view.setEditTriggers(QTableWidget.NoEditTriggers)
-    #self.table.setSelectionBehavior(QTableWidget.SelectRows)
-    view.setDragDropMode(QAbstractItemView.NoDragDrop)
-    
-    view.setSortingEnabled(True)
-    view.setShowGrid(True)
-    
-    view.show()
-    view.verticalHeader().setVisible(False)    
     app.exec_()
 

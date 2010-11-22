@@ -21,7 +21,6 @@ from PyKDE4.kdeui import KIcon
 from ginkgo.dao import datamanager
 from ginkgo.serializer import BIBTEX, RDF_N3, RDF_XML, CUSTOM_EXPORT
 
-
 class ExportDialog(QDialog):
 
     def __init__(self, parent=None, mainWindow=None):
@@ -46,7 +45,6 @@ class ExportDialog(QDialog):
     def onDestinationFileInputEdited(self, text):
         self.validate()
 
-        
     def onFormatChanged(self):
         action = self.sender()
         idx = self.formats.currentIndex()
@@ -69,15 +67,13 @@ class ExportDialog(QDialog):
         templateName = unicode(self.templateField.text()).strip()
         return templateName 
         
-    
     def selectExportFile(self):
         path = QFileInfo(".").path()
         #TODO: create a QFileDialog instance and set appropriate button labels ("Ok" instead of "Open")
         fpath = QFileDialog.getOpenFileName(self, i18n("Export to File"))
         self.destinationFileInput.setText(fpath)
         return fpath
-        
-    
+
     def accept(self):
         QDialog.accept(self)
 
@@ -87,7 +83,6 @@ class ExportDialog(QDialog):
     def setupUi(self, dialog):
         gbox = QGridLayout(dialog)
 
-        
         label = QLabel(dialog)
         label.setText(i18n("&Destination file:"))
         self.destinationFileInput = QLineEdit(dialog)
@@ -125,7 +120,6 @@ class ExportDialog(QDialog):
         
         gbox.addWidget(label, 2, 0, 1, 1)
         gbox.addWidget(self.templateField, 2, 1, 1, 2)
-        
         
         self.buttonBox = QDialogButtonBox(dialog)
         self.buttonBox.setOrientation(Qt.Horizontal)

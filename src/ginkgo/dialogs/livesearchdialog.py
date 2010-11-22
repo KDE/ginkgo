@@ -148,7 +148,7 @@ class LiveSearchDialog(QDialog):
             self.properties = QComboBox()
             label.setBuddy(self.properties)
             props = []
-            
+
             for property in datamanager.resourceTypesProperties(self.resource, True, False):
                 ontology = datamanager.ontologyAbbreviationForUri(property.uri())
                 item = property.label("en") + " [" + ontology + "]"
@@ -197,8 +197,6 @@ class LiveSearchDialog(QDialog):
             
         for type in self.mainWindow.placesData:
             self.typeFilterMenu.addAction(self.mainWindow.createAction(type[1], self.onTypeFilterChanged, None, type[3], None, type[0]))
-            
-            
                 
         self.typeFilterButton.setMenu(self.typeFilterMenu)
         hbox.addWidget(self.typeFilterButton)

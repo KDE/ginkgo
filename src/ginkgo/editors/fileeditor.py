@@ -13,7 +13,7 @@
 ## information regarding copyright ownership.
 
 from PyKDE4.nepomuk import Nepomuk
-from PyQt4 import Qsci, QtGui, QtCore
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ginkgo.dao import datamanager

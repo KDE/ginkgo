@@ -14,6 +14,9 @@
 
 from PyQt4.QtCore import QUrl, QFile, QDateTime, QString, SIGNAL, QObject, SLOT
 from PyQt4.QtGui import *
+from PyKDE4.kdecore import *
+from PyKDE4.kdeui import *
+
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
 from ginkgo.ontologies import NFO, NIE, PIMO, NCO, TMO
@@ -22,11 +25,16 @@ from traceback import format_exception
 from mako.template import Template
 import sys
 import dbus
-
+import json
 import os
+from ginkgo.util import fileutil
+
+
 
 DC_TERMS = "http://purl.org/dc/terms/"
 DC_TYPES = "http://purl.org/dc/dcmitype/"
+
+typePropertiesDict = {}
 
 def createResource(label, nepomukType):
     newResource = Nepomuk.Resource()
@@ -275,7 +283,10 @@ def resourceTypesProperties(resource, includePropertiesWithNonLiteralRange=True,
     props = []
     for type in resource.types():
         typeClass = Nepomuk.Types.Class(type)
-        tprops = typeProperties(typeClass, includePropertiesWithNonLiteralRange, includePropertiesWithLiteralRange)
+        tprops = typePropertiesDict.get(typeClass) 
+        if tprops is None:
+            tprops = typeProperties(typeClass, includePropertiesWithNonLiteralRange, includePropertiesWithLiteralRange)
+            typePropertiesDict[typeClass] = tprops 
         for aprop in tprops:
             #TODO: do it the proper way
             try:
@@ -284,7 +295,10 @@ def resourceTypesProperties(resource, includePropertiesWithNonLiteralRange=True,
                 props.append(aprop)
 
         for parentClass in typeClass.allParentClasses():
-            tprops = typeProperties(parentClass, includePropertiesWithNonLiteralRange, includePropertiesWithLiteralRange)
+            tprops = typePropertiesDict.get(typeClass) 
+            if tprops is None:
+                tprops = typeProperties(parentClass, includePropertiesWithNonLiteralRange, includePropertiesWithLiteralRange)
+                typePropertiesDict[parentClass] = tprops
             for aprop in tprops:
                 try:
                     props.index(aprop)
@@ -613,6 +627,103 @@ def createPimoProperty(label, domainUri, rangeUri=Soprano.Vocabulary.RDFS.Resour
     
     
     return None
+
+def exportResourceDictionary(path):
+    #nepomukType = Soprano.Vocabulary.RDFS.Resource()
+    prop = Nepomuk.Types.Property(Soprano.Vocabulary.NAO.prefLabel())
+    labelTerm = Nepomuk.Query.ComparisonTerm(prop, Nepomuk.Query.Term())
+    labelTerm.setVariableName("label")
+    labelTerm.setSortWeight(1)
+    query = Nepomuk.Query.Query(labelTerm)
+    sparql = query.toSparqlQuery()
+    print sparql
+    model = Nepomuk.ResourceManager.instance().mainModel()
+    iter = model.executeQuery(sparql, Soprano.Query.QueryLanguageSparql)
+    
+    os.remove(path)
+    fileutil.appendStringToFile("{\"nepomuk-entities\":[", path)
+
+    counter = 0
+    
+#    nepomukTypes = [PIMO.Person, NCO.PersonContact, PIMO.Project, PIMO.Task, PIMO.Organization, 
+#                    PIMO.Topic, PIMO.Location, NFO.Website, PIMO.Note, QUrl("http://purl.org/dc/dcmitype/Software"),
+#                    PIMO.Country]
+
+    
+    exclude = ["nepomuk:/res/219f9374-7bf4-475f-b3be-fcd7c9812cd7", "nepomuk:/res/e664f809-a32b-49d2-90ef-37cb9133d1bf",
+               "nepomuk:/res/cc2fb6b7-282f-4a79-921e-a360fed4697e", "nepomuk:/res/1fc141d0-6027-4324-8b0b-003f22a62a07",
+               "nepomuk:/res/86740cf9-4268-477c-83df-4f34a2c35046"]
+    
+    previousLabel = ""
+    
+    while iter.next():
+     
+        bindingSet = iter.current()
+        label = bindingSet.value("label").toString()
+        
+        v = bindingSet.value("r")
+        uri = v.uri()
+        flag = False
+        
+        if len(label) == 0:
+            continue
+    
+        if uri.toString() not in exclude:
+            resource = Nepomuk.Resource(uri)
+            for type in resource.types():
+                if type == NFO.FileDataObject:
+                    flag = True
+            if flag:
+                continue
+            
+            
+            glabel = u"%s" % label
+            glabel = json.dumps(glabel, encoding="utf-8")
+            
+            if label == previousLabel:
+                
+                fileutil.appendStringToFile(",", path)
+                jsonResource = resourceToJson(resource)
+                fileutil.appendStringToFile(jsonResource, path)
+            
+            else:
+#                if flagSeveralEntries:
+#                    fileutil.appendStringToFile("]", path)
+#                    flagSeveralEntries = False
+
+                if counter > 0:
+                    fileutil.appendStringToFile("]},", path)
+                
+                fileutil.appendStringToFile("{\"label\":%s, \"entries\":[" % glabel, path)
+                
+                jsonResource = resourceToJson(resource)
+                fileutil.appendStringToFile(jsonResource, path)
+                
+                #fileutil.appendStringToFile("]}", path)
+                counter = counter + 1
+                previousLabel = label
+    
+    fileutil.appendStringToFile("]}", path)
+    fileutil.appendStringToFile("]}\n", path)
+    
+
+    
+def resourceToJson(resource):
+    glabel = resource.genericLabel()
+    glabel = u"%s" % glabel
+    glabel = json.dumps(glabel, encoding="utf-8")
+    
+    desc = u"%s" % resource.description()
+    desc = json.dumps(desc, encoding="utf-8")
+    
+    uri = resource.resourceUri().toString()
+    uri = u"%s" % uri
+    uri = json.dumps(uri, encoding="utf-8")
+    jsonRepresentation = '{"uri":%s}' % (uri)    
+    
+    return jsonRepresentation    
+    
+    
     
 #    QUrl propertyUri = newPropertyUri( label );
 #
@@ -780,7 +891,27 @@ def setResourceAsContext(resource):
         else:
             return False
     #self.iface = dbus.Interface(self.dobject, "org.kde.nepomuk.Strigi")
+
+def analyzeText(text, newEntityHandler, finishedAnalyzisHandler):
+
+    from dbus.mainloop.glib import DBusGMainLoop
+    DBusGMainLoop(set_as_default=True)
+
     
+    sbus = dbus.SessionBus()
+    dobject = sbus.get_object("org.kde.nepomuk.services.nepomukscriboservice", '/nepomukscriboservice')
+    iface = dbus.Interface(dobject, "org.kde.nepomuk.Scribo")
+    
+    sessionPath = iface.analyzeText(text)
+    dobject = sbus.get_object("org.kde.nepomuk.services.nepomukscriboservice", sessionPath)
+    session = dbus.Interface(dobject, "org.kde.nepomuk.ScriboSession")
+    
+    session.connect_to_signal('newLocalEntity', newEntityHandler)
+    session.connect_to_signal('finished', finishedAnalyzisHandler)
+    #session.connect_to_signal('newEntity', newEntityHandler)
+    session.start()
+
+
 
 #from ontologyimportclient.cpp by trueg
 def importOntology(url):
@@ -812,7 +943,6 @@ def getResourceTemplate(resource, templateType):
         clazz = Nepomuk.Types.Class(typeUri)
         parents = clazz.parentClasses()
         for parent in parents:
-            print parent.uri().toString()
             if parent.uri().toString() == "file:///home/arkub/tmp/bibtex.owl#Entry":
                     tmpl = findResourceByLabel("BibtexTemplate")
                     break
@@ -836,6 +966,29 @@ def slotOntologyUpdated(message):
 def slotOntologyUpdateFailed(message, messa):
     print "failed"
 
+
+#class Omg():
+#    
+#    def __init__(self):
+#        print "hll"
+#    
+#    def queryNextReadySlot(self, query):
+#        
+#        node = query.binding("r");
+#        resource = Nepomuk.Resource(node.uri())
+#        print resource.genericLabel()
+#        query.next()
+#    
+#    def queryFinishedSlot(self, query):
+#        
+#        print "finished"
+#
+#    def search(self):
+#        typeUri = Soprano.Vocabulary.RDFS.Resource()
+#        findResourcesByTypeAndLabel(typeUri, "^a", self.queryNextReadySlot, self.queryFinishedSlot, None)        
+
+
+
 if __name__ == "__main__":
     #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)
 #    data = findResourcesByProperty(NIE.url.toString(),"file:///home/arkub/F/CMakecccccc_Tutorial.pdf")
@@ -854,19 +1007,9 @@ if __name__ == "__main__":
     #data = findOntologies()
     #ab = ontologyAbbreviationForUri(QString("http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task"))
     #print ab
-    app = QApplication(sys.argv)
-    
-    #url = QUrl("http://zeitkunst.org/bibtex/0.1/bibtex.owl")
-    #importOntology(url)
-
-    #ontology = abbrevToOntology("bibtex")
-    #namespace = ontology.property(Soprano.Vocabulary.NAO.hasDefaultNamespace()).toString()
-    #print namespace
-    
-    ontologies = findOntologies()
         
-    
-    sys.exit(app.exec_())
+    #exportResourceDictionary("/tmp/nepomuk-dictionary.json")
+    analyzeText()    
 
 
 #select distinct ?r where { ?r a ?v1 . ?v1 <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#Ontology> . graph ?v3 { ?r a ?v2 . } . { ?v3 a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#InstanceBase> . } UNION { ?v3 a <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#DiscardableInstanceBase> . } . }

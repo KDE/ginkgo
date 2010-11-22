@@ -18,7 +18,6 @@ class Node(object):
         return not self.hasFinishedLoading
  
     def fetchMore(self):
-        
 #        if len(source) == 5:
             
         #source = source[:5]

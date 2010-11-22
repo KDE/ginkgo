@@ -19,12 +19,16 @@ from PyQt4.QtGui import *
 from PyKDE4.kdeui import *
 from PyKDE4.kdecore import i18n
 from ginkgo.views.resourcepropertiestable import ResourcePropertiesTable
+from PyKDE4.kdecore import KUrl
+from ginkgo.util.krun import krun
 from PyKDE4.soprano import Soprano 
 from PyKDE4.nepomuk import Nepomuk
 from ginkgo.util import util
 from ginkgo.views.relationstable import RelationsTable
 from ginkgo.views.sparqlview import SparqlResultsTable
+from ginkgo.views.suggestionview import SuggestionsTable
 from ginkgo.dialogs.typechooserdialog import TypeChooserDialog
+from ginkgo.ontologies import NIE, PIMO, NCO
 import os
 
 def getClass(clazz):
@@ -95,6 +99,8 @@ class ResourceEditor(QWidget):
         desc = unicode(self.ui.description.toPlainText())
         
         self.resource.setDescription(desc)
+        if hasattr(self.ui, "url"):
+            self.resource.setProperty(NIE.url, Nepomuk.Variant(unicode(self.ui.url.text())))
         
         #TODO: catch Except and print warning
         #reply = QMessageBox.warning(self, i18n("Warning", ), i18n("An error ocurred when saving the resource. You should copy and paste this resource's contents to a distinct editor. Please report a bug."))
@@ -151,6 +157,27 @@ class ResourceEditor(QWidget):
             self.sparqlView.setSparql(selection)
             self.sparqlView.installModels()
             self.ui.relationsWidget.setCurrentIndex(sparqlViewTabIndex)
+            
+    def suggestRelations(self):
+        suggestionViewTabIndex = -1
+        text = u"%s" % self.ui.description.toPlainText()
+        
+        for index in range(self.ui.relationsWidget.count()):
+            tab = self.ui.relationsWidget.widget(index)
+            if tab.__class__ == getClass("ginkgo.views.suggestionview.SuggestionsTable"):
+                suggestionViewTabIndex = index
+                break
+        
+        if suggestionViewTabIndex < 0:
+            self.suggestionView = SuggestionsTable(mainWindow=self.mainWindow, editor=self.ui.description, resource=self.resource, text=text)
+            self.ui.relationsWidget.addTab(self.suggestionView , i18n("Suggestions"))
+            self.ui.relationsWidget.setCurrentWidget(self.suggestionView)
+            self.suggestionView.runAnalyzis()
+        else:
+            self.suggestionView.setText(text)
+            self.suggestionView.installModels()
+            self.ui.relationsWidget.setCurrentIndex(suggestionViewTabIndex)
+            self.suggestionView.runAnalyzis()    
 
 
 class ResourceEditorUi(object):
@@ -179,7 +206,7 @@ class ResourceEditorUi(object):
         
         #create the right pane: description + relations
         self.rightpane = QSplitter(self.editor)
-        self.rightpane.setOrientation(Qt.Vertical)
+        self.rightpane.setOrientation(Qt.Horizontal)
         
 #        button = KPushButton()
 #        button.setIcon(KIcon("edit-rename"))
@@ -237,6 +264,9 @@ class ResourceEditorUi(object):
 
         shortcut = QShortcut(QKeySequence("Ctrl+Alt+X"), self.description);
         shortcut.activated.connect(self.editor.executeInlineQuery)
+
+        shortcut = QShortcut(QKeySequence("Ctrl+Alt+Y"), self.description);
+        shortcut.activated.connect(self.editor.suggestRelations)
 
         
         #hline = QFrame(descriptionWidget)
@@ -304,6 +334,12 @@ class ResourceEditorUi(object):
                 self.name.setText(self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString())
 
 
+            if hasattr(self, "url"):
+                if len(self.editor.resource.property(NIE.url).toString()) > 0:
+                    self.url.setText(self.editor.resource.property(NIE.url).toString())
+                else:
+                    self.url.setText(self.editor.resource.uri())
+                
             prefLabel = self.editor.resource.property(Soprano.Vocabulary.NAO.prefLabel()).toString()
             p = QPalette()
             p.setColor(QPalette.Text, p.color(QPalette.Normal, QPalette.Text))
@@ -329,7 +365,7 @@ class ResourceEditorUi(object):
                 types = types + i18n(typestr) + ", "
             
             if len(types) > 0:
-                types = types[0:len(types)-2]
+                types = types[0:len(types) - 2]
             self.typesInfo.setText(i18n("Type(s): ") + types)
             
             self.relationsTable.setResource(self.editor.resource)
@@ -365,11 +401,56 @@ class ResourceEditorUi(object):
 #        vbox = QVBoxLayout(tagBox)
 #        vbox.addWidget(self.tags)
 #        self.gridlayout.addWidget(tagBox, 0, 0, 1, 2)
-        
+
+        #TODO: move this to a config panel so that types whose editor contains a dedicated URL field can be defined by the user
+        classesWithUrlField = [Nepomuk.Types.Class(PIMO.Organization), Nepomuk.Types.Class(PIMO.Project),
+                               Nepomuk.Types.Class(PIMO.Person),
+                               Nepomuk.Types.Class(NCO.PersonContact),
+                               Nepomuk.Types.Class(QUrl("http://purl.org/dc/dcmitype/Software"))]
+        if self.editor.resource:
+            flag = False
+            for type in self.editor.resource.types():
+                typeClass = Nepomuk.Types.Class(type)
+                for parentClass in typeClass.allParentClasses():
+                    if typeClass in classesWithUrlField or parentClass in classesWithUrlField:
+                        self.addUrlBox(propertiesWidget)
+                        flag = True
+                        break
+                if flag:
+                    break
+        else:
+            typeClass = Nepomuk.Types.Class(self.editor.nepomukType)
+            for parentClass in typeClass.allParentClasses():
+                if typeClass in classesWithUrlField or parentClass in classesWithUrlField:
+                    self.addUrlBox(propertiesWidget)
+                    break
+            
+                
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem, 1, 0, 1, 1)
         
         return propertiesWidget
+
+    def addUrlBox(self, propertiesWidget):
+        box = QGroupBox(i18n("&URL"))
+        
+        vbox = QVBoxLayout(box)
+        self.url = QLineEdit(propertiesWidget)
+        self.url.setObjectName("url")
+        
+        
+        vbox.addWidget(self.url)
+        
+        button = QPushButton(propertiesWidget)
+        button.setText(i18n("Open"))
+        button.clicked.connect(self.openWebPage)
+        vbox.addWidget(button)
+        self.gridlayout.addWidget(box, 0, 0, 1, 1)
+        
+
+    def openWebPage(self):
+        kurl = KUrl(self.url.text())
+        krun(kurl, QWidget(), False)
     
     def resourceLabel(self):
         return self.label.text()

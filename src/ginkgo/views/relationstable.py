@@ -89,16 +89,18 @@ class RelationsTableModel(QAbstractTableModel):
         column = index.column()
         if column == 0:
             label = predicate.label("en")
-            return label
+            #return label
+            return ""
         elif column == 1:
             label = unicode(object.genericLabel())
             if len(label) == 0:
                 return object.resourceUri().toString()
             return label
             
-        elif column == 2:
-            return object.property(Soprano.Vocabulary.NAO.lastModified()).toDateTime()
         elif column == 3:
+            dt = object.property(Soprano.Vocabulary.NAO.lastModified()).toDateTime()
+            return dt.toString("dd/MM/yyyy")
+        elif column == 2:
             for type in object.types():
                 if type != Soprano.Vocabulary.RDFS.Resource():
                     label = type.toString()
@@ -163,24 +165,26 @@ class RelationsTable(ResourcesTable):
     
     def __init__(self, mainWindow=False, dialog=None, resource=None):
         self.resource = resource
-        super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog, sortColumn=1)
+        super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog, sortColumn=2)
         
         #make it editable
         self.table.setEditTriggers(QTableWidget.SelectedClicked | QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
-        self.table.setSelectionBehavior(QTableWidget.SelectItems)
+        #self.table.setSelectionBehavior(QTableWidget.SelectItems)
+        self.table.setSelectionBehavior(QTableWidget.SelectRows)
         #self.table.setSelectionMode(QTableWidget.ExtendedSelection)
 
         
         self.table.horizontalHeader().setResizeMode(0, QHeaderView.Interactive)
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
-        self.table.setItemDelegate(RelationDelegate(self))
+        #self.table.setItemDelegate(RelationDelegate(self))
         self.table.resizeColumnsToContents()
         
 
     def createModel(self):
         
         self.model = RelationsTableModel(self)
-        self.model.setHeaders([i18n("Relation"), i18n("Title"), i18n("Date"), i18n("Type") ])
+        #self.model.setHeaders([i18n("Relation"), i18n("Title"), i18n("Date"), i18n("Type") ])
+        self.model.setHeaders(["", i18n("Title"), i18n("Type"),i18n("Date") ])
         
         if self.resource:
             relations = datamanager.findDirectRelations(self.resource.uri())
@@ -203,6 +207,7 @@ class RelationsTable(ResourcesTable):
 
   
     def processAction(self, key, selectedResources, selectedRelations):
+        print selectedResources
         if super(RelationsTable, self).processAction(key, selectedResources):
             return True
         elif self.resource and key == UNLINK:
@@ -294,6 +299,7 @@ class RelationContextMenu(ObjectContextMenu):
         
         for relation in selectedRelations:
             selectedResources.append(relation[1])
+
         
         super(RelationContextMenu, self).__init__(parent, selectedResources)
 

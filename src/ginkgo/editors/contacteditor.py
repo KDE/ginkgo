@@ -15,7 +15,7 @@
 
 from PyKDE4.nepomuk import Nepomuk
 from PyKDE4.soprano import Soprano
-from PyQt4 import Qsci, QtGui, QtCore
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from ginkgo.dao import datamanager
@@ -31,7 +31,6 @@ class ContactEditor(ResourceEditor):
     def __init__(self, mainWindow=False, resource=None, nepomukType=None):
         super(ContactEditor, self).__init__(mainWindow=mainWindow, resource=resource, nepomukType=nepomukType)
         self.defaultIcon = ""
-        
         self.ui = ContactEditorUi(self)
     
             

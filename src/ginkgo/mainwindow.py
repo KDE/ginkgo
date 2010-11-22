@@ -44,6 +44,7 @@ from ginkgo.editors.taskeditor import TaskEditor
 from ginkgo.actions import *
 
 from ginkgo import resources_rc
+from ginkgo.views.relationstable import RelationsTable
 
 
 class Ginkgo(KMainWindow):
@@ -65,6 +66,8 @@ class Ginkgo(KMainWindow):
         
         self.createPlacesWidget()
         
+        #self.createRelationsWidget()
+        
         status = self.statusBar()
         status.setSizeGripEnabled(False)
         status.showMessage("Ready", 5000)
@@ -80,6 +83,10 @@ class Ginkgo(KMainWindow):
                     self.openResource(uri, True, False)
                 except Exception, e:
                     print "[Ginkgo] Error while trying to open %s." % uri
+        
+        from dbus.mainloop.glib import DBusGMainLoop
+        self.dbus_loop = DBusGMainLoop()
+
 
     def installNewResourceMenu(self):
         for action in self.newResourceMenu.actions():
@@ -103,6 +110,8 @@ class Ginkgo(KMainWindow):
         
 
     def createActions(self):
+        
+
 
         self.saveAction = self.createAction(i18n("&Save"), self.save, QKeySequence.Save, "document-save", i18n("Save"))
         self.exportAction = self.createAction(i18n("&Export"), self.showExportDialog, None, "document-export", i18n("Export"))
@@ -244,6 +253,7 @@ class Ginkgo(KMainWindow):
             action.setStatusTip(tip)
         if slot is not None:
             self.connect(action, SIGNAL(signal), slot)
+            
 
         if checkable:
             action.setCheckable(True)
@@ -366,7 +376,8 @@ class Ginkgo(KMainWindow):
             
             try:
                 newEditor = getClass(className)(mainWindow=self, resource=None, nepomukType=classUri)
-            except ImportError:
+            except ImportError, e:
+                #traceback.print_exc(e, file=sys.stdout)
                 newEditor = ResourceEditor(mainWindow=self, resource=None, nepomukType=classUri)
                 
             self.addTab(newEditor, i18n("New %1", unicode(resource.genericLabel())), True, False)
@@ -401,7 +412,8 @@ class Ginkgo(KMainWindow):
 
                     try:
                         newEditor = getClass(className)(mainWindow=self, resource=resource, nepomukType=type)
-                    except ImportError:
+                    except ImportError, e:
+                        #traceback.print_exc(e, file=sys.stdout)
                         newEditor = ResourceEditor(mainWindow=self, resource=resource, nepomukType=type)
     
     
@@ -530,7 +542,9 @@ class Ginkgo(KMainWindow):
         else:
             self.stopQueryAction.setEnabled(False)
 
-
+#        if resource:
+#            self.relationsTable.setResource(resource)
+            
 
         
 
@@ -610,6 +624,22 @@ class Ginkgo(KMainWindow):
         
         self.addDockWidget(Qt.LeftDockWidgetArea, self.placesWidget)
 
+
+    def createRelationsWidget(self):
+        self.relationsWidget = QDockWidget(i18n("Relations"), self)
+        self.relationsWidget.setObjectName("Relations")
+        self.relationsWidget.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        
+        
+        relationsInternalWidget = QWidget()
+        relationsInternalWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        
+        verticalLayout = QVBoxLayout(relationsInternalWidget)
+
+        self.relationsTable = RelationsTable(mainWindow=self)
+        verticalLayout.addWidget(self.relationsTable)
+        
+        self.addDockWidget(Qt.RightDockWidgetArea, self.relationsWidget)
 
     def loadPlacesData(self):
         """Try to restore the places from the settings, otherwise set default places."""    
@@ -940,6 +970,9 @@ class Ginkgo(KMainWindow):
             return KIcon("text-plain")
         elif nepomukType ==Soprano.Vocabulary.RDF.Property():
             return KIcon("code-function")
+        elif nepomukType == QUrl("http://purl.org/dc/dcmitype/Software"):
+            return KIcon("application-x-executable")
+        
         else:
             return KIcon("nepomuk")
 
@@ -953,7 +986,8 @@ class Ginkgo(KMainWindow):
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/x-office-contact.png")
         elif nepomukType == PIMO.Note:
             return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/text-plain.png")
-        
+        elif nepomukType == QUrl("http://purl.org/dc/dcmitype/Software"):
+            return QIcon("/usr/share/icons/oxygen/16x16/mimetypes/application-x-executable.png")
         elif nepomukType ==Soprano.Vocabulary.RDF.Property():
             return QIcon("/usr/share/icons/oxygen/16x16/actions/code-function.png")
         else:
@@ -1057,8 +1091,11 @@ class Ginkgo(KMainWindow):
             self.removeFromPlaces(nepomukType)
         
     def showExportDialog(self):
+
+        
         dialog = ExportDialog(mainWindow=self)
         if dialog.exec_():
+            
             outputPath = dialog.getDestinationFilePath()
             templateName = dialog.getExportTemplateName()
             if len(outputPath) > 0:
@@ -1066,6 +1103,12 @@ class Ginkgo(KMainWindow):
                     self.export(outputPath, templateName)
                 except Exception, e:
                     reply = QMessageBox.warning(self, i18n("Error"), i18n("An error occurred during the export, please consider filing a bug. Error description: %1 \n", str(e)))
+
+    def newEntity(self, entity):
+        print "helllo"
+
+    def finished(self):
+        print "finished"
 
     def duplicateResource(self):
         
@@ -1128,3 +1171,5 @@ def getClass(clazz):
     for comp in parts[1:]:
         module = getattr(module, comp)            
     return module
+
+    

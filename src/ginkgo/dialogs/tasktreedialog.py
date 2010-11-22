@@ -43,8 +43,6 @@ class TaskTreeDialogUi(object):
         self.buttonBox.rejected.connect(dialog.reject)
         QMetaObject.connectSlotsByName(dialog)
         
-
-        
     def retranslateUi(self, dialog):
         dialog.setWindowTitle(i18n("Task Selection"))
 

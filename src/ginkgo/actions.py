@@ -20,3 +20,5 @@ NEW_PROPERTY = "new-property"
 ADD_PROPERTY = "add-property"
 TYPE_LIST_ADD_TYPE="type-list-add-type"
 TYPE_LIST_REMOVE_TYPE="type-list-remove-type"
+CREATE_RELATION="create-relation"
+
