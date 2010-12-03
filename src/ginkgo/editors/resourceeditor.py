@@ -100,7 +100,7 @@ class ResourceEditor(QWidget):
         
         self.resource.setDescription(desc)
         if hasattr(self.ui, "url"):
-            self.resource.setProperty(NIE.url, Nepomuk.Variant(unicode(self.ui.url.text())))
+            self.resource.setProperty(NIE.url, Nepomuk.Variant(QUrl(unicode(self.ui.url.text()))))
         
         #TODO: catch Except and print warning
         #reply = QMessageBox.warning(self, i18n("Warning", ), i18n("An error ocurred when saving the resource. You should copy and paste this resource's contents to a distinct editor. Please report a bug."))
@@ -161,15 +161,17 @@ class ResourceEditor(QWidget):
     def suggestRelations(self):
         suggestionViewTabIndex = -1
         text = u"%s" % self.ui.description.toPlainText()
+        title = u"%s" % self.ui.label.text()
         
         for index in range(self.ui.relationsWidget.count()):
             tab = self.ui.relationsWidget.widget(index)
             if tab.__class__ == getClass("ginkgo.views.suggestionview.SuggestionsTable"):
                 suggestionViewTabIndex = index
                 break
+
         
         if suggestionViewTabIndex < 0:
-            self.suggestionView = SuggestionsTable(mainWindow=self.mainWindow, editor=self.ui.description, resource=self.resource, text=text)
+            self.suggestionView = SuggestionsTable(mainWindow=self.mainWindow, editor=self.ui.description, resource=self.resource, title=title, text=text)
             self.ui.relationsWidget.addTab(self.suggestionView , i18n("Suggestions"))
             self.ui.relationsWidget.setCurrentWidget(self.suggestionView)
             self.suggestionView.runAnalyzis()
@@ -288,7 +290,7 @@ class ResourceEditorUi(object):
         #vboxlayout = QVBoxLayout(relationsWidget)
         #self.relationsLabel = QLabel(relationsWidget)
         
-        self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow)
+        self.relationsTable = RelationsTable(mainWindow=self.editor.mainWindow, editor=self.description)
         self.propsTable = ResourcePropertiesTable(mainWindow=self.editor.mainWindow)
         
         self.relationsWidget.addTab(self.relationsTable , i18n("Relations"))
