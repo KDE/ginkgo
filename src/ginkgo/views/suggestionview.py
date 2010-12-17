@@ -39,12 +39,23 @@ class SuggestionsTableModel(ResourcesTableModel):
    
 class SuggestionsTable(ResourcesTable):
     
-    def __init__(self, mainWindow=False, editor=None, resource=None, text=None):
+    def __init__(self, mainWindow=False, editor=None, resource=None, title=None, text=None):
         self.resource = resource
-        self.text = text
+        
+        self.doImageAnalysis = False
+        
+        path = self.resource.property(NIE.url)
+        if path:
+            path = str(path.toString())
+            if path.find(".png") > 0:
+                self.doImageAnalysis = True
+                self.path = path
+                
+        
         self.editor = editor
         super(SuggestionsTable, self).__init__(mainWindow=mainWindow, dialog=None)
-        
+        self.setText(text)
+        self.setTitle(title)
 
     def createModel(self):
         self.model = SuggestionsTableModel(self)
@@ -56,11 +67,11 @@ class SuggestionsTable(ResourcesTable):
         selectedIndex = self.table.model().mapToSource(selectedIndex)
         #print "selection: %s" % selectedIndex.row()
         selectedResource = self.model.objectAt(selectedIndex.row())
-        label = unicode(selectedResource.genericLabel())
+        label = unicode(selectedResource.genericLabel()).lower()
         #print label
         selections = []
         import re
-        starts = [match.start() for match in re.finditer(re.escape(label), self.text)]
+        starts = [match.start() for match in re.finditer(re.escape(label), self.textLower)]
         #print starts
         for start in starts:
             selection = QTextEdit.ExtraSelection() 
@@ -82,23 +93,38 @@ class SuggestionsTable(ResourcesTable):
         
         #if self.text.find(label) >=0:
         if relevance >= 0.9:
-            if resource not in self.relations and resource not in self.model.resources:
+            if resource != self.resource and resource not in self.relations and resource not in self.model.resources:
                 self.addResource(resource)
+                
+    def textExtractedHandler(self, text):
+        print "Extracted text from image: '%s'" % text
+    
 
 
     def finishedAnalyzisHandler(self):
         print "finished"
         self.loop.quit()
+    
+    def finishedImageAnalyzisHandler(self):
+        print "finished image analyzis"
+#        if self.path.find("olena-test-gartner-social-software-quadrant.png") > 0:
+#            self.addResource(Nepomuk.Resource(QUrl("nepomuk:/res/64c8c9a9-1ba2-46c7-96e0-3e52763bd959")))
+    
 
     def setText(self, text):
         self.text = text
+        self.textLower = text.lower()
         
 
+    def setTitle(self, title):
+        self.title = title
 
     def runAnalyzis(self):
         self.relations = []
         #the selection model needs to be here, since the table model is reinstalled when the user asks for new suggestions
         self.table.selectionModel().currentChanged.connect(self.selectionChanged)
+        
+        #populate existing relations for not suggesting entities that are already linked to the current resource
         directRelations = datamanager.findDirectRelations(self.resource.uri())
         for predicate in directRelations.keys():
             for resource in directRelations[predicate]:
@@ -111,6 +137,14 @@ class SuggestionsTable(ResourcesTable):
 
         self.loop = gobject.MainLoop()
         datamanager.analyzeText(self.text, self.newEntityHandler, self.finishedAnalyzisHandler)
+        
+        datamanager.analyzeText(self.title, self.newEntityHandler, self.finishedAnalyzisHandler)
+        
+        if self.doImageAnalysis:
+            print "analysing image %s" % self.path
+            datamanager.analyzeResource(self.path, self.newEntityHandler, self.textExtractedHandler, self.finishedImageAnalyzisHandler)
+        
+        
         self.loop.run()
         #TODO: handle stop
 

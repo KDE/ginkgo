@@ -163,8 +163,9 @@ class RelationsTableModel(QAbstractTableModel):
             
 class RelationsTable(ResourcesTable):
     
-    def __init__(self, mainWindow=False, dialog=None, resource=None):
+    def __init__(self, mainWindow=False, editor=None, dialog=None, resource=None):
         self.resource = resource
+        self.editor = editor
         super(RelationsTable, self).__init__(mainWindow=mainWindow, dialog=dialog, sortColumn=2)
         
         #make it editable
@@ -204,10 +205,10 @@ class RelationsTable(ResourcesTable):
                     data.append((predicate, resource, False))
             
             self.model.setRelations(data)
+        
 
   
     def processAction(self, key, selectedResources, selectedRelations):
-        print selectedResources
         if super(RelationsTable, self).processAction(key, selectedResources):
             return True
         elif self.resource and key == UNLINK:
@@ -242,6 +243,8 @@ class RelationsTable(ResourcesTable):
         self.table.resizeColumnsToContents()
         #without the line below, the table does not use the space available
         self.table.horizontalHeader().setResizeMode(1, QHeaderView.Stretch)
+        
+        self.table.selectionModel().currentChanged.connect(self.selectionChanged)
 
     def isActivableColumn(self, column):
         if column ==1 or column == 3:
@@ -289,7 +292,29 @@ class RelationsTable(ResourcesTable):
         
 
         #if a resource was completely removed, remove it from the relation table as well
-        #super(RelatedsTable, self).statementRemovedSlot(statement)        
+        #super(RelatedsTable, self).statementRemovedSlot(statement)
+        
+    def selectionChanged(self, selectedIndex, deselectedIndex):
+        selectedIndex = self.table.model().mapToSource(selectedIndex)
+        #print "selection: %s" % selectedIndex.row()
+        selectedResource = self.model.resourceAt(selectedIndex.row())
+        label = unicode(selectedResource.genericLabel()).lower()
+        #print label
+        selections = []
+        text = u"%s" % self.editor.toPlainText()
+        text = text.lower()
+        import re
+        starts = [match.start() for match in re.finditer(re.escape(label), text)]
+        #print starts
+        for start in starts:
+            selection = QTextEdit.ExtraSelection() 
+            selection.cursor = QTextCursor(self.editor.document())
+            selection.cursor.setPosition(start)
+            selection.cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor,len(label))
+            selection.format.setBackground(Qt.yellow)    
+            selections.append(selection)
+        
+        self.editor.setExtraSelections(selections)                
 
 class RelationContextMenu(ObjectContextMenu):
     def __init__(self, parent=None, selectedRelations=None):

@@ -404,6 +404,8 @@ class ResourcesTable(QWidget):
 
     def query(self):
         return self._query
+        
+
 
 if __name__ == "__main__":
     import sys
