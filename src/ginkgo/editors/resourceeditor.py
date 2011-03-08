@@ -96,7 +96,7 @@ class ResourceEditor(QWidget):
 #        #save generic properties
         self.resource.setLabel(unicode(self.ui.resourceLabel()))
         
-        desc = unicode(self.ui.description.toPlainText())
+        desc = unicode(self.ui.description.toHtml())
         
         self.resource.setDescription(desc)
         if hasattr(self.ui, "url"):
@@ -252,17 +252,27 @@ class ResourceEditorUi(object):
         
         vboxlayout = QVBoxLayout(descriptionWidget)
         #gridlayout = QGridLayout(descriptionWidget)
-        
+   
 #        descriptionLabel = QLabel(descriptionWidget)
 #        descriptionLabel.setText(i18n("&Description:")) 
-        self.description = KTextEdit(self.editor)
+        self.description = KRichTextWidget(self.editor)
         self.description.setTabChangesFocus(False)
-        self.description.setCheckSpellingEnabled(False)
+        self.description.setCheckSpellingEnabled(True)
         #self.description.setLineWrapMode(QTextEdit.NoWrap)
-        self.description.setAcceptRichText(False)
         self.description.setObjectName("Notes")
         self.description.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 #        descriptionLabel.setBuddy(self.description)
+
+        self.toolBar = QToolBar(descriptionWidget)
+        self.actionCollection = KActionCollection(descriptionWidget)
+        self.description.createActions(self.actionCollection)
+        for action in self.actionCollection.actions():
+            if action.objectName() == "direction_ltr" or \
+                action.objectName() == "direction_rtl" or \
+                action.objectName() == "manage_link" or \
+                action.objectName() == "action_to_plain_text":
+                continue
+            self.toolBar.addAction(action)
 
         shortcut = QShortcut(QKeySequence("Ctrl+Alt+X"), self.description);
         shortcut.activated.connect(self.editor.executeInlineQuery)
@@ -284,6 +294,7 @@ class ResourceEditorUi(object):
         infoWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         
 #        vboxlayout.addWidget(descriptionLabel)
+        vboxlayout.addWidget(self.toolBar)
         vboxlayout.addWidget(self.description)
         
         self.relationsWidget = KTabWidget(self.rightpane)
