@@ -10,9 +10,25 @@ from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from ginkgo.mainwindow import Ginkgo
 
+class GinkgoApplication(KUniqueApplication):
+    def __init__(self):
+        super(KUniqueApplication, self).__init__(True, True)
+        self.setApplicationName("Gingko")
+        self.setWindowIcon(KIcon("nepomuk"))
+        self.ginkgo = Ginkgo()
+        self.ginkgo.show()
+        
+    def newInstance(self):
+        args = KCmdLineArgs.parsedArgs()
+        uris = []
+        for index in range(0, args.count()):
+            uris.append(args.url(index))
+        args.clear()
+        self.ginkgo.openResources(uris)
+        return 0
+
+
 if __name__ == "__main__":
-    
-    
     appName = "ginkgo"
     catalog = "ginkgo"
     programName = ki18n ("Ginkgo")
@@ -25,33 +41,17 @@ if __name__ == "__main__":
     bugEmail = "https://qa.mandriva.com"
 
     aboutData = KAboutData (appName, catalog, programName, version, description, license, copyright, text, homePage, bugEmail)
-
     aboutData.addAuthor(ki18n ("Stéphane Laurière"), ki18n("Developer"), "slauriere@mandriva.com")
-    
     aboutData.setProgramIconName("nepomuk")
     aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"), ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
     
-    
     KCmdLineArgs.init (sys.argv, aboutData)
-    
+
     options = KCmdLineOptions()
     options.add("+uri", ki18n("The URI of the resource annotate"));
     KCmdLineArgs.addCmdLineOptions(options)
+    KUniqueApplication.addCmdLineOptions()
 
-
-    args = KCmdLineArgs.parsedArgs()
-    uris = []
-    for index in range(0, args.count()):
-        uris.append(args.url(index))
-        
-    #KUniqueApplication.addCmdLineOptions()
-    #app = KUniqueApplication(True, True)
-    app = KApplication()
-
-    app.setApplicationName("Gingko")
-    app.setWindowIcon(KIcon("nepomuk"))
-    ginkgo = Ginkgo(uris=uris)
-    ginkgo.show()
-
-    sys.exit(app.exec_())
-
+    if KUniqueApplication.start():
+        app = GinkgoApplication()
+        sys.exit(app.exec_())

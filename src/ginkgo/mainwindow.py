@@ -76,14 +76,9 @@ class Ginkgo(KMainWindow):
         #self.restoreSettings(uris is None or len(uris)==0)
         self.restoreSettings()
         self.setWindowTitle("Ginkgo")
-        
-        if uris and len(uris) > 0:
-            for uri in uris:
-                try:
-                    self.openResource(uri, True, False)
-                except Exception, e:
-                    print "[Ginkgo] Error while trying to open %s." % uri
-        
+
+        self.openResources(uris)
+
         from dbus.mainloop.glib import DBusGMainLoop
         self.dbus_loop = DBusGMainLoop()
 
@@ -426,6 +421,15 @@ class Ginkgo(KMainWindow):
             self.addTab(newEditor, label, newTab, inBackground)
         
         self.workarea.unsetCursor()
+
+    def openResources(self, uris):
+        if uris and len(uris) > 0:
+            for uri in uris:
+                try:
+                    self.openResource(uri, True, False)
+                except Exception, e:
+                    print "[Ginkgo] Error while trying to open %s." % uri
+
     
     def openResourceExternally(self, uri, isLocal=True):
         """Launches a file or opens a Web page."""
