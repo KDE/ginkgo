@@ -47,6 +47,12 @@ class TaskEditor(ResourceEditor):
             priority = TMO.TMO_Instance_Priority_Low
         elif self.ui.highPriority.isChecked():
             priority = TMO.TMO_Instance_Priority_High
+
+        state = TMO.TMO_Instance_TaskState_New
+        if self.ui.stateRunning.isChecked():
+            state = TMO.TMO_Instance_TaskState_Running
+        elif self.ui.stateCompleted.isChecked():
+            state = TMO.TMO_Instance_TaskState_Completed
             
         dueDate = None
         if self.ui.dateBox.isChecked():
@@ -54,6 +60,7 @@ class TaskEditor(ResourceEditor):
         
         self.resource.setLabel(self.ui.label.text())
         self.resource.setProperty(TMO.priority, Nepomuk.Variant(priority))
+        self.resource.setProperty(TMO.taskState, Nepomuk.Variant(state))
         if dueDate:
             self.resource.setProperty(TMO.dueDate, Nepomuk.Variant(dueDate))
         else:
@@ -103,6 +110,16 @@ class TaskEditorUi(ResourceEditorUi):
                     self.highPriority.setChecked(True)
                 else:
                     self.mediumPriority.setChecked(True)
+
+            state = self.editor.resource.property(TMO.taskState).toUrl()
+            if not state or state.isEmpty():
+                state = TMO.TMO_Instance_TaskState_New
+            if state == TMO.TMO_Instance_TaskState_Completed:
+                self.stateCompleted.setChecked(True)
+            elif state == TMO.TMO_Instance_TaskState_Running:
+                self.stateRunning.setChecked(True)
+            else:
+                self.stateNew.setChecked(True)
                     
             dueDate = self.editor.resource.property(TMO.dueDate)
             if dueDate and dueDate.toDate():
@@ -160,6 +177,18 @@ class TaskEditorUi(ResourceEditorUi):
         self.dateBox.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.dateBox.setChecked(False)
         self.dueDate.setDate(QDate.currentDate())
+
+        stateBox = QGroupBox(i18n("State"))
+        self.stateNew = QRadioButton(i18n("New"))
+        self.stateRunning = QRadioButton(i18n("Running"))
+        self.stateCompleted = QRadioButton(i18n("Completed"))
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.stateNew)
+        vbox.addWidget(self.stateRunning)
+        vbox.addWidget(self.stateCompleted)
+        stateBox.setLayout(vbox)
+        self.vboxl.addWidget(stateBox)
+        stateBox.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
         spacerItem = QSpacerItem(1, 1, QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.vboxl.addItem(spacerItem)
