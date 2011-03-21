@@ -911,7 +911,25 @@ def analyzeText(text, newEntityHandler, finishedAnalyzisHandler):
     #session.connect_to_signal('newEntity', newEntityHandler)
     session.start()
 
+def analyzeResource(path, newEntityHandler, newExtractedTextHandler, finishedAnalyzisHandler):
+    from dbus.mainloop.glib import DBusGMainLoop
+    DBusGMainLoop(set_as_default=True)
 
+    
+    sbus = dbus.SessionBus()
+    dobject = sbus.get_object("org.kde.nepomuk.services.nepomukscriboservice", '/nepomukscriboservice')
+    iface = dbus.Interface(dobject, "org.kde.nepomuk.Scribo")
+    
+    sessionPath = iface.analyzeResource(path)
+    dobject = sbus.get_object("org.kde.nepomuk.services.nepomukscriboservice", sessionPath)
+    session = dbus.Interface(dobject, "org.kde.nepomuk.ScriboSession")
+    
+    session.connect_to_signal('newLocalEntity', newEntityHandler)
+    session.connect_to_signal('textExtracted', newExtractedTextHandler)
+    session.connect_to_signal('finished', finishedAnalyzisHandler)
+    #session.connect_to_signal('newEntity', newEntityHandler)
+    session.start()
+    
 
 #from ontologyimportclient.cpp by trueg
 def importOntology(url):
