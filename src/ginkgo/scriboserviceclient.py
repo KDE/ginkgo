@@ -1,38 +1,23 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-## This file may be used under the terms of the GNU General Public
-## License version 2.0 as published by the Free Software Foundation
-## and appearing in the file LICENSE included in the packaging of
-## this file. 
-##
-## This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-## WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-##
-## See the NOTICE file distributed with this work for additional
-## information regarding copyright ownership.
-
-
 "A simple query service client that allows to perform queries against the Query Service"
 
+import os
 import sys
 import dbus
 import gobject
 from dbus.mainloop.glib import DBusGMainLoop
 from PyQt4 import QtCore
-from PyKDE4.nepomuk import Nepomuk
+
 
 # The main event loop as a global var so we can end it in finishedListingHandler
 loop = gobject.MainLoop()
 
-def newEntityHandler(entityUri, occurrences):
-    
-    resource = Nepomuk.Resource(entityUri)
-    label = u"%s" % resource.genericLabel()
-    print label
-    
-    print occurrences
+def newEntityHandler(entity, occurrences):
+    print entity, occurrences
 
+def textExtractedHandler(text):
+    print "Extracted text from image: '%s'" % text
+    
 def finishedHandler():
     print "finished"
     loop.quit()
@@ -46,11 +31,16 @@ def main():
     dobject = bus.get_object("org.kde.nepomuk.services.nepomukscriboservice", '/nepomukscriboservice')
     iface = dbus.Interface(dobject, "org.kde.nepomuk.Scribo")
 
-    sessionPath = iface.analyzeText(sys.argv[1])
+    if os.path.exists(sys.argv[1]):
+        sessionPath = iface.analyzeResource(sys.argv[1])
+    else:
+        sessionPath = iface.analyzeText(sys.argv[1])
+        
     dobject = bus.get_object("org.kde.nepomuk.services.nepomukscriboservice", sessionPath)
     session = dbus.Interface(dobject, "org.kde.nepomuk.ScriboSession")
 
     session.connect_to_signal('newLocalEntity', newEntityHandler)
+    session.connect_to_signal('textExtracted', textExtractedHandler)
     session.connect_to_signal('finished', finishedHandler)
 #    session.connect_to_signal('newEntity', newEntityHandler)
 
