@@ -961,7 +961,7 @@ def getResourceTemplate(resource, templateType):
         clazz = Nepomuk.Types.Class(typeUri)
         parents = clazz.parentClasses()
         for parent in parents:
-            if parent.uri().toString() == "file:///home/arkub/tmp/bibtex.owl#Entry":
+            if parent.uri().toString() == "file:///tmp/bibtex.owl#Entry":
                     tmpl = findResourceByLabel("BibtexTemplate")
                     break
     
@@ -985,47 +985,11 @@ def slotOntologyUpdateFailed(message, messa):
     print "failed"
 
 
-#class Omg():
-#    
-#    def __init__(self):
-#        print "hll"
-#    
-#    def queryNextReadySlot(self, query):
-#        
-#        node = query.binding("r");
-#        resource = Nepomuk.Resource(node.uri())
-#        print resource.genericLabel()
-#        query.next()
-#    
-#    def queryFinishedSlot(self, query):
-#        
-#        print "finished"
-#
-#    def search(self):
-#        typeUri = Soprano.Vocabulary.RDFS.Resource()
-#        findResourcesByTypeAndLabel(typeUri, "^a", self.queryNextReadySlot, self.queryFinishedSlot, None)        
 
 
 
 if __name__ == "__main__":
-    #data = findResourcesByProperty(QUrl('http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url'),file)
-#    data = findResourcesByProperty(NIE.url.toString(),"file:///home/arkub/F/CMakecccccc_Tutorial.pdf")
-#    for elt in data:
-#        print elt.resourceUri().toString() + " "+ elt.genericLabel()
-#    
-#    getFileResource("/home/arkub/F/CMakecccccc_Tutorial.pdf")
-#    nepomukType = NCO.Contact
-#    res = Nepomuk.Resource(nepomukType)
-#    print nepomukType
-#    for prop in res.properties():
-#        print prop.toString()
-#        print res.property(prop).toString()
-    
-#    createPimoClass(PIMO.Thing, "Song")
-    #data = findOntologies()
-    #ab = ontologyAbbreviationForUri(QString("http://www.semanticdesktop.org/ontologies/2007/11/01/pimo#Task"))
-    #print ab
-        
+
     #exportResourceDictionary("/tmp/nepomuk-dictionary.json")
     analyzeText()    
 
