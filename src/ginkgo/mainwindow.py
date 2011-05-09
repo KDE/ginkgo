@@ -154,7 +154,7 @@ class Ginkgo(KMainWindow):
         mainMenu.addSeparator()
         mainMenu.addAction(self.saveAction)
         mainMenu.addSeparator()
-        mainMenu.addAction(self.exportAction)
+        #mainMenu.addAction(self.exportAction)
         mainMenu.addSeparator()
         mainMenu.addAction(newTabAction)
         mainMenu.addAction(closeTabAction)
