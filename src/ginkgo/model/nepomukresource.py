@@ -69,7 +69,7 @@ class NepomukResource(Resource):
                 print "Namespace:" % namespace
                 #TODO: fix ontology import
                 if namespace == "http://purl.org/net/nknouf/ns/bibtex#":
-                    namespace = "file:///home/arkub/tmp/bibtex.owl#"
+                    namespace = "file:///tmp/bibtex.owl#"
                 fullname = namespace + propertyUriOrShortName
                 propertyUri = QUrl(fullname)
         else:

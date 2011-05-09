@@ -86,7 +86,7 @@ class ExportDialog(QDialog):
         label = QLabel(dialog)
         label.setText(i18n("&Destination file:"))
         self.destinationFileInput = QLineEdit(dialog)
-        self.destinationFileInput.setText("/home/arkub/tmp/out.rdf")
+        self.destinationFileInput.setText("/tmp/out.rdf")
         self.destinationFileInput.textChanged.connect(self.onDestinationFileInputEdited)
         
         label.setBuddy(self.destinationFileInput)
