@@ -454,8 +454,8 @@ class Ginkgo(KMainWindow):
                 if mailto.find(emailAddress + ",") == -1:
                     mailto = mailto + unicode(emailAddress) + ","
             else:
-                warning = QMessageBox(QMessageBox.Warning, i18n("Warning"), "No e-mail address was found for %s." % res.genericLabel(), QMessageBox.NoButton, self)
-                warning.addButton("&Continue", QMessageBox.AcceptRole)
+                warning = QMessageBox(QMessageBox.Warning, i18n("Warning"), i18n("No e-mail address was found for %1.", res.genericLabel()), QMessageBox.NoButton, self)
+                warning.addButton(i18n("&Continue"), QMessageBox.AcceptRole)
                 warning.exec_()
 
         if len(mailto) > 1:
@@ -1106,7 +1106,7 @@ class Ginkgo(KMainWindow):
                 try:
                     self.export(outputPath, templateName)
                 except Exception, e:
-                    reply = QMessageBox.warning(self, i18n("Error"), i18n("An error occurred during the export, please consider filing a bug. Error description: %1 \n", str(e)))
+                    reply = QMessageBox.warning(self, i18n("Error"), i18n("An error occurred during the export, please consider filing a bug. Error description: %1\n", str(e)))
 
     def newEntity(self, entity):
         print "helllo"

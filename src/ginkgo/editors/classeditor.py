@@ -50,4 +50,4 @@ class ClassEditorUi(ResourceEditorUi):
     def setupUi(self):
         super(ClassEditorUi, self).setupUi()
         self.typePropertiesTable = TypePropertiesTable(mainWindow=self.editor.mainWindow, resource=self.editor.resource)
-        self.relationsWidget.addTab(self.typePropertiesTable , i18n("Type properties"))
+        self.relationsWidget.addTab(self.typePropertiesTable , i18n("Type Properties"))
